@@ -9,6 +9,7 @@ import 'package:sms/src/bloc/Login/login_bloc.dart';
 import 'package:sms/src/bloc/navigation/NavigationBloc.dart';
 import 'package:sms/src/bloc/navigation/NavigationEvent.dart';
 import 'package:sms/src/screens/auth/login.dart';
+import 'package:sms/src/screens/home_page/item_detail/item_detail.dart';
 import 'package:sms/src/screens/screens.dart';
 
 part 'app_components.dart';
@@ -122,7 +123,7 @@ class _AppState extends State<App> {
           child: Login(),
         );
       case 3:
-        return AdminDashboard();
+        return ItemDetails(Item(name: 'name',price: '230',category: 'cat',description: 'some desc',));
       case 0:
       default:
         return Home(
