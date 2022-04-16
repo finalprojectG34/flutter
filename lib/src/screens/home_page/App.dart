@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,86 +13,121 @@ import 'package:sms/src/screens/screens.dart';
 
 part 'app_components.dart';
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
+  const App({Key key}) : super(key: key);
+
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  bool searchBar = false;
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return BlocBuilder<NavigationBloc, Routes>(
-      builder: (context, routes) {
-        return BlocBuilder<AuthenticationBloc, AuthenticationState>(
-        builder: (context, authenticationState) {
-          return Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.white,
-              iconTheme: IconThemeData(color: Colors.blue),
-              title: Text(
-                _mapIndexToTitle(routes.index),
-                style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+    return BlocBuilder<NavigationBloc, Routes>(builder: (context, routes) {
+      return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+          builder: (context, authenticationState) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            centerTitle: true,
+            iconTheme: IconThemeData(color: Colors.blue),
+            title: Text(
+              _mapIndexToTitle(routes.index),
+              style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+            ),
+            titleSpacing: 0,
+            actions: [
+              if (!searchBar)
+                IconButton(
+                    onPressed: () {
+                      setState(() {
+                        searchBar = true;
+                      });
+                    },
+                    icon: Icon(Icons.search)),
+              IconButton(
+                  onPressed: () {}, icon: Icon(Icons.shopping_cart_outlined))
+            ],
+          ),
+          body: _mapIndexToRoutes(authenticationState, routes.index, searchBar),
+
+          // _mapIndexToRoutes(authenticationState, routes.index),
+          drawer: _Drawer(routes: routes),
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: _roundIndex(routes.index),
+            type: BottomNavigationBarType.fixed,
+            onTap: (i) {
+              switch (i) {
+                case 0:
+                  context.read<NavigationBloc>().add(Navigated(Routes.home));
+                  break;
+                case 1:
+                  context
+                      .read<NavigationBloc>()
+                      .add(Navigated(Routes.category));
+                  break;
+                case 2:
+                  context.read<NavigationBloc>().add(Navigated(Routes.profile));
+                  break;
+                case 3:
+                  context.read<NavigationBloc>().add(Navigated(Routes.admin));
+                  break;
+              }
+            },
+            items: [
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.home_outlined), label: 'Home'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.search), label: 'Explore'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.shopping_cart_outlined), label: 'Cart'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.local_offer_outlined), label: 'Offer'),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person_outline_rounded),
+                label: 'Account',
               ),
-              titleSpacing: 0,
-            ),
-            body: _mapIndexToRoutes(authenticationState,routes.index),
-            drawer: _Drawer(routes: routes),
-            bottomNavigationBar: BottomNavigationBar(
-              currentIndex: _roundIndex(routes.index),
-              type: BottomNavigationBarType.fixed,
-              onTap: (i) {
-                switch (i) {
-                  case 0:
-                    context.read<NavigationBloc>().add(Navigated(Routes.home));
-                    break;
-                  case 1:
-                    context.read<NavigationBloc>().add(Navigated(Routes.category));
-                    break;
-                  case 2:
-                    context.read<NavigationBloc>().add(Navigated(Routes.profile));
-                    break;
-                  case 3:
-                    context.read<NavigationBloc>().add(Navigated(Routes.admin));
-                    break;
-                }
-              },
-              items: [
+              if (authenticationState.status ==
+                      AuthenticationStatus.authenticated &&
+                  authenticationState.user.role == "ADMIN")
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.home), label: 'Home'),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.category), label: 'Category'),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.person),
-                  label: 'Account',
-                ),
-                if(authenticationState.status==AuthenticationStatus.authenticated&&authenticationState.user.role=="ADMIN")
-                    BottomNavigationBarItem(
-                        icon: Icon(Icons.dashboard), label: 'Admin'),
-              ],
-            ),
-          );
-        });
-      }
-    );
+                    icon: Icon(Icons.dashboard), label: 'Admin'),
+            ],
+          ),
+        );
+      });
+    });
   }
 
   int _roundIndex(int index) {
     return index > 3 ? 0 : index;
   }
 
-  Widget _mapIndexToRoutes(AuthenticationState state,int index) {
+  Widget _mapIndexToRoutes(
+      AuthenticationState state, int index, bool hasSearchBar) {
     switch (index) {
       case 1:
         return CategoriesPage();
       case 2:
-        if(state.status==AuthenticationStatus.authenticated){
+        if (state.status == AuthenticationStatus.authenticated) {
           return ProfilePage();
-
         }
-        return BlocProvider(create: (ctx)=>LoginBloc(authenticationRepository: ctx.read<AuthenticationRepository>(),authenticationBloc: ctx.read<AuthenticationBloc>()),
-        child: Login(),
+        return BlocProvider(
+          create: (ctx) => LoginBloc(
+              authenticationRepository: ctx.read<AuthenticationRepository>(),
+              authenticationBloc: ctx.read<AuthenticationBloc>()),
+          child: Login(),
         );
       case 3:
         return AdminDashboard();
       case 0:
       default:
-        return Home();
+        return Home(
+          hasSearchBar: hasSearchBar,
+        );
     }
   }
 
