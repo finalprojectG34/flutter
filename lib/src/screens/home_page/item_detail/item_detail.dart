@@ -45,97 +45,97 @@ class _ItemDetailState extends State<ItemDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.0,
-        leading: IconButton(
-          onPressed: () {Navigator.of(context).pop();},
-          icon: Icon(Icons.arrow_back),
-          color: Colors.black,
-        ),
-        title: TextField(
-          controller: _controller,
-          autocorrect: true,
-          cursorColor: Color(0xFF384C70),
-          style: TextStyle(
-            color: Color(0xFF384C70),
-            fontSize: 15.0,
-          ),
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            focusedBorder: InputBorder.none,
-            hintText: 'Search Product',
-            hintStyle: TextStyle(
-              color: Color(0xFF384C70),
-            ),
-          ),
-        ),
-        actions: [
-          Stack(alignment: AlignmentDirectional.centerEnd, children: [
-            Icon(
-              Icons.notifications,
-              color: Colors.black54,
-              size: 30,
-            ),
-            Container(
-              width: 30,
-              height: 30,
-              alignment: Alignment.topRight,
-              margin: EdgeInsets.only(top: 5),
-              child: Container(
-                width: 15,
-                height: 15,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Color(0xffc32c37),
-                    border: Border.all(color: Colors.white, width: 1)),
-                child: Padding(
-                  padding: const EdgeInsets.all(0.0),
-                  child: Center(
-                    child: Text(
-                      _shopCounter.toString(),
-                      style: TextStyle(fontSize: 10),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ]),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: Stack(alignment: AlignmentDirectional.centerEnd, children: [
-              Icon(
-                Icons.shopping_cart_rounded,
-                color: Colors.black54,
-                size: 30,
-              ),
-              Container(
-                width: 30,
-                height: 30,
-                alignment: Alignment.topRight,
-                margin: EdgeInsets.only(top: 5),
-                child: Container(
-                  width: 15,
-                  height: 15,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color(0xffc32c37),
-                      border: Border.all(color: Colors.white, width: 1)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(0.0),
-                    child: Center(
-                      child: Text(
-                        _notificationCounter.toString(),
-                        style: TextStyle(fontSize: 10),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ]),
-          ),
-        ],
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.white,
+      //   elevation: 0.0,
+      //   leading: IconButton(
+      //     onPressed: () {Navigator.of(context).pop();},
+      //     icon: Icon(Icons.arrow_back),
+      //     color: Colors.black,
+      //   ),
+      //   title: TextField(
+      //     controller: _controller,
+      //     autocorrect: true,
+      //     cursorColor: Color(0xFF384C70),
+      //     style: TextStyle(
+      //       color: Color(0xFF384C70),
+      //       fontSize: 15.0,
+      //     ),
+      //     decoration: InputDecoration(
+      //       border: InputBorder.none,
+      //       focusedBorder: InputBorder.none,
+      //       hintText: 'Search Product',
+      //       hintStyle: TextStyle(
+      //         color: Color(0xFF384C70),
+      //       ),
+      //     ),
+      //   ),
+      //   actions: [
+      //     Stack(alignment: AlignmentDirectional.centerEnd, children: [
+      //       Icon(
+      //         Icons.notifications,
+      //         color: Colors.black54,
+      //         size: 30,
+      //       ),
+      //       Container(
+      //         width: 30,
+      //         height: 30,
+      //         alignment: Alignment.topRight,
+      //         margin: EdgeInsets.only(top: 5),
+      //         child: Container(
+      //           width: 15,
+      //           height: 15,
+      //           decoration: BoxDecoration(
+      //               shape: BoxShape.circle,
+      //               color: Color(0xffc32c37),
+      //               border: Border.all(color: Colors.white, width: 1)),
+      //           child: Padding(
+      //             padding: const EdgeInsets.all(0.0),
+      //             child: Center(
+      //               child: Text(
+      //                 _shopCounter.toString(),
+      //                 style: TextStyle(fontSize: 10),
+      //               ),
+      //             ),
+      //           ),
+      //         ),
+      //       ),
+      //     ]),
+      //     Padding(
+      //       padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      //       child: Stack(alignment: AlignmentDirectional.centerEnd, children: [
+      //         Icon(
+      //           Icons.shopping_cart_rounded,
+      //           color: Colors.black54,
+      //           size: 30,
+      //         ),
+      //         Container(
+      //           width: 30,
+      //           height: 30,
+      //           alignment: Alignment.topRight,
+      //           margin: EdgeInsets.only(top: 5),
+      //           child: Container(
+      //             width: 15,
+      //             height: 15,
+      //             decoration: BoxDecoration(
+      //                 shape: BoxShape.circle,
+      //                 color: Color(0xffc32c37),
+      //                 border: Border.all(color: Colors.white, width: 1)),
+      //             child: Padding(
+      //               padding: const EdgeInsets.all(0.0),
+      //               child: Center(
+      //                 child: Text(
+      //                   _notificationCounter.toString(),
+      //                   style: TextStyle(fontSize: 10),
+      //                 ),
+      //               ),
+      //             ),
+      //           ),
+      //         ),
+      //       ]),
+      //     ),
+      //   ],
+      // ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: ListView(
@@ -481,140 +481,145 @@ class _ItemDetailState extends State<ItemDetails> {
 
             // About the item
 
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "About this item",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0),
-                ),
-                SizedBox(
-                  height: 15.0,
-                ),
-                Text(
-                  "Item details",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-                ),
-                SizedBox(
-                  height: 15.0,
-                ),
-                ItemDetailInfo(
-                  itemProperty: "Condition",
-                  isSold: false,
-                  itemDescription: "New",
-                  isButton: false,
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                ItemDetailInfo(
-                    itemProperty: "Quantity",
-                    isSold: true,
-                    soldItemNumber: "3 sold",
-                    itemDescription: "30 available",
-                    isButton: true,
-                    icon: Icons.arrow_forward_ios_sharp),
-                SizedBox(
-                  height: 15.0,
-                ),
-                ItemDetailInfo(
-                  itemProperty: "Model",
-                  isSold: false,
-                  itemDescription: "P12V4933",
-                  isButton: false,
-                ),
-                SizedBox(
-                  height: 15.0,
-                ),
-                ItemDetailInfo(
-                  itemProperty: "MPN",
-                  isSold: false,
-                  itemDescription: "P12V4933",
-                  isButton: false,
-                ),
-                SizedBox(
-                  height: 15.0,
-                ),
-                ItemDetailInfo(
-                  itemProperty: "Color Mode",
-                  isSold: false,
-                  itemDescription: "Color",
-                  isButton: false,
-                ),
-                SizedBox(
-                  height: 15.0,
-                ),
-                Divider(
-                  height: 1.5,
-                  color: Colors.grey,
-                  thickness: 0.7,
-                ),
-                SizedBox(
-                  height: 5.0,
-                ),
-                Text(
-                  "Posted on",
-                  style: TextStyle(fontSize: 16.0, color: Colors.grey[500]),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Posted on 9 Mar at 5:23 PM"),
-                    IconButton(
-                        splashColor: Colors.white,
-                        highlightColor: Colors.white,
-                        icon: Icon(
-                          _onHeartClick
-                              ? Icons.favorite_border
-                              : Icons.favorite,
-                          color: Colors.red,
-                        ),
-                        onPressed: _touched)
-                  ],
-                ),
-                Divider(
-                  height: 1.5,
-                  color: Colors.grey,
-                  thickness: 0.7,
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 10.0),
-                      child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50.0),
-                            color: Colors.blue,
-                          ),
-                          child: IconButton(
-                              icon: Icon(
-                                Icons.message,
-                                color: Colors.white,
-                              ),
-                              onPressed: () {})),
+                    Text(
+                      "About this item",
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0),
                     ),
-                    Expanded(
-                      child: FlatButton(
-                        onPressed: () {},
-                        highlightColor: Colors.white,
-                        splashColor: Colors.blue,
-                        focusColor: Colors.white,
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                            side: BorderSide(color: Colors.blue)),
-                        child: Text(
-                          "Add to Shopping Cart",
-                          style: TextStyle(color: Colors.blue),
+                    SizedBox(
+                      height: 15.0,
+                    ),
+                    Text(
+                      "Item details",
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                    ),
+                    SizedBox(
+                      height: 15.0,
+                    ),
+                    ItemDetailInfo(
+                      itemProperty: "Condition",
+                      isSold: false,
+                      itemDescription: "New",
+                      isButton: false,
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    ItemDetailInfo(
+                        itemProperty: "Quantity",
+                        isSold: true,
+                        soldItemNumber: "3 sold",
+                        itemDescription: "30 available",
+                        isButton: true,
+                        icon: Icons.arrow_forward_ios_sharp),
+                    SizedBox(
+                      height: 15.0,
+                    ),
+                    ItemDetailInfo(
+                      itemProperty: "Model",
+                      isSold: false,
+                      itemDescription: "P12V4933",
+                      isButton: false,
+                    ),
+                    SizedBox(
+                      height: 15.0,
+                    ),
+                    ItemDetailInfo(
+                      itemProperty: "MPN",
+                      isSold: false,
+                      itemDescription: "P12V4933",
+                      isButton: false,
+                    ),
+                    SizedBox(
+                      height: 15.0,
+                    ),
+                    ItemDetailInfo(
+                      itemProperty: "Color Mode",
+                      isSold: false,
+                      itemDescription: "Color",
+                      isButton: false,
+                    ),
+                    SizedBox(
+                      height: 15.0,
+                    ),
+                    Divider(
+                      height: 1.5,
+                      color: Colors.grey,
+                      thickness: 0.7,
+                    ),
+                    SizedBox(
+                      height: 5.0,
+                    ),
+                    Text(
+                      "Posted on",
+                      style: TextStyle(fontSize: 16.0, color: Colors.grey[500]),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Posted on 9 Mar at 5:23 PM"),
+                        IconButton(
+                            splashColor: Colors.white,
+                            highlightColor: Colors.white,
+                            icon: Icon(
+                              _onHeartClick
+                                  ? Icons.favorite_border
+                                  : Icons.favorite,
+                              color: Colors.red,
+                            ),
+                            onPressed: _touched)
+                      ],
+                    ),
+                    Divider(
+                      height: 1.5,
+                      color: Colors.grey,
+                      thickness: 0.7,
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10.0),
+                          child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50.0),
+                                color: Colors.blue,
+                              ),
+                              child: IconButton(
+                                  icon: Icon(
+                                    Icons.message,
+                                    color: Colors.white,
+                                  ),
+                                  onPressed: () {})),
                         ),
-                      ),
+                        Expanded(
+                          child: FlatButton(
+                            onPressed: () {},
+                            highlightColor: Colors.white,
+                            splashColor: Colors.blue,
+                            focusColor: Colors.white,
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                                side: BorderSide(color: Colors.blue)),
+                            child: Text(
+                              "Add to Shopping Cart",
+                              style: TextStyle(color: Colors.blue),
+                            ),
+                          ),
+                        )
+                      ],
                     )
                   ],
-                )
-              ],
+                ),
+              ),
             ),
           ],
         ),
