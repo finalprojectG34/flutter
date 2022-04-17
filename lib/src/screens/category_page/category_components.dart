@@ -24,11 +24,13 @@ Widget categoryButton = Row(
   children: [
     Container(
       padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-      child: Text('Shop by category'),
+      child: Text('Shop by category',
+          style: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black)),
     ),
     Container(
       padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
-      child: FlatButton(
+      child: TextButton(
         child: Text(
           'Show all',
           style: TextStyle(color: Colors.blue),
@@ -42,7 +44,7 @@ Widget categoryButton = Row(
 Widget allCategory = Container(
   padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
   child: Center(
-    child: FlatButton(
+    child: TextButton(
       child: Text('See all 14 categories'),
       onPressed: () => {},
     ),
@@ -146,7 +148,7 @@ class ItemCard extends StatelessWidget {
         child: InkWell(
           splashColor: Colors.blue.withAlpha(30),
           onTap: () => {
-            Navigator.pushNamed(context,ItemDetails.routeName,arguments: item)
+            Navigator.pushNamed(context, ItemDetails.routeName, arguments: item)
           },
           child: Column(
             children: [
