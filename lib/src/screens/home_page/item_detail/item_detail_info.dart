@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 
 class ItemDetailInfo extends StatelessWidget {
-  final String itemProperty;
-  final String itemDescription;
-  final bool isSold;
-  final String soldItemNumber;
-  final bool isButton;
-  final IconData icon;
+  final String? itemProperty;
+  final String? itemDescription;
+  final bool? isSold;
+  final String? soldItemNumber;
+  final bool? isButton;
+  final IconData? icon;
 
   const ItemDetailInfo({
-    Key key,
+    Key? key,
     this.itemProperty,
     this.itemDescription,
     this.soldItemNumber,
-    this.isSold, this.isButton, this.icon,
+    this.isSold,
+    this.isButton,
+    this.icon,
   }) : super(key: key);
 
   @override
@@ -22,21 +24,23 @@ class ItemDetailInfo extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          itemProperty,
+          itemProperty!,
           style: TextStyle(color: Colors.grey),
         ),
         isSold == false
-            ? Text(itemDescription)
+            ? Text(itemDescription!)
             : Column(
-          children: [
-            Text(
-              soldItemNumber,
-              style: TextStyle(color: Colors.red),
-            ),
-            Text(itemDescription)
-          ],
-        ),
-        isButton ? IconButton(icon: Icon(icon), onPressed: (){}) : Container(),
+                children: [
+                  Text(
+                    soldItemNumber!,
+                    style: TextStyle(color: Colors.red),
+                  ),
+                  Text(itemDescription!)
+                ],
+              ),
+        isButton!
+            ? IconButton(icon: Icon(icon), onPressed: () {})
+            : Container(),
       ],
     );
   }

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 
 class RowElement extends StatelessWidget {
-  final String description;
-  final String status;
-  final Color descriptionColor;
-  final Color statusColor;
+  final String? description;
+  final String? status;
+  final Color? descriptionColor;
+  final Color? statusColor;
 
   const RowElement({
-    Key key,
+    Key? key,
     this.description,
     this.status,
     this.descriptionColor,
@@ -21,12 +21,12 @@ class RowElement extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          description,
+          description!,
           style: TextStyle(color: descriptionColor),
         ),
         Text(
 
-          status,
+          status!,
           style: TextStyle(color: statusColor),
         ),
       ],

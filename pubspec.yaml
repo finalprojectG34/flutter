@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.10.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -34,16 +34,21 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  flutter_bloc: ^6.0.0
-  http: ^0.12.2
-  equatable: ^1.2.6
+  http:
+  equatable: ^2.0.3
   meta: ^1.2.4
   uuid: ^2.2.2
   formz: ^0.3.1
-  bloc: ^6.0.0
-  shared_preferences: ^0.5.12
-  image_picker: ^0.6.7+22
-  graphql_flutter: any
+  shared_preferences:
+  image_picker:
+  get:
+  fluttertoast:
+  font_awesome_flutter:
+  cached_network_image:
+  firebase_core: ^1.10.6
+  firebase_analytics:
+  firebase_auth: 3.3.13
+  google_sign_in:
   carousel_slider: ^4.0.0
 
 dev_dependencies:
@@ -68,7 +73,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - images/
+    - images/home_icon.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

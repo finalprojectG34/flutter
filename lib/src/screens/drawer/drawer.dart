@@ -1,13 +1,7 @@
-part of 'App.dart';
+import 'package:flutter/material.dart';
 
-
-class _Drawer extends StatelessWidget {
-  // final Routes routes;
-
-  const _Drawer({
-    // this.routes,
-    Key? key,
-  }) : super(key: key);
+class DrawerPage extends StatelessWidget {
+  const DrawerPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +9,7 @@ class _Drawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          DrawerHeader(
+          const DrawerHeader(
             child: Center(
               child: Text(
                 'Mart',
@@ -26,74 +20,74 @@ class _Drawer extends StatelessWidget {
                 color: Color(0xFF0D90EE), shape: BoxShape.rectangle),
           ),
           ListTile(
-            title: Text('Home'),
+            title: const Text('Home'),
             onTap: () {
               // context.read<NavigationBloc>().add(Navigated(Routes.home));
               // Navigator.pop(context);
             },
             // selected: routes == Routes.home,
-            leading: Icon(
+            leading: const Icon(
               Icons.home,
               color: Color(0xFF0D90EE),
             ),
           ),
           ListTile(
-            title: Text('Category'),
+            title: const Text('Category'),
             onTap: () {
               // context.read<NavigationBloc>().add(Navigated(Routes.category));
               // Navigator.pop(context);
             },
-            leading: Icon(
+            leading: const Icon(
               Icons.category,
               color: Color(0xFF0D90EE),
             ),
             // selected: routes == Routes.category,
           ),
           ListTile(
-            title: Text('New Products'),
+            title: const Text('New Products'),
             onTap: () {
               Navigator.pushNamed(context, "/");
             },
-            leading: Icon(
+            leading: const Icon(
               Icons.fiber_new,
               color: Color(0xFF0D90EE),
             ),
             // selected: routes == Routes.newProducts,
           ),
           ListTile(
-            title: Text('Favorites'),
+            title: const Text('Favorites'),
             onTap: () {
               // context.read<NavigationBloc>().add(Navigated(Routes.admin));
               // Navigator.pop(context);
             },
-            leading: Icon(
+            leading: const Icon(
               Icons.favorite,
               color: Color(0xFF0D90EE),
             ),
             // selected: routes == Routes.admin,
           ),
-          Divider(
+          const Divider(
             height: 1.0,
           ),
           ListTile(
-            title: Text('Profile'),
+            title: const Text('Profile'),
             onTap: () {
               // context.read<NavigationBloc>().add(Navigated(Routes.profile));
               // Navigator.pop(context);
             },
-            leading: Icon(
+            leading: const Icon(
               Icons.account_circle,
               color: Color(0xFF0D90EE),
             ),
             // selected: routes == Routes.profile,
           ),
           ListTile(
-            title: Text('Logout'),
+            title: const Text('Logout'),
             onTap: () {
               // context.read<AuthenticationBloc>().add(AuthenticationLogoutRequested());
               // Navigator.pop(context);
             },
-            leading: Icon(
+            leading: const Icon(
               Icons.exit_to_app,
               color: Color(0xFF0D90EE),
             ),
@@ -103,5 +97,3 @@ class _Drawer extends StatelessWidget {
     );
   }
 }
-
-

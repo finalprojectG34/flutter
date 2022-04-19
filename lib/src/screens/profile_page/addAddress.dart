@@ -40,7 +40,7 @@ class AddAddress extends StatelessWidget {
                     padding: EdgeInsets.all(15),
                     margin: EdgeInsets.only(bottom: 15),
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey[300], width: 2),
+                      border: Border.all(color: Colors.grey[300]!, width: 2),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Row(

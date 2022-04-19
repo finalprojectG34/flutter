@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sms/src/bloc/bloc.dart';
 import 'package:sms/src/models/user.dart';
 import 'package:sms/src/utils/loger/console_loger.dart';
 
@@ -9,7 +7,7 @@ class ChangePassword extends StatelessWidget {
   static const String pathName = '/change_password';
   final _formKey = GlobalKey<FormState>();
 
-  final User user;
+  final User? user;
 
   ChangePassword({@required this.user});
 
@@ -56,7 +54,7 @@ class ChangePassword extends StatelessWidget {
                         controller: TextEditingController(),
                         onSaved: (value) {},
                         validator: (value) {
-                          if (value.isEmpty) {
+                          if (value!.isEmpty) {
                             return 'Please enter some text';
                           }
                           return null;
@@ -75,7 +73,7 @@ class ChangePassword extends StatelessWidget {
                           this._user["password"] = value;
                         },
                         validator: (value) {
-                          if (value.isEmpty) {
+                          if (value!.isEmpty) {
                             return 'Please enter some text';
                           }
                           return null;
@@ -92,7 +90,7 @@ class ChangePassword extends StatelessWidget {
                         controller: TextEditingController(),
                         onSaved: (value) {},
                         validator: (value) {
-                          if (value.isEmpty) {
+                          if (value!.isEmpty) {
                             return 'Please enter some text';
                           }
                           return null;
@@ -120,22 +118,22 @@ class ChangePassword extends StatelessWidget {
 
                         final form = _formKey.currentState;
                         // if (!form.validate()) {
-                        form.save();
+                        form?.save();
 
                         // logTrace("save pressed", widget.args.edit);
                         var userUpdate = User(
-                          id: this.user.id,
-                          name: this.user.name,
+                          id: this.user?.id,
+                          name: this.user?.name,
                           password: this._user["password"],
-                          email: this.user.email,
-                          phone: this.user.phone,
+                          email: this.user?.email,
+                          phone: this.user?.phone,
                         );
 
                         logTrace("key", userUpdate);
 
-                        final UserEvent event = UserUpdate(userUpdate);
-
-                        BlocProvider.of<UserBloc>(context).add(event);
+                        // final UserEvent event = UserUpdate(userUpdate);
+                        //
+                        // BlocProvider.of<UserBloc>(context).add(event);
                         // Navigator.of(context).pop();
                       },
                       child: Text(

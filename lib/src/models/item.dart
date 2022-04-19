@@ -4,24 +4,30 @@ import 'package:sms/src/utils/loger/console_loger.dart';
 
 @immutable
 class Item extends Equatable {
-  Item({this.id, @required this.name, @required this.price, this.category, this.imagePath, this.description});
+  Item(
+      {this.id,
+      this.name,
+      this.price,
+      this.category,
+      this.imagePath,
+      this.description});
 
-  final String id;
-  final String name;
-  final String price;
-  final String category;
-  final String imagePath;
-  final String description;
-
+  final String? id;
+  final String? name;
+  final String? price;
+  final String? category;
+  final String? imagePath;
+  final String? description;
 
   // final []String categories;
 
   @override
-  List<Object> get props => [id, name, price, category, imagePath, description];
+  List<Object?> get props =>
+      [id, name, price, category, imagePath, description];
 
   factory Item.fromJson(Map<String, dynamic> json) {
     // logTrace("inFactory", json);
-    Item item =Item(
+    Item item = Item(
       id: json['id'],
       name: json['name'],
       price: json['price'].toString(),

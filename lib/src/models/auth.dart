@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 
 @immutable
 class AuthInfo extends Equatable {
-  AuthInfo({this.info, @required this.info_type, @required this.password});
+  AuthInfo({this.info, this.info_type, this.password});
 
-  final String info;
-  final String info_type;
-  final String password;
+  final String? info;
+  final String? info_type;
+  final String? password;
 
   @override
-  List<Object> get props => [info, info_type, password];
+  List<Object?> get props => [info, info_type, password];
 
   factory AuthInfo.fromJson(Map<String, dynamic> json) {
     return AuthInfo(

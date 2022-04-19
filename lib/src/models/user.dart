@@ -5,26 +5,34 @@ import 'package:sms/src/utils/loger/console_loger.dart';
 @immutable
 class User extends Equatable {
 
-  User({this.id, @required this.name, @required this.email, this.image, this.role, this.token,  this.phone,
-this.password, this.profile});
+  User(
+      {this.id,
+      this.name,
+      this.email,
+      this.image,
+      this.role,
+      this.token,
+      this.phone,
+      this.password,
+      this.profile});
 
+  final String? id;
+  final String? name;
+  final String? email;
+  final String? phone;
+  final String? password;
 
-  final String id;
-  final String name;
-  final String email;
-  final String phone;
-  final String password;
+  String? profile;
+  final String? role;
 
-  String profile;
-  final String role;
+  final String? image;
 
-  final String image;
+  String? token;
 
-  String token;
   // final []String categories;
 
   @override
-  List<Object> get props => [id, name, email,role, image, password, phone];
+  List<Object?> get props => [id, name, email, role, image, password, phone];
 
   factory User.fromJson(Map<String, dynamic> json) {
     // logTrace("inFactory");
