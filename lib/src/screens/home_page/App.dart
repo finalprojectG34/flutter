@@ -1,19 +1,13 @@
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_getx_widget.dart';
 import 'package:sms/src/app.dart';
 import 'package:sms/src/screens/components/appbar.dart';
 import 'package:sms/src/screens/drawer/drawer.dart';
-
-// import 'package:sms/src/bloc/Login/login_bloc.dart';
-//
-// import 'package:sms/src/bloc/navigation/NavigationBloc.dart';
-// import 'package:sms/src/bloc/navigation/NavigationEvent.dart';
-// import 'package:sms/src/screens/auth/login.dart';
-import 'package:sms/src/screens/home_page/item_detail/item_detail.dart';
 import 'package:sms/src/screens/screens.dart';
-
 import '../auth/login/login.dart';
+import 'AppCtx.dart';
 
 part 'app_components.dart';
 
@@ -27,8 +21,10 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   bool searchBar = false;
   late Widget body;
-  int _selectedIndex = 0;
+
+  // int _selectedIndex = 0;
   late AppBar appbar;
+  late String appbarName;
 
   @override
   void initState() {
@@ -36,119 +32,152 @@ class _AppState extends State<App> {
     body = const Home(
       hasSearchBar: false,
     );
-    appbar = AppBarComponent.setAppBar('Home');
+    // appbar = AppBarComponent.setAppBar('Home');
+    // appbarName = 'Home';
   }
 
-  void _onTabItemTapped(int index) {
-    setState(
-      () {
-        switch (index) {
-          case 0:
-            body = const Home(
-              hasSearchBar: false,
-            );
-            appbar = AppBarComponent.setAppBar('Home');
-            break;
-          case 1:
-            body = const Home();
-            appbar = AppBarComponent.setAppBar('Explore');
-
-            break;
-          case 2:
-            body = const Home();
-            appbar = AppBarComponent.setAppBar('Cart');
-            break;
-          case 3:
-            body = const Home();
-            appbar = AppBarComponent.setAppBar('Offer');
-            break;
-          case 4:
-            body = Login();
-            appbar = AppBarComponent.setAppBar('Account');
-            break;
-        }
-        _selectedIndex = index;
-      },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appbar,
-      // AppBar(
-      //   backgroundColor: Colors.white,
-      //   centerTitle: true,
-      //   iconTheme: IconThemeData(color: Colors.blue),
-      //   title: Text(
-      //     _mapIndexToTitle(1),
-      //     style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
-      //   ),
-      //   titleSpacing: 0,
-      //   actions: [
-      //     if (!searchBar)
-      //       IconButton(
-      //           onPressed: () {
-      //             setState(() {
-      //               searchBar = true;
-      //             });
-      //           },
-      //           icon: Icon(Icons.search)),
-      //     IconButton(onPressed: () {}, icon: Icon(Icons.shopping_cart_outlined))
-      //   ],
-      // ),
-      body: body,
-
-      // _mapIndexToRoutes(authenticationState, routes.index),
-      drawer: const DrawerPage(),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        type: BottomNavigationBarType.fixed,
-        onTap: _onTabItemTapped,
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Explore'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart_outlined), label: 'Cart'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.local_offer_outlined), label: 'Offer'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline_rounded),
-            label: 'Account',
-          ),
-          // if (authenticationState.status ==
-          //     AuthenticationStatus.authenticated &&
-          //     authenticationState.user.role == "ADMIN")
-          //   BottomNavigationBarItem(
-          //       icon: Icon(Icons.dashboard), label: 'Admin'),
-        ],
-      ),
-    );
-  }
-
-
-  Widget _mapIndexToRoutes(int index, bool hasSearchBar) {
+  Widget _mapIndexToPage(int index) {
+    final AppController appController = Get.find();
     switch (index) {
       case 1:
+        // _selectedIndex = index;
+        appController.changePage('Explore', index);
         return Text('Category page');
       // CategoriesPage();
       case 2:
+        appController.changePage('Cart', index);
         return Text('profile page');
       // if (state.status == AuthenticationStatus.authenticated) {
       //   return ProfilePage();
       // }
       // return Text('Login page');
       case 3:
-        return Text('item detail');
+        appController.changePage('Offer', index);
+        return Text('offer detail');
       // ItemDetails(Item(name: 'name',price: '230',category: 'cat',description: 'some desc',));
+      case 4:
+        appController.changePage('Account', index);
+        return Login();
       case 0:
       default:
+        appController.changePage('Home', index);
         return Home(
-          hasSearchBar: hasSearchBar,
+          hasSearchBar: appController.hasSearchIcon.isFalse,
         );
     }
   }
+
+  // void _onTabItemTapped(int index) {
+  //   setState(
+  //     () {
+  //       switch (index) {
+  //         case 0:
+  //           body = const Home(
+  //             hasSearchBar: false,
+  //           );
+  //           // appbar = AppBarComponent.setAppBar('Home');
+  //           // appbarName = 'Home';
+  //           break;
+  //         case 1:
+  //           body = const Home();
+  //           // appbar = AppBarComponent.setAppBar('Explore');
+  //
+  //           break;
+  //         case 2:
+  //           body = const Home();
+  //           // appbar = AppBarComponent.setAppBar('Cart');
+  //           break;
+  //         case 3:
+  //           body = const Home();
+  //           // appbar = AppBarComponent.setAppBar('Offer');
+  //           break;
+  //         case 4:
+  //           body = Login();
+  //           // appbar = AppBarComponent.setAppBar('Account');
+  //           break;
+  //       }
+  //       _selectedIndex = index;
+  //     },
+  //   );
+  // }
+
+  @override
+  Widget build(BuildContext context) {
+    return GetX<AppController>(
+      builder: (ctx) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(ctx.pageName.value),
+            elevation: 2,
+            centerTitle: true,
+            actions: [
+              if (ctx.hasSearchIcon.value)
+                IconButton(
+                  onPressed: () {
+                    ctx.disableSearchIcon();
+                  },
+                  icon: const Icon(Icons.search),
+                ),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.shopping_cart_outlined),
+              )
+            ],
+          ),
+          body: _mapIndexToPage(ctx.selectedIndex.value),
+          drawer: const DrawerPage(),
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: ctx.selectedIndex.value,
+            type: BottomNavigationBarType.fixed,
+            onTap: _mapIndexToPage,
+            items: const [
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.home_outlined), label: 'Home'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.search), label: 'Explore'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.shopping_cart_outlined), label: 'Cart'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.local_offer_outlined), label: 'Offer'),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person_outline_rounded),
+                label: 'Account',
+              ),
+              // if (authenticationState.status ==
+              //     AuthenticationStatus.authenticated &&
+              //     authenticationState.user.role == "ADMIN")
+              //   BottomNavigationBarItem(
+              //       icon: Icon(Icons.dashboard), label: 'Admin'),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  // Widget _mapIndexToPage(int index) {
+  //   final AppController appController = Get.find();
+  //   switch (index) {
+  //     case 1:
+  //       return Text('Category page');
+  //     // CategoriesPage();
+  //     case 2:
+  //       return Text('profile page');
+  //     // if (state.status == AuthenticationStatus.authenticated) {
+  //     //   return ProfilePage();
+  //     // }
+  //     // return Text('Login page');
+  //     case 3:
+  //       return Text('item detail');
+  //     // ItemDetails(Item(name: 'name',price: '230',category: 'cat',description: 'some desc',));
+  //     case 0:
+  //     default:
+  //       appController.changePageName('Home');
+  //       return Home();
+  //   }
+  //
+  //   _selectedIndex = index;
+  // }
 
   String _mapIndexToTitle(int index) {
     switch (index) {

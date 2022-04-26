@@ -3,12 +3,14 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sms/src/app.dart';
 
+import '../../home_page/AppCtx.dart';
 import '../verification/code_verification.dart';
 
 class LoginController extends GetxController {
   var loading = false.obs;
   var error = false.obs;
   String verificationId = "";
+  final AppController appController = Get.find();
 
   sendOtp(String phoneNumber) async {
     loading(true);
@@ -40,7 +42,9 @@ class LoginController extends GetxController {
     FirebaseAuth.instance
         .signInWithCredential(credential)
         .then((UserCredential result) {
-      Get.offAll(() => const Home());
+      Get.offAll(() => Home(
+            hasSearchBar: appController.hasSearchIcon.isFalse,
+          ));
     }).catchError((e) {
       Fluttertoast.showToast(msg: e);
     });

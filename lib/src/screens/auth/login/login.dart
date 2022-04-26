@@ -90,27 +90,6 @@ class Login extends StatelessWidget {
                   controller: phoneCtrl,
                   keyboardType: TextInputType.phone,
                   validator: validateMobileNum),
-              // const SizedBox(
-              //   height: 10,
-              // ),
-              // TextFormField(
-              //   decoration: InputDecoration(
-              //     prefixIcon: const Icon(Icons.lock),
-              //     contentPadding: const EdgeInsets.all(10),
-              //     hintText: "Password",
-              //     border: OutlineInputBorder(
-              //         borderRadius: BorderRadius.circular(6),
-              //         borderSide: BorderSide(color: Colors.grey[200], width: 1)),
-              //     enabledBorder: OutlineInputBorder(
-              //         borderRadius: BorderRadius.circular(6),
-              //         borderSide: BorderSide(color: Colors.grey[200], width: 1)),
-              //     focusedBorder: OutlineInputBorder(
-              //         borderRadius: BorderRadius.circular(6),
-              //         borderSide: BorderSide(color: Colors.grey[200], width: 1)),
-              //   ),
-              //   maxLines: 1,
-              //   keyboardType: TextInputType.emailAddress,
-              // ),
               const SizedBox(
                 height: 20,
               ),
@@ -155,10 +134,11 @@ class Login extends StatelessWidget {
                     ),
                   ),
                   const Expanded(
-                      child: Divider(
-                    thickness: 0.5,
-                    height: 0.5,
-                  )),
+                    child: Divider(
+                      thickness: 0.5,
+                      height: 0.5,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(
@@ -233,15 +213,13 @@ class Login extends StatelessWidget {
                 onPressed: () {
                   Get.to(() => const ResetPassword());
                 },
-                child: const Expanded(
-                  child: Center(
-                    child: Text(
-                      "Forgot password",
-                      style: TextStyle(
-                          color: Color(0xff40BFFF),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13),
-                    ),
+                child: const Center(
+                  child: Text(
+                    "Forgot password",
+                    style: TextStyle(
+                        color: Color(0xff40BFFF),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13),
                   ),
                 ),
               ),
@@ -259,15 +237,13 @@ class Login extends StatelessWidget {
                     onPressed: () {
                       Get.to(() => const Signup());
                     },
-                    child: const Expanded(
-                      child: Center(
-                        child: Text(
-                          "Register",
-                          style: TextStyle(
-                              color: Color(0xff40BFFF),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13),
-                        ),
+                    child: const Center(
+                      child: Text(
+                        "Register",
+                        style: TextStyle(
+                            color: Color(0xff40BFFF),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13),
                       ),
                     ),
                   ),
