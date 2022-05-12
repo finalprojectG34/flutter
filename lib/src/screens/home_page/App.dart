@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_getx_widget.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:sms/src/app.dart';
-import 'package:sms/src/screens/components/appbar.dart';
+import 'package:sms/src/screens/cart/cart.dart';
 import 'package:sms/src/screens/drawer/drawer.dart';
 import 'package:sms/src/screens/screens.dart';
 import '../auth/login/login.dart';
 import 'AppCtx.dart';
+import 'item_detail/item_detail.dart';
 
 part 'app_components.dart';
 
@@ -25,6 +27,14 @@ class _AppState extends State<App> {
   // int _selectedIndex = 0;
   late AppBar appbar;
   late String appbarName;
+  String query = '''
+  query GetAllCategories{
+  getAllCategories{
+    id
+    name
+  }
+}
+  ''';
 
   @override
   void initState() {
@@ -42,18 +52,40 @@ class _AppState extends State<App> {
       case 1:
         // _selectedIndex = index;
         appController.changePage('Explore', index);
-        return Text('Category page');
+        return Query(
+          options: QueryOptions(
+            document: gql(query),
+          ),
+          builder: (QueryResult result, {fetchMore, refetch}) {
+            if (result.hasException) {
+              return Text(result.exception.toString());
+            }
+            if (result.isLoading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return ListView.builder(
+              itemBuilder: (context, index) => Text(
+                result.data!['getAllCategories'][index]['name'],
+              ),
+              itemCount: result.data!['getAllCategories'].length,
+            );
+          },
+        );
       // CategoriesPage();
       case 2:
         appController.changePage('Cart', index);
-        return Text('profile page');
+        return Cart();
       // if (state.status == AuthenticationStatus.authenticated) {
       //   return ProfilePage();
       // }
       // return Text('Login page');
       case 3:
         appController.changePage('Offer', index);
-        return Text('offer detail');
+        return ItemDetails(
+          item: Item(),
+        );
       // ItemDetails(Item(name: 'name',price: '230',category: 'cat',description: 'some desc',));
       case 4:
         appController.changePage('Account', index);

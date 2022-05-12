@@ -4,7 +4,7 @@ import 'package:sms/src/utils/loger/console_loger.dart';
 
 @immutable
 class Item extends Equatable {
-  Item(
+  const Item(
       {this.id,
       this.name,
       this.price,

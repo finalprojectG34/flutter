@@ -5,7 +5,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:sms/src/app.dart';
 import 'package:sms/src/packages/application_bindings.dart';
 import 'package:sms/src/screens/screens.dart';
-
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -13,6 +13,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   runApp(
     ShoppingApp(),
   );
@@ -33,24 +34,41 @@ class AppView extends StatefulWidget {
 }
 
 class _AppViewState extends State<AppView> {
+  // final httpLink = HttpLink("https://finalproject34.herokuapp.com/graphql");
+
+  ValueNotifier<GraphQLClient> client = ValueNotifier(GraphQLClient(
+      cache: GraphQLCache(),
+      link: HttpLink("https://finalproject34.herokuapp.com/graphql")));
+  String query = '''
+  query GetAllCategories{
+  getAllCategories{
+    id
+    name
+  }
+}
+  ''';
+
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'Sms',
-      initialRoute: '/',
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: RouteGenerator.generateRoute,
-      initialBinding: ApplicationBindings(),
-      theme: ThemeData(
-          primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-              unselectedItemColor: Colors.grey,
-              selectedItemColor: Colors.blue,
-              showSelectedLabels: true,
-              showUnselectedLabels: true,
-              selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
-              unselectedLabelStyle: TextStyle(fontWeight: FontWeight.bold))),
+    return GraphQLProvider(
+      child: GetMaterialApp(
+        title: 'Sms',
+        initialRoute: '/',
+        debugShowCheckedModeBanner: false,
+        onGenerateRoute: RouteGenerator.generateRoute,
+        initialBinding: ApplicationBindings(),
+        theme: ThemeData(
+            primarySwatch: Colors.blue,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+            bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+                unselectedItemColor: Colors.grey,
+                selectedItemColor: Colors.blue,
+                showSelectedLabels: true,
+                showUnselectedLabels: true,
+                selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+                unselectedLabelStyle: TextStyle(fontWeight: FontWeight.bold))),
+      ),
+      client: client,
     );
   }
 }

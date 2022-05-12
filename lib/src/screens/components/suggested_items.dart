@@ -42,24 +42,24 @@ class _SuggestedItemsState extends State<SuggestedItems> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [
-                        Text(
-                          'Super flash sale',
-                          maxLines: 1,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 26),
-                        ),
+                        // Text(
+                        //   'Super flash sale',
+                        //   maxLines: 1,
+                        //   style: TextStyle(
+                        //       fontWeight: FontWeight.bold,
+                        //       color: Colors.white,
+                        //       fontSize: 26),
+                        // ),
                         SizedBox(
                           height: 10.0,
                         ),
-                        Text(
-                          "50% off",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 26,
-                              color: Colors.white),
-                        ),
+                        // Text(
+                        //   "50% off",
+                        //   style: TextStyle(
+                        //       fontWeight: FontWeight.bold,
+                        //       fontSize: 26,
+                        //       color: Colors.white),
+                        // ),
                       ],
                     ),
                   ),
