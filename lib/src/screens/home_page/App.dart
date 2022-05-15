@@ -7,6 +7,7 @@ import 'package:sms/src/app.dart';
 import 'package:sms/src/screens/cart/cart.dart';
 import 'package:sms/src/screens/drawer/drawer.dart';
 import 'package:sms/src/screens/screens.dart';
+import '../../../data/repository/item_repository.dart';
 import '../auth/login/login.dart';
 import 'AppCtx.dart';
 import 'item_detail/item_detail.dart';
@@ -24,12 +25,12 @@ class _AppState extends State<App> {
   bool searchBar = false;
   late Widget body;
 
-  // int _selectedIndex = 0;
+  // late OrderRespositoryImpl aa;
   late AppBar appbar;
   late String appbarName;
   String query = '''
-  query GetAllCategories{
-  getAllCategories{
+  query GetAllItems{
+  getAllItems{
     id
     name
   }
@@ -39,6 +40,12 @@ class _AppState extends State<App> {
   @override
   void initState() {
     super.initState();
+    // aa = OrderRespositoryImpl(
+    //   GraphQLClient(
+    //       cache: GraphQLCache(),
+    //       link: HttpLink("https://finalproject34.herokuapp.com/graphql")),
+    // );
+    // aa.getItems();
     body = const Home(
       hasSearchBar: false,
     );
@@ -65,11 +72,15 @@ class _AppState extends State<App> {
                 child: CircularProgressIndicator(),
               );
             }
+            appController.itemList = ((result.data!['getAllItems'] as List)
+                    .map((json) => Item.fromJson(json))
+                    .toList())
+                .obs;
             return ListView.builder(
               itemBuilder: (context, index) => Text(
-                result.data!['getAllCategories'][index]['name'],
+                appController.itemList![index].name!,
               ),
-              itemCount: result.data!['getAllCategories'].length,
+              itemCount: appController.itemList?.length,
             );
           },
         );

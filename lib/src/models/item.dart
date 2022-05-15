@@ -1,16 +1,12 @@
-import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-import 'package:sms/src/utils/loger/console_loger.dart';
-
-@immutable
-class Item extends Equatable {
-  const Item(
-      {this.id,
-      this.name,
-      this.price,
-      this.category,
-      this.imagePath,
-      this.description});
+class Item {
+  const Item({
+    this.id,
+    this.name,
+    this.price,
+    this.category,
+    this.imagePath,
+    this.description,
+  });
 
   final String? id;
   final String? name;
@@ -19,25 +15,19 @@ class Item extends Equatable {
   final String? imagePath;
   final String? description;
 
-  // final []String categories;
-
-  @override
-  List<Object?> get props =>
-      [id, name, price, category, imagePath, description];
-
   factory Item.fromJson(Map<String, dynamic> json) {
-    // logTrace("inFactory", json);
     Item item = Item(
-      id: json['id'],
-      name: json['name'],
-      price: json['price'].toString(),
-      category: json['category'],
-      imagePath: json['image'],
-    );
-    // logTrace("afterFactory", item);
+        id: json['id'],
+        name: json['name'],
+        price: json['price'].toString(),
+        category: json['category'],
+        imagePath: json['image'],
+        description: json['desc']);
     return item;
   }
 
   @override
-  String toString() => 'Item { id: $id, name: $name, price:$price, image: $imagePath }';
+  String toString() {
+    return '{id: $id name $name price $price category $category imagePath $imagePath description $description}';
+  }
 }

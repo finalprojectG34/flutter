@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../../models/item.dart';
+
 class ItemMiniDetail extends StatelessWidget {
-  const ItemMiniDetail({Key? key}) : super(key: key);
+  final Item item;
+
+  const ItemMiniDetail({Key? key, required this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -103,12 +107,12 @@ class ItemMiniDetail extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    const Text(
-                      'some text',
+                    Text(
+                      item.id!,
                       style: TextStyle(color: Colors.grey),
                     ),
-                    const Text(
-                      'Item name',
+                    Text(
+                      item.name!,
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
