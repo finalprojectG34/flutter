@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:sms/data/repository/item_repository.dart';
 
-import '../../../data/database_operations/item_operation.dart';
 import '../../app.dart';
 
 class AppController extends GetxController {
@@ -32,7 +30,6 @@ class AppController extends GetxController {
 
   getItems(String query) async {
     List<Item> items = await itemRepository.getItems(query);
-    print(items);
     itemList = items.obs;
   }
 }

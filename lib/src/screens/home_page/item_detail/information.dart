@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class RowElement extends StatelessWidget {
   final String? description;
   final String? status;
@@ -25,7 +24,6 @@ class RowElement extends StatelessWidget {
           style: TextStyle(color: descriptionColor),
         ),
         Text(
-
           status!,
           style: TextStyle(color: statusColor),
         ),

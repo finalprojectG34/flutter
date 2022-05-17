@@ -4,7 +4,6 @@ import 'package:sms/src/utils/loger/console_loger.dart';
 
 @immutable
 class Role extends Equatable {
-
   Role({this.id, @required this.name});
 
   final String? id;
@@ -23,6 +22,5 @@ class Role extends Equatable {
   }
 
   @override
-  String toString() =>
-      'User { id: $id, name: $name }';
+  String toString() => 'User { id: $id, name: $name }';
 }

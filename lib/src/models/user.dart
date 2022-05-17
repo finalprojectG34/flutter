@@ -1,10 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:sms/src/utils/loger/console_loger.dart';
 
 @immutable
 class User extends Equatable {
-
   User(
       {this.id,
       this.name,
@@ -40,14 +38,11 @@ class User extends Equatable {
       id: json['_id'],
       name: json['username'],
       email: json['email'],
-
       role: json['role'],
       image: json['image'],
-      token:json['token'],
-
+      token: json['token'],
       password: json['Password'],
       phone: json['phone'],
-
     );
     // logTrace("afterFactory", item);
     return item;

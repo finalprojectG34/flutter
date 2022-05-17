@@ -1,11 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:sms/src/app.dart';
 import 'package:sms/src/packages/application_bindings.dart';
+import 'package:sms/src/screens/routes/generate_routes.dart';
 import 'package:sms/src/screens/screens.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+
 import 'firebase_options.dart';
 
 void main() async {

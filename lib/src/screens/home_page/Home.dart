@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:sms/src/screens/components/category_list.dart';
 import 'package:sms/src/screens/components/suggested_items.dart';
+
 import '../../app.dart';
 import '../components/item_mini_detail.dart';
 import '../components/profile_mini_detail.dart';
@@ -53,19 +54,6 @@ class _HomeState extends State<Home> {
                       color: Colors.black),
                 ),
               ),
-              // GridView.count(
-              //   childAspectRatio: .5,
-              //   crossAxisCount: 2,
-              //   children: const [
-              //     ItemMiniDetail(),
-              //     ItemMiniDetail(),
-              //   ],
-              //   physics: const NeverScrollableScrollPhysics(),
-              //   shrinkWrap: true,
-              //   crossAxisSpacing: 5,
-              //   padding: const EdgeInsets.all(8),
-              //   mainAxisSpacing: 5,
-              // ),
               Query(
                 options: QueryOptions(
                   document: gql(query),

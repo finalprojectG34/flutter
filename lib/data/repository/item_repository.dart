@@ -4,7 +4,6 @@
 // import 'package:delivery_app_getx/features/order/data/documents/docs_gql.dart';
 // import 'package:delivery_app_getx/features/order/data/models/order_model.dart';
 
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:sms/data/database_operations/item_operation.dart';
 
 import '../../src/app.dart';
@@ -15,6 +14,14 @@ class ItemRepository {
   // Future<bool> createItem(Map<String, dynamic> body);
   Future<List<Item>> getItems(String query) async {
     return itemOperation.getItems(query);
+  }
+
+  Future<List<Category>> getCategory(String query) async {
+    return itemOperation.getCategory(query);
+  }
+
+  Future<Item> addItem(variable) async {
+    return itemOperation.addItem(variable);
   }
 // Future<OrderModel> getOrder(int orderId);
 }

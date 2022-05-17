@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sms/src/app.dart';
-import 'package:sms/src/screens/home_page/item_detail/item_detail.dart';
 import 'package:sms/src/screens/screens.dart';
+
+import '../add_item/add_item.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -12,6 +13,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => App());
       case '/home':
         return MaterialPageRoute(builder: (context) => App());
+      case '/add_item':
+        return MaterialPageRoute(builder: (context) => const AddItem());
       // case ItemDetails.routeName:
       //   return MaterialPageRoute(builder: (_) => ItemDetails(args));
       // case CategoriesPage.pathName:
@@ -55,7 +58,7 @@ class RouteGenerator {
 
   static Route<dynamic> _errorRoute() {
     return MaterialPageRoute(builder: (_) {
-      return Scaffold(
+      return const Scaffold(
         body: Center(
           child: Text('ERROR'),
         ),
@@ -70,4 +73,3 @@ class PageArgument {
 
   PageArgument({this.item, this.edit});
 }
-

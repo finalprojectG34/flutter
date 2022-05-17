@@ -1,6 +1,11 @@
 //components
+//categories page
+export './category_page/category.dart';
 export './components/components.dart';
+export './home_page/App.dart';
 
+// home page
+export './home_page/Home.dart';
 
 // profile
 export './profile_page/addAddress.dart';
@@ -9,14 +14,7 @@ export './profile_page/profile_page.dart';
 export './profile_page/updateProfile.dart';
 
 // generate routes
-export './routes/generate_routes.dart';
-
-// home page
-export './home_page/Home.dart';
-export './home_page/App.dart';
-
-//categories page
-export './category_page/category.dart';
+// export './routes/generate_routesdart';
 
 // admin
 // export './admin/admin_dashboard.dart';

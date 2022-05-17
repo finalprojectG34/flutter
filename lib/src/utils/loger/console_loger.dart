@@ -27,14 +27,12 @@ void customTrace() {
   print(traceString);
 }
 
+var bottom = "^~~~~~~~~~~~~~~~^^~~~~~~~~~~~~~~~^";
 
-var bottom ="^~~~~~~~~~~~~~~~^^~~~~~~~~~~~~~~~^";
-
-
-
-
-
-void logTrace( String key, [dynamic value,]) {
+void logTrace(
+  String key, [
+  dynamic value,
+]) {
   dynamic val = "";
   if (value != null) {
     val = value.toString();
@@ -45,5 +43,4 @@ void logTrace( String key, [dynamic value,]) {
   var traceString = fullTrace.toString().split("\n")[1];
   print(traceString);
   print('📘 :\x1B[32m$bottom\x1B[0m');
-
 }

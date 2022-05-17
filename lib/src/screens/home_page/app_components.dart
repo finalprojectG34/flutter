@@ -1,6 +1,5 @@
 part of 'App.dart';
 
-
 class _Drawer extends StatelessWidget {
   // final Routes routes;
 
@@ -103,5 +102,3 @@ class _Drawer extends StatelessWidget {
     );
   }
 }
-
-

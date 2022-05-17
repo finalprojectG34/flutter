@@ -7,7 +7,7 @@ import 'package:sms/src/app.dart';
 import 'package:sms/src/screens/cart/cart.dart';
 import 'package:sms/src/screens/drawer/drawer.dart';
 import 'package:sms/src/screens/screens.dart';
-import '../../../data/repository/item_repository.dart';
+
 import '../auth/login/login.dart';
 import 'AppCtx.dart';
 import 'item_detail/item_detail.dart';

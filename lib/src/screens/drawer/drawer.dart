@@ -44,9 +44,9 @@ class DrawerPage extends StatelessWidget {
             // selected: routes == Routes.category,
           ),
           ListTile(
-            title: const Text('New Products'),
+            title: const Text('Add product'),
             onTap: () {
-              Navigator.pushNamed(context, "/");
+              Navigator.pushNamed(context, "/add_item");
             },
             leading: const Icon(
               Icons.fiber_new,
