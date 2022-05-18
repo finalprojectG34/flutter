@@ -16,26 +16,12 @@ class AddItemController extends GetxController {
   ''';
   RxString itemId = ''.obs;
 
-  // String addItemMutation = '''
-  //     mutation AddItem(\$createItemInput: ItemCreateInput!){
-  //       createItem(input: createItemInput){
-  //         name
-  //         id
-  //       }
-  //     }
-  //     ''';
-  // final addItemVariable ={
-  //   "createItemInput":{
-  //     "name" : langName,
-  //     "saveFormat" : saveFormat,
-  //   }
-  // };
   ItemRepository itemRepository = ItemRepository();
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    getCategory(queryCategory);
+    await getCategory(queryCategory);
   }
 
   getCategory(String query) async {

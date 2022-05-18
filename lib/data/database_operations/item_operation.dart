@@ -45,11 +45,11 @@ class ItemOperation {
     final response = await _gqlClient
         .query(QueryOptions(document: gql(addItemMutation), variables: {
       "input": {
-        "name": "item 5",
+        "name": "item 9",
         "description": {"description": "desc", "lang": "en"},
         "image":
             "https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg",
-        "categoryId": "cat id 5"
+        "categoryId": "cat id 9"
       },
     }));
     print(response);

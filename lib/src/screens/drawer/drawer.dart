@@ -36,6 +36,7 @@ class DrawerPage extends StatelessWidget {
             onTap: () {
               // context.read<NavigationBloc>().add(Navigated(Routes.category));
               // Navigator.pop(context);
+              Navigator.pushNamed(context, "/add_image");
             },
             leading: const Icon(
               Icons.category,

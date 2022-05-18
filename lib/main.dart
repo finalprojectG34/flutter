@@ -1,11 +1,13 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:sms/src/app.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sms/src/packages/application_bindings.dart';
 import 'package:sms/src/screens/routes/generate_routes.dart';
-import 'package:sms/src/screens/screens.dart';
 
 import 'firebase_options.dart';
 
@@ -16,38 +18,24 @@ void main() async {
   );
 
   runApp(
-    ShoppingApp(),
+    const AppView(),
   );
 }
 
-class ShoppingApp extends StatelessWidget {
-  ShoppingApp();
-
-  @override
-  Widget build(BuildContext context) {
-    return AppView();
-  }
-}
-
 class AppView extends StatefulWidget {
+  const AppView({Key? key}) : super(key: key);
+
   @override
   _AppViewState createState() => _AppViewState();
 }
 
 class _AppViewState extends State<AppView> {
-  // final httpLink = HttpLink("https://finalproject34.herokuapp.com/graphql");
-
-  ValueNotifier<GraphQLClient> client = ValueNotifier(GraphQLClient(
+  ValueNotifier<GraphQLClient> client = ValueNotifier(
+    GraphQLClient(
       cache: GraphQLCache(),
-      link: HttpLink("https://finalproject34.herokuapp.com/graphql")));
-  String query = '''
-  query GetAllCategories{
-  getAllCategories{
-    id
-    name
-  }
-}
-  ''';
+      link: HttpLink("https://finalproject34.herokuapp.com/graphql"),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -59,15 +47,17 @@ class _AppViewState extends State<AppView> {
         onGenerateRoute: RouteGenerator.generateRoute,
         initialBinding: ApplicationBindings(),
         theme: ThemeData(
-            primarySwatch: Colors.blue,
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-            bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-                unselectedItemColor: Colors.grey,
-                selectedItemColor: Colors.blue,
-                showSelectedLabels: true,
-                showUnselectedLabels: true,
-                selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
-                unselectedLabelStyle: TextStyle(fontWeight: FontWeight.bold))),
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+            unselectedItemColor: Colors.grey,
+            selectedItemColor: Colors.blue,
+            showSelectedLabels: true,
+            showUnselectedLabels: true,
+            selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+            unselectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
       ),
       client: client,
     );
