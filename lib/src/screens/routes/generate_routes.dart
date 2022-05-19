@@ -3,6 +3,7 @@ import 'package:sms/src/app.dart';
 import 'package:sms/src/screens/screens.dart';
 
 import '../add_item/add_item.dart';
+import '../add_item/category_select_list.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -18,6 +19,11 @@ class RouteGenerator {
 
       case '/add_image':
         return MaterialPageRoute(builder: (context) => HomePagee());
+      case '/select_category':
+        return MaterialPageRoute(
+            builder: (context) => CategorySelectList(
+                  isOnSubcategoryPage: false,
+                ));
       // case ItemDetails.routeName:
       //   return MaterialPageRoute(builder: (_) => ItemDetails(args));
       // case CategoriesPage.pathName:

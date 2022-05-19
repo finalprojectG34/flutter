@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 @immutable
 class Category extends Equatable {
-  Category({this.id, this.name, this.description, this.image});
+  const Category({this.id, this.name, this.description, this.image});
 
   final String? id;
   final String? name;

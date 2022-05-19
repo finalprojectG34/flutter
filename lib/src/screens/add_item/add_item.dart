@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,7 +33,7 @@ class _AddItemState extends State<AddItem> {
       "name": "item 5",
       "description": {"description": "desc"},
       "image":
-      "https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg",
+          "https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg",
       "categoryId": "cat id 5"
     }
   };
@@ -96,9 +95,6 @@ class _AddItemState extends State<AddItem> {
                               Padding(
                                 padding: EdgeInsets.symmetric(vertical: 15),
                                 child: TextField(
-                                  onTap: () {
-                                    print('tyy');
-                                  },
                                   // style: Text,
                                   decoration: InputDecoration(
                                     labelText: 'Name',
@@ -115,90 +111,43 @@ class _AddItemState extends State<AddItem> {
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         width: 0.75,
-                                        // color: Colors.blue,
+                                        color: Colors.blue,
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                              DropdownButtonFormField2(
+                              TextField(
+                                readOnly: true,
+                                onTap: () {
+                                  addItemController.getMockCategory();
+                                  Navigator.pushNamed(
+                                      context, "/select_category");
+                                  addItemController.categorySelectPages++;
+                                },
                                 decoration: InputDecoration(
-                                  enabledBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      // color: Colors.blue,
-                                      width: 0.75,
-                                    ),
-                                  ),
-                                  focusedBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      // color: Colors.blue,
-                                      width: 0.75,
-                                    ),
-                                  ),
-                                  // contentPadding: EdgeInsets.zero,
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                ),
-                                isExpanded: true,
-                                hint: const Text(
-                                  'Select category Type',
-                                  style: TextStyle(
+                                  labelText: 'Select Category',
+                                  labelStyle: TextStyle(
                                     fontSize: 16,
                                     // color: Colors.blue,
                                   ),
+                                  suffixIcon: Icon(
+                                    Icons.arrow_drop_down_rounded,
+                                    size: 30,
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 0.75,
+                                      // color: Colors.blue,
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 0.75,
+                                      color: Colors.blue,
+                                    ),
+                                  ),
                                 ),
-                                icon: const Icon(
-                                  Icons.arrow_drop_down,
-                                  // color: Colors.blue,
-                                ),
-                                iconSize: 25,
-                                // buttonPadding:
-                                //     const EdgeInsets.only(left: 20, right: 10,top: 5,),
-                                dropdownDecoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                items: ctx.categoryList?.length == 0
-                                    ? ['1']
-                                        .map(
-                                          (item) => DropdownMenuItem<String>(
-                                            value: item,
-                                            child: const Center(
-                                                child: Text('No category')),
-                                          ),
-                                        )
-                                        .toList()
-                                    : ctx.categoryList
-                                        ?.map(
-                                          (category) =>
-                                              DropdownMenuItem<String>(
-                                            value: category.name,
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Expanded(
-                                                  child: Text(
-                                                    category.name!,
-                                                    style: const TextStyle(
-                                                      fontSize: 14,
-                                                    ),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        )
-                                        .toList(),
-                                onChanged: (value) {
-                                  // addCategoryController.setCategoryType(
-                                  //     categoryId: widget.addCategoryModel.id,
-                                  //     categoryType: value);
-                                },
-                                onSaved: (value) {
-                                  // selectedValue = value.toString();
-                                },
                               ),
                               const Padding(
                                 padding: EdgeInsets.symmetric(vertical: 15),

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:sms/data/database_operations/item_operation.dart';
 import 'package:sms/src/models/models.dart';
 
 import '../../../data/repository/item_repository.dart';
@@ -18,6 +19,9 @@ class AddItemController extends GetxController {
 
   ItemRepository itemRepository = ItemRepository();
 
+  RxMap<String, dynamic>? mockCategory = <String, dynamic>{}.obs;
+  RxInt categorySelectPages = 0.obs;
+
   @override
   void onInit() async {
     super.onInit();
@@ -29,6 +33,14 @@ class AddItemController extends GetxController {
     categoryList!(categories.obs);
     print(categoryList);
     isCategoryFetchedFromDB(true);
+  }
+
+  getMockCategory() async {
+    ItemOperation itemOperation = ItemOperation();
+    Map<String, dynamic> result = await itemOperation.getMockCategory();
+    mockCategory!(result);
+    print('mock $mockCategory');
+    // return a;
   }
 
   addItem(variable) async {
