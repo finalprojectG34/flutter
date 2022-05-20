@@ -9,7 +9,7 @@ class CategorySelect extends StatelessWidget {
   final bool isOnSubcategoryPage;
   final bool isSelectable;
   final bool hasSubcategory;
-  final List<Map<String, dynamic>> subcategories;
+  final List subcategories;
   final AddItemController addItemController = Get.find();
 
   CategorySelect(
@@ -27,24 +27,58 @@ class CategorySelect extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Card(
         child: ListTile(
-          onTap: isOnSubcategoryPage && !isSelectable
-              ? null
-              : isOnSubcategoryPage && isSelectable
-                  ? () {
-                      for (int i = 0;
-                          i < addItemController.categorySelectPages.value;
-                          i++) {
-                        Navigator.of(context).pop();
-                      }
-                    }
-                  : () {
-                      addItemController.categorySelectPages++;
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => SubcategorySelect(
-                              name: name,
-                              subcategories: subcategories,
-                              isSelectable: isSelectable)));
-                    },
+          onTap: hasSubcategory
+              ? isOnSubcategoryPage && !isSelectable
+                  ? null
+                  : isOnSubcategoryPage && isSelectable
+                      ? () {
+                          for (int i = 0;
+                              i < addItemController.categorySelectPages.value;
+                              i++) {
+                            Navigator.of(context).pop();
+                          }
+                          addItemController.categorySelectPages(0);
+                          if (addItemController.tempCategories.isEmpty) {
+                            addItemController.tempCategories.add(name);
+                          } else if (addItemController.tempCategories.last !=
+                              name) {
+                            addItemController.tempCategories.add(name);
+                          }
+                          addItemController.selectedCategoryName(
+                              addItemController.tempCategories);
+                          addItemController.tempCategories = [];
+                        }
+                      : () {
+                          addItemController.categorySelectPages++;
+                          // addItemController.tempCategories.add(name);
+                          if (addItemController.tempCategories.isEmpty) {
+                            addItemController.tempCategories.add(name);
+                          } else if (addItemController.tempCategories.last !=
+                              name) {
+                            addItemController.tempCategories.add(name);
+                          }
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => SubcategorySelect(
+                                  name: name,
+                                  subcategories: subcategories,
+                                  isSelectable: isSelectable)));
+                        }
+              : () {
+                  for (int i = 0;
+                      i < addItemController.categorySelectPages.value;
+                      i++) {
+                    Navigator.of(context).pop();
+                  }
+                  if (addItemController.tempCategories.isEmpty) {
+                    addItemController.tempCategories.add(name);
+                  } else if (addItemController.tempCategories.last != name) {
+                    addItemController.tempCategories.add(name);
+                  }
+                  addItemController
+                      .selectedCategoryName(addItemController.tempCategories);
+                  addItemController.categorySelectPages(0);
+                  addItemController.tempCategories = [];
+                },
           title: Text(
             name,
           ),

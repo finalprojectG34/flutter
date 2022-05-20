@@ -21,6 +21,9 @@ class AddItemController extends GetxController {
 
   RxMap<String, dynamic>? mockCategory = <String, dynamic>{}.obs;
   RxInt categorySelectPages = 0.obs;
+  RxBool isCategoryLoading = true.obs;
+  List<String> tempCategories = [];
+  RxList<String> selectedCategoryName = <String>[].obs;
 
   @override
   void onInit() async {
@@ -39,6 +42,7 @@ class AddItemController extends GetxController {
     ItemOperation itemOperation = ItemOperation();
     Map<String, dynamic> result = await itemOperation.getMockCategory();
     mockCategory!(result);
+    isCategoryLoading(false);
     print('mock $mockCategory');
     // return a;
   }

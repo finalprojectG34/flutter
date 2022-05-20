@@ -42,6 +42,9 @@ class _AddItemState extends State<AddItem> {
     'Expense',
     'Both',
   ];
+  TextEditingController categoryTextEditingController = TextEditingController(
+      text:
+          'vbfdjbvjhbvjdfhbvjhdfvjbvdjfbvjdfbvjdfbvj dfhvjhbdvjbdfhbvdjfbvjdf vdfh vjhbvdjbh');
   final _formKey = GlobalKey<FormState>();
   AddItemController addItemController = Get.find();
 
@@ -118,7 +121,13 @@ class _AddItemState extends State<AddItem> {
                                 ),
                               ),
                               TextField(
+                                minLines: 1,
+                                maxLines: 10,
                                 readOnly: true,
+                                controller: TextEditingController(
+                                    text: ctx.selectedCategoryName.isEmpty
+                                        ? ''
+                                        : ctx.selectedCategoryName.join(' / ')),
                                 onTap: () {
                                   addItemController.getMockCategory();
                                   Navigator.pushNamed(
@@ -228,7 +237,7 @@ class _AddItemState extends State<AddItem> {
                                       ),
                                     )
                                   : Container(),
-                              TextButton(
+                              OutlinedButton(
                                 child: Text('Add image'),
                                 onPressed: () {
                                   showModalBottomSheet(
