@@ -9,6 +9,7 @@ import 'package:sms/src/screens/screens.dart';
 
 import '../../../package_delivery_tracking.dart';
 import '../auth/login/login.dart';
+import '../cart/cart.dart';
 import '../components/single_item_search_component.dart';
 import 'AppCtx.dart';
 import 'item_detail/item_detail.dart';
@@ -90,8 +91,8 @@ class _AppState extends State<App> {
       // CategoriesPage();
       case 2:
         appController.changePage('Cart', index);
-        return PackageDeliveryTrackingPage();
-      // return Cart();
+        // return PackageDeliveryTrackingPage();
+        return Cart();
       // if (state.status == AuthenticationStatus.authenticated) {
       //   return ProfilePage();
       // }
