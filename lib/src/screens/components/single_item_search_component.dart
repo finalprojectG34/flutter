@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:sms/src/screens/home_page/item_detail/item_detail.dart';
 
 class SingleItemSearch extends StatelessWidget {
   final variable;
@@ -12,7 +15,9 @@ class SingleItemSearch extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Card(
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            Get.to(() => ItemDetails(item: variable));
+          },
           child: Row(
             children: [
               Expanded(

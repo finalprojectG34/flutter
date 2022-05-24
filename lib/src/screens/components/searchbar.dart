@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:sms/src/screens/search_item/search_item_ctx.dart';
 
 import '../search_item/search_item_list.dart';

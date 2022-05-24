@@ -81,7 +81,7 @@ class SignUpController extends GetxController {
       if (a != null) {
         // isLoading(true);
         userVariable['token']['idToken'] = a;
-        userVariable['token']['phone'] = 'dfnvjdf';
+        userVariable['token']['phone'] = 'mhngbytbte';
         await signupUser(userVariable);
         isVerificationLoading(false);
 
