@@ -1,30 +1,35 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:sms/src/models/models.dart';
+
+import '../../src/models/models.dart';
 
 class UserRepository {
   final GraphQLClient _gqlClient = GraphQLClient(
       cache: GraphQLCache(),
-      link: HttpLink("https://192.168.0.23:8000/graphql"));
-      // link: HttpLink("https://finalproject34.herokuapp.com/graphql"));
+      link: HttpLink("http://192.168.0.172:8000/graphql"));
 
-  Future<void> signupUser(variables) async {
+  // link: HttpLink("https://finalproject34.herokuapp.com/graphql"));
+
+  Future signupUser(variables) async {
     String signupMutation = r'''
      mutation AuthPhoneAndRegister($token: PhoneSignupInput) {
-  authPhoneAndRegister(token: $token) {
-    user {
-      firstName
-      phone
-      password
-      lastName
-    }
-    token
-  }
-}
+          authPhoneAndRegister(token: $token) {
+            user {
+              firstName
+              lastName
+              phone
+              password
+              lastName
+            }
+            token
+          }
+        }
       ''';
+    print(variables.toString() + 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq');
+    final response = await _gqlClient.mutate(
+        MutationOptions(document: gql(signupMutation), variables: variables));
 
-    final response = await _gqlClient.query(
-        QueryOptions(document: gql(signupMutation), variables: variables));
-    print(response);
-    // return User.fromJson(response.data!['authPhoneAndRegister']);
+    print(
+        '${User.fromJson(response.data!['authPhoneAndRegister']['user'])}  iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
+    return User.fromJson(response.data!['authPhoneAndRegister']['user']);
   }
 }

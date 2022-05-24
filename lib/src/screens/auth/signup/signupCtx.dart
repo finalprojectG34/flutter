@@ -13,7 +13,7 @@ class SignUpController extends GetxController {
   RxBool isUserCreatedSuccessfully = false.obs;
   RxBool error = false.obs;
   String verificationId = "";
-  // user.User? createdUser;
+  user.User? createdUser;
   UserRepository userRepository = UserRepository();
   var userVariable;
 
@@ -21,13 +21,7 @@ class SignUpController extends GetxController {
     print(userVariable);
     isLoading(true);
     try {
-      await userRepository.signupUser(userVariable);
-      Fluttertoast.showToast(msg: "Account created successfully");
-      AppController appController = Get.find();
-      appController.changePage('Home', 0);
-      Get.back();
-      Get.back();
-      print('yoooohooooooooooooo');
+      createdUser = await userRepository.signupUser(userVariable);
     } catch (e) {
       print('$e   the erooooooooooooooooor');
       error(true);
@@ -87,7 +81,7 @@ class SignUpController extends GetxController {
       if (a != null) {
         // isLoading(true);
         userVariable['token']['idToken'] = a;
-        userVariable['token']['phone'] = 'cdchjgvhj';
+        userVariable['token']['phone'] = 'mhngbytbte';
         await signupUser(userVariable);
         isVerificationLoading(false);
 
@@ -107,6 +101,16 @@ class SignUpController extends GetxController {
         //   // Fluttertoast.showToast(
         //   //     msg: "Account created successfully");
         // }
+      }
+      if (createdUser != null) {
+        Fluttertoast.showToast(msg: "Account created successfully");
+        AppController appController = Get.find();
+        appController.changePage('Home', 0);
+        Get.back();
+        Get.back();
+        print('yoooohooooooooooooo');
+      } else {
+        Fluttertoast.showToast(msg: "Some error occurred");
       }
       // Get.offAll(() => Home(
       //   hasSearchBar: appController.hasSearchIcon.isFalse,

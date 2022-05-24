@@ -45,7 +45,7 @@ class User extends Equatable {
       role: json['role'],
       image: json['image'],
       token: json['token'],
-      password: json['Password'],
+      password: json['password'],
       phone: json['phone'],
     );
     // logTrace("afterFactory", item);

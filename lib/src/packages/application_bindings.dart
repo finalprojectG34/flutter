@@ -5,6 +5,7 @@ import '../screens/add_item/add_item_ctx.dart';
 import '../screens/auth/login/loginCtx.dart';
 import '../screens/auth/signup/signupCtx.dart';
 import '../screens/home_page/AppCtx.dart';
+import '../screens/search_item/search_item_ctx.dart';
 
 class ApplicationBindings implements Bindings {
   ApplicationBindings();
@@ -16,5 +17,6 @@ class ApplicationBindings implements Bindings {
     Get.lazyPut(() => AppController(), fenix: true);
     Get.lazyPut(() => AddItemController(), fenix: true);
     Get.lazyPut(() => SignUpController(), fenix: true);
+    Get.lazyPut(() => SearchController(), fenix: true);
   }
 }

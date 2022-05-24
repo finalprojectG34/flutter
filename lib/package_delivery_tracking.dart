@@ -9,7 +9,7 @@ class PackageDeliveryTrackingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleAppBar('Package Delivery Tracking'),
+      // appBar: TitleAppBar('Package Delivery Tracking'),
       body: ListView.builder(
         itemBuilder: (context, index) {
           final data = _data(index + 1);
