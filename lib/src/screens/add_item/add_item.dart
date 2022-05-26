@@ -86,63 +86,22 @@ class _AddItemState extends State<AddItem> {
                 : Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    child: Card(
-                      elevation: 3,
-                      child: Form(
-                        key: _formKey,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 25),
-                          child: ListView(
-                            // crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.symmetric(vertical: 15),
-                                child: TextField(
-                                  // style: Text,
-                                  decoration: InputDecoration(
-                                    labelText: 'Name',
-                                    labelStyle: TextStyle(
-                                      fontSize: 16,
-                                      // color: Colors.blue,
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 0.75,
-                                        // color: Colors.blue,
-                                      ),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 0.75,
-                                        color: Colors.blue,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              TextField(
-                                minLines: 1,
-                                maxLines: 10,
-                                readOnly: true,
-                                controller: TextEditingController(
-                                    text: ctx.selectedCategoryName.isEmpty
-                                        ? ''
-                                        : ctx.selectedCategoryName.join(' / ')),
-                                onTap: () {
-                                  addItemController.getMockCategory();
-                                  Navigator.pushNamed(
-                                      context, "/select_category");
-                                  addItemController.categorySelectPages++;
-                                },
+                    child: Form(
+                      key: _formKey,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: ListView(
+                          // crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 15),
+                              child: TextField(
+                                // style: Text,
                                 decoration: InputDecoration(
-                                  labelText: 'Select Category',
+                                  labelText: 'Name',
                                   labelStyle: TextStyle(
                                     fontSize: 16,
                                     // color: Colors.blue,
-                                  ),
-                                  suffixIcon: Icon(
-                                    Icons.arrow_drop_down_rounded,
-                                    size: 30,
                                   ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
@@ -158,198 +117,235 @@ class _AddItemState extends State<AddItem> {
                                   ),
                                 ),
                               ),
-                              const Padding(
-                                padding: EdgeInsets.symmetric(vertical: 15),
-                                child: TextField(
-                                  keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
-                                    labelText: 'Price',
-                                    labelStyle: TextStyle(
-                                      fontSize: 16,
+                            ),
+                            TextField(
+                              minLines: 1,
+                              maxLines: 10,
+                              readOnly: true,
+                              controller: TextEditingController(
+                                  text: ctx.selectedCategoryName.isEmpty
+                                      ? ''
+                                      : ctx.selectedCategoryName.join(' / ')),
+                              onTap: () {
+                                addItemController.getMockCategory();
+                                Navigator.pushNamed(
+                                    context, "/select_category");
+                                addItemController.categorySelectPages++;
+                              },
+                              decoration: InputDecoration(
+                                labelText: 'Select Category',
+                                labelStyle: TextStyle(
+                                  fontSize: 16,
+                                  // color: Colors.blue,
+                                ),
+                                suffixIcon: Icon(
+                                  Icons.arrow_drop_down_rounded,
+                                  size: 30,
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 0.75,
+                                    // color: Colors.blue,
+                                  ),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 0.75,
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 15),
+                              child: TextField(
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  labelText: 'Price',
+                                  labelStyle: TextStyle(
+                                    fontSize: 16,
+                                    // color: Colors.blue,
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 0.75,
                                       // color: Colors.blue,
                                     ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 0.75,
-                                        // color: Colors.blue,
-                                      ),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 0.75,
-                                        color: Colors.blue,
-                                      ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 0.75,
+                                      color: Colors.blue,
                                     ),
                                   ),
                                 ),
                               ),
-                              const Padding(
-                                padding: EdgeInsets.only(bottom: 15),
-                                child: TextField(
-                                  maxLines: 5,
-                                  minLines: 1,
-                                  decoration: InputDecoration(
-                                    labelText: 'Description',
-                                    labelStyle: TextStyle(
-                                      fontSize: 16,
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.only(bottom: 15),
+                              child: TextField(
+                                maxLines: 5,
+                                minLines: 1,
+                                decoration: InputDecoration(
+                                  labelText: 'Description',
+                                  labelStyle: TextStyle(
+                                    fontSize: 16,
+                                    // color: Colors.blue,
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 0.75,
                                       // color: Colors.blue,
                                     ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 0.75,
-                                        // color: Colors.blue,
-                                      ),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 0.75,
-                                        color: Colors.blue,
-                                      ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 0.75,
+                                      color: Colors.blue,
                                     ),
                                   ),
                                 ),
                               ),
-                              _image != null
-                                  ? Center(
-                                      child: Stack(
-                                        alignment: AlignmentDirectional.topEnd,
-                                        children: [
-                                          SizedBox(
-                                            height: 150,
-                                            child: ClipRRect(
-                                              child: Image.file(_image!,
-                                                  fit: BoxFit.cover),
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(10),
-                                              ),
+                            ),
+                            _image != null
+                                ? Center(
+                                    child: Stack(
+                                      alignment: AlignmentDirectional.topEnd,
+                                      children: [
+                                        SizedBox(
+                                          height: 150,
+                                          child: ClipRRect(
+                                            child: Image.file(_image!,
+                                                fit: BoxFit.cover),
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(10),
                                             ),
                                           ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              print('yy');
-                                            },
-                                            child: Icon(
-                                              Icons.delete,
-                                              color: Colors.red.shade300,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    )
-                                  : Container(),
-                              OutlinedButton(
-                                child: Text('Add image'),
-                                onPressed: () {
-                                  showModalBottomSheet(
-                                    shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(10),
-                                        topRight: Radius.circular(10),
-                                      ),
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            print('yy');
+                                          },
+                                          child: Icon(
+                                            Icons.delete,
+                                            color: Colors.red.shade300,
+                                          ),
+                                        )
+                                      ],
                                     ),
-                                    context: context,
-                                    builder: (context) => SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              4,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 20),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            InkWell(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(10),
-                                              ),
-                                              onTap: () {
-                                                _openImagePicker('camera');
-                                                Navigator.pop(context);
-                                              },
-                                              child: Container(
-                                                  padding: EdgeInsets.all(30),
-                                                  decoration: BoxDecoration(
+                                  )
+                                : Container(),
+                            OutlinedButton(
+                              child: Text('Add image'),
+                              onPressed: () {
+                                showModalBottomSheet(
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10),
+                                    ),
+                                  ),
+                                  context: context,
+                                  builder: (context) => SizedBox(
+                                    height:
+                                        MediaQuery.of(context).size.height / 4,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          InkWell(
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(10),
+                                            ),
+                                            onTap: () {
+                                              _openImagePicker('camera');
+                                              Navigator.pop(context);
+                                            },
+                                            child: Container(
+                                                padding: EdgeInsets.all(30),
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color: Colors.grey),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                    Radius.circular(10),
+                                                  ),
+                                                ),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    Text(
+                                                      'Add from camera',
+                                                    ),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Icon(
+                                                      Icons.add_a_photo,
+                                                      size: 30,
+                                                    )
+                                                  ],
+                                                )),
+                                          ),
+                                          InkWell(
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(10),
+                                            ),
+                                            onTap: () {
+                                              _openImagePicker('gallery');
+                                              Navigator.pop(context);
+                                            },
+                                            child: Container(
+                                                padding: EdgeInsets.all(30),
+                                                decoration: BoxDecoration(
                                                     border: Border.all(
                                                         color: Colors.grey),
                                                     borderRadius:
                                                         BorderRadius.all(
-                                                      Radius.circular(10),
+                                                            Radius.circular(
+                                                                10))),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    Text('Add from gallery'),
+                                                    SizedBox(
+                                                      height: 10,
                                                     ),
-                                                  ),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    children: [
-                                                      Text(
-                                                        'Add from camera',
-                                                      ),
-                                                      SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      Icon(
-                                                        Icons.add_a_photo,
-                                                        size: 30,
-                                                      )
-                                                    ],
-                                                  )),
-                                            ),
-                                            InkWell(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(10),
-                                              ),
-                                              onTap: () {
-                                                _openImagePicker('gallery');
-                                                Navigator.pop(context);
-                                              },
-                                              child: Container(
-                                                  padding: EdgeInsets.all(30),
-                                                  decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                          color: Colors.grey),
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(
-                                                                  10))),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    children: [
-                                                      Text('Add from gallery'),
-                                                      SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      Icon(
-                                                        Icons.camera,
-                                                        size: 30,
-                                                      )
-                                                    ],
-                                                  )),
-                                            )
-                                          ],
-                                        ),
+                                                    Icon(
+                                                      Icons.camera,
+                                                      size: 30,
+                                                    )
+                                                  ],
+                                                )),
+                                          )
+                                        ],
                                       ),
                                     ),
-                                  );
-                                },
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        if (_formKey.currentState!.validate()) {
-                                          _formKey.currentState!.save();
-                                        }
-                                        addItemController.addItem(variable);
-                                      },
-                                      child: const Text('Save'),
-                                    ),
                                   ),
-                                ],
-                              ),
-                            ],
-                          ),
+                                );
+                              },
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      if (_formKey.currentState!.validate()) {
+                                        _formKey.currentState!.save();
+                                      }
+                                      addItemController.addItem(variable);
+                                    },
+                                    child: const Text('Save'),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
                     ),

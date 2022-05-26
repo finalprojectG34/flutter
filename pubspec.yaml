@@ -52,6 +52,11 @@ dependencies:
   carousel_slider: ^4.0.0
   graphql_flutter: ^5.1.0
   dropdown_button2: ^1.2.2
+  status_change: ^2.0.0
+  enhance_stepper: ^0.1.1
+  tuple: ^2.0.0
+  flutter_timeline: ^0.3.0
+  timelines: ^0.1.0
 
 
 dev_dependencies:

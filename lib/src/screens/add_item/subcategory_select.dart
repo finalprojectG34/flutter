@@ -22,6 +22,7 @@ class SubcategorySelect extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async {
         addItemController.categorySelectPages--;
+        addItemController.tempCategories.removeLast();
         return true;
       },
       child: Scaffold(

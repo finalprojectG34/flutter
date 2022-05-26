@@ -39,9 +39,14 @@ class LoginController extends GetxController {
   signIn(String smsCode) {
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationId, smsCode: smsCode);
+    FirebaseAuth.instance.authStateChanges().listen((event) async {
+      final a = await event?.getIdToken();
+      print('**************************** $a');
+    });
     FirebaseAuth.instance
         .signInWithCredential(credential)
         .then((UserCredential result) {
+      // result.additionalUserInfo.
       Get.offAll(() => Home(
             hasSearchBar: appController.hasSearchIcon.isFalse,
           ));

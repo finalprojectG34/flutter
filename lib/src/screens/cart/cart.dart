@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sms/src/screens/components/cart_detail.dart';
 import 'package:sms/src/screens/components/single_cart.dart';
+
+import '../components/payment_detail.dart';
 
 class Cart extends StatelessWidget {
   const Cart({Key? key}) : super(key: key);
@@ -10,8 +11,11 @@ class Cart extends StatelessWidget {
     return ListView(
       children: [
         SingleCart(),
-        CartDetail(),
-        OutlinedButton(onPressed: () {}, child: Text('Check Out'))
+        PaymentDetail(),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: OutlinedButton(onPressed: () {}, child: Text('Check Out')),
+        )
       ],
     );
   }
