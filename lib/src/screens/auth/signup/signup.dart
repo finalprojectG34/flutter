@@ -205,9 +205,9 @@ class Signup extends StatelessWidget {
                     });
                   },
                   child: ctx.isLoading.isTrue
-                      ? CircularProgressIndicator()
+                      ? const CircularProgressIndicator()
                       : ctx.isUserCreatedSuccessfully.isTrue
-                          ? Icon(Icons.check)
+                          ? const Icon(Icons.check)
                           : const Text(
                               "Sign up",
                               style: TextStyle(
