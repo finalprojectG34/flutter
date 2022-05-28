@@ -123,7 +123,7 @@ class ChangePassword extends StatelessWidget {
                         // logTrace("save pressed", widget.args.edit);
                         var userUpdate = User(
                           id: this.user?.id,
-                          name: this.user?.name,
+                          firstName: this.user?.firstName,
                           password: this._user["password"],
                           email: this.user?.email,
                           phone: this.user?.phone,

@@ -235,7 +235,7 @@ class Login extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      Get.to(() => const Signup());
+                      Get.to(() => Signup());
                     },
                     child: const Center(
                       child: Text(

@@ -21,12 +21,12 @@ class PackageDeliveryTrackingPage extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    // Padding(
-                    //   padding: const EdgeInsets.all(20.0),
-                    //   child: _OrderTitle(
-                    //     orderInfo: data,
-                    //   ),
-                    // ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: _OrderTitle(
+                        orderInfo: data,
+                      ),
+                    ),
                     Divider(height: 1.0),
                     _DeliveryProcesses(processes: data.deliveryProcesses),
                     Divider(height: 1.0),
@@ -90,7 +90,7 @@ class _InnerTimeline extends StatelessWidget {
     }
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: FixedTimeline.tileBuilder(
         verticalDirection: VerticalDirection.up,
         theme: TimelineTheme.of(context).copyWith(
@@ -106,15 +106,17 @@ class _InnerTimeline extends StatelessWidget {
         builder: TimelineTileBuilder(
           indicatorBuilder: (_, index) =>
               !isEdgeIndex(index) ? Indicator.outlined(borderWidth: 1.0) : null,
-          startConnectorBuilder: (_, index) => Connector.solidLine(),
-          endConnectorBuilder: (_, index) => Connector.solidLine(),
+          // startConnectorBuilder: (_, index) => Connector.solidLine(),
+          // endConnectorBuilder: (_, index) => Connector.solidLine(),
           contentsBuilder: (_, index) {
             if (isEdgeIndex(index)) {
               return null;
             }
 
             return Padding(
-              padding: EdgeInsets.only(left: 8.0),
+              padding: EdgeInsets.only(
+                left: 8.0,
+              ),
               child: Text(messages[index - 1].toString()),
             );
           },
@@ -176,7 +178,13 @@ class _DeliveryProcesses extends StatelessWidget {
                             fontSize: 18.0,
                           ),
                     ),
-                    _InnerTimeline(messages: processes[index].messages),
+                    Card(
+                        color: Colors.green.shade50,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: _InnerTimeline(
+                              messages: processes[index].messages),
+                        )),
                   ],
                 ),
               );

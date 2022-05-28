@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 class User extends Equatable {
   User(
       {this.id,
-      this.name,
+      this.firstName,
+      this.lastName,
       this.email,
       this.image,
       this.role,
@@ -15,7 +16,8 @@ class User extends Equatable {
       this.profile});
 
   final String? id;
-  final String? name;
+  final String? firstName;
+  final String? lastName;
   final String? email;
   final String? phone;
   final String? password;
@@ -30,13 +32,15 @@ class User extends Equatable {
   // final []String categories;
 
   @override
-  List<Object?> get props => [id, name, email, role, image, password, phone];
+  List<Object?> get props =>
+      [id, firstName, email, role, image, password, phone];
 
   factory User.fromJson(Map<String, dynamic> json) {
     // logTrace("inFactory");
     User item = User(
       id: json['_id'],
-      name: json['username'],
+      firstName: json['firstName'],
+      lastName: json['lastName'],
       email: json['email'],
       role: json['role'],
       image: json['image'],
@@ -50,5 +54,5 @@ class User extends Equatable {
 
   @override
   String toString() =>
-      'User { id: $id, name: $name, email:$email, password: $password, phone: $phone }';
+      'User { id: $id, name: $firstName, email:$email, password: $password, phone: $phone }';
 }
