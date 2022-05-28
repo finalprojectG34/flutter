@@ -22,7 +22,7 @@ class CategorySelectList extends StatelessWidget {
         appBar: AppBar(title: const Text('Select category')),
         body: GetX<AddItemController>(builder: (ctx) {
           return ctx.isCategoryLoading.isTrue
-              ? Center(child: const CircularProgressIndicator())
+              ? const Center(child: CircularProgressIndicator())
               : ListView.builder(
                   // shrinkWrap: true,
                   itemBuilder: (context, index) => CategorySelect(
