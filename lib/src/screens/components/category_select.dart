@@ -10,6 +10,7 @@ class CategorySelect extends StatelessWidget {
   final bool isSelectable;
   final bool hasSubcategory;
   final List subcategories;
+  final List attributes;
   final AddItemController addItemController = Get.find();
 
   CategorySelect(
@@ -18,7 +19,7 @@ class CategorySelect extends StatelessWidget {
       required this.isOnSubcategoryPage,
       required this.isSelectable,
       required this.hasSubcategory,
-      required this.subcategories})
+      required this.subcategories,required this.attributes})
       : super(key: key);
 
   @override
@@ -35,6 +36,7 @@ class CategorySelect extends StatelessWidget {
                           for (int i = 0;
                               i < addItemController.categorySelectPages.value;
                               i++) {
+                            addItemController.attributes(attributes);
                             Navigator.of(context).pop();
                           }
                           addItemController.categorySelectPages(0);
@@ -61,12 +63,13 @@ class CategorySelect extends StatelessWidget {
                               builder: (context) => SubcategorySelect(
                                   name: name,
                                   subcategories: subcategories,
-                                  isSelectable: isSelectable)));
+                                  isSelectable: isSelectable,attributes: attributes,)));
                         }
               : () {
                   for (int i = 0;
                       i < addItemController.categorySelectPages.value;
                       i++) {
+                    addItemController.attributes(attributes);
                     Navigator.of(context).pop();
                   }
                   if (addItemController.tempCategories.isEmpty) {

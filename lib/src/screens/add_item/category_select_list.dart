@@ -34,6 +34,8 @@ class CategorySelectList extends StatelessWidget {
                         ['hasSubcategory'],
                     subcategories: ctx.mockCategory!['getAllCategories'][index]
                         ['subCategories'],
+                    attributes: ctx.mockCategory!['getAllCategories'][index]
+                    ['attributes'],
                   ),
                   itemCount: ctx.mockCategory!['getAllCategories'].length,
                 );

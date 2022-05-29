@@ -17,9 +17,9 @@ class ResetPassword extends StatelessWidget {
             child: Column(
               children: [
                 const Padding(padding: EdgeInsets.only(top: 100)),
-                Center(
-                  child: Image.asset("images/home_icon.png"),
-                ),
+                // Center(
+                //   child: Image.asset("images/home_icon.png"),
+                // ),
                 const SizedBox(
                   height: 10,
                 ),

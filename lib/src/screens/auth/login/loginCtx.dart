@@ -25,7 +25,7 @@ class LoginController extends GetxController {
         },
         codeSent: (verificationId, [resendToken]) {
           this.verificationId = verificationId;
-          Get.to(() => CodeVerification());
+          Get.to(() => CodeVerification(redirectFrom: 'signIn',));
           loading(false);
         },
         codeAutoRetrievalTimeout: (String verificationId) {},

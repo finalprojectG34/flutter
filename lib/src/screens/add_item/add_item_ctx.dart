@@ -16,7 +16,7 @@ class AddItemController extends GetxController {
 }
   ''';
   RxString itemId = ''.obs;
-
+  RxList attributes = [].obs;
   ItemRepository itemRepository = ItemRepository();
 
   RxMap<String, dynamic>? mockCategory = <String, dynamic>{}.obs;
