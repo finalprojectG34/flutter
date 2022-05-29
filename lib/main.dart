@@ -47,6 +47,7 @@ class _AppViewState extends State<AppView> {
         onGenerateRoute: RouteGenerator.generateRoute,
         initialBinding: ApplicationBindings(),
         theme: ThemeData(
+          fontFamily: 'poppins',
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
           bottomNavigationBarTheme: const BottomNavigationBarThemeData(
