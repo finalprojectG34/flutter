@@ -90,8 +90,8 @@ class _AppState extends State<App> {
       // CategoriesPage();
       case 2:
         appController.changePage('Cart', index);
-        return PackageDeliveryTrackingPage();
-      // return Cart();
+        // return PackageDeliveryTrackingPage();
+      return Cart();
       // if (state.status == AuthenticationStatus.authenticated) {
       //   return ProfilePage();
       // }

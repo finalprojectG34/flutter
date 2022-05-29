@@ -246,7 +246,122 @@ class Signup extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-
+                    maxLines: 1,
+                    keyboardType: TextInputType.emailAddress,
+                    onChanged: (text) => lastName = text,
+                  ),
+                )
+              ]),
+              const SizedBox(
+                height: 10,
+              ),
+              TextFormField(
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.phone),
+                  contentPadding: const EdgeInsets.all(10),
+                  hintText: "Your Phone",
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6),
+                      borderSide:
+                          BorderSide(color: Colors.grey[200]!, width: 1)),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6),
+                      borderSide:
+                          BorderSide(color: Colors.grey[200]!, width: 1)),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6),
+                      borderSide:
+                          BorderSide(color: Colors.grey[200]!, width: 1)),
+                ),
+                maxLines: 1,
+                keyboardType: TextInputType.phone,
+                onChanged: (text) => phoneNumber = text,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              TextFormField(
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.lock),
+                  contentPadding: const EdgeInsets.all(10),
+                  hintText: "Password",
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6),
+                      borderSide:
+                          BorderSide(color: Colors.grey[200]!, width: 1)),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6),
+                      borderSide:
+                          BorderSide(color: Colors.grey[200]!, width: 1)),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6),
+                      borderSide:
+                          BorderSide(color: Colors.grey[200]!, width: 1)),
+                ),
+                maxLines: 1,
+                keyboardType: TextInputType.emailAddress,
+                onChanged: (text) => password = text,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              TextFormField(
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.lock),
+                  contentPadding: const EdgeInsets.all(10),
+                  hintText: "Confirm Password",
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6),
+                      borderSide:
+                          BorderSide(color: Colors.grey[200]!, width: 1)),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6),
+                      borderSide:
+                          BorderSide(color: Colors.grey[200]!, width: 1)),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6),
+                      borderSide:
+                          BorderSide(color: Colors.grey[200]!, width: 1)),
+                ),
+                maxLines: 1,
+                keyboardType: TextInputType.emailAddress,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              ElevatedButton(
+                  style: ButtonStyle(
+                    shadowColor:
+                        MaterialStateProperty.all(Colors.lightBlueAccent),
+                    elevation: MaterialStateProperty.all(6),
+                    backgroundColor:
+                        MaterialStateProperty.all(const Color(0xff40BFFF)),
+                    fixedSize: MaterialStateProperty.all(Size(Get.width, 54)),
+                  ),
+                  onPressed: () {
+                    signUpController.signupUser({
+                      "input": {
+                        "firstName": firstName,
+                        "lastName": lastName,
+                        "phone": phoneNumber,
+                        // "password": "my password"
+                      }
+                    });
+                  },
+                  child: ctx.isLoading.isTrue
+                      ? const CircularProgressIndicator()
+                      : ctx.isUserCreatedSuccessfully.isTrue
+                          ? const Icon(Icons.check)
+                          : const Text(
+                              "Sign up",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13),
+                            )),
+              const SizedBox(
+                height: 20,
+              ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
