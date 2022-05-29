@@ -4,21 +4,20 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_getx_widget.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:sms/src/app.dart';
-import 'package:sms/src/screens/cart/cart.dart';
 import 'package:sms/src/screens/drawer/drawer.dart';
 import 'package:sms/src/screens/screens.dart';
 
 import '../../../package_delivery_tracking.dart';
-import '../../../test.dart';
 import '../auth/login/login.dart';
+import '../components/single_item_search_component.dart';
 import 'AppCtx.dart';
 import 'item_detail/item_detail.dart';
-import 'package:timelines/timelines.dart';
 
 part 'app_components.dart';
 
 class App extends StatefulWidget {
-  const App({Key? key}) : super(key: key);
+  const App({Key? key,this.index}) : super(key: key);
+  final int? index;
 
   @override
   State<App> createState() => _AppState();
@@ -79,12 +78,13 @@ class _AppState extends State<App> {
                     .map((json) => Item.fromJson(json))
                     .toList())
                 .obs;
-            return ListView.builder(
-              itemBuilder: (context, index) => Text(
-                appController.itemList![index].name!,
-              ),
-              itemCount: appController.itemList?.length,
-            );
+            // return ListView.builder(
+            //   itemBuilder: (context, index) => Text(
+            //     appController.itemList![index].name!,
+            //   ),
+            //   itemCount: appController.itemList?.length,
+            // );
+            return SingleItemSearch();
           },
         );
       // CategoriesPage();
@@ -113,41 +113,6 @@ class _AppState extends State<App> {
         );
     }
   }
-
-  // void _onTabItemTapped(int index) {
-  //   setState(
-  //     () {
-  //       switch (index) {
-  //         case 0:
-  //           body = const Home(
-  //             hasSearchBar: false,
-  //           );
-  //           // appbar = AppBarComponent.setAppBar('Home');
-  //           // appbarName = 'Home';
-  //           break;
-  //         case 1:
-  //           body = const Home();
-  //           // appbar = AppBarComponent.setAppBar('Explore');
-  //
-  //           break;
-  //         case 2:
-  //           body = const Home();
-  //           // appbar = AppBarComponent.setAppBar('Cart');
-  //           break;
-  //         case 3:
-  //           body = const Home();
-  //           // appbar = AppBarComponent.setAppBar('Offer');
-  //           break;
-  //         case 4:
-  //           body = Login();
-  //           // appbar = AppBarComponent.setAppBar('Account');
-  //           break;
-  //       }
-  //       _selectedIndex = index;
-  //     },
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
     return GetX<AppController>(
@@ -171,7 +136,7 @@ class _AppState extends State<App> {
               )
             ],
           ),
-          body: _mapIndexToPage(ctx.selectedIndex.value),
+          body: _mapIndexToPage( ctx.selectedIndex.value),
           drawer: const DrawerPage(),
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: ctx.selectedIndex.value,

@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:sms/src/screens/auth/signup/signupCtx.dart';
 
 import '../login/loginCtx.dart';
 
 class CodeVerification extends StatelessWidget {
-  CodeVerification({Key? key}) : super(key: key);
+  CodeVerification({Key? key, required this.redirectFrom, this.variable})
+      : super(key: key);
   final txtController = TextEditingController();
   final formState = GlobalKey<FormState>();
+  final String redirectFrom;
+  LoginController? loginController;
+  SignUpController? signUpController;
+  var variable;
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +29,9 @@ class CodeVerification extends StatelessWidget {
               child: Column(
                 children: [
                   const Padding(padding: EdgeInsets.only(top: 100)),
-                  Center(
-                    child: Image.asset("images/home_icon.png"),
-                  ),
+                  // Center(
+                  //   child: Image.asset("images/home_icon.png"),
+                  // ),
                   const SizedBox(
                     height: 10,
                   ),
@@ -69,26 +75,53 @@ class CodeVerification extends StatelessWidget {
                     height: 40,
                   ),
                   ElevatedButton(
-                      style: ButtonStyle(
-                        shadowColor:
-                            MaterialStateProperty.all(Colors.lightBlueAccent),
-                        elevation: MaterialStateProperty.all(5),
-                        backgroundColor:
-                            MaterialStateProperty.all(const Color(0xff40BFFF)),
-                        fixedSize: MaterialStateProperty.all(
-                            Size(Get.width * 0.45, 54)),
-                      ),
-                      onPressed: () {
-                        var ctx = Get.find<LoginController>();
-                        ctx.signIn(txtController.text.toString());
-                      },
-                      child: const Text(
-                        "Verify Code",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13),
-                      )),
+                    style: ButtonStyle(
+                      shadowColor:
+                          MaterialStateProperty.all(Colors.lightBlueAccent),
+                      elevation: MaterialStateProperty.all(5),
+                      backgroundColor:
+                          MaterialStateProperty.all(const Color(0xff40BFFF)),
+                      fixedSize:
+                          MaterialStateProperty.all(Size(Get.width * 0.45, 54)),
+                    ),
+                    onPressed: () async {
+                      redirectFrom == 'signIn'
+                          ? loginController = Get.find<LoginController>()
+                          : signUpController = Get.find<SignUpController>();
+
+                      redirectFrom == 'signIn'
+                          ? await loginController
+                              ?.signIn(txtController.text.toString())
+                          : await signUpController?.signUp(
+                              txtController.text.toString(), variable);
+                      // ctx.signIn(txtController.text.toString());
+
+                      // Get.offAll(() => App());
+                      // Na
+                      // Navigator.of(context)
+                      //     .pushNamedAndRemoveUntil('/',ModalRoute.withName("/"));
+                      // if(signUpController!.isUserCreatedSuccessfully.isTrue){
+                      //   Fluttertoast.showToast(
+                      //       msg: 'Account successfully created');
+                      // }
+                      // AppController appCtx = Get.find();
+                      // appCtx.selectedIndex(0);
+                      // Get.offNamedUntil("/", ModalRoute.withName("/"));
+                    },
+                    child: GetX<SignUpController>(builder: (ctx) {
+                      return ctx.isVerificationLoading.isTrue
+                          ? CircularProgressIndicator()
+                          : ctx.isUserCreatedSuccessfully.isTrue
+                              ? Icon(Icons.check)
+                              : const Text(
+                                  "Verify Code",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 13),
+                                );
+                    }),
+                  ),
                   const Spacer(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

@@ -38,7 +38,7 @@ class Login extends StatelessWidget {
             children: [
               const Padding(padding: EdgeInsets.only(top: 100)),
               Center(
-                child: Image.asset("images/home_icon.png"),
+                child: null,
               ),
               const SizedBox(
                 height: 10,
@@ -117,95 +117,95 @@ class Login extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              Row(
-                children: [
-                  const Expanded(
-                    child: Divider(
-                      thickness: 0.5,
-                      height: 0.5,
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 10),
-                    child: const Text(
-                      "OR",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.grey),
-                    ),
-                  ),
-                  const Expanded(
-                    child: Divider(
-                      thickness: 0.5,
-                      height: 0.5,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              ElevatedButton(
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      side: BorderSide(color: Colors.grey[200]!),
-                      borderRadius: BorderRadius.circular(8))),
-                  elevation: MaterialStateProperty.all(0),
-                  backgroundColor:
-                      MaterialStateProperty.all(Colors.transparent),
-                  fixedSize: MaterialStateProperty.all(Size(Get.width, 54)),
-                ),
-                onPressed: () {},
-                child: Row(
-                  children: const [
-                    FaIcon(FontAwesomeIcons.google, color: Colors.lightBlue),
-                    Expanded(
-                      child: Center(
-                        child: Text(
-                          "Login with Google",
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                      side: BorderSide(color: Colors.grey[200]!),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  elevation: MaterialStateProperty.all(0),
-                  backgroundColor:
-                      MaterialStateProperty.all(Colors.transparent),
-                  fixedSize: MaterialStateProperty.all(Size(Get.width, 54)),
-                ),
-                onPressed: () {},
-                child: Row(
-                  children: const [
-                    FaIcon(FontAwesomeIcons.facebookF, color: Colors.lightBlue),
-                    Expanded(
-                      child: Center(
-                        child: Text(
-                          "Login with Facebook",
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
+              // Row(
+              //   children: [
+              //     const Expanded(
+              //       child: Divider(
+              //         thickness: 0.5,
+              //         height: 0.5,
+              //       ),
+              //     ),
+              //     Container(
+              //       margin: const EdgeInsets.symmetric(horizontal: 10),
+              //       child: const Text(
+              //         "OR",
+              //         style: TextStyle(
+              //             fontWeight: FontWeight.bold, color: Colors.grey),
+              //       ),
+              //     ),
+              //     const Expanded(
+              //       child: Divider(
+              //         thickness: 0.5,
+              //         height: 0.5,
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              // const SizedBox(
+              //   height: 20,
+              // ),
+              // ElevatedButton(
+              //   style: ButtonStyle(
+              //     shape: MaterialStateProperty.all(RoundedRectangleBorder(
+              //         side: BorderSide(color: Colors.grey[200]!),
+              //         borderRadius: BorderRadius.circular(8))),
+              //     elevation: MaterialStateProperty.all(0),
+              //     backgroundColor:
+              //         MaterialStateProperty.all(Colors.transparent),
+              //     fixedSize: MaterialStateProperty.all(Size(Get.width, 54)),
+              //   ),
+              //   onPressed: () {},
+              //   child: Row(
+              //     children: const [
+              //       FaIcon(FontAwesomeIcons.google, color: Colors.lightBlue),
+              //       Expanded(
+              //         child: Center(
+              //           child: Text(
+              //             "Login with Google",
+              //             style: TextStyle(
+              //                 color: Colors.grey,
+              //                 fontWeight: FontWeight.bold,
+              //                 fontSize: 13),
+              //           ),
+              //         ),
+              //       )
+              //     ],
+              //   ),
+              // ),
+              // const SizedBox(
+              //   height: 10,
+              // ),
+              // ElevatedButton(
+              //   style: ButtonStyle(
+              //     shape: MaterialStateProperty.all(
+              //       RoundedRectangleBorder(
+              //         side: BorderSide(color: Colors.grey[200]!),
+              //         borderRadius: BorderRadius.circular(8),
+              //       ),
+              //     ),
+              //     elevation: MaterialStateProperty.all(0),
+              //     backgroundColor:
+              //         MaterialStateProperty.all(Colors.transparent),
+              //     fixedSize: MaterialStateProperty.all(Size(Get.width, 54)),
+              //   ),
+              //   onPressed: () {},
+              //   child: Row(
+              //     children: const [
+              //       FaIcon(FontAwesomeIcons.facebookF, color: Colors.lightBlue),
+              //       Expanded(
+              //         child: Center(
+              //           child: Text(
+              //             "Login with Facebook",
+              //             style: TextStyle(
+              //                 color: Colors.grey,
+              //                 fontWeight: FontWeight.bold,
+              //                 fontSize: 13),
+              //           ),
+              //         ),
+              //       )
+              //     ],
+              //   ),
+              // ),
               const SizedBox(
                 height: 10,
               ),

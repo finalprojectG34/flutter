@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -155,6 +156,84 @@ class _AddItemState extends State<AddItem> {
                                   ),
                                 ),
                               ),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) => Row(
+                                children: [
+                                  Text(
+                                    ctx.attributes[index]['name'],
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                  DropdownButtonFormField2(
+                                    value: 'widget.addCategoryModel.categoryType',
+                                    decoration: InputDecoration(
+                                      enabledBorder: const OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.green, width: 0.5),
+                                      ),
+                                      focusedBorder: const OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.green, width: 0.75),
+                                      ),
+                                      contentPadding: EdgeInsets.zero,
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                    ),
+                                    isExpanded: true,
+                                    hint: Text(
+                                      'Select ${ctx.attributes[index]['name']}',
+                                      style: TextStyle(
+                                          fontSize: 14, color: Colors.green),
+                                    ),
+                                    icon: const Icon(
+                                      Icons.arrow_drop_down,
+                                      color: Colors.green,
+                                    ),
+                                    iconSize: 25,
+                                    buttonPadding: const EdgeInsets.only(
+                                        left: 20, right: 10),
+                                    dropdownDecoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    items: ctx.attributes[index]['options']
+                                        .map(
+                                          (item) => DropdownMenuItem<String>(
+                                            value: item,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Expanded(
+                                                  child: Text(
+                                                    item,
+                                                    style: const TextStyle(
+                                                      fontSize: 14,
+                                                    ),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        )
+                                        .toList(),
+                                    onChanged: (value) {
+                                      // addCategoryController.setCategoryType(
+                                      //     categoryId: widget.addCategoryModel.id,
+                                      //     categoryType: value);
+                                    },
+                                    onSaved: (value) {
+                                      // selectedValue = value.toString();
+                                    },
+                                  ),
+                                ],
+                              ),
+                              itemCount: ctx.attributes.length,
                             ),
                             const Padding(
                               padding: EdgeInsets.symmetric(vertical: 15),

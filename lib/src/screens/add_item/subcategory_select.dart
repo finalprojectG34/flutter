@@ -8,13 +8,14 @@ class SubcategorySelect extends StatelessWidget {
   final String name;
   final bool isSelectable;
   final List subcategories;
+  final List attributes;
   final AddItemController addItemController = Get.find();
 
   SubcategorySelect({
     Key? key,
     required this.name,
     required this.subcategories,
-    required this.isSelectable,
+    required this.isSelectable,required this.attributes
   }) : super(key: key);
 
   @override
@@ -37,6 +38,7 @@ class SubcategorySelect extends StatelessWidget {
               isSelectable: isSelectable,
               hasSubcategory: false,
               subcategories: subcategories,
+              attributes: attributes,
             ),
             Padding(
               padding: const EdgeInsets.only(left: 30),
@@ -49,6 +51,7 @@ class SubcategorySelect extends StatelessWidget {
                   isSelectable: subcategories[index]['isCreatable'],
                   hasSubcategory: subcategories[index]['hasSubcategory'],
                   subcategories: subcategories[index]['subCategories'],
+                  attributes: subcategories[index]['attributes'],
                 ),
                 itemCount: subcategories.length,
               ),
