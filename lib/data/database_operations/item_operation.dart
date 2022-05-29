@@ -636,6 +636,30 @@ class ItemOperation {
             });
   }
 
+  Future<Map<String, dynamic>> getMockSearchItems() async {
+    return Future.delayed(
+        const Duration(seconds: 1),
+        () => {
+              "getAllItems": [
+                {
+                  "name": "item 1",
+                  "price": {
+                    "discountPrice": 10000,
+                    "sale": 12000,
+                  },
+                  "attrs": [
+                    {
+                      "name": "condition",
+                      "val": "brand new",
+                    }
+                  ],
+                  "poster":
+                      "https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg"
+                }
+              ]
+            });
+  }
+
   Future<Item> addItem(variable) async {
     String addItemMutation = r'''
      mutation CreateItem($input: ItemCreateInput!) {
