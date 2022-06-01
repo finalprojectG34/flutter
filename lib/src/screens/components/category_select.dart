@@ -37,6 +37,7 @@ class CategorySelect extends StatelessWidget {
                               i < addItemController.categorySelectPages.value;
                               i++) {
                             addItemController.attributes(attributes);
+                            addItemController.selectedAttributes({});
                             Navigator.of(context).pop();
                           }
                           addItemController.categorySelectPages(0);
@@ -70,6 +71,7 @@ class CategorySelect extends StatelessWidget {
                       i < addItemController.categorySelectPages.value;
                       i++) {
                     addItemController.attributes(attributes);
+                    addItemController.selectedAttributes({});
                     Navigator.of(context).pop();
                   }
                   if (addItemController.tempCategories.isEmpty) {

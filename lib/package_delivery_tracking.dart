@@ -14,28 +14,25 @@ class PackageDeliveryTrackingPage extends StatelessWidget {
         itemBuilder: (context, index) {
           final data = _data(index + 1);
           return Center(
-            child: Container(
-              // width: 360.0,
-              child: Card(
-                margin: EdgeInsets.all(20.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: _OrderTitle(
-                        orderInfo: data,
-                      ),
+            child: Card(
+              margin: EdgeInsets.all(20.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: _OrderTitle(
+                      orderInfo: data,
                     ),
-                    Divider(height: 1.0),
-                    _DeliveryProcesses(processes: data.deliveryProcesses),
-                    Divider(height: 1.0),
-                    // Padding(
-                    //   padding: const EdgeInsets.all(20.0),
-                    //   child: _OnTimeBar(driver: data.driverInfo),
-                    // ),
-                  ],
-                ),
+                  ),
+                  Divider(height: 1.0),
+                  _DeliveryProcesses(processes: data.deliveryProcesses),
+                  Divider(height: 1.0),
+                  // Padding(
+                  //   padding: const EdgeInsets.all(20.0),
+                  //   child: _OnTimeBar(driver: data.driverInfo),
+                  // ),
+                ],
               ),
             ),
           );
@@ -120,7 +117,7 @@ class _InnerTimeline extends StatelessWidget {
               child: Text(messages[index - 1].toString()),
             );
           },
-          itemExtentBuilder: (_, index) => isEdgeIndex(index) ? 10.0 : 30.0,
+          // itemExtentBuilder: (_, index) => isEdgeIndex(index) ? 10.0 : 30.0,
           nodeItemOverlapBuilder: (_, index) =>
               isEdgeIndex(index) ? true : null,
           itemCount: messages.length + 2,

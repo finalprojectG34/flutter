@@ -17,6 +17,7 @@ class AddItemController extends GetxController {
   ''';
   RxString itemId = ''.obs;
   RxList attributes = [].obs;
+  RxMap<String, String> selectedAttributes = <String, String>{}.obs;
   ItemRepository itemRepository = ItemRepository();
 
   RxMap<String, dynamic>? mockCategory = <String, dynamic>{}.obs;
@@ -52,5 +53,31 @@ class AddItemController extends GetxController {
     itemId(item.id);
     print(item.toString() + ' ############################aaaa');
     // isCategoryFetchedFromDB(true);
+  }
+
+  addSelectedAttribute(String key, String value) {
+    if (selectedAttributes.isEmpty) {
+      // selectedAttributes.({key: value});
+      selectedAttributes.addEntries(
+        [
+          MapEntry(
+            key,
+            value,
+          ),
+        ],
+      );
+    } else if (selectedAttributes.containsKey(key)) {
+      selectedAttributes.update(key, (val) => value);
+    } else {
+      selectedAttributes.addEntries(
+        [
+          MapEntry(
+            key,
+            value,
+          ),
+        ],
+      );
+    }
+    print('len ${selectedAttributes}');
   }
 }

@@ -158,85 +158,111 @@ class _AddItemState extends State<AddItem> {
                               ),
                             ),
                             SizedBox(
-                              height: 5,
+                              height: 10,
                             ),
-                            // ListView.builder(
-                            //   shrinkWrap: true,
-                            //   itemBuilder: (context, index) => Row(
-                            //     children: [
-                            //       Text(
-                            //         ctx.attributes[index]['name'],
-                            //         style: TextStyle(fontSize: 18),
-                            //       ),
-                            //       DropdownButtonFormField2(
-                            //         value: 'widget.addCategoryModel.categoryType',
-                            //         decoration: InputDecoration(
-                            //           enabledBorder: const OutlineInputBorder(
-                            //             borderSide: BorderSide(
-                            //                 color: Colors.green, width: 0.5),
-                            //           ),
-                            //           focusedBorder: const OutlineInputBorder(
-                            //             borderSide: BorderSide(
-                            //                 color: Colors.green, width: 0.75),
-                            //           ),
-                            //           contentPadding: EdgeInsets.zero,
-                            //           border: OutlineInputBorder(
-                            //             borderRadius: BorderRadius.circular(5),
-                            //           ),
-                            //         ),
-                            //         isExpanded: true,
-                            //         hint: Text(
-                            //           'Select ${ctx.attributes[index]['name']}',
-                            //           style: TextStyle(
-                            //               fontSize: 14, color: Colors.green),
-                            //         ),
-                            //         icon: const Icon(
-                            //           Icons.arrow_drop_down,
-                            //           color: Colors.green,
-                            //         ),
-                            //         iconSize: 25,
-                            //         buttonPadding: const EdgeInsets.only(
-                            //             left: 20, right: 10),
-                            //         dropdownDecoration: BoxDecoration(
-                            //           borderRadius: BorderRadius.circular(10),
-                            //         ),
-                            //         items: ctx.attributes[index]['options']
-                            //             .map(
-                            //               (item) => DropdownMenuItem<String>(
-                            //                 value: item,
-                            //                 child: Row(
-                            //                   mainAxisAlignment:
-                            //                       MainAxisAlignment.center,
-                            //                   children: [
-                            //                     Expanded(
-                            //                       child: Text(
-                            //                         item,
-                            //                         style: const TextStyle(
-                            //                           fontSize: 14,
-                            //                         ),
-                            //                         textAlign: TextAlign.center,
-                            //                       ),
-                            //                     ),
-                            //                   ],
-                            //                 ),
-                            //               ),
-                            //             )
-                            //             .toList(),
-                            //         onChanged: (value) {
-                            //           // addCategoryController.setCategoryType(
-                            //           //     categoryId: widget.addCategoryModel.id,
-                            //           //     categoryType: value);
-                            //         },
-                            //         onSaved: (value) {
-                            //           // selectedValue = value.toString();
-                            //         },
-                            //       ),
-                            //     ],
-                            //   ),
-                            //   itemCount: ctx.attributes.length,
-                            // ),
+                            ListView.separated(
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) => Padding(
+                                padding: const EdgeInsets.only(left: 20),
+                                child: Row(
+                                  children: [
+                                    // Text(
+                                    //   ctx.attributes[index]['name'],
+                                    //   style: TextStyle(fontSize: 18),
+                                    // ),
+                                    Expanded(
+                                      child: DropdownButtonFormField2(
+                                        // value: 'Select ',
+                                        key: UniqueKey(),
+                                        decoration: InputDecoration(
+                                          labelText: ctx.attributes[index]
+                                              ['name'],
+                                          enabledBorder:
+                                              const OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.blue, width: 0.5),
+                                          ),
+                                          focusedBorder:
+                                              const OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.blue,
+                                                width: 0.75),
+                                          ),
+                                          contentPadding: EdgeInsets.zero,
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          ),
+                                        ),
+                                        isExpanded: true,
+                                        hint: Text(
+                                          'Select ${ctx.attributes[index]['name']}',
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.green),
+                                        ),
+                                        icon: const Icon(
+                                          Icons.arrow_drop_down,
+                                          color: Colors.green,
+                                        ),
+                                        iconSize: 25,
+                                        buttonPadding: const EdgeInsets.only(
+                                            left: 20, right: 10),
+                                        dropdownDecoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        items: (ctx.attributes[index]['options']
+                                                as List<String>)
+                                            .map(
+                                          (item) {
+                                            print(item);
+                                            return DropdownMenuItem<String>(
+                                              value: item,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Expanded(
+                                                    child: Text(
+                                                      item,
+                                                      style: const TextStyle(
+                                                        fontSize: 14,
+                                                      ),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        ).toList(),
+                                        onChanged: (value) {
+                                          // print('onsaved  $value');
+                                          ctx.addSelectedAttribute(
+                                              ctx.attributes[index]['name'],
+                                              value.toString());
+                                          // addCategoryController.setCategoryType(
+                                          //     categoryId: widget.addCategoryModel.id,
+                                          //     categoryType: value);
+                                        },
+                                        onSaved: (value) {
+                                          // selectedValue = value.toString();
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              itemCount: ctx.attributes.length,
+                              separatorBuilder:
+                                  (BuildContext context, int index) => SizedBox(
+                                height: 10,
+                              ),
+                            ),
                             const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 15),
+                              padding: EdgeInsets.symmetric(vertical: 10),
                               child: TextField(
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
@@ -379,28 +405,27 @@ class _AddItemState extends State<AddItem> {
                                               Navigator.pop(context);
                                             },
                                             child: Container(
-                                                padding: EdgeInsets.all(30),
-                                                decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                        color: Colors.grey),
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                10))),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: [
-                                                    Text('Add from gallery'),
-                                                    SizedBox(
-                                                      height: 10,
-                                                    ),
-                                                    Icon(
-                                                      Icons.camera,
-                                                      size: 30,
-                                                    )
-                                                  ],
-                                                )),
+                                              padding: EdgeInsets.all(30),
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color: Colors.grey),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(10))),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Text('Add from gallery'),
+                                                  SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  Icon(
+                                                    Icons.camera,
+                                                    size: 30,
+                                                  )
+                                                ],
+                                              ),
+                                            ),
                                           )
                                         ],
                                       ),
