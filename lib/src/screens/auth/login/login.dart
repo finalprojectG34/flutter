@@ -14,16 +14,21 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: GetX<LoginController>(
-        builder: (ctx) {
-          if (ctx.loading.isTrue) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          return body(ctx);
-        },
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        body: GetX<LoginController>(
+          builder: (ctx) {
+            if (ctx.loading.isTrue) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return body(ctx);
+          },
+        ),
       ),
     );
   }
@@ -36,7 +41,7 @@ class Login extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 12),
           child: Column(
             children: [
-              const Padding(padding: EdgeInsets.only(top: 100)),
+              const Padding(padding: EdgeInsets.only(top: 30)),
               Center(
                 child: null,
               ),
@@ -91,6 +96,32 @@ class Login extends StatelessWidget {
                   keyboardType: TextInputType.phone,
                   validator: validateMobileNum),
               const SizedBox(
+                height: 10,
+              ),
+              TextFormField(
+                validator: validatePassword,
+                obscureText: true,
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.lock),
+                  contentPadding: const EdgeInsets.all(10),
+                  hintText: "Password",
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6),
+                      borderSide:
+                          BorderSide(color: Colors.grey[200]!, width: 1)),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6),
+                      borderSide:
+                          BorderSide(color: Colors.grey[200]!, width: 1)),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6),
+                      borderSide:
+                          BorderSide(color: Colors.grey[200]!, width: 1)),
+                ),
+                maxLines: 1,
+                keyboardType: TextInputType.emailAddress,
+              ),
+              const SizedBox(
                 height: 20,
               ),
               ElevatedButton(
@@ -115,7 +146,7 @@ class Login extends StatelessWidget {
                         fontSize: 13),
                   )),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
               // Row(
               //   children: [
@@ -206,9 +237,9 @@ class Login extends StatelessWidget {
               //     ],
               //   ),
               // ),
-              const SizedBox(
-                height: 10,
-              ),
+              // const SizedBox(
+              //   height: 10,
+              // ),
               TextButton(
                 onPressed: () {
                   Get.to(() => const ResetPassword());
@@ -223,9 +254,9 @@ class Login extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              // const SizedBox(
+              //   height: 10,
+              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

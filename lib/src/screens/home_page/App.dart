@@ -5,19 +5,18 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_getx_widget.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:sms/src/app.dart';
 import 'package:sms/src/screens/drawer/drawer.dart';
+import 'package:sms/src/screens/filter/filter.dart';
 import 'package:sms/src/screens/screens.dart';
 
 import '../../../package_delivery_tracking.dart';
 import '../auth/login/login.dart';
 import '../cart/cart.dart';
-import '../components/single_item_search_component.dart';
 import 'AppCtx.dart';
-import 'item_detail/item_detail.dart';
 
 part 'app_components.dart';
 
 class App extends StatefulWidget {
-  const App({Key? key,this.index}) : super(key: key);
+  const App({Key? key, this.index}) : super(key: key);
   final int? index;
 
   @override
@@ -101,9 +100,7 @@ class _AppState extends State<App> {
       // return Text('Login page');
       case 3:
         appController.changePage('Offer', index);
-        return ItemDetails(
-          item: Item(),
-        );
+        return Filter();
       // ItemDetails(Item(name: 'name',price: '230',category: 'cat',description: 'some desc',));
       case 4:
         appController.changePage('Account', index);
@@ -116,6 +113,7 @@ class _AppState extends State<App> {
         );
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return GetX<AppController>(
@@ -133,14 +131,16 @@ class _AppState extends State<App> {
                   },
                   icon: const Icon(Icons.search),
                 ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.shopping_cart_outlined),
-              )
+              ctx.isAuthenticated.isTrue
+                  ? IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.shopping_cart_outlined),
+                    )
+                  : Container()
             ],
           ),
-          body: _mapIndexToPage( ctx.selectedIndex.value),
-          drawer: const DrawerPage(),
+          body: _mapIndexToPage(ctx.selectedIndex.value),
+          drawer: DrawerPage(),
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: ctx.selectedIndex.value,
             type: BottomNavigationBarType.fixed,

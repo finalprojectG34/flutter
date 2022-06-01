@@ -3,7 +3,7 @@ import 'package:timelines/timelines.dart';
 
 import '../widget.dart';
 
-const kTileHeight = 50.0;
+// const kTileHeight = 50.0;
 
 class PackageDeliveryTrackingPage extends StatelessWidget {
   @override

@@ -35,7 +35,7 @@ class User extends Equatable {
   List<Object?> get props =>
       [id, firstName, email, role, image, password, phone];
 
-  factory User.fromJson(Map<String, dynamic> json) {
+  factory User.fromJson(Map<String, dynamic> json, {String? token}) {
     // logTrace("inFactory");
     User item = User(
       id: json['_id'],
@@ -44,7 +44,7 @@ class User extends Equatable {
       email: json['email'],
       role: json['role'],
       image: json['image'],
-      token: json['token'],
+      token: token,
       password: json['password'],
       phone: json['phone'],
     );

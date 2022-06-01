@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:sms/src/screens/home_page/AppCtx.dart';
 
 import '../../../../data/repository/user_repository.dart';
 import '../../../models/user.dart' as user;
+import '../../home_page/AppCtx.dart';
 import '../verification/code_verification.dart';
 
 class SignUpController extends GetxController {
@@ -13,111 +14,99 @@ class SignUpController extends GetxController {
   RxBool isUserCreatedSuccessfully = false.obs;
   RxBool error = false.obs;
   String verificationId = "";
+
+  // String? signUpToken;
   user.User? createdUser;
   UserRepository userRepository = UserRepository();
+  final storage = new FlutterSecureStorage();
   var userVariable;
 
   signupUser(variable) async {
-    print(userVariable);
+    // print(userVariable);
     isLoading(true);
     try {
       createdUser = await userRepository.signupUser(userVariable);
     } catch (e) {
-      print('$e   the erooooooooooooooooor');
-      error(true);
+      EasyLoading.showError('Some error occurred. Please try again',
+          maskType: EasyLoadingMaskType.black,
+          duration: const Duration(seconds: 3));
+      Get.back();
     }
-
-    isLoading(false);
-    // if (createdUser != null) {
-    //   isUserCreatedSuccessfully(true);
-    // }
-    // print(createdUser.toString() + ' ############################aaaa');
-    // isCategoryFetchedFromDB(true);
   }
 
   sendOtp(variable) async {
     userVariable = variable;
-    isLoading(true);
     try {
       await FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: variable['token']['phone'],
         verificationCompleted: (PhoneAuthCredential credential) {},
         verificationFailed: (FirebaseAuthException e) {
-          Fluttertoast.showToast(
-              msg: e.message ?? "Something went wrong. Try Again");
-          isLoading(false);
+          EasyLoading.dismiss();
+          EasyLoading.showError(e.message ?? "Something went wrong. Try Again",
+              maskType: EasyLoadingMaskType.black);
         },
         codeSent: (verificationId, [resendToken]) {
           this.verificationId = verificationId;
-          Get.to(() => CodeVerification(
-                redirectFrom: 'signUp',
-                variable: variable,
-              ));
-          isLoading(false);
+          EasyLoading.dismiss();
+          Get.to(
+            () => CodeVerification(
+              redirectFrom: 'signUp',
+            ),
+          );
         },
-        codeAutoRetrievalTimeout: (String verificationId) {},
-        timeout: const Duration(seconds: 100),
+        codeAutoRetrievalTimeout: (String verificationId) {
+          EasyLoading.dismiss();
+          // EasyLoading.showError('Timeout. Try again',
+          //     maskType: EasyLoadingMaskType.black);
+        },
+        timeout: const Duration(seconds: 60),
       );
     } catch (e) {
-      error(true);
+      EasyLoading.dismiss();
+      EasyLoading.showError(e.toString(),
+          maskType: EasyLoadingMaskType.black,
+          duration: const Duration(seconds: 5));
     } finally {}
   }
 
-  signUp(String smsCode, variable) {
-    isVerificationLoading(true);
-    var a;
+  signUp(String smsCode) {
+    EasyLoading.show(
+      status: 'please wait ...',
+      maskType: EasyLoadingMaskType.black,
+    );
+
+    var token;
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationId, smsCode: smsCode);
     FirebaseAuth.instance.authStateChanges().listen((event) async {
-      a ??= await event?.getIdToken();
+      token ??= await event?.getIdToken();
 
-      print('**************************** $a');
+      print('**************************** $token');
     });
     FirebaseAuth.instance
         .signInWithCredential(credential)
         .then((UserCredential result) async {
-      // result.additionalUserInfo.
-      // result.credential
-      if (a != null) {
-        // isLoading(true);
-        userVariable['token']['idToken'] = a;
-        userVariable['token']['phone'] = 'mhngbytbte';
+      if (token != null) {
+        userVariable['token']['idToken'] = token;
+        userVariable['token']['phone'] = '+251912121212';
         await signupUser(userVariable);
-        isVerificationLoading(false);
-
-        // Navigator.pop
-        // Get.offAll(()=> App());
-
-        isLoading(false);
-        // if (createdUser != null) {
-        //   isUserCreatedSuccessfully(true);
-        //   // isVerificationLoading(false);
-        //   // Fluttertoast.showToast(msg: "Account created successfully");
-        //   // AppController appController = Get.find();
-        //   // appController.changePage('Home', 0);
-        //   // Get.back();
-        //   // Get.back();
-        //   // print('yoooohooooooooooooo');
-        //   // Fluttertoast.showToast(
-        //   //     msg: "Account created successfully");
-        // }
-      }
-      if (createdUser != null) {
-        Fluttertoast.showToast(msg: "Account created successfully");
-        AppController appController = Get.find();
-        appController.changePage('Home', 0);
-        Get.back();
-        Get.back();
-        print('yoooohooooooooooooo');
+        if (createdUser != null) {
+          await storage.write(key: 'token', value: createdUser?.token);
+          EasyLoading.showSuccess('Account created successfully',
+              maskType: EasyLoadingMaskType.black);
+          AppController appController = Get.find();
+          appController.changePage('Home', 0);
+          appController.isAuthenticated(true);
+          Get.offNamed('/');
+        }
       } else {
-        Fluttertoast.showToast(msg: "Some error occurred");
+        EasyLoading.showError('Some error occurred',
+            maskType: EasyLoadingMaskType.black);
+        Get.back();
       }
-      // Get.offAll(() => Home(
-      //   hasSearchBar: appController.hasSearchIcon.isFalse,
-      // ));
     }).catchError((e) {
-      isVerificationLoading(false);
-      Fluttertoast.showToast(msg: 'Invalid code or code expired');
+      EasyLoading.showError(e, maskType: EasyLoadingMaskType.black);
+      Get.back();
     });
   }
 }

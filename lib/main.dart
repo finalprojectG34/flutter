@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:image_picker/image_picker.dart';
@@ -43,6 +44,7 @@ class _AppViewState extends State<AppView> {
       child: GetMaterialApp(
         title: 'Sms',
         initialRoute: '/',
+        builder: EasyLoading.init(),
         debugShowCheckedModeBanner: false,
         onGenerateRoute: RouteGenerator.generateRoute,
         initialBinding: ApplicationBindings(),
