@@ -80,4 +80,11 @@ class AddItemController extends GetxController {
     }
     print('len ${selectedAttributes}');
   }
+
+  changeAttribute(variable) {
+    // attributes.clear();
+    // attributes.
+    // attributes = variable.obs;
+    attributes(variable);
+  }
 }

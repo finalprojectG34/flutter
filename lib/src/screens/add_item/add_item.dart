@@ -162,6 +162,7 @@ class _AddItemState extends State<AddItem> {
                             ),
                             ListView.separated(
                               shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
                               itemBuilder: (context, index) => Padding(
                                 padding: const EdgeInsets.only(left: 20),
                                 child: Row(
@@ -173,7 +174,7 @@ class _AddItemState extends State<AddItem> {
                                     Expanded(
                                       child: DropdownButtonFormField2(
                                         // value: 'Select ',
-                                        key: UniqueKey(),
+                                        // key: UniqueKey(),
                                         decoration: InputDecoration(
                                           labelText: ctx.attributes[index]
                                               ['name'],
@@ -216,9 +217,10 @@ class _AddItemState extends State<AddItem> {
                                                 as List<String>)
                                             .map(
                                           (item) {
-                                            print(item);
+                                            // print(item);
                                             return DropdownMenuItem<String>(
                                               value: item,
+                                              // key: UniqueKey(),
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,

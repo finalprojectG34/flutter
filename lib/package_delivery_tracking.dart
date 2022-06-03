@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:timelines/timelines.dart';
 
-import '../widget.dart';
-
-// const kTileHeight = 50.0;
-
 class PackageDeliveryTrackingPage extends StatelessWidget {
+  const PackageDeliveryTrackingPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: TitleAppBar('Package Delivery Tracking'),
       body: ListView.builder(
         itemBuilder: (context, index) {
           final data = _data(index + 1);
           return Center(
             child: Card(
-              margin: EdgeInsets.all(20.0),
+              margin: const EdgeInsets.all(20.0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -25,13 +22,9 @@ class PackageDeliveryTrackingPage extends StatelessWidget {
                       orderInfo: data,
                     ),
                   ),
-                  Divider(height: 1.0),
+                  const Divider(height: 1.0),
                   _DeliveryProcesses(processes: data.deliveryProcesses),
-                  Divider(height: 1.0),
-                  // Padding(
-                  //   padding: const EdgeInsets.all(20.0),
-                  //   child: _OnTimeBar(driver: data.driverInfo),
-                  // ),
+                  const Divider(height: 1.0),
                 ],
               ),
             ),
@@ -57,14 +50,14 @@ class _OrderTitle extends StatelessWidget {
       children: [
         Text(
           'Delivery #${orderInfo.id}',
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
-        Spacer(),
+        const Spacer(),
         Text(
           '${orderInfo.date.day}/${orderInfo.date.month}/${orderInfo.date.year}',
-          style: TextStyle(
+          style: const TextStyle(
             color: Color(0xffb6b2b2),
           ),
         ),
@@ -111,9 +104,7 @@ class _InnerTimeline extends StatelessWidget {
             }
 
             return Padding(
-              padding: EdgeInsets.only(
-                left: 8.0,
-              ),
+              padding: const EdgeInsets.only(left: 8.0, bottom: 10),
               child: Text(messages[index - 1].toString()),
             );
           },
@@ -136,7 +127,7 @@ class _DeliveryProcesses extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTextStyle(
-      style: TextStyle(
+      style: const TextStyle(
         color: Color(0xff9b9b9b),
         fontSize: 12.5,
       ),
@@ -147,11 +138,11 @@ class _DeliveryProcesses extends StatelessWidget {
           theme: TimelineThemeData(
             nodePosition: 0,
             color: Colors.blue,
-            indicatorTheme: IndicatorThemeData(
+            indicatorTheme: const IndicatorThemeData(
               position: 0,
               size: 20.0,
             ),
-            connectorTheme: ConnectorThemeData(
+            connectorTheme: const ConnectorThemeData(
               thickness: 2.5,
             ),
           ),
@@ -164,7 +155,7 @@ class _DeliveryProcesses extends StatelessWidget {
                 return null;
               }
               return Padding(
-                padding: EdgeInsets.only(left: 8.0),
+                padding: const EdgeInsets.only(left: 8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
@@ -176,12 +167,13 @@ class _DeliveryProcesses extends StatelessWidget {
                           ),
                     ),
                     Card(
-                        color: Colors.green.shade50,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: _InnerTimeline(
-                              messages: processes[index].messages),
-                        )),
+                      color: Colors.green.shade50,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child:
+                            _InnerTimeline(messages: processes[index].messages),
+                      ),
+                    ),
                   ],
                 ),
               );
@@ -194,7 +186,7 @@ class _DeliveryProcesses extends StatelessWidget {
                 return null;
               } else if (processes[index].isCompleted) {
                 // return null;
-                return DotIndicator(
+                return const DotIndicator(
                   color: Color(0xff66c97f),
                   child: Icon(
                     Icons.check,
@@ -203,7 +195,7 @@ class _DeliveryProcesses extends StatelessWidget {
                   ),
                 );
               } else {
-                return OutlinedDotIndicator(
+                return const OutlinedDotIndicator(
                   borderWidth: 2.5,
                 );
               }
@@ -230,23 +222,23 @@ class _OnTimeBar extends StatelessWidget {
         MaterialButton(
           onPressed: () {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
+              const SnackBar(
                 content: Text('On-time!'),
               ),
             );
           },
           elevation: 0,
-          shape: StadiumBorder(),
-          color: Color(0xff66c97f),
+          shape: const StadiumBorder(),
+          color: const Color(0xff66c97f),
           textColor: Colors.white,
-          child: Text('On-time'),
+          child: const Text('On-time'),
         ),
-        Spacer(),
+        const Spacer(),
         Text(
           'Driver\n${driver.name}',
           textAlign: TextAlign.center,
         ),
-        SizedBox(width: 12.0),
+        const SizedBox(width: 12.0),
         Container(
           width: 40.0,
           height: 40.0,
@@ -268,13 +260,12 @@ class _OnTimeBar extends StatelessWidget {
 _OrderInfo _data(int id) => _OrderInfo(
       id: id,
       date: DateTime.now(),
-      driverInfo: _DriverInfo(
+  driverInfo: const _DriverInfo(
         name: 'Philipe',
         thumbnailUrl:
             'https://i.pinimg.com/originals/08/45/81/084581e3155d339376bf1d0e17979dc6.jpg',
       ),
-      deliveryProcesses: [
-        // _DeliveryProcess.complete(),
+  deliveryProcesses: const [
         _DeliveryProcess(
           'Package Process',
           messages: [

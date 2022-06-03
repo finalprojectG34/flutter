@@ -5,7 +5,7 @@ import '../../src/models/models.dart';
 class UserRepository {
   final GraphQLClient _gqlClient = GraphQLClient(
       cache: GraphQLCache(),
-      link: HttpLink("http://192.168.137.197:8000/graphql"));
+      link: HttpLink("http://192.168.0.36:8000/graphql"));
 
   // SignUpController signUpController = Get.find();
 
@@ -56,6 +56,5 @@ class UserRepository {
     if (response.data!['login']['user'] != null) {
       return User.fromJson(response.data!['login']['user']);
     }
-    return null;
   }
 }
