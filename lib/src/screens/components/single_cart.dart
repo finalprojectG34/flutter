@@ -20,8 +20,11 @@ class _SingleCartState extends State<SingleCart> {
           children: [
             Expanded(
                 flex: 1,
-                child: Image.asset('assets/images/nike_shoe.jpg',
-                    fit: BoxFit.fitHeight,height: 120,)),
+                child: Image.asset(
+                  'assets/images/nike_shoe.jpg',
+                  fit: BoxFit.fitHeight,
+                  height: 120,
+                )),
             Expanded(
               flex: 3,
               child: Padding(
@@ -123,14 +126,12 @@ class _SingleCartState extends State<SingleCart> {
                                     // controller: _frequencyController,
                                     textAlign: TextAlign.center,
                                     decoration: const InputDecoration(
-                                      fillColor: color2 ,
+                                      fillColor: color2,
                                       focusColor: color2,
                                       enabledBorder: InputBorder.none,
                                       focusedBorder: InputBorder.none,
                                       border: InputBorder.none,
                                       filled: true,
-
-
 
                                       // enabledBorder: OutlineInputBorder(
                                       //   borderSide: BorderSide(

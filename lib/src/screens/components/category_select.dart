@@ -53,7 +53,7 @@ class CategorySelect extends StatelessWidget {
                           addItemController.tempCategories = [];
                         }
                       : () {
-            addItemController.categorySelectPages++;
+                          addItemController.categorySelectPages++;
                           // addItemController.tempCategories.add(name);
                           if (addItemController.tempCategories.isEmpty) {
                             addItemController.tempCategories.add(name);
@@ -92,7 +92,7 @@ class CategorySelect extends StatelessWidget {
           ),
           trailing: isOnSubcategoryPage
               ? OutlinedButton(
-            onPressed: isSelectable ? () {} : null,
+                  onPressed: isSelectable ? () {} : null,
                   child: const Text('select'),
                 )
               : hasSubcategory

@@ -3,10 +3,8 @@
 export './category_page/category.dart';
 export './components/components.dart';
 export './home_page/App.dart';
-
 // home page
 export './home_page/Home.dart';
-
 // profile
 export './profile_page/addAddress.dart';
 export './profile_page/changePassword.dart';

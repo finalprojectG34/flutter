@@ -11,12 +11,13 @@ class SubcategorySelect extends StatelessWidget {
   final List attributes;
   final AddItemController addItemController = Get.find();
 
-  SubcategorySelect({
-    Key? key,
-    required this.name,
-    required this.subcategories,
-    required this.isSelectable,required this.attributes
-  }) : super(key: key);
+  SubcategorySelect(
+      {Key? key,
+      required this.name,
+      required this.subcategories,
+      required this.isSelectable,
+      required this.attributes})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

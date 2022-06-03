@@ -1,12 +1,10 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sms/src/custom_animation.dart';
 import 'package:sms/test_page.dart';
-
-import './test.dart';
 
 void main() {
   runApp(MyApp());

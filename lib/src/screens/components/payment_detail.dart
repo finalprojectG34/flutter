@@ -56,11 +56,12 @@ class PaymentDetail extends StatelessWidget {
               children: const [
                 Text(
                   'Total Price',
-                  style: TextStyle(color: color1, fontSize: 16,fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      color: color1, fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   'ETB 150.22',
-                  style: TextStyle(fontSize: 16,color: Colors.lightBlue),
+                  style: TextStyle(fontSize: 16, color: Colors.lightBlue),
                 ),
               ],
             ),

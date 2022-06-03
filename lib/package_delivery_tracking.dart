@@ -260,12 +260,12 @@ class _OnTimeBar extends StatelessWidget {
 _OrderInfo _data(int id) => _OrderInfo(
       id: id,
       date: DateTime.now(),
-  driverInfo: const _DriverInfo(
+      driverInfo: const _DriverInfo(
         name: 'Philipe',
         thumbnailUrl:
             'https://i.pinimg.com/originals/08/45/81/084581e3155d339376bf1d0e17979dc6.jpg',
       ),
-  deliveryProcesses: const [
+      deliveryProcesses: const [
         _DeliveryProcess(
           'Package Process',
           messages: [

@@ -1,12 +1,8 @@
-import 'dart:async';
-import 'dart:io';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:sms/src/packages/application_bindings.dart';
 import 'package:sms/src/screens/routes/generate_routes.dart';
 

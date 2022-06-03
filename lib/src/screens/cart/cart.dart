@@ -23,26 +23,19 @@ class Cart extends StatelessWidget {
               ],
             ),
           ),
-
           const SizedBox(
             height: 50,
           ),
-
           const PaymentDetail(),
-
-
           ElevatedButton(
               style: ButtonStyle(
-                shadowColor:
-                MaterialStateProperty.all(Colors.lightBlueAccent),
+                shadowColor: MaterialStateProperty.all(Colors.lightBlueAccent),
                 elevation: MaterialStateProperty.all(5),
                 backgroundColor:
-                MaterialStateProperty.all(const Color(0xff40BFFF)),
+                    MaterialStateProperty.all(const Color(0xff40BFFF)),
                 fixedSize: MaterialStateProperty.all(Size(Get.width, 54)),
               ),
-              onPressed: () {
-
-              },
+              onPressed: () {},
               child: const Text(
                 "Check Out",
                 style: TextStyle(

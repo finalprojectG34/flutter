@@ -29,8 +29,7 @@ void customTrace() {
 
 var bottom = "^~~~~~~~~~~~~~~~^^~~~~~~~~~~~~~~~^";
 
-void logTrace(
-  String key, [
+void logTrace(String key, [
   dynamic value,
 ]) {
   dynamic val = "";
