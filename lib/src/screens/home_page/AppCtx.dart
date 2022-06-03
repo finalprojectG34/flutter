@@ -9,6 +9,7 @@ class AppController extends GetxController {
   RxBool hasSearchIcon = true.obs;
   RxString pageName = 'Home'.obs;
   RxInt selectedIndex = 0.obs;
+  RxBool isSearchBarActive = false.obs;
   RxBool isAuthenticated = false.obs;
   String query = '''
   query GetAllItems{

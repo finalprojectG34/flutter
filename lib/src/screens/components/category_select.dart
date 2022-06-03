@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:sms/src/screens/add_item/add_item_ctx.dart';
 import 'package:sms/src/screens/add_item/subcategory_select.dart';
 
@@ -19,7 +18,8 @@ class CategorySelect extends StatelessWidget {
       required this.isOnSubcategoryPage,
       required this.isSelectable,
       required this.hasSubcategory,
-      required this.subcategories,required this.attributes})
+      required this.subcategories,
+      required this.attributes})
       : super(key: key);
 
   @override
@@ -36,7 +36,9 @@ class CategorySelect extends StatelessWidget {
                           for (int i = 0;
                               i < addItemController.categorySelectPages.value;
                               i++) {
-                            addItemController.attributes(attributes);
+                            // addItemController.attributes([]);
+                            addItemController.changeAttribute(attributes);
+                            addItemController.selectedAttributes({});
                             Navigator.of(context).pop();
                           }
                           addItemController.categorySelectPages(0);
@@ -51,7 +53,7 @@ class CategorySelect extends StatelessWidget {
                           addItemController.tempCategories = [];
                         }
                       : () {
-                          addItemController.categorySelectPages++;
+            addItemController.categorySelectPages++;
                           // addItemController.tempCategories.add(name);
                           if (addItemController.tempCategories.isEmpty) {
                             addItemController.tempCategories.add(name);
@@ -61,15 +63,18 @@ class CategorySelect extends StatelessWidget {
                           }
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => SubcategorySelect(
-                                  name: name,
-                                  subcategories: subcategories,
-                                  isSelectable: isSelectable,attributes: attributes,)));
+                                    name: name,
+                                    subcategories: subcategories,
+                                    isSelectable: isSelectable,
+                                    attributes: attributes,
+                                  )));
                         }
               : () {
                   for (int i = 0;
                       i < addItemController.categorySelectPages.value;
                       i++) {
-                    addItemController.attributes(attributes);
+                    addItemController.changeAttribute(attributes);
+                    addItemController.selectedAttributes({});
                     Navigator.of(context).pop();
                   }
                   if (addItemController.tempCategories.isEmpty) {
@@ -87,11 +92,11 @@ class CategorySelect extends StatelessWidget {
           ),
           trailing: isOnSubcategoryPage
               ? OutlinedButton(
-                  onPressed: isSelectable ? () {} : null,
-                  child: Text('select'),
+            onPressed: isSelectable ? () {} : null,
+                  child: const Text('select'),
                 )
               : hasSubcategory
-                  ? Icon(Icons.arrow_forward_rounded)
+                  ? const Icon(Icons.arrow_forward_rounded)
                   : null,
         ),
       ),

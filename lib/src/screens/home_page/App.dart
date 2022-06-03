@@ -118,52 +118,58 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return GetX<AppController>(
       builder: (ctx) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(ctx.pageName.value),
-            elevation: 2,
-            centerTitle: true,
-            actions: [
-              if (ctx.hasSearchIcon.value)
-                IconButton(
-                  onPressed: () {
-                    ctx.disableSearchIcon();
-                  },
-                  icon: const Icon(Icons.search),
+        return GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text(ctx.pageName.value),
+              elevation: 2,
+              centerTitle: true,
+              actions: [
+                if (ctx.hasSearchIcon.value)
+                  IconButton(
+                    onPressed: () {
+                      ctx.disableSearchIcon();
+                      ctx.isSearchBarActive(true);
+                    },
+                    icon: const Icon(Icons.search),
+                  ),
+                ctx.isAuthenticated.isTrue
+                    ? IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.shopping_cart_outlined),
+                      )
+                    : Container()
+              ],
+            ),
+            body: _mapIndexToPage(ctx.selectedIndex.value),
+            drawer: DrawerPage(),
+            bottomNavigationBar: BottomNavigationBar(
+              currentIndex: ctx.selectedIndex.value,
+              type: BottomNavigationBarType.fixed,
+              onTap: _mapIndexToPage,
+              items: const [
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.home_outlined), label: 'Home'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.search), label: 'Explore'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.shopping_cart_outlined), label: 'Cart'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.local_offer_outlined), label: 'Offer'),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.person_outline_rounded),
+                  label: 'Account',
                 ),
-              ctx.isAuthenticated.isTrue
-                  ? IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.shopping_cart_outlined),
-                    )
-                  : Container()
-            ],
-          ),
-          body: _mapIndexToPage(ctx.selectedIndex.value),
-          drawer: DrawerPage(),
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: ctx.selectedIndex.value,
-            type: BottomNavigationBarType.fixed,
-            onTap: _mapIndexToPage,
-            items: const [
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.home_outlined), label: 'Home'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.search), label: 'Explore'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.shopping_cart_outlined), label: 'Cart'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.local_offer_outlined), label: 'Offer'),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person_outline_rounded),
-                label: 'Account',
-              ),
-              // if (authenticationState.status ==
-              //     AuthenticationStatus.authenticated &&
-              //     authenticationState.user.role == "ADMIN")
-              //   BottomNavigationBarItem(
-              //       icon: Icon(Icons.dashboard), label: 'Admin'),
-            ],
+                // if (authenticationState.status ==
+                //     AuthenticationStatus.authenticated &&
+                //     authenticationState.user.role == "ADMIN")
+                //   BottomNavigationBarItem(
+                //       icon: Icon(Icons.dashboard), label: 'Admin'),
+              ],
+            ),
           ),
         );
       },
