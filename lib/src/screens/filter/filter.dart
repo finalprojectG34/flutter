@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../helper/constance.dart';
 
@@ -8,6 +9,7 @@ class Filter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -127,34 +129,67 @@ class Filter extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            const Text(
-              "Buying Format",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: 14, color: color1),
+
+            ElevatedButton(
+              style: ButtonStyle(
+                shadowColor: MaterialStateProperty.all(
+                    Colors.lightBlueAccent),
+                elevation: MaterialStateProperty.all(6),
+                backgroundColor: MaterialStateProperty.all(
+                    const Color(0xff40BFFF)),
+                fixedSize: MaterialStateProperty.all(
+                    Size(Get.width, 54)),
+              ),
+              onPressed: ()  {
+               Get.back();
+
+                // signUpController.signupUser({
+                //   "input": {
+                //     "firstName": firstName,
+                //     "lastName": lastName,
+                //     "phone": phoneNumber,
+                //     // "password": "my password"
+                //   }
+                // });
+
+                // ctx.sendFakeOtp();
+              },
+              child: const Text(
+                "Filter",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13),
+              ),
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            Wrap(spacing: 5, runSpacing: 5, children: [
-              CustomChip(
-                  isSelected: false,
-                  label: "All Listings",
-                  onSelected: (value) {}),
-              CustomChip(
-                  isSelected: true,
-                  label: "Accept Offers",
-                  onSelected: (value) {}),
-              CustomChip(
-                  isSelected: false, label: "Auction", onSelected: (value) {}),
-              CustomChip(
-                  isSelected: false,
-                  label: "Buy it now",
-                  onSelected: (value) {}),
-              CustomChip(
-                  isSelected: false,
-                  label: "Classified Ads",
-                  onSelected: (value) {})
-            ])
+            // const Text(
+            //   "Buying Format",
+            //   style: TextStyle(
+            //       fontWeight: FontWeight.bold, fontSize: 14, color: color1),
+            // ),
+            // const SizedBox(
+            //   height: 10,
+            // ),
+            // Wrap(spacing: 5, runSpacing: 5, children: [
+            //   CustomChip(
+            //       isSelected: false,
+            //       label: "All Listings",
+            //       onSelected: (value) {}),
+            //   CustomChip(
+            //       isSelected: true,
+            //       label: "Accept Offers",
+            //       onSelected: (value) {}),
+            //   CustomChip(
+            //       isSelected: false, label: "Auction", onSelected: (value) {}),
+            //   CustomChip(
+            //       isSelected: false,
+            //       label: "Buy it now",
+            //       onSelected: (value) {}),
+            //   CustomChip(
+            //       isSelected: false,
+            //       label: "Classified Ads",
+            //       onSelected: (value) {})
+            // ])
           ],
         ),
       ),
