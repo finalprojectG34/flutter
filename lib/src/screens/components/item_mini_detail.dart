@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:sms/src/screens/home_page/AppCtx.dart';
 
 import '../../models/item.dart';
 
 class ItemMiniDetail extends StatelessWidget {
   final Item item;
 
-  const ItemMiniDetail({Key? key, required this.item}) : super(key: key);
+  ItemMiniDetail({Key? key, required this.item}) : super(key: key);
+  final AppController appController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -200,7 +204,9 @@ class ItemMiniDetail extends StatelessWidget {
                   ),
                 ),
                 borderRadius: BorderRadius.circular(50),
-                onTap: () {},
+                onTap: () {
+                  appController.changePage('Cart', 3);
+                },
               ),
             ),
           )

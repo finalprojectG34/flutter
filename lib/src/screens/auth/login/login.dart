@@ -246,20 +246,20 @@ class Login extends StatelessWidget {
                     // const SizedBox(
                     //   height: 10,
                     // ),
-                    TextButton(
-                      onPressed: () {
-                        Get.to(() => ResetPassword());
-                      },
-                      child: const Center(
-                        child: Text(
-                          "Forgot password",
-                          style: TextStyle(
-                              color: Color(0xff40BFFF),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13),
-                        ),
-                      ),
-                    ),
+                    // TextButton(
+                    //   onPressed: () {
+                    //     Get.to(() => ResetPassword());
+                    //   },
+                    //   child: const Center(
+                    //     child: Text(
+                    //       "Forgot password",
+                    //       style: TextStyle(
+                    //           color: Color(0xff40BFFF),
+                    //           fontWeight: FontWeight.bold,
+                    //           fontSize: 13),
+                    //     ),
+                    //   ),
+                    // ),
                     // const SizedBox(
                     //   height: 10,
                     // ),

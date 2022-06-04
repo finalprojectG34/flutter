@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:sms/src/screens/home_page/AppCtx.dart';
 
 import '../components/order.dart';
+import '../components/shop_detail_component.dart';
 
 class DrawerPage extends StatelessWidget {
   const DrawerPage({Key? key}) : super(key: key);
@@ -103,6 +104,16 @@ class DrawerPage extends StatelessWidget {
                 ),
                 // selected: routes == Routes.newProducts,
               ),
+            ListTile(
+              title: const Text('a'),
+              onTap: () {
+                Get.to(() => ShopDetail());
+              },
+              leading: const Icon(
+                Icons.exit_to_app,
+                color: Color(0xFF0D90EE),
+              ),
+            ),
             if (ctx.isAuthenticated.isTrue)
               const Divider(
                 height: 1.0,

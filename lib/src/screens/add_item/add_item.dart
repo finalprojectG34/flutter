@@ -98,390 +98,375 @@ class _AddItemState extends State<AddItem> {
                   children: [
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 15),
-                            child: TextField(
-                              // style: Text,
-                              decoration: InputDecoration(
-                                labelText: 'Name',
-                                labelStyle: TextStyle(
-                                  fontSize: 16,
-                                  // color: Colors.blue,
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 0.75,
-                                    // color: Colors.blue,
-                                  ),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 0.75,
-                                    color: Colors.blue,
-                                  ),
-                                ),
-                              ),
+                      child: TextField(
+                        // style: Text,
+                        decoration: InputDecoration(
+                          labelText: 'Name',
+                          labelStyle: TextStyle(
+                            fontSize: 16,
+                            // color: Colors.blue,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              width: 0.75,
+                              // color: Colors.blue,
                             ),
                           ),
-                          TextField(
-                            minLines: 1,
-                            maxLines: 10,
-                            readOnly: true,
-                            controller: TextEditingController(
-                                text: ctx.selectedCategoryName.isEmpty
-                                    ? ''
-                                    : ctx.selectedCategoryName.join(' / ')),
-                            onTap: () {
-                              addItemController.getMockCategory();
-                              Navigator.pushNamed(context, "/select_category");
-                              addItemController.categorySelectPages++;
-                            },
-                            decoration: InputDecoration(
-                              labelText: 'Select Category',
-                              labelStyle: TextStyle(
-                                fontSize: 16,
-                                // color: Colors.blue,
-                              ),
-                              suffixIcon: Icon(
-                                Icons.arrow_drop_down_rounded,
-                                size: 30,
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 0.75,
-                                  // color: Colors.blue,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 0.75,
-                                  color: Colors.blue,
-                                ),
-                              ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              width: 0.75,
+                              color: Colors.blue,
                             ),
                           ),
-                          SizedBox(
-                            height: 10,
+                        ),
+                      ),
+                    ),
+                    TextField(
+                      minLines: 1,
+                      maxLines: 10,
+                      readOnly: true,
+                      controller: TextEditingController(
+                          text: ctx.selectedCategoryName.isEmpty
+                              ? ''
+                              : ctx.selectedCategoryName.join(' / ')),
+                      onTap: () {
+                        addItemController.getMockCategory();
+                        Navigator.pushNamed(context, "/select_category");
+                        addItemController.categorySelectPages++;
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Select Category',
+                        labelStyle: TextStyle(
+                          fontSize: 16,
+                          // color: Colors.blue,
+                        ),
+                        suffixIcon: Icon(
+                          Icons.arrow_drop_down_rounded,
+                          size: 30,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            width: 0.75,
+                            // color: Colors.blue,
                           ),
-                          ListView.separated(
-                            key: UniqueKey(),
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) => Padding(
-                              padding: const EdgeInsets.only(left: 20),
-                              child: Row(
-                                children: [
-                                  // Text(
-                                  //   ctx.attributes[index]['name'],
-                                  //   style: TextStyle(fontSize: 18),
-                                  // ),
-                                  Expanded(
-                                    child: ctx.attributes[index]['display'] !=
-                                            'dropdown'
-                                        ? TextField(
-                                            // focusNode: categoryNameFocusNode,
-                                            // controller: categoryNameController,
-                                            keyboardType: ctx.attributes[index]
-                                                        ['display'] ==
-                                                    'text'
-                                                ? TextInputType.text
-                                                : TextInputType.number,
-                                            decoration: InputDecoration(
-                                              enabledBorder:
-                                                  const OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.blue,
-                                                    width: 0.5),
-                                              ),
-                                              focusedBorder:
-                                                  const OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.blue,
-                                                    width: 0.75),
-                                              ),
-                                              isDense: true,
-                                              labelText: ctx.attributes[index]
-                                                  ['name'],
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            width: 0.75,
+                            color: Colors.blue,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    ListView.separated(
+                      key: UniqueKey(),
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) => Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Row(
+                          children: [
+                            // Text(
+                            //   ctx.attributes[index]['name'],
+                            //   style: TextStyle(fontSize: 18),
+                            // ),
+                            Expanded(
+                              child: ctx.attributes[index]['display'] !=
+                                      'dropdown'
+                                  ? TextField(
+                                      // focusNode: categoryNameFocusNode,
+                                      // controller: categoryNameController,
+                                      keyboardType: ctx.attributes[index]
+                                                  ['display'] ==
+                                              'text'
+                                          ? TextInputType.text
+                                          : TextInputType.number,
+                                      decoration: InputDecoration(
+                                        enabledBorder: const OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.blue, width: 0.5),
+                                        ),
+                                        focusedBorder: const OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.blue, width: 0.75),
+                                        ),
+                                        isDense: true,
+                                        labelText: ctx.attributes[index]
+                                            ['name'],
 
-                                              // contentPadding: EdgeInsets.only(left: 20)
-                                            ),
-                                            onChanged: (value) {
-                                              ctx.addSelectedAttribute(
-                                                  ctx.attributes[index]['name'],
-                                                  value.toString());
-                                            },
-                                            onEditingComplete: () {
-                                              FocusScope.of(context).unfocus();
-                                            },
-                                          )
-                                        : DropdownButtonFormField2(
-                                            // value: 'Select ',
-                                            // key: UniqueKey(),
-                                            decoration: InputDecoration(
-                                              labelText: ctx.attributes[index]
-                                                  ['name'],
-                                              enabledBorder:
-                                                  const OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.blue,
-                                                    width: 0.5),
-                                              ),
-                                              focusedBorder:
-                                                  const OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.blue,
-                                                    width: 0.75),
-                                              ),
-                                              contentPadding: EdgeInsets.zero,
-                                              border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                              ),
-                                            ),
-                                            isExpanded: true,
-                                            hint: Text(
-                                              'Select ${ctx.attributes[index]['name']}',
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: Colors.green),
-                                            ),
-                                            icon: const Icon(
-                                              Icons.arrow_drop_down,
-                                              color: Colors.green,
-                                            ),
-                                            iconSize: 25,
-                                            buttonPadding:
-                                                const EdgeInsets.only(
-                                                    left: 20, right: 10),
-                                            dropdownDecoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            items: (ctx.attributes[index]
-                                                    ['options'] as List<String>)
-                                                .map(
-                                              (item) {
-                                                // print(item);
-                                                return DropdownMenuItem<String>(
-                                                  value: item,
-                                                  // key: UniqueKey(),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Expanded(
-                                                        child: Text(
-                                                          item,
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 14,
-                                                          ),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                );
-                                              },
-                                            ).toList(),
-                                            onChanged: (value) {
-                                              // print('onsaved  $value');
-                                              ctx.addSelectedAttribute(
-                                                  ctx.attributes[index]['name'],
-                                                  value.toString());
-                                              // addCategoryController.setCategoryType(
-                                              //     categoryId: widget.addCategoryModel.id,
-                                              //     categoryType: value);
-                                            },
-                                            onSaved: (value) {
-                                              // selectedValue = value.toString();
-                                            },
-                                          ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            itemCount: ctx.attributes.length,
-                            separatorBuilder:
-                                (BuildContext context, int index) => SizedBox(
-                              height: 10,
-                            ),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10),
-                            child: TextField(
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                labelText: 'Price',
-                                labelStyle: TextStyle(
-                                  fontSize: 16,
-                                  // color: Colors.blue,
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 0.75,
-                                    // color: Colors.blue,
-                                  ),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 0.75,
-                                    color: Colors.blue,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(bottom: 15),
-                            child: TextField(
-                              maxLines: 5,
-                              minLines: 1,
-                              decoration: InputDecoration(
-                                labelText: 'Description',
-                                labelStyle: TextStyle(
-                                  fontSize: 16,
-                                  // color: Colors.blue,
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 0.75,
-                                    // color: Colors.blue,
-                                  ),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 0.75,
-                                    color: Colors.blue,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          _image != null
-                              ? Center(
-                                  child: Stack(
-                                    alignment: AlignmentDirectional.topEnd,
-                                    children: [
-                                      SizedBox(
-                                        height: 150,
-                                        child: ClipRRect(
-                                          child: Image.file(_image!,
-                                              fit: BoxFit.cover),
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(10),
-                                          ),
+                                        // contentPadding: EdgeInsets.only(left: 20)
+                                      ),
+                                      onChanged: (value) {
+                                        ctx.addSelectedAttribute(
+                                            ctx.attributes[index]['name'],
+                                            value.toString());
+                                      },
+                                      onEditingComplete: () {
+                                        FocusScope.of(context).unfocus();
+                                      },
+                                    )
+                                  : DropdownButtonFormField2(
+                                      // value: 'Select ',
+                                      // key: UniqueKey(),
+                                      decoration: InputDecoration(
+                                        labelText: ctx.attributes[index]
+                                            ['name'],
+                                        enabledBorder: const OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.blue, width: 0.5),
+                                        ),
+                                        focusedBorder: const OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.blue, width: 0.75),
+                                        ),
+                                        contentPadding: EdgeInsets.zero,
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
                                         ),
                                       ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          print('yy');
-                                        },
-                                        child: Icon(
-                                          Icons.delete,
-                                          color: Colors.red.shade300,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                )
-                              : Container(),
-                          OutlinedButton(
-                            child: Text('Add image'),
-                            onPressed: () {
-                              showModalBottomSheet(
-                                shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(10),
-                                    topRight: Radius.circular(10),
-                                  ),
-                                ),
-                                context: context,
-                                builder: (context) => SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height / 4,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        InkWell(
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(10),
-                                          ),
-                                          onTap: () {
-                                            _openImagePicker('camera');
-                                            Navigator.pop(context);
-                                          },
-                                          child: Container(
-                                              padding: EdgeInsets.all(20),
-                                              decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: Colors.grey),
-                                                borderRadius: BorderRadius.all(
-                                                  Radius.circular(10),
-                                                ),
-                                              ),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  Text(
-                                                    'Add from camera',
-                                                  ),
-                                                  SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Icon(
-                                                    Icons.add_a_photo,
-                                                    size: 30,
-                                                  )
-                                                ],
-                                              )),
-                                        ),
-                                        InkWell(
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(10),
-                                          ),
-                                          onTap: () {
-                                            _openImagePicker('gallery');
-                                            Navigator.pop(context);
-                                          },
-                                          child: Container(
-                                            padding: EdgeInsets.all(20),
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: Colors.grey),
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(10))),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
+                                      isExpanded: true,
+                                      hint: Text(
+                                        'Select ${ctx.attributes[index]['name']}',
+                                        style: TextStyle(
+                                            fontSize: 14, color: Colors.green),
+                                      ),
+                                      icon: const Icon(
+                                        Icons.arrow_drop_down,
+                                        color: Colors.green,
+                                      ),
+                                      iconSize: 25,
+                                      buttonPadding: const EdgeInsets.only(
+                                          left: 20, right: 10),
+                                      dropdownDecoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      items: (ctx.attributes[index]['options']
+                                              as List<String>)
+                                          .map(
+                                        (item) {
+                                          // print(item);
+                                          return DropdownMenuItem<String>(
+                                            value: item,
+                                            // key: UniqueKey(),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
                                               children: [
-                                                Text('Add from gallery'),
-                                                SizedBox(
-                                                  height: 10,
+                                                Expanded(
+                                                  child: Text(
+                                                    item,
+                                                    style: const TextStyle(
+                                                      fontSize: 14,
+                                                    ),
+                                                    textAlign: TextAlign.center,
+                                                  ),
                                                 ),
-                                                Icon(
-                                                  Icons.camera,
-                                                  size: 30,
-                                                )
                                               ],
                                             ),
-                                          ),
-                                        )
-                                      ],
+                                          );
+                                        },
+                                      ).toList(),
+                                      onChanged: (value) {
+                                        // print('onsaved  $value');
+                                        ctx.addSelectedAttribute(
+                                            ctx.attributes[index]['name'],
+                                            value.toString());
+                                        // addCategoryController.setCategoryType(
+                                        //     categoryId: widget.addCategoryModel.id,
+                                        //     categoryType: value);
+                                      },
+                                      onSaved: (value) {
+                                        // selectedValue = value.toString();
+                                      },
+                                    ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      itemCount: ctx.attributes.length,
+                      separatorBuilder: (BuildContext context, int index) =>
+                          SizedBox(
+                        height: 10,
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      child: TextField(
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: 'Price',
+                          labelStyle: TextStyle(
+                            fontSize: 16,
+                            // color: Colors.blue,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              width: 0.75,
+                              // color: Colors.blue,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              width: 0.75,
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 15),
+                      child: TextField(
+                        maxLines: 5,
+                        minLines: 1,
+                        decoration: InputDecoration(
+                          labelText: 'Description',
+                          labelStyle: TextStyle(
+                            fontSize: 16,
+                            // color: Colors.blue,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              width: 0.75,
+                              // color: Colors.blue,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              width: 0.75,
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    _image != null
+                        ? Center(
+                            child: Stack(
+                              alignment: AlignmentDirectional.topEnd,
+                              children: [
+                                SizedBox(
+                                  height: 150,
+                                  child: ClipRRect(
+                                    child:
+                                        Image.file(_image!, fit: BoxFit.cover),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(10),
                                     ),
                                   ),
                                 ),
-                              );
-                            },
+                                GestureDetector(
+                                  onTap: () {
+                                    print('yy');
+                                  },
+                                  child: Icon(
+                                    Icons.delete,
+                                    color: Colors.red.shade300,
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        : Container(),
+                    OutlinedButton(
+                      child: Text('Add image'),
+                      onPressed: () {
+                        showModalBottomSheet(
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10),
+                            ),
                           ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: ElevatedButton(
-                                  onPressed: () {
+                          context: context,
+                          builder: (context) => SizedBox(
+                            height: MediaQuery.of(context).size.height / 4,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  InkWell(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(10),
+                                    ),
+                                    onTap: () {
+                                      _openImagePicker('camera');
+                                      Navigator.pop(context);
+                                    },
+                                    child: Container(
+                                        padding: EdgeInsets.all(20),
+                                        decoration: BoxDecoration(
+                                          border:
+                                              Border.all(color: Colors.grey),
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(10),
+                                          ),
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                              'Add from camera',
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Icon(
+                                              Icons.add_a_photo,
+                                              size: 30,
+                                            )
+                                          ],
+                                        )),
+                                  ),
+                                  InkWell(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(10),
+                                    ),
+                                    onTap: () {
+                                      _openImagePicker('gallery');
+                                      Navigator.pop(context);
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.all(20),
+                                      decoration: BoxDecoration(
+                                          border:
+                                              Border.all(color: Colors.grey),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10))),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text('Add from gallery'),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Icon(
+                                            Icons.camera,
+                                            size: 30,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: () {
                               // if (_formKey.currentState!.validate()) {
                               //   _formKey.currentState!.save();
                               // }
@@ -489,23 +474,23 @@ class _AddItemState extends State<AddItem> {
                                 "input": {
                                   "name": name,
                                   "description": description,
-                                  "image":
+                                  "poster":
                                       'https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg',
-                                  "price": price,
+                                  "price": {"sale": price},
                                   "categoryId": 'cat id 9'
                                 }
                               });
                             },
-                                  child: const Text('Save'),
-                                ),
-                              ),
-                            ],
+                            child: const Text('Save'),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ),
-                );
+                  ],
+                ),
+              ),
+            ),
+          );
         },
       ),
     );
