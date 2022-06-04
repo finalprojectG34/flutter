@@ -81,22 +81,23 @@ class _AddItemState extends State<AddItem> {
           : null,
       body: GetX<AddItemController>(
         builder: (ctx) {
-          return ctx.isCategoryFetchedFromDB.isFalse
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  child: Form(
-                    key: _formKey,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25),
-                      child: ListView(
-                        // crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 15),
+          return
+              // ctx.isCategoryFetchedFromDB.isFalse
+              //   ? Center(
+              //       child: CircularProgressIndicator(),
+              //     )
+              //   :
+              Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            child: Form(
+              key: _formKey,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: ListView(
+                  // crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 15),
                             child: TextField(
                               // style: Text,
                               decoration: InputDecoration(
@@ -481,11 +482,20 @@ class _AddItemState extends State<AddItem> {
                               Expanded(
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    if (_formKey.currentState!.validate()) {
-                                      _formKey.currentState!.save();
-                                    }
-                                    addItemController.addItem(variable);
-                                  },
+                              // if (_formKey.currentState!.validate()) {
+                              //   _formKey.currentState!.save();
+                              // }
+                              addItemController.addItem({
+                                "input": {
+                                  "name": name,
+                                  "description": description,
+                                  "image":
+                                      'https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg',
+                                  "price": price,
+                                  "categoryId": 'cat id 9'
+                                }
+                              });
+                            },
                                   child: const Text('Save'),
                                 ),
                               ),

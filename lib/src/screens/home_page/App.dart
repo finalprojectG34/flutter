@@ -71,32 +71,33 @@ class _AppState extends State<App> {
       case 1:
         // _selectedIndex = index;
         appController.changePage('Explore', index);
-        return Query(
-          options: QueryOptions(
-            document: gql(query),
-          ),
-          builder: (QueryResult result, {fetchMore, refetch}) {
-            if (result.hasException) {
-              return Text(result.exception.toString());
-            }
-            if (result.isLoading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            appController.itemList = ((result.data!['getAllItems'] as List)
-                    .map((json) => Item.fromJson(json))
-                    .toList())
-                .obs;
-            // return ListView.builder(
-            //   itemBuilder: (context, index) => Text(
-            //     appController.itemList![index].name!,
-            //   ),
-            //   itemCount: appController.itemList?.length,
-            // );
-            return PackageDeliveryTrackingPage();
-          },
-        );
+        return PackageDeliveryTrackingPage();
+      //   Query(
+      //   options: QueryOptions(
+      //     document: gql(query),
+      //   ),
+      //   builder: (QueryResult result, {fetchMore, refetch}) {
+      //     if (result.hasException) {
+      //       return Text(result.exception.toString());
+      //     }
+      //     if (result.isLoading) {
+      //       return const Center(
+      //         child: CircularProgressIndicator(),
+      //       );
+      //     }
+      //     appController.itemList = ((result.data!['getAllItems'] as List)
+      //             .map((json) => Item.fromJson(json))
+      //             .toList())
+      //         .obs;
+      //     // return ListView.builder(
+      //     //   itemBuilder: (context, index) => Text(
+      //     //     appController.itemList![index].name!,
+      //     //   ),
+      //     //   itemCount: appController.itemList?.length,
+      //     // );
+      //     return PackageDeliveryTrackingPage();
+      //   },
+      // );
       // CategoriesPage();
       case 2:
         appController.changePage('Add Item', index);

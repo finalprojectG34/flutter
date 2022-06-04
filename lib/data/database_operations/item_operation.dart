@@ -5,8 +5,7 @@ import '../../src/app.dart';
 
 class ItemOperation {
   final GraphQLClient _gqlClient = GraphQLClient(
-      cache: GraphQLCache(),
-      link: HttpLink("https://finalproject34.herokuapp.com/graphql"));
+      cache: GraphQLCache(), link: HttpLink("http://192.168.0.36/graphql"));
 
   Future<List<Item>> getItems(query) async {
     final response = await _gqlClient.queryManager.fetchQuery(
