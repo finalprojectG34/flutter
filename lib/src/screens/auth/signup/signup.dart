@@ -182,6 +182,7 @@ class Signup extends StatelessWidget {
                             ),
                             maxLines: 1,
                             keyboardType: TextInputType.emailAddress,
+                            obscureText: true,
                             onChanged: (text) => password = text,
                             validator: validatePassword,
                           ),
@@ -207,6 +208,7 @@ class Signup extends StatelessWidget {
                                       color: Colors.grey[200]!, width: 1)),
                             ),
                             maxLines: 1,
+                            obscureText: true,
                             validator: (val) {
                               validatePassword(val);
                               if (password != null && val != password)

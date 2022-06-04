@@ -35,6 +35,30 @@ class UserRepository {
         token: response.data!['authPhoneAndRegister']['token']);
   }
 
+  Future reset(String password, String token) async {
+    String signupMutation = r'''
+     mutation AuthPhoneAndRegister($token: PhoneSignupInput) {
+          authPhoneAndRegister(token: $token) {
+              token
+          }
+        }
+      ''';
+    // print(variables.toString() + 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq');
+    final response = await _gqlClient
+        .mutate(MutationOptions(document: gql(signupMutation), variables: {
+      "token": {
+        "password": password,
+        "confirmPassword": password,
+        "idToken": token
+      }
+    }));
+    print(
+        '${response.data!['authPhoneAndResetPwd']['token']}   zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz');
+
+    return User.fromJson(response.data!['authPhoneAndResetPwd']['user'],
+        token: response.data!['authPhoneAndResetPwd']['token']);
+  }
+
   Future signInUser(variables) async {
     String signInMutation = r'''
      mutation Login($input: loginInput!) {
@@ -54,7 +78,8 @@ class UserRepository {
     );
 
     if (response.data!['login']['user'] != null) {
-      return User.fromJson(response.data!['login']['user']);
+      return User.fromJson(response.data!['login']['user'],
+          token: response.data!['login']['token']);
     }
   }
 }

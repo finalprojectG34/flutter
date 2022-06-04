@@ -53,33 +53,60 @@ class DrawerPage extends StatelessWidget {
             //   ),
             //   // selected: routes == Routes.category,
             // ),
-            ListTile(
-              title: const Text('Add product'),
-              onTap: () {
-                Navigator.pushNamed(context, "/add_item");
-              },
-              leading: const Icon(
-                Icons.fiber_new,
-                color: Color(0xFF0D90EE),
+            if (ctx.isAuthenticated.isTrue)
+              ListTile(
+                title: const Text('Add product'),
+                onTap: () {
+                  Navigator.pushNamed(context, "/add_item");
+                },
+                leading: const Icon(
+                  Icons.fiber_new,
+                  color: Color(0xFF0D90EE),
+                ),
+                // selected: routes == Routes.newProducts,
               ),
-              // selected: routes == Routes.newProducts,
-            ),
-            ListTile(
-              title: const Text('Orders'),
-              onTap: () {
-                // context.read<NavigationBloc>().add(Navigated(Routes.admin));
-                // Navigator.pop(context);
-                Get.to(() => OrderPage());
-              },
-              leading: const Icon(
-                Icons.description,
-                color: Color(0xFF0D90EE),
+            if (ctx.isAuthenticated.isTrue)
+              ListTile(
+                title: const Text('My Items'),
+                onTap: () {
+                  Navigator.pushNamed(context, "/add_item");
+                },
+                leading: const Icon(
+                  Icons.fiber_new,
+                  color: Color(0xFF0D90EE),
+                ),
+                // selected: routes == Routes.newProducts,
               ),
-              // selected: routes == Routes.admin,
-            ),
-            const Divider(
-              height: 1.0,
-            ),
+            if (ctx.isAuthenticated.isTrue)
+              ListTile(
+                title: const Text('Received Orders'),
+                onTap: () {
+                  // context.read<NavigationBloc>().add(Navigated(Routes.admin));
+                  // Navigator.pop(context);
+                  Get.to(() => OrderPage());
+                },
+                leading: const Icon(
+                  Icons.description,
+                  color: Color(0xFF0D90EE),
+                ),
+                // selected: routes == Routes.admin,
+              ),
+            if (ctx.isAuthenticated.isTrue)
+              ListTile(
+                title: const Text('Sent Orders'),
+                onTap: () {
+                  Navigator.pushNamed(context, "/add_item");
+                },
+                leading: const Icon(
+                  Icons.fiber_new,
+                  color: Color(0xFF0D90EE),
+                ),
+                // selected: routes == Routes.newProducts,
+              ),
+            if (ctx.isAuthenticated.isTrue)
+              const Divider(
+                height: 1.0,
+              ),
             // ListTile(
             //   title: const Text('Profile'),
             //   onTap: () {
@@ -92,6 +119,7 @@ class DrawerPage extends StatelessWidget {
             //   ),
             //   // selected: routes == Routes.profile,
             // ),
+
             if (ctx.isAuthenticated.isTrue)
               ListTile(
                 title: const Text('Logout'),

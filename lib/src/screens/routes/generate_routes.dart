@@ -15,7 +15,10 @@ class RouteGenerator {
       case '/home':
         return MaterialPageRoute(builder: (context) => App());
       case '/add_item':
-        return MaterialPageRoute(builder: (context) => const AddItem());
+        return MaterialPageRoute(
+            builder: (context) => const AddItem(
+                  hasAppbar: true,
+                ));
 
       case '/add_image':
         return MaterialPageRoute(builder: (context) => HomePagee());

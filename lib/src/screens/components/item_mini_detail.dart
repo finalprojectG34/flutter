@@ -40,64 +40,64 @@ class ItemMiniDetail extends StatelessWidget {
                     horizontal: 12,
                   ),
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8.0, top: 8),
-                      child: IconButton(
-                        padding: EdgeInsets.zero,
-                        constraints: const BoxConstraints(),
-                        splashRadius: 10,
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.favorite_border_rounded,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey,
-                              offset: Offset(
-                                2.0,
-                                2.0,
-                              ),
-                              blurRadius: 5.0,
-                              spreadRadius: 2.0,
-                            ), //BoxShadow
-                            BoxShadow(
-                              color: Colors.white,
-                              offset: Offset(0.0, 0.0),
-                              blurRadius: 0.0,
-                              spreadRadius: 0.0,
-                            ),
-                          ],
-                        ),
-                        transform: Matrix4.translationValues(0.0, 10.0, 0.0),
-                        child: Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: IconButton(
-                            padding: EdgeInsets.zero,
-                            constraints: const BoxConstraints(),
-                            splashRadius: 10,
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.remove_red_eye,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                )
+                // Column(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     Padding(
+                //       padding: const EdgeInsets.only(right: 8.0, top: 8),
+                //       child: IconButton(
+                //         padding: EdgeInsets.zero,
+                //         constraints: const BoxConstraints(),
+                //         splashRadius: 10,
+                //         onPressed: () {},
+                //         icon: const Icon(
+                //           Icons.favorite_border_rounded,
+                //           color: Colors.white,
+                //         ),
+                //       ),
+                //     ),
+                //     Padding(
+                //       padding: const EdgeInsets.only(right: 8.0),
+                //       child: Container(
+                //         decoration: const BoxDecoration(
+                //           color: Colors.white,
+                //           shape: BoxShape.circle,
+                //           boxShadow: [
+                //             BoxShadow(
+                //               color: Colors.grey,
+                //               offset: Offset(
+                //                 2.0,
+                //                 2.0,
+                //               ),
+                //               blurRadius: 5.0,
+                //               spreadRadius: 2.0,
+                //             ), //BoxShadow
+                //             BoxShadow(
+                //               color: Colors.white,
+                //               offset: Offset(0.0, 0.0),
+                //               blurRadius: 0.0,
+                //               spreadRadius: 0.0,
+                //             ),
+                //           ],
+                //         ),
+                //         transform: Matrix4.translationValues(0.0, 10.0, 0.0),
+                //         child: Padding(
+                //           padding: const EdgeInsets.all(2.0),
+                //           child: IconButton(
+                //             padding: EdgeInsets.zero,
+                //             constraints: const BoxConstraints(),
+                //             splashRadius: 10,
+                //             onPressed: () {},
+                //             icon: const Icon(
+                //               Icons.remove_red_eye,
+                //               color: Colors.grey,
+                //             ),
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // )
               ],
             ),
           ),
@@ -107,10 +107,10 @@ class ItemMiniDetail extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    Text(
-                      item.id!,
-                      style: TextStyle(color: Colors.grey),
-                    ),
+                    // Text(
+                    //   item.id!,
+                    //   style: TextStyle(color: Colors.grey),
+                    // ),
                     Text(
                       item.name!,
                       style:

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_getx_widget.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:sms/src/app.dart';
 import 'package:sms/src/screens/drawer/drawer.dart';
-import 'package:sms/src/screens/filter/filter.dart';
 import 'package:sms/src/screens/screens.dart';
 
 import '../../../package_delivery_tracking.dart';
+import '../add_item/add_item.dart';
 import '../auth/login/login.dart';
 import '../cart/cart.dart';
 import 'AppCtx.dart';
@@ -26,10 +27,12 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   bool searchBar = false;
   late Widget body;
+  final storage = const FlutterSecureStorage();
 
   // late OrderRespositoryImpl aa;
   late AppBar appbar;
   late String appbarName;
+
   String query = '''
   query GetAllItems{
   getAllItems{
@@ -48,11 +51,18 @@ class _AppState extends State<App> {
     //       link: HttpLink("https://finalproject34.herokuapp.com/graphql")),
     // );
     // aa.getItems();
+    getToken();
     body = const Home(
       hasSearchBar: false,
     );
+
     // appbar = AppBarComponent.setAppBar('Home');
     // appbarName = 'Home';
+  }
+
+  getToken() async {
+    String? value = await storage.read(key: 'token');
+    print('token $value');
   }
 
   Widget _mapIndexToPage(int index) {
@@ -89,21 +99,40 @@ class _AppState extends State<App> {
         );
       // CategoriesPage();
       case 2:
-        appController.changePage('Cart', index);
+        appController.changePage('Add Item', index);
         // return PackageDeliveryTrackingPage();
-
-        return Cart();
+        if (appController.isAuthenticated.isFalse) {
+          Get.snackbar(
+              'Sign in', 'You need to sign in first before you add item',
+              snackPosition: SnackPosition.BOTTOM);
+          appController.changePage('Account', 4);
+        }
+        return appController.isAuthenticated.isTrue
+            ? AddItem(
+                hasAppbar: false,
+              )
+            : Container();
 
       // if (state.status == AuthenticationStatus.authenticated) {
       //   return ProfilePage();
       // }
       // return Text('Login page');
       case 3:
-        appController.changePage('Offer', index);
-        return Filter();
+        appController.changePage('Cart', index);
+        if (appController.isAuthenticated.isFalse) {
+          Get.snackbar('Sign in',
+              'You need to sign in first before you add item to cart',
+              snackPosition: SnackPosition.BOTTOM);
+          appController.changePage('Account', 4);
+        }
+        return appController.isAuthenticated.isTrue
+            ? const Cart()
+            : Container();
       // ItemDetails(Item(name: 'name',price: '230',category: 'cat',description: 'some desc',));
       case 4:
-        appController.changePage('Account', index);
+        appController.changePage(
+            appController.isAuthenticated.isTrue ? 'Profile' : 'Account',
+            index);
         return Login();
       case 0:
       default:
@@ -118,58 +147,55 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return GetX<AppController>(
       builder: (ctx) {
-        return GestureDetector(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
-          child: Scaffold(
-            appBar: AppBar(
-              title: Text(ctx.pageName.value),
-              elevation: 2,
-              centerTitle: true,
-              actions: [
-                if (ctx.hasSearchIcon.value)
-                  IconButton(
-                    onPressed: () {
-                      ctx.disableSearchIcon();
-                      ctx.isSearchBarActive(true);
-                    },
-                    icon: const Icon(Icons.search),
-                  ),
-                ctx.isAuthenticated.isTrue
-                    ? IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.shopping_cart_outlined),
-                      )
-                    : Container()
-              ],
-            ),
-            body: _mapIndexToPage(ctx.selectedIndex.value),
-            drawer: DrawerPage(),
-            bottomNavigationBar: BottomNavigationBar(
-              currentIndex: ctx.selectedIndex.value,
-              type: BottomNavigationBarType.fixed,
-              onTap: _mapIndexToPage,
-              items: const [
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.home_outlined), label: 'Home'),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.search), label: 'Explore'),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.shopping_cart_outlined), label: 'Cart'),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.local_offer_outlined), label: 'Offer'),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.person_outline_rounded),
-                  label: 'Account',
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(ctx.pageName.value),
+            elevation: 2,
+            centerTitle: true,
+            actions: [
+              if (ctx.hasSearchIcon.value)
+                IconButton(
+                  onPressed: () {
+                    ctx.disableSearchIcon();
+                    ctx.isSearchBarActive(true);
+                  },
+                  icon: const Icon(Icons.search),
                 ),
-                // if (authenticationState.status ==
-                //     AuthenticationStatus.authenticated &&
-                //     authenticationState.user.role == "ADMIN")
-                //   BottomNavigationBarItem(
-                //       icon: Icon(Icons.dashboard), label: 'Admin'),
-              ],
-            ),
+              ctx.isAuthenticated.isTrue
+                  ? IconButton(
+                      onPressed: () {
+                        ctx.changePage('Cart', 3);
+                      },
+                      icon: const Icon(Icons.shopping_cart_outlined),
+                    )
+                  : Container()
+            ],
+          ),
+          body: _mapIndexToPage(ctx.selectedIndex.value),
+          drawer: DrawerPage(),
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: ctx.selectedIndex.value,
+            type: BottomNavigationBarType.fixed,
+            onTap: _mapIndexToPage,
+            items: [
+              const BottomNavigationBarItem(
+                  icon: Icon(Icons.home_outlined), label: 'Home'),
+              const BottomNavigationBarItem(
+                  icon: Icon(Icons.search), label: 'Explore'),
+              const BottomNavigationBarItem(
+                  icon: Icon(Icons.add), label: 'Add'),
+              const BottomNavigationBarItem(
+                  icon: Icon(Icons.shopping_cart_outlined), label: 'Cart'),
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.person_outline_rounded),
+                label: ctx.isAuthenticated.isTrue ? 'Profile' : 'Account',
+              ),
+              // if (authenticationState.status ==
+              //     AuthenticationStatus.authenticated &&
+              //     authenticationState.user.role == "ADMIN")
+              //   BottomNavigationBarItem(
+              //       icon: Icon(Icons.dashboard), label: 'Admin'),
+            ],
           ),
         );
       },

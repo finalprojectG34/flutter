@@ -316,6 +316,31 @@ class _ItemDetailState extends State<ItemDetails> {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(widget.item['description']),
           ),
+          SizedBox(
+            height: 10,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: ElevatedButton(
+              style: ButtonStyle(
+                shadowColor: MaterialStateProperty.all(Colors.lightBlueAccent),
+                elevation: MaterialStateProperty.all(5),
+                backgroundColor:
+                    MaterialStateProperty.all(const Color(0xff40BFFF)),
+                // fixedSize: MaterialStateProperty.all(Size(Get.width, 54)),
+              ),
+              onPressed: () {},
+              child: const Text(
+                "Add to cart",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13),
+              ),
+            ),
+          ),
+          // Icon(Icons.shopping_cart)
           // FlatButton(
           //   onPressed: () {},
           //   highlightColor: Colors.white,

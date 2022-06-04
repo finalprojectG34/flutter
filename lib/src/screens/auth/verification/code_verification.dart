@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:sms/src/screens/auth/reset_password/resetCtx.dart';
 import 'package:sms/src/screens/auth/signup/signupCtx.dart';
 
 import '../login/loginCtx.dart';
@@ -14,6 +15,7 @@ class CodeVerification extends StatelessWidget {
   final String redirectFrom;
   LoginController? loginController;
   SignUpController? signUpController;
+  ResetController? resetController;
 
   // var variable;
 
@@ -87,13 +89,18 @@ class CodeVerification extends StatelessWidget {
                   onPressed: () async {
                     redirectFrom == 'signIn'
                         ? loginController = Get.find<LoginController>()
-                        : signUpController = Get.find<SignUpController>();
+                        : redirectFrom == 'signUp'
+                            ? signUpController = Get.find<SignUpController>()
+                            : resetController = Get.find<ResetController>();
                     FocusScope.of(context).unfocus();
                     redirectFrom == 'signIn'
                         ? await loginController
                             ?.signIn(txtController.text.toString())
-                        : await signUpController
-                            ?.signUp(txtController.text.toString());
+                        : redirectFrom == 'signUp'
+                            ? await signUpController
+                                ?.signUp(txtController.text.toString())
+                            : await resetController
+                                ?.verifyCode(txtController.text.toString());
 
                     // ctx.signIn(txtController.text.toString());
 

@@ -128,20 +128,20 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.all(8),
                 mainAxisSpacing: 3,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text('Latest products',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            color: Colors.black)),
-                    TextButton(onPressed: () {}, child: const Text('See all'))
-                  ],
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 10),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //     children: [
+              //       const Text('Latest products',
+              //           style: TextStyle(
+              //               fontWeight: FontWeight.bold,
+              //               fontSize: 16,
+              //               color: Colors.black)),
+              //       TextButton(onPressed: () {}, child: const Text('See all'))
+              //     ],
+              //   ),
+              // ),
               // GridView.count(
               //   childAspectRatio: .5,
               //   crossAxisCount: 2,

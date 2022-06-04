@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:sms/src/packages/shared_preferences.dart';
+import 'package:sms/src/screens/auth/reset_password/resetCtx.dart';
 
 import '../screens/add_item/add_item_ctx.dart';
 import '../screens/auth/login/loginCtx.dart';
@@ -18,5 +19,6 @@ class ApplicationBindings implements Bindings {
     Get.lazyPut(() => AddItemController(), fenix: true);
     Get.lazyPut(() => SignUpController(), fenix: true);
     Get.lazyPut(() => SearchController(), fenix: true);
+    Get.lazyPut(() => ResetController(), fenix: true);
   }
 }

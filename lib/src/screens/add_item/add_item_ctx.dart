@@ -78,7 +78,7 @@ class AddItemController extends GetxController {
         ],
       );
     }
-    print('len ${selectedAttributes}');
+    print('attrs ${selectedAttributes}');
   }
 
   changeAttribute(variable) {

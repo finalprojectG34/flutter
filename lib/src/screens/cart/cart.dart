@@ -32,17 +32,18 @@ class Cart extends StatelessWidget {
                 shadowColor: MaterialStateProperty.all(Colors.lightBlueAccent),
                 elevation: MaterialStateProperty.all(5),
                 backgroundColor:
-                    MaterialStateProperty.all(const Color(0xff40BFFF)),
-                fixedSize: MaterialStateProperty.all(Size(Get.width, 54)),
-              ),
-              onPressed: () {},
-              child: const Text(
-                "Check Out",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13),
-              )),
+                  MaterialStateProperty.all(const Color(0xff40BFFF)),
+              fixedSize: MaterialStateProperty.all(Size(Get.width, 54)),
+            ),
+            onPressed: () {},
+            child: const Text(
+              "Check Out",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13),
+            ),
+          ),
         ],
       ),
     );

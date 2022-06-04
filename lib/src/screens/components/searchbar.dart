@@ -14,6 +14,7 @@ class SearchBar extends StatefulWidget {
 
 class _SearchBarState extends State<SearchBar> {
   SearchController searchController = Get.find();
+  TextEditingController searchTextEditingController = TextEditingController();
   String? searchItemName;
   FocusNode searchBarFocusNode = FocusNode();
   AppController appController = Get.find();
@@ -35,6 +36,8 @@ class _SearchBarState extends State<SearchBar> {
     return GetX<AppController>(builder: (ctx) {
       if (ctx.isSearchBarActive.isTrue) {
         searchBarFocusNode.requestFocus();
+        print(
+            'req focus  iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
       }
       return Padding(
         padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
@@ -45,6 +48,7 @@ class _SearchBarState extends State<SearchBar> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 15.0),
                   child: TextField(
+                    controller: searchTextEditingController,
                     focusNode: searchBarFocusNode,
                     decoration: const InputDecoration(
                       hintText: 'Search',
@@ -55,6 +59,7 @@ class _SearchBarState extends State<SearchBar> {
                     onChanged: (text) => searchItemName = text,
                     onEditingComplete: () {
                       ctx.isSearchBarActive(false);
+                      searchBarFocusNode.unfocus();
                     },
                   ),
                 ),

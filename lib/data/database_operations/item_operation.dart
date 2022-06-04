@@ -1,4 +1,5 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:sms/mock/mock_category.dart';
 
 import '../../src/app.dart';
 
@@ -43,6 +44,7 @@ class ItemOperation {
                     {
                       "slug": "condition",
                       "name": "condition",
+                      "display": "dropdown",
                       "categoryIds": [
                         "612e17f2443a71e64c66c7aa",
                         "612e17f2443a71e64c66c7bb",
@@ -84,7 +86,7 @@ class ItemOperation {
                                   "slug": "ram",
                                   "name": "ram",
                                   "categoryIds": ["612e17f2443a71e64c66c7bb"],
-                                  "display": "",
+                                  "display": "number",
                                   "isRequired": true,
                                   "options": ["4", "6", "12", "16", "32"],
                                   "currentData": [
@@ -107,6 +109,7 @@ class ItemOperation {
                                 {
                                   "slug": "internal-hard-disk",
                                   "name": "internal hard disk",
+                                  "display": "number",
                                   "categoryIds": ["612e17f2443a71e64c66c7bb"],
                                   "isRequired": true,
                                   "options": [
@@ -123,12 +126,12 @@ class ItemOperation {
                                     {"value": "256", "count": 29},
                                     {"value": "500", "count": 60},
                                   ],
-                                  "display": "ComboBox",
                                   "modifiers": ["ssd sata", "hdd", "ssd nvme"],
                                 },
                                 {
                                   "slug": "color",
                                   "name": "color",
+                                  "display": "text",
                                   "categoryIds": [
                                     "612e17f2443a71e64c66c7cc",
                                     "612e17f2443a71e64c66c7bb"
@@ -143,6 +146,7 @@ class ItemOperation {
                                 {
                                   "slug": "condition",
                                   "name": "condition",
+                                  "display": "dropdown",
                                   "categoryIds": [
                                     "612e17f2443a71e64c66c7aa",
                                     "612e17f2443a71e64c66c7bb",
@@ -266,8 +270,8 @@ class ItemOperation {
                             {
                               "slug": "ram",
                               "name": "ram",
+                              "display": "number",
                               "categoryIds": ["612e17f2443a71e64c66c7bb"],
-                              "display": "",
                               "isRequired": true,
                               "options": ["4", "6", "12", "16", "32"],
                               "currentData": [
@@ -290,6 +294,7 @@ class ItemOperation {
                             {
                               "slug": "internal-hard-disk",
                               "name": "internal hard disk",
+                              "display": "number",
                               "categoryIds": ["612e17f2443a71e64c66c7bb"],
                               "isRequired": true,
                               "options": [
@@ -306,12 +311,12 @@ class ItemOperation {
                                 {"value": "256", "count": 29},
                                 {"value": "500", "count": 60},
                               ],
-                              "display": "ComboBox",
                               "modifiers": ["ssd sata", "hdd", "ssd nvme"],
                             },
                             {
                               "slug": "color",
                               "name": "color",
+                              "display": "text",
                               "categoryIds": [
                                 "612e17f2443a71e64c66c7cc",
                                 "612e17f2443a71e64c66c7bb"
@@ -326,6 +331,7 @@ class ItemOperation {
                             {
                               "slug": "condition",
                               "name": "condition",
+                              "display": "dropdown",
                               "categoryIds": [
                                 "612e17f2443a71e64c66c7aa",
                                 "612e17f2443a71e64c66c7bb",
@@ -360,8 +366,8 @@ class ItemOperation {
                             {
                               "slug": "ram",
                               "name": "ram",
+                              "display": "number",
                               "categoryIds": ["612e17f2443a71e64c66c7bb"],
-                              "display": "",
                               "isRequired": true,
                               "options": ["4", "6", "12", "16", "32"],
                               "currentData": [
@@ -384,6 +390,7 @@ class ItemOperation {
                             {
                               "slug": "internal-hard-disk",
                               "name": "internal hard disk",
+                              "display": "number",
                               "categoryIds": ["612e17f2443a71e64c66c7bb"],
                               "isRequired": true,
                               "options": [
@@ -400,12 +407,12 @@ class ItemOperation {
                                 {"value": "256", "count": 29},
                                 {"value": "500", "count": 60},
                               ],
-                              "display": "ComboBox",
                               "modifiers": ["ssd sata", "hdd", "ssd nvme"],
                             },
                             {
                               "slug": "color",
                               "name": "color",
+                              "display": "text",
                               "categoryIds": [
                                 "612e17f2443a71e64c66c7cc",
                                 "612e17f2443a71e64c66c7bb"
@@ -420,6 +427,7 @@ class ItemOperation {
                             {
                               "slug": "condition",
                               "name": "condition",
+                              "display": "dropdown",
                               "categoryIds": [
                                 "612e17f2443a71e64c66c7aa",
                                 "612e17f2443a71e64c66c7bb",
@@ -449,8 +457,8 @@ class ItemOperation {
                         {
                           "slug": "ram",
                           "name": "ram",
+                          "display": "number",
                           "categoryIds": ["612e17f2443a71e64c66c7bb"],
-                          "display": "",
                           "isRequired": true,
                           "options": ["4", "6", "12", "16", "32"],
                           "currentData": [
@@ -473,6 +481,7 @@ class ItemOperation {
                         {
                           "slug": "internal-hard-disk",
                           "name": "internal hard disk",
+                          "display": "number",
                           "categoryIds": ["612e17f2443a71e64c66c7bb"],
                           "isRequired": true,
                           "options": [
@@ -489,12 +498,12 @@ class ItemOperation {
                             {"value": "256", "count": 29},
                             {"value": "500", "count": 60},
                           ],
-                          "display": "ComboBox",
                           "modifiers": ["ssd sata", "hdd", "ssd nvme"],
                         },
                         {
                           "slug": "color",
                           "name": "color",
+                          "display": "text",
                           "categoryIds": [
                             "612e17f2443a71e64c66c7cc",
                             "612e17f2443a71e64c66c7bb"
@@ -509,6 +518,7 @@ class ItemOperation {
                         {
                           "slug": "condition",
                           "name": "condition",
+                          "display": "dropdown",
                           "categoryIds": [
                             "612e17f2443a71e64c66c7aa",
                             "612e17f2443a71e64c66c7bb",
@@ -543,8 +553,8 @@ class ItemOperation {
                         {
                           "slug": "ram",
                           "name": "ram",
+                          "display": "number",
                           "categoryIds": ["612e17f2443a71e64c66c7bb"],
-                          "display": "",
                           "isRequired": true,
                           "options": ["4", "6", "12", "16", "32"],
                           "currentData": [
@@ -567,6 +577,7 @@ class ItemOperation {
                         {
                           "slug": "internal-hard-disk",
                           "name": "internal hard disk",
+                          "display": "number",
                           "categoryIds": ["612e17f2443a71e64c66c7bb"],
                           "isRequired": true,
                           "options": [
@@ -583,12 +594,12 @@ class ItemOperation {
                             {"value": "256", "count": 29},
                             {"value": "500", "count": 60},
                           ],
-                          "display": "ComboBox",
                           "modifiers": ["ssd sata", "hdd", "ssd nvme"],
                         },
                         {
                           "slug": "color",
                           "name": "color",
+                          "display": "text",
                           "categoryIds": [
                             "612e17f2443a71e64c66c7cc",
                             "612e17f2443a71e64c66c7bb"
@@ -603,6 +614,7 @@ class ItemOperation {
                         {
                           "slug": "condition",
                           "name": "condition",
+                          "display": "dropdown",
                           "categoryIds": [
                             "612e17f2443a71e64c66c7aa",
                             "612e17f2443a71e64c66c7bb",
@@ -639,61 +651,7 @@ class ItemOperation {
   Future<Map<String, dynamic>> getMockSearchItems() async {
     return Future.delayed(
       const Duration(seconds: 1),
-      () => {
-        "getAllItems": [
-          {
-            "name": "item 1",
-            "price": {
-              "discountPrice": 10000,
-              "sale": 12000,
-            },
-            "description":
-                "cnjkfcn fnviunv fviudv dfvudbvd fkvdkbv dfvkdfv dfkv dfvkhdf vdkfvbdfouvb dfk",
-            "attrs": [
-              {
-                "name": "condition",
-                "val": "brand new",
-              }
-            ],
-            "poster":
-                "https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg"
-          },
-          {
-            "name": "item 2",
-            "price": {
-              "discountPrice": 452,
-              "sale": 600,
-            },
-            "description":
-                "111wnc dfkjvdfivdf vifdbvoidfv dfo fnviunv fviudv dfvudbvd fkvdkbv dfvkdfv dfkv dfvkhdf vdkfvbdfouvb dfk",
-            "attrs": [
-              {
-                "name": "condition",
-                "val": "used",
-              }
-            ],
-            "poster":
-                "https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg"
-          },
-          {
-            "name": "item 3",
-            "price": {
-              // "discountPrice": 10000,
-              "sale": 800,
-            },
-            "description":
-                "86095nfgiuvhnfgb gfib bifb cnjkfcn fnviunv fviudv dfvudbvd fkvdkbv dfvkdfv dfkv dfvkhdf vdkfvbdfouvb dfk",
-            "attrs": [
-              {
-                "name": "condition",
-                "val": "brand new",
-              }
-            ],
-            "poster":
-                "https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg"
-          }
-        ]
-      },
+      () => mockCategory,
     );
   }
 

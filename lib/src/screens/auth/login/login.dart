@@ -34,9 +34,7 @@ class Login extends StatelessWidget {
                 child: Column(
                   children: [
                     const Padding(padding: EdgeInsets.only(top: 30)),
-                    Center(
-                      child: null,
-                    ),
+
                     const SizedBox(
                       height: 10,
                     ),
@@ -250,7 +248,7 @@ class Login extends StatelessWidget {
                     // ),
                     TextButton(
                       onPressed: () {
-                        Get.to(() => const ResetPassword());
+                        Get.to(() => ResetPassword());
                       },
                       child: const Center(
                         child: Text(

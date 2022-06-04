@@ -33,13 +33,14 @@ class LoginController extends GetxController {
       } else {
         // await storage.write(key: 'token', value: createdUser?.token);
         print(signedInUser);
+
+        await storage.write(key: 'token', value: signedInUser?.token);
         EasyLoading.showSuccess('Logged in successfully',
             maskType: EasyLoadingMaskType.black);
-
         AppController appController = Get.find();
         appController.changePage('Home', 0);
         appController.isAuthenticated(true);
-        Get.offNamed('/');
+        // Get.offNamed('/');
       }
     } catch (e) {
       EasyLoading.showError('Please try again',
@@ -74,13 +75,13 @@ class LoginController extends GetxController {
           // EasyLoading.showError('Timeout. Try again',
           //     maskType: EasyLoadingMaskType.black);
         },
-        timeout: const Duration(seconds: 60),
+        timeout: const Duration(seconds: 30),
       );
     } catch (e) {
       EasyLoading.dismiss();
       EasyLoading.showError(e.toString(),
           maskType: EasyLoadingMaskType.black,
-          duration: const Duration(seconds: 5));
+          duration: const Duration(seconds: 3));
     } finally {}
   }
 

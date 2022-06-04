@@ -10,8 +10,11 @@ class SingleCart extends StatefulWidget {
 }
 
 class _SingleCartState extends State<SingleCart> {
+  TextEditingController frequencyController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    frequencyController.text = '1';
     return Card(
       child: SizedBox(
         height: 120,
@@ -19,12 +22,13 @@ class _SingleCartState extends State<SingleCart> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-                flex: 1,
-                child: Image.asset(
-                  'assets/images/nike_shoe.jpg',
-                  fit: BoxFit.fitHeight,
-                  height: 120,
-                )),
+              flex: 1,
+              child: Image.asset(
+                'assets/images/nike_shoe.jpg',
+                fit: BoxFit.fitHeight,
+                height: 120,
+              ),
+            ),
             Expanded(
               flex: 3,
               child: Padding(
@@ -39,14 +43,15 @@ class _SingleCartState extends State<SingleCart> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Expanded(
-                            child: Text(
-                          'Nike cscbsjbc sdfasdfie oeoeo',
-                          maxLines: 3,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              color: color1),
-                        )),
+                          child: Text(
+                            'Nike cscbsjbc sdfasdfie oeoeo',
+                            maxLines: 3,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                                color: color1),
+                          ),
+                        ),
                         // Row(
                         //   mainAxisAlignment: MainAxisAlignment.end,
                         //   children: [
@@ -89,91 +94,98 @@ class _SingleCartState extends State<SingleCart> {
                           style: TextStyle(
                               fontWeight: FontWeight.bold, color: Colors.blue),
                         ),
-                        SizedBox(
-                          width: 100,
-                          height: 26,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey.shade300),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: TextButton(
-                                    child: const Icon(
-                                      Icons.remove,
-                                    ),
-                                    style: TextButton.styleFrom(
-                                      padding: EdgeInsets.zero,
-                                    ),
-                                    onPressed: () async {
-                                      // await FocusScope.of(context).unfocus();
-                                      // incomeAndExpenseController.decreaseFrequencyValue(
-                                      //     widget.categoryModel.id,
-                                      //     widget.categoryModel.categoryId);
-                                    },
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: TextField(
-                                    onTap: () {
-                                      // frequency = widget.categoryModel.frequency.toString();
-                                    },
-                                    // focusNode: frequencyFocusNode,
-                                    keyboardType: TextInputType.number,
-                                    // controller: _frequencyController,
-                                    textAlign: TextAlign.center,
-                                    decoration: const InputDecoration(
-                                      fillColor: color2,
-                                      focusColor: color2,
-                                      enabledBorder: InputBorder.none,
-                                      focusedBorder: InputBorder.none,
-                                      border: InputBorder.none,
-                                      filled: true,
-
-                                      // enabledBorder: OutlineInputBorder(
-                                      //   borderSide: BorderSide(
-                                      //       color: Colors.green, width: 0.5),
-                                      // ),
-                                      // focusedBorder: OutlineInputBorder(
-                                      //   borderSide: BorderSide(
-                                      //       color: Colors.green, width: 0.75),
-                                      // ),
-                                      // contentPadding: EdgeInsets.only(bottom: 20),
-                                    ),
-                                    showCursor: false,
-
-                                    onChanged: (givenFrequency) {
-                                      print('given $givenFrequency');
-                                      // frequency = givenFrequency;
-                                    },
-                                    onEditingComplete: () {
-                                      FocusScope.of(context).unfocus();
-                                    },
-                                  ),
-                                ),
-                                Expanded(
-                                  // flex: 2,
-                                  child: TextButton(
-                                    child: const Center(
-                                      child: Icon(Icons.add),
-                                    ),
-                                    style: OutlinedButton.styleFrom(
-                                        padding: EdgeInsets.zero),
-                                    onPressed: () async {
-                                      // await FocusScope.of(context).unfocus();
-                                      // incomeAndExpenseController.increaseFrequencyValue(
-                                      //     widget.categoryModel.id,
-                                      //     widget.categoryModel.categoryId);
-                                    },
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        )
+                        // SizedBox(
+                        //   width: 100,
+                        //   height: 26,
+                        //   child: Container(
+                        //     decoration: BoxDecoration(
+                        //       border: Border.all(color: Colors.grey.shade300),
+                        //       borderRadius: BorderRadius.circular(5),
+                        //     ),
+                        //     child: Row(
+                        //       children: [
+                        //         Expanded(
+                        //           child: TextButton(
+                        //             child: const Icon(
+                        //               Icons.remove,
+                        //             ),
+                        //             style: TextButton.styleFrom(
+                        //               padding: EdgeInsets.zero,
+                        //             ),
+                        //             onPressed: () async {
+                        //               // await FocusScope.of(context).unfocus();
+                        //               // incomeAndExpenseController.decreaseFrequencyValue(
+                        //               //     widget.categoryModel.id,
+                        //               //     widget.categoryModel.categoryId);
+                        //             },
+                        //           ),
+                        //         ),
+                        //         Expanded(
+                        //           flex: 2,
+                        //           child: TextField(
+                        //             onTap: () {
+                        //               // frequency = widget.categoryModel.frequency.toString();
+                        //
+                        //             },
+                        //             // focusNode: frequencyFocusNode,
+                        //             keyboardType: TextInputType.number,
+                        //             controller: frequencyController,
+                        //             textAlign: TextAlign.center,
+                        //
+                        //             decoration: const InputDecoration(
+                        //               fillColor: color2,
+                        //               focusColor: color2,
+                        //               enabledBorder: InputBorder.none,
+                        //               focusedBorder: InputBorder.none,
+                        //               border: InputBorder.none,
+                        //               filled: true,
+                        //
+                        //               // enabledBorder: OutlineInputBorder(
+                        //               //   borderSide: BorderSide(
+                        //               //       color: Colors.green, width: 0.5),
+                        //               // ),
+                        //               // focusedBorder: OutlineInputBorder(
+                        //               //   borderSide: BorderSide(
+                        //               //       color: Colors.green, width: 0.75),
+                        //               // ),
+                        //               // contentPadding: EdgeInsets.only(bottom: 20),
+                        //             ),
+                        //             showCursor: false,
+                        //
+                        //             onChanged: (givenFrequency) {
+                        //               print('given $givenFrequency');
+                        //               // frequency = givenFrequency;
+                        //             },
+                        //             onEditingComplete: () {
+                        //               FocusScope.of(context).unfocus();
+                        //             },
+                        //           ),
+                        //         ),
+                        //         Expanded(
+                        //           // flex: 2,
+                        //           child: TextButton(
+                        //             child: const Center(
+                        //               child: Icon(Icons.add),
+                        //             ),
+                        //             style: OutlinedButton.styleFrom(
+                        //                 padding: EdgeInsets.zero),
+                        //             onPressed: () async {
+                        //               // await FocusScope.of(context).unfocus();
+                        //               // incomeAndExpenseController.increaseFrequencyValue(
+                        //               //     widget.categoryModel.id,
+                        //               //     widget.categoryModel.categoryId);
+                        //               setState(() {
+                        //                 frequencyController.value.copyWith(
+                        //                     text:
+                        //                     '${int.parse(frequencyController.text) + 1}');
+                        //               });
+                        //             },
+                        //           ),
+                        //         )
+                        //       ],
+                        //     ),
+                        //   ),
+                        // )
                       ],
                     ),
                   ],
