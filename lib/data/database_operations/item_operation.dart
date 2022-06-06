@@ -6,7 +6,7 @@ import '../../src/app.dart';
 class ItemOperation {
   final GraphQLClient _gqlClient = GraphQLClient(
       cache: GraphQLCache(),
-      link: HttpLink("https://finalproject34.herokuapp.com/graphql"));
+      link: HttpLink("http://192.168.0.172:8000/graphql"));
 
   Future<List<Item>> getItems(query) async {
     final response = await _gqlClient.queryManager.fetchQuery(
@@ -30,6 +30,56 @@ class ItemOperation {
     return (response.data!['getAllCategories'] as List)
         .map((json) => Category.fromJson(json))
         .toList();
+  }
+
+  Future<List<Cart>> getCart(query) async {
+    final response = await _gqlClient.queryManager.fetchQuery(
+      '1',
+      QueryOptions(
+        document: gql(query),
+      ),
+    );
+    return (response.data!['getAllCategories'] as List)
+        .map((json) => Cart.fromJson(json))
+        .toList();
+  }
+
+  Future addToCart(query) async {
+    final response = await _gqlClient.mutate(MutationOptions(
+      document: gql(r'''
+            mutation Mutation($input: CartItemsInput!) {
+        addToCart(input: $input) {
+          id
+          itemId
+          name
+          price
+          amount
+          status
+          userId
+          shopId
+          deliveryAddress
+        }
+      }
+      '''),
+      variables: {
+        "input": {
+          "name": "new cart_page",
+          "userId": "629af7f97d524a03af577688",
+          "shopId": "629a923f6c806098b22b7ea3",
+          "itemId": "629237ddb4b05ff840f5785d",
+          "price": "656",
+          "amount": "3",
+          "deliveryAddress": "alembank"
+        }
+      },
+      fetchPolicy: FetchPolicy.networkOnly,
+    ));
+    if (response.hasException) {
+      // throw response.exception;
+    } else {
+
+    }
+    print(response);
   }
 
   Future<Map<String, dynamic>> getMockCategory() async {

@@ -4,8 +4,8 @@ import 'package:sms/src/screens/components/single_cart.dart';
 
 import '../components/payment_detail.dart';
 
-class Cart extends StatelessWidget {
-  const Cart({Key? key}) : super(key: key);
+class CartPage extends StatelessWidget {
+  const CartPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
