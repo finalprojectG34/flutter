@@ -140,6 +140,93 @@ class _AddShopState extends State<AddShop> {
               onSaved: (value) {
                 // selectedValue = value.toString();
               },
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              'Choose area location',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            DropdownButtonFormField2(
+              // value: 'Select ',
+              // key: UniqueKey(),
+              decoration: InputDecoration(
+                labelText: 'Area',
+                enabledBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blue, width: 0.5),
+                ),
+                focusedBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blue, width: 0.75),
+                ),
+                contentPadding: EdgeInsets.zero,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+              ),
+              isExpanded: true,
+              hint: Text(
+                'Select location',
+                style: TextStyle(fontSize: 14, color: Colors.blue),
+              ),
+              icon: const Icon(
+                Icons.arrow_drop_down,
+                color: Colors.blue,
+              ),
+              iconSize: 25,
+              buttonPadding: const EdgeInsets.only(left: 20, right: 10),
+              dropdownDecoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              items: ['area1', 'area2'].map(
+                (item) {
+                  // print(item);
+                  return DropdownMenuItem<String>(
+                    value: item,
+                    // key: UniqueKey(),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            item,
+                            style: const TextStyle(
+                              fontSize: 14,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ).toList(),
+              onChanged: (value) {
+                // print('onsaved  $value');
+                // ctx.addSelectedAttribute(
+                //     ctx.attributes[index]['name'],
+                //     value.toString());
+                // addCategoryController.setCategoryType(
+                //     categoryId: widget.addCategoryModel.id,
+                //     categoryType: value);
+              },
+              onSaved: (value) {
+                // selectedValue = value.toString();
+              },
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              children: [
+                OutlinedButton(
+                  onPressed: () {},
+                  child: Text('Upload shop image'),
+                ),
+              ],
             )
           ],
         ),

@@ -3,7 +3,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_getx_widget.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:sms/src/app.dart';
 import 'package:sms/src/screens/drawer/drawer.dart';
 import 'package:sms/src/screens/screens.dart';
@@ -135,7 +134,7 @@ class _AppState extends State<App> {
             appController.isAuthenticated.isTrue ? 'Profile' : 'Account',
             index);
         // return Login();
-        return ProfilePage();
+        return appController.isAuthenticated.isTrue ? ProfilePage() : Login();
       case 0:
       default:
         appController.changePage('Home', index);
