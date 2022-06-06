@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:sms/src/screens/home_page/AppCtx.dart';
 
+import '../components/add_shop.dart';
 import '../components/order.dart';
 import '../components/shop_detail_component.dart';
 
@@ -96,7 +97,8 @@ class DrawerPage extends StatelessWidget {
               ListTile(
                 title: const Text('Sent Orders'),
                 onTap: () {
-                  Navigator.pushNamed(context, "/add_item");
+                  // Navigator.pushNamed(context, "/add_item");
+                  Get.to(() => AddShop());
                 },
                 leading: const Icon(
                   Icons.fiber_new,

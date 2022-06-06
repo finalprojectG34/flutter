@@ -9,69 +9,52 @@ class ShopDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('shop detail')),
-      body: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            height: Get.height * .4,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: NetworkImage(
-                      "https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg",
-                    ),
-                    fit: BoxFit.fitHeight,
-                    colorFilter: ColorFilter.mode(
-                        Colors.black.withOpacity(0.4), BlendMode.darken))),
-            child: Padding(
-              padding: EdgeInsets.all(12),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 28,
-                        // backgroundColor: Colors.white,
-                        child: CircleAvatar(
-                          backgroundImage: NetworkImage(
-                              'https://www.woolha.com/media/2020/03/eevee.png'),
-                          radius: 25,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 30,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Shop larson electronic',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: Colors.white),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            'Official store',
-                            style: TextStyle(fontSize: 16, color: Colors.white),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Card(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 28,
+                      // backgroundColor: Colors.white,
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(
+                            'https://www.woolha.com/media/2020/03/eevee.png'),
+                        radius: 25,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Shop larson electronic',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          'Official store',
+                          style: TextStyle(fontSize: 16),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
                 Row(
                   children: [
                     Icon(
@@ -128,8 +111,8 @@ class ShopDetail extends StatelessWidget {
                 )
               ],
             ),
-          )
-        ],
+          ),
+        ),
       ),
     );
   }

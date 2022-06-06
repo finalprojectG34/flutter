@@ -1,8 +1,16 @@
 String? validateMobileNum(String? value) {
-  Pattern pattern = r"^[0-9]{9}$";
+  Pattern pattern = r"^[0-9]{9,10}$";
+  String a = value!;
   RegExp regex = RegExp(pattern.toString());
-  if (value!.trim().isEmpty) {
+  if (value.startsWith('0')) {
+    a = value.replaceFirst('0', '');
+    print(a);
+  }
+  if (value.trim().isEmpty) {
     return 'Please enter Mobile Number';
+  }
+  if (value.length == 10 && !value.startsWith('0')) {
+    return 'Please enter a valid Mobile Number';
   }
   if (!regex.hasMatch(value)) {
     return 'Please enter a valid Mobile Number';
@@ -11,13 +19,16 @@ String? validateMobileNum(String? value) {
   }
 }
 
-String? validatePassword(String? value) {
+String? validatePassword(String? newPassword) {
   // Pattern pattern = r"^[0-9]{9}$";
   // RegExp regex = RegExp(pattern.toString());
-  if (value!.trim().isEmpty) {
+  if (newPassword!.trim().isEmpty) {
     return 'Please enter password';
   }
-  if (value.length < 4) {
+  // if (newPassword != confirmPassword) {
+  //   return 'Passwords do not match';
+  // }
+  if (newPassword.length < 4) {
     return 'Password length < 4 character';
   } else {
     return null;

@@ -30,9 +30,9 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
       ),
       body: ListView(
         children: [
-          SizedBox(
-            height: 10,
-          ),
+          // SizedBox(
+          //   height: 10,
+          // ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Card(

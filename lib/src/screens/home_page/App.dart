@@ -134,7 +134,8 @@ class _AppState extends State<App> {
         appController.changePage(
             appController.isAuthenticated.isTrue ? 'Profile' : 'Account',
             index);
-        return Login();
+        // return Login();
+        return ProfilePage();
       case 0:
       default:
         appController.changePage('Home', index);
