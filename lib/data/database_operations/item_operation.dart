@@ -32,43 +32,55 @@ class ItemOperation {
         .toList();
   }
 
-  Future<List<Cart>> getCart(query) async {
+  Future<List<Cart>> getCart(userId) async {
     final response = await _gqlClient.queryManager.fetchQuery(
       '1',
-      QueryOptions(
-        document: gql(query),
-      ),
+      QueryOptions(document: gql(r'''
+            query GetCartByUserId($getCartByUserIdId: ID) {
+              getCartByUserId(id: $getCartByUserIdId) {
+                id
+                itemId
+                name
+                amount
+                price
+                status
+                userId
+                shopId
+                deliveryAddress
+              }
+            }
+      '''), variables: {"getCartByUserIdId": userId}),
     );
-    return (response.data!['getAllCategories'] as List)
+    return (response.data!['getCartByUserId'] as List)
         .map((json) => Cart.fromJson(json))
         .toList();
   }
 
-  Future addToCart(query) async {
+  Future addToCart(name, shopId, userId, itemId, price, amount) async {
     final response = await _gqlClient.mutate(MutationOptions(
       document: gql(r'''
             mutation Mutation($input: CartItemsInput!) {
-        addToCart(input: $input) {
-          id
-          itemId
-          name
-          price
-          amount
-          status
-          userId
-          shopId
-          deliveryAddress
-        }
-      }
+              addToCart(input: $input) {
+                id
+                itemId
+                name
+                price
+                amount
+                status
+                userId
+                shopId
+                deliveryAddress
+              }
+            }
       '''),
       variables: {
         "input": {
-          "name": "new cart_page",
-          "userId": "629af7f97d524a03af577688",
-          "shopId": "629a923f6c806098b22b7ea3",
-          "itemId": "629237ddb4b05ff840f5785d",
-          "price": "656",
-          "amount": "3",
+          "name": name,
+          "userId": userId,
+          "shopId": shopId,
+          "itemId": itemId,
+          "price": price,
+          "amount": amount,
           "deliveryAddress": "alembank"
         }
       },
@@ -76,10 +88,24 @@ class ItemOperation {
     ));
     if (response.hasException) {
       // throw response.exception;
-    } else {
+    } else {}
+  }
 
-    }
-    print(response);
+  Future deleteCart(cartId) async {
+    final response = await _gqlClient.mutate(MutationOptions(
+      document: gql(r'''
+            mutation Mutation($deleteCartId: ID!) {
+              deleteCart(id: $deleteCartId) {
+                id
+              }
+            }
+      '''),
+      variables: {"deleteCartId": cartId},
+      fetchPolicy: FetchPolicy.networkOnly,
+    ));
+    if (response.hasException) {
+      // throw response.exception;
+    } else {}
   }
 
   Future<Map<String, dynamic>> getMockCategory() async {

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:sms/src/app.dart';
-import 'package:sms/src/utils/loger/console_loger.dart';
 
 class ProfilePage extends StatelessWidget {
   static const String pathName = '/profile';

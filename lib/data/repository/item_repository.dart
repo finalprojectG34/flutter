@@ -24,12 +24,17 @@ class ItemRepository {
     return itemOperation.addItem(variable);
   }
 
-  Future<List<Cart>> getCart(String query) async {
-    return itemOperation.getCart(query);
+  Future<List<Cart>> getCart(String userId) async {
+    return itemOperation.getCart(userId);
   }
 
-  Future addToCart(String query) async {
-    await itemOperation.addToCart(query);
+  Future addToCart(String name, String shopId, String userId, String itemId,
+      String price, String amount) async {
+    await itemOperation.addToCart(name, shopId, userId, itemId, price, amount);
+  }
+
+  Future deleteCart(String cartId) async {
+    await itemOperation.deleteCart(cartId);
   }
 // Future<OrderModel> getOrder(int orderId);
 }

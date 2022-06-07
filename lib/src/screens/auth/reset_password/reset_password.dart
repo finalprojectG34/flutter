@@ -3,8 +3,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:sms/src/screens/auth/reset_password/resetCtx.dart';
 
-import '../../../packages/validators.dart';
-
 class ResetPassword extends StatelessWidget {
   ResetPassword({Key? key}) : super(key: key);
   final GlobalKey<FormState> formState = GlobalKey<FormState>();

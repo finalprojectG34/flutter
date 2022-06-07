@@ -125,9 +125,7 @@ class _AppState extends State<App> {
               snackPosition: SnackPosition.BOTTOM);
           appController.changePage('Account', 4);
         }
-        return appController.isAuthenticated.isTrue
-            ? const CartPage()
-            : Container();
+        return appController.isAuthenticated.isTrue ? CartPage() : Container();
       // ItemDetails(Item(name: 'name',price: '230',category: 'cat',description: 'some desc',));
       case 4:
         appController.changePage(

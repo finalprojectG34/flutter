@@ -1,23 +1,16 @@
 import 'package:get/get.dart';
-import 'package:sms/data/database_operations/item_operation.dart';
 import 'package:sms/src/models/models.dart';
 
 import '../../../../data/repository/item_repository.dart';
 
 class CartPageController extends GetxController {
-  RxBool isCategoryFetchedFromDB = false.obs;
-  RxList<Category>? categoryList = <Category>[].obs;
-  String queryCategory = '''
-  query GetAllCategory{
-  getAllCategories {
-    id
-    name  
-  }
-}
-  ''';
+  RxBool isCartFetchedFromDB = false.obs;
+  RxList<Cart>? cartList = <Cart>[].obs;
+
   RxString itemId = ''.obs;
   RxList attributes = [].obs;
   RxMap<String, String> selectedAttributes = <String, String>{}.obs;
+
   ItemRepository itemRepository = ItemRepository();
 
   RxMap<String, dynamic>? mockCategory = <String, dynamic>{}.obs;
@@ -32,14 +25,17 @@ class CartPageController extends GetxController {
     // await getCategory(queryCategory);
   }
 
-  getCart(String query) async {
-    List<Category> categories = await itemRepository.getCategory(query);
-    categoryList!(categories.obs);
-    print(categoryList);
-    isCategoryFetchedFromDB(true);
+  getCart(String userId) async {
+    List<Cart> carts = await itemRepository.getCart(userId);
+    cartList!(carts.obs);
+    isCartFetchedFromDB(true);
   }
 
-  addToCart(String query) async {
-    await itemRepository.addToCart(query);
+  addToCart(name, shopId, userId, itemId, price, amount) async {
+    await itemRepository.addToCart(name, shopId, userId, itemId, price, amount);
+  }
+
+  deleteCart(cartId) async {
+    await itemRepository.deleteCart(cartId);
   }
 }

@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:sms/data/database_operations/item_operation.dart';
 import 'package:sms/src/models/models.dart';
 
 import '../../../../data/repository/item_repository.dart';
@@ -39,7 +38,7 @@ class AddToCartController extends GetxController {
     isCategoryFetchedFromDB(true);
   }
 
-  addToCart(String query) async {
-    await itemRepository.addToCart(query);
+  addToCart(name, shopId, userId, itemId, price, amount) async {
+    await itemRepository.addToCart(name, shopId, userId, itemId, price, amount);
   }
 }

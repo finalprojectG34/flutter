@@ -207,7 +207,8 @@ class ItemMiniDetail extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.circular(50),
                 onTap: () {
-                  addToCartController.addToCart("hello");
+                  addToCartController.addToCart(
+                      item.name, item.id, item.id, item.id, item.price, "1");
                   // appController.changePage('Cart', 3);
                 },
               ),
