@@ -10,7 +10,7 @@ import 'package:sms/src/screens/screens.dart';
 import '../../../package_delivery_tracking.dart';
 import '../add_item/add_item.dart';
 import '../auth/login/login.dart';
-import '../cart/cart.dart';
+import '../cart_page/cart_page.dart';
 import 'AppCtx.dart';
 
 part 'app_components.dart';
@@ -121,13 +121,11 @@ class _AppState extends State<App> {
         appController.changePage('Cart', index);
         if (appController.isAuthenticated.isFalse) {
           Get.snackbar('Sign in',
-              'You need to sign in first before you add item to cart',
+              'You need to sign in first before you add item to cart_page',
               snackPosition: SnackPosition.BOTTOM);
           appController.changePage('Account', 4);
         }
-        return appController.isAuthenticated.isTrue
-            ? const Cart()
-            : Container();
+        return appController.isAuthenticated.isTrue ? CartPage() : Container();
       // ItemDetails(Item(name: 'name',price: '230',category: 'cat',description: 'some desc',));
       case 4:
         appController.changePage(

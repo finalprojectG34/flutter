@@ -3,7 +3,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 import '../../../packages/validators.dart';
-import '../reset_password/reset_password.dart';
 import '../signup/signup.dart';
 import 'loginCtx.dart';
 

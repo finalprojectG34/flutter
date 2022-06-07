@@ -331,7 +331,7 @@ class _ItemDetailState extends State<ItemDetails> {
               ),
               onPressed: () {},
               child: const Text(
-                "Add to cart",
+                "Add to cart_page",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color: Colors.white,

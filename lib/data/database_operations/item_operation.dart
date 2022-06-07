@@ -6,7 +6,7 @@ import '../../src/app.dart';
 class ItemOperation {
   final GraphQLClient _gqlClient = GraphQLClient(
       cache: GraphQLCache(),
-      link: HttpLink("https://finalproject34.herokuapp.com/graphql"));
+      link: HttpLink("http://192.168.0.172:8000/graphql"));
 
   Future<List<Item>> getItems(query) async {
     final response = await _gqlClient.queryManager.fetchQuery(
@@ -30,6 +30,82 @@ class ItemOperation {
     return (response.data!['getAllCategories'] as List)
         .map((json) => Category.fromJson(json))
         .toList();
+  }
+
+  Future<List<Cart>> getCart(userId) async {
+    final response = await _gqlClient.queryManager.fetchQuery(
+      '1',
+      QueryOptions(document: gql(r'''
+            query GetCartByUserId($getCartByUserIdId: ID) {
+              getCartByUserId(id: $getCartByUserIdId) {
+                id
+                itemId
+                name
+                amount
+                price
+                status
+                userId
+                shopId
+                deliveryAddress
+              }
+            }
+      '''), variables: {"getCartByUserIdId": userId}),
+    );
+    return (response.data!['getCartByUserId'] as List)
+        .map((json) => Cart.fromJson(json))
+        .toList();
+  }
+
+  Future addToCart(name, shopId, userId, itemId, price, amount) async {
+    final response = await _gqlClient.mutate(MutationOptions(
+      document: gql(r'''
+            mutation Mutation($input: CartItemsInput!) {
+              addToCart(input: $input) {
+                id
+                itemId
+                name
+                price
+                amount
+                status
+                userId
+                shopId
+                deliveryAddress
+              }
+            }
+      '''),
+      variables: {
+        "input": {
+          "name": name,
+          "userId": userId,
+          "shopId": shopId,
+          "itemId": itemId,
+          "price": price,
+          "amount": amount,
+          "deliveryAddress": "alembank"
+        }
+      },
+      fetchPolicy: FetchPolicy.networkOnly,
+    ));
+    if (response.hasException) {
+      // throw response.exception;
+    } else {}
+  }
+
+  Future deleteCart(cartId) async {
+    final response = await _gqlClient.mutate(MutationOptions(
+      document: gql(r'''
+            mutation Mutation($deleteCartId: ID!) {
+              deleteCart(id: $deleteCartId) {
+                id
+              }
+            }
+      '''),
+      variables: {"deleteCartId": cartId},
+      fetchPolicy: FetchPolicy.networkOnly,
+    ));
+    if (response.hasException) {
+      // throw response.exception;
+    } else {}
   }
 
   Future<Map<String, dynamic>> getMockCategory() async {

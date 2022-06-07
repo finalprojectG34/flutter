@@ -1,9 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sms/helper/constance.dart';
+import 'package:sms/src/models/cart.dart';
+
+import '../cart_page/cart_page_ctx.dart';
 
 class SingleCart extends StatefulWidget {
-  const SingleCart({Key? key}) : super(key: key);
+  const SingleCart({Key? key, required this.cart}) : super(key: key);
+
+  final Cart cart;
 
   @override
   State<SingleCart> createState() => _SingleCartState();
@@ -11,6 +17,7 @@ class SingleCart extends StatefulWidget {
 
 class _SingleCartState extends State<SingleCart> {
   TextEditingController frequencyController = TextEditingController();
+  final CartPageController cartPageController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -67,11 +74,11 @@ class _SingleCartState extends State<SingleCart> {
                             size: 30,
                           ),
                         ),
-                        const SizedBox(
-                          width: 10,
-                        ),
+                        const SizedBox(width: 10),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            cartPageController.deleteCart(widget.cart.id);
+                          },
                           // splashRadius: 20,
                           child: const Icon(
                             Icons.delete_outline_rounded,
@@ -83,15 +90,13 @@ class _SingleCartState extends State<SingleCart> {
                       //   )
                       // ],
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          'ETB 200.12',
-                          style: TextStyle(
+                        Text(
+                          'ETB ${widget.cart.price}',
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold, color: Colors.blue),
                         ),
                         // SizedBox(
