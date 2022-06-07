@@ -7,10 +7,13 @@ import '../../home_page/AppCtx.dart';
 import '../verification/code_verification.dart';
 
 class ResetController extends GetxController {
+  final UserRepository userRepository;
+
+  ResetController({required this.userRepository});
+
   String verificationId = "";
   String? password;
   String? serverToken;
-  UserRepository userRepository = UserRepository();
 
   sendOtp(String phone) async {
     // userVariable = variable;

@@ -4,14 +4,16 @@ import 'package:sms/src/models/models.dart';
 import '../../../../data/repository/item_repository.dart';
 
 class CartPageController extends GetxController {
+  final ItemRepository itemRepository;
+
+  CartPageController({required this.itemRepository});
+
   RxBool isCartFetchedFromDB = false.obs;
   RxList<Cart>? cartList = <Cart>[].obs;
 
   RxString itemId = ''.obs;
   RxList attributes = [].obs;
   RxMap<String, String> selectedAttributes = <String, String>{}.obs;
-
-  ItemRepository itemRepository = ItemRepository();
 
   RxMap<String, dynamic>? mockCategory = <String, dynamic>{}.obs;
   RxInt categorySelectPages = 0.obs;
@@ -22,7 +24,7 @@ class CartPageController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    // await getCategory(queryCategory);
+    await getCart("629af7f97d524a03af577688");
   }
 
   getCart(String userId) async {
@@ -37,5 +39,6 @@ class CartPageController extends GetxController {
 
   deleteCart(cartId) async {
     await itemRepository.deleteCart(cartId);
+    cartList!(cartList?.where((p0) => p0.id != cartId).toList());
   }
 }

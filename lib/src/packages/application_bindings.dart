@@ -1,4 +1,8 @@
 import 'package:get/get.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:sms/data/database_operations/item_operation.dart';
+import 'package:sms/data/repository/item_repository.dart';
+import 'package:sms/data/repository/user_repository.dart';
 import 'package:sms/src/packages/shared_preferences.dart';
 import 'package:sms/src/screens/auth/reset_password/resetCtx.dart';
 
@@ -13,16 +17,60 @@ import '../screens/search_item/search_item_ctx.dart';
 class ApplicationBindings implements Bindings {
   ApplicationBindings();
 
+  final GraphQLClient _gqlClient = GraphQLClient(
+      cache: GraphQLCache(),
+      link: HttpLink("http://192.168.0.172:8000/graphql"));
+
   @override
   void dependencies() {
     Get.put(SharedPreference());
-    Get.lazyPut(() => LoginController(), fenix: true);
-    Get.lazyPut(() => AppController(), fenix: true);
-    Get.lazyPut(() => AddItemController(), fenix: true);
-    Get.lazyPut(() => AddToCartController(), fenix: true);
-    Get.lazyPut(() => CartPageController(), fenix: true);
-    Get.lazyPut(() => SignUpController(), fenix: true);
-    Get.lazyPut(() => SearchController(), fenix: true);
-    Get.lazyPut(() => ResetController(), fenix: true);
+    Get.lazyPut(
+        () => LoginController(
+            userRepository: UserRepository(gqlClient: _gqlClient)),
+        fenix: true);
+    Get.lazyPut(
+      () => AppController(
+        itemRepository: ItemRepository(
+          itemOperation: ItemOperation(gqlClient: _gqlClient),
+        ),
+      ),
+      fenix: true,
+    );
+    Get.lazyPut(
+        () => AddItemController(
+              itemRepository: ItemRepository(
+                itemOperation: ItemOperation(gqlClient: _gqlClient),
+              ),
+            ),
+        fenix: true);
+    Get.lazyPut(
+        () => AddToCartController(
+              itemRepository: ItemRepository(
+                itemOperation: ItemOperation(gqlClient: _gqlClient),
+              ),
+            ),
+        fenix: true);
+    Get.lazyPut(
+        () => CartPageController(
+              itemRepository: ItemRepository(
+                itemOperation: ItemOperation(gqlClient: _gqlClient),
+              ),
+            ),
+        fenix: true);
+    Get.lazyPut(
+        () => SignUpController(
+            userRepository: UserRepository(gqlClient: _gqlClient)),
+        fenix: true);
+    Get.lazyPut(
+        () => SearchController(
+              itemRepository: ItemRepository(
+                itemOperation: ItemOperation(gqlClient: _gqlClient),
+              ),
+            ),
+        fenix: true);
+    Get.lazyPut(
+        () => ResetController(
+            userRepository: UserRepository(gqlClient: _gqlClient)),
+        fenix: true);
   }
 }

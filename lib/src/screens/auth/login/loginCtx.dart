@@ -11,12 +11,15 @@ import '../../home_page/AppCtx.dart';
 import '../verification/code_verification.dart';
 
 class LoginController extends GetxController {
+  final UserRepository userRepository;
+
+  LoginController({required this.userRepository});
+
   var loading = false.obs;
   var error = false.obs;
   String verificationId = "";
   final AppController appController = Get.find();
   user.User? signedInUser;
-  UserRepository userRepository = UserRepository();
 
   final storage = const FlutterSecureStorage();
 

@@ -3,7 +3,9 @@ class Item {
     this.id,
     this.name,
     this.price,
+    this.discountPrice,
     this.category,
+    this.shopId,
     this.imagePath,
     this.description,
   });
@@ -11,6 +13,8 @@ class Item {
   final String? id;
   final String? name;
   final String? price;
+  final String? discountPrice;
+  final String? shopId;
   final String? category;
   final String? imagePath;
   final String? description;
@@ -19,8 +23,10 @@ class Item {
     Item item = Item(
       id: json['id'],
       name: json['name'],
-      price: json['price'].toString(),
+      price: json['price']?['sale'].toString(),
+      discountPrice: json['price']?['discountPrice'].toString(),
       category: json['category'],
+      shopId: json['shopId'],
       imagePath: json['image'],
       description: json['desc'],
     );

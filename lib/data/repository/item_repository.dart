@@ -9,15 +9,17 @@ import 'package:sms/data/database_operations/item_operation.dart';
 import '../../src/app.dart';
 
 class ItemRepository {
-  ItemOperation itemOperation = ItemOperation();
+  final ItemOperation itemOperation;
+
+  ItemRepository({required this.itemOperation});
 
   // Future<bool> createItem(Map<String, dynamic> body);
-  Future<List<Item>> getItems(String query) async {
-    return itemOperation.getItems(query);
+  Future<List<Item>> getItems() async {
+    return itemOperation.getItems();
   }
 
-  Future<List<Category>> getCategory(String query) async {
-    return itemOperation.getCategory(query);
+  Future<List<Category>> getCategory() async {
+    return itemOperation.getCategory();
   }
 
   Future<Item> addItem(variable) async {

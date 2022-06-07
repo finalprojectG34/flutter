@@ -5,23 +5,20 @@ import 'package:sms/data/repository/item_repository.dart';
 import '../../app.dart';
 
 class AppController extends GetxController {
+  final ItemRepository itemRepository;
+
+  AppController({required this.itemRepository});
+
   final storage = const FlutterSecureStorage();
   RxBool hasSearchIcon = true.obs;
   RxString pageName = 'Home'.obs;
   RxInt selectedIndex = 0.obs;
   RxBool isSearchBarActive = false.obs;
   RxBool isAuthenticated = false.obs;
-  String query = '''
-  query GetAllItems{
-  getAllItems{
-    id
-    name
-  }
-}
-  ''';
+  RxBool isGettingItems = false.obs;
+  RxBool getItemError = false.obs;
 
-  RxList<Item>? itemList;
-  ItemRepository itemRepository = ItemRepository();
+  RxList<Item>? itemList = <Item>[].obs;
 
   @override
   void onInit() async {
@@ -31,6 +28,7 @@ class AppController extends GetxController {
     if (value != null) {
       isAuthenticated(true);
     }
+    getItems();
   }
 
   disableSearchIcon() {
@@ -42,9 +40,15 @@ class AppController extends GetxController {
     selectedIndex(index);
   }
 
-  getItems(String query) async {
-    List<Item> items = await itemRepository.getItems(query);
-    itemList = items.obs;
+  getItems() async {
+    isGettingItems(true);
+    try {
+      List<Item> items = await itemRepository.getItems();
+      itemList!(items);
+    } catch (e) {
+      getItemError(true);
+    }
+    isGettingItems(false);
   }
 
   logout() async {

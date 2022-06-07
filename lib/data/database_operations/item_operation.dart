@@ -4,15 +4,27 @@ import 'package:sms/mock/mock_category.dart';
 import '../../src/app.dart';
 
 class ItemOperation {
-  final GraphQLClient _gqlClient = GraphQLClient(
-      cache: GraphQLCache(),
-      link: HttpLink("http://192.168.0.172:8000/graphql"));
+  final GraphQLClient gqlClient;
 
-  Future<List<Item>> getItems(query) async {
-    final response = await _gqlClient.queryManager.fetchQuery(
-      '1',
+  ItemOperation({required this.gqlClient});
+
+  Future<List<Item>> getItems() async {
+    final response = await gqlClient.query(
       QueryOptions(
-        document: gql(query),
+        document: gql(r'''
+          query GetAllItems {
+            getAllItems {
+              id
+              name
+              description
+              price {
+                sale
+                discountPrice
+              }
+              shopId
+            }
+          }
+        '''),
       ),
     );
     return (response.data!['getAllItems'] as List)
@@ -20,12 +32,16 @@ class ItemOperation {
         .toList();
   }
 
-  Future<List<Category>> getCategory(query) async {
-    final response = await _gqlClient.queryManager.fetchQuery(
-      '1',
-      QueryOptions(
-        document: gql(query),
-      ),
+  Future<List<Category>> getCategory() async {
+    final response = await gqlClient.query(
+      QueryOptions(document: gql(r'''
+          query GetAllCategory{
+          getAllCategories {
+            id
+            name  
+          }
+        }
+  ''')),
     );
     return (response.data!['getAllCategories'] as List)
         .map((json) => Category.fromJson(json))
@@ -33,8 +49,7 @@ class ItemOperation {
   }
 
   Future<List<Cart>> getCart(userId) async {
-    final response = await _gqlClient.queryManager.fetchQuery(
-      '1',
+    final response = await gqlClient.query(
       QueryOptions(document: gql(r'''
             query GetCartByUserId($getCartByUserIdId: ID) {
               getCartByUserId(id: $getCartByUserIdId) {
@@ -57,7 +72,7 @@ class ItemOperation {
   }
 
   Future addToCart(name, shopId, userId, itemId, price, amount) async {
-    final response = await _gqlClient.mutate(MutationOptions(
+    final response = await gqlClient.mutate(MutationOptions(
       document: gql(r'''
             mutation Mutation($input: CartItemsInput!) {
               addToCart(input: $input) {
@@ -92,7 +107,7 @@ class ItemOperation {
   }
 
   Future deleteCart(cartId) async {
-    final response = await _gqlClient.mutate(MutationOptions(
+    final response = await gqlClient.mutate(MutationOptions(
       document: gql(r'''
             mutation Mutation($deleteCartId: ID!) {
               deleteCart(id: $deleteCartId) {
@@ -742,7 +757,7 @@ class ItemOperation {
 }
       ''';
 
-    final response = await _gqlClient
+    final response = await gqlClient
         .query(QueryOptions(document: gql(addItemMutation), variables: {
       "input": {
         "name": "item 9",

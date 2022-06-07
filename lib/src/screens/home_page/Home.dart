@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:sms/src/screens/components/category_list.dart';
 import 'package:sms/src/screens/components/suggested_items.dart';
 
-import '../../app.dart';
 import '../components/item_mini_view/item_mini_detail.dart';
 import '../components/profile_mini_detail.dart';
 import '../components/searchbar.dart';
@@ -20,16 +18,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  AppController appController = Get.find();
-  String query = '''
-  query GetAllItems{
-  getAllItems{
-    id
-    name
-  }
-}
-  ''';
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -54,25 +42,22 @@ class _HomeState extends State<Home> {
                       color: Colors.black),
                 ),
               ),
-              Query(
-                options: QueryOptions(
-                  document: gql(query),
-                ),
-                builder: (QueryResult result, {fetchMore, refetch}) {
-                  if (result.hasException) {
-                    return Text(result.exception.toString());
+              GetX<AppController>(
+                builder: (ctx) {
+                  if (ctx.getItemError.isTrue) {
+                    return const Text("Error Happened");
                   }
-                  if (result.isLoading) {
+                  if (ctx.isGettingItems.isTrue) {
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
                   }
-                  appController.itemList =
-                      ((result.data!['getAllItems'] as List)
-                              .map((json) => Item.fromJson(json))
-                              .toList())
-                          .obs;
-                  appController.getItems(query);
+                  // appController.itemList =
+                  //     ((ctx.itemList as List)
+                  //             .map((json) => Item.fromJson(json))
+                  //             .toList())
+                  //         .obs;
+                  // appController.getItems();
                   return GridView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
@@ -84,8 +69,8 @@ class _HomeState extends State<Home> {
                       mainAxisSpacing: 5,
                     ),
                     itemBuilder: (context, index) =>
-                        ItemMiniDetail(item: appController.itemList![index]),
-                    itemCount: appController.itemList?.length,
+                        ItemMiniDetail(item: (ctx.itemList as List)[index]),
+                    itemCount: (ctx.itemList as List).length,
                   );
                 },
               ),

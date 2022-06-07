@@ -57,16 +57,16 @@ class DrawerPage extends StatelessWidget {
             // ),
             // if (ctx.isAuthenticated.isTrue)
             ListTile(
-                title: const Text('Add product'),
-                onTap: () {
-                  Navigator.pushNamed(context, "/add_item");
-                },
-                leading: const Icon(
-                  Icons.fiber_new,
-                  color: Color(0xFF0D90EE),
-                ),
-                // selected: routes == Routes.newProducts,
+              title: const Text('Add product'),
+              onTap: () {
+                Navigator.pushNamed(context, "/add_item");
+              },
+              leading: const Icon(
+                Icons.fiber_new,
+                color: Color(0xFF0D90EE),
               ),
+              // selected: routes == Routes.newProducts,
+            ),
             if (ctx.isAuthenticated.isTrue)
               ListTile(
                 title: const Text('My Items'),
@@ -95,17 +95,17 @@ class DrawerPage extends StatelessWidget {
               ),
             // if (ctx.isAuthenticated.isTrue)
             ListTile(
-                title: const Text('Sent Orders'),
-                onTap: () {
-                  // Navigator.pushNamed(context, "/add_item");
-                  Get.to(() => AddShop());
-                },
-                leading: const Icon(
-                  Icons.fiber_new,
-                  color: Color(0xFF0D90EE),
-                ),
-                // selected: routes == Routes.newProducts,
+              title: const Text('Sent Orders'),
+              onTap: () {
+                // Navigator.pushNamed(context, "/add_item");
+                Get.to(() => AddShop());
+              },
+              leading: const Icon(
+                Icons.fiber_new,
+                color: Color(0xFF0D90EE),
               ),
+              // selected: routes == Routes.newProducts,
+            ),
             ListTile(
               title: const Text('a'),
               onTap: () {

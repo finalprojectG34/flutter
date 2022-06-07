@@ -9,6 +9,10 @@ import '../../home_page/AppCtx.dart';
 import '../verification/code_verification.dart';
 
 class SignUpController extends GetxController {
+  final UserRepository userRepository;
+
+  SignUpController({required this.userRepository});
+
   RxBool isLoading = false.obs;
   RxBool isVerificationLoading = false.obs;
   RxBool isUserCreatedSuccessfully = false.obs;
@@ -17,7 +21,6 @@ class SignUpController extends GetxController {
 
   // String? signUpToken;
   user.User? createdUser;
-  UserRepository userRepository = UserRepository();
   final storage = const FlutterSecureStorage();
   var userVariable;
 

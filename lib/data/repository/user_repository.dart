@@ -3,9 +3,9 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import '../../src/models/models.dart';
 
 class UserRepository {
-  final GraphQLClient _gqlClient = GraphQLClient(
-      cache: GraphQLCache(),
-      link: HttpLink("http://192.168.0.172:8000/graphql"));
+  final GraphQLClient gqlClient;
+
+  UserRepository({required this.gqlClient});
 
   // SignUpController signUpController = Get.find();
 
@@ -26,7 +26,7 @@ class UserRepository {
         }
       ''';
     // print(variables.toString() + 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq');
-    final response = await _gqlClient.mutate(
+    final response = await gqlClient.mutate(
         MutationOptions(document: gql(signupMutation), variables: variables));
     print(
         '${response.data!['authPhoneAndRegister']['token']}   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
@@ -44,7 +44,7 @@ class UserRepository {
         }
       ''';
     // print(variables.toString() + 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq');
-    final response = await _gqlClient
+    final response = await gqlClient
         .mutate(MutationOptions(document: gql(signupMutation), variables: {
       "token": {
         "password": password,
@@ -73,7 +73,7 @@ class UserRepository {
         }
 }
       ''';
-    final response = await _gqlClient.mutate(
+    final response = await gqlClient.mutate(
       MutationOptions(document: gql(signInMutation), variables: variables),
     );
 
