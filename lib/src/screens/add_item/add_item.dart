@@ -362,6 +362,10 @@ class _AddItemState extends State<AddItem> {
                                 GestureDetector(
                                   onTap: () {
                                     print('yy');
+
+                                    setState(() {
+                                      _image = null;
+                                    });
                                   },
                                   child: Icon(
                                     Icons.delete,

@@ -55,8 +55,8 @@ class DrawerPage extends StatelessWidget {
             //   ),
             //   // selected: routes == Routes.category,
             // ),
-            if (ctx.isAuthenticated.isTrue)
-              ListTile(
+            // if (ctx.isAuthenticated.isTrue)
+            ListTile(
                 title: const Text('Add product'),
                 onTap: () {
                   Navigator.pushNamed(context, "/add_item");
@@ -93,8 +93,8 @@ class DrawerPage extends StatelessWidget {
                 ),
                 // selected: routes == Routes.admin,
               ),
-            if (ctx.isAuthenticated.isTrue)
-              ListTile(
+            // if (ctx.isAuthenticated.isTrue)
+            ListTile(
                 title: const Text('Sent Orders'),
                 onTap: () {
                   // Navigator.pushNamed(context, "/add_item");

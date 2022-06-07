@@ -22,7 +22,7 @@ class ProfileMiniDetail extends StatelessWidget {
                     // border: Border.all(color: Colors.grey),
                   ),
                   padding:
-                      const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -46,26 +46,26 @@ class ProfileMiniDetail extends StatelessWidget {
                     ],
                   ),
                 ),
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 8.0, top: 8),
-                    child: InkWell(
-                      child: Container(
-                        child: const Icon(
-                          Icons.add,
-                          color: Colors.blue,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.white70,
-                          borderRadius: BorderRadius.circular(100),
-                        ),
-                      ),
-                      borderRadius: BorderRadius.circular(50),
-                      onTap: () {},
-                    ),
-                  ),
-                ),
+                // Align(
+                //   alignment: Alignment.topRight,
+                //   child: Padding(
+                //     padding: const EdgeInsets.only(right: 8.0, top: 8),
+                //     child: InkWell(
+                //       child: Container(
+                //         child: const Icon(
+                //           Icons.add,
+                //           color: Colors.blue,
+                //         ),
+                //         decoration: BoxDecoration(
+                //           color: Colors.white70,
+                //           borderRadius: BorderRadius.circular(100),
+                //         ),
+                //       ),
+                //       borderRadius: BorderRadius.circular(50),
+                //       onTap: () {},
+                //     ),
+                //   ),
+                // ),
                 Container(
                   transform: Matrix4.translationValues(0.0, 25.0, 0.0),
                   padding: const EdgeInsets.only(left: 10),
