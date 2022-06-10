@@ -27,6 +27,10 @@ class ItemRepository {
     return itemOperation.getCategory();
   }
 
+  Future<bool> getUserShop(String userId) async {
+    return itemOperation.getUserShop(userId);
+  }
+
   Future<Item> addItem(variable) async {
     return itemOperation.addItem(variable);
   }
@@ -35,8 +39,8 @@ class ItemRepository {
     return itemOperation.getCart();
   }
 
-  Future addToCart(String name, String shopId, String itemId,
-      String price, String amount) async {
+  Future addToCart(String name, String shopId, String itemId, String price,
+      String amount) async {
     await itemOperation.addToCart(name, shopId, itemId, price, amount);
   }
 

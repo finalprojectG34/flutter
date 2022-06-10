@@ -61,8 +61,29 @@ class ItemOperation {
         .toList();
   }
 
+  Future<bool> getUserShop(String userId) async {
+    final response = await gqlClient
+        .query(
+      QueryOptions(
+        document: gql(r'''
+          query GetCompanyByUserId($getCompanyByUserIdId: ID) {
+              getCompanyByUserId(id: $getCompanyByUserIdId) {
+                id
+              }
+          }
+  '''),
+      ),
+    )
+        .timeout(Duration(seconds: 30), onTimeout: () {
+      throw TimeoutException('request timed out', const Duration(seconds: 30));
+    });
+    print((response.data!['getCompanyByUserId'] as List));
+    return (response.data!['getCompanyByUserId'] as List).isNotEmpty;
+  }
+
   Future<List<Cart>> getCart() async {
-    final response = await gqlClient.query(
+    final response = await gqlClient
+        .query(
       QueryOptions(document: gql(r'''
             query GetCartByUserId($getCartByUserIdId: ID) {
               getCartByUserId(id: $getCartByUserIdId) {
@@ -78,7 +99,10 @@ class ItemOperation {
               }
             }
       ''')),
-    );
+    )
+        .timeout(Duration(seconds: 30), onTimeout: () {
+      throw TimeoutException('request timed out', const Duration(seconds: 30));
+    });
     if (response.hasException) {
       print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
       print(response.exception);
@@ -141,14 +165,14 @@ class ItemOperation {
   }
 
   Future<Map<String, dynamic>> getMockCategory() async {
-    return Future.delayed(
-        const Duration(seconds: 1), () => {"getAllCategories": mockAllCategories});
+    return Future.delayed(const Duration(seconds: 1),
+        () => {"getAllCategories": mockAllCategories});
   }
 
   Future<Map<String, dynamic>> getMockSearchItems() async {
     return Future.delayed(
       const Duration(seconds: 1),
-          () => mockCategory,
+      () => mockCategory,
     );
   }
 
@@ -169,7 +193,7 @@ class ItemOperation {
         "name": "item 9",
         "description": {"description": "desc", "lang": "en"},
         "image":
-        "https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg",
+            "https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg",
         "categoryId": "cat id 9"
       },
     }));

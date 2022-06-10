@@ -193,17 +193,11 @@ class ItemMiniDetail extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(right: 8.0, bottom: 8),
               child: InkWell(
-                child: Container(
-                  child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: const Icon(
-                      Icons.add_shopping_cart,
-                      color: Colors.blue,
-                    ),
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.blue.withOpacity(.2),
-                    borderRadius: BorderRadius.circular(100),
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: const Icon(
+                    Icons.add_shopping_cart,
+                    color: Colors.blue,
                   ),
                 ),
                 borderRadius: BorderRadius.circular(50),

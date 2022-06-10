@@ -9,8 +9,8 @@ import 'package:image_picker/image_picker.dart';
 import '../../packages/validators.dart';
 
 class AddShop extends StatefulWidget {
-  AddShop({Key? key}) : super(key: key);
-
+  AddShop({Key? key, required this.redirectFrom}) : super(key: key);
+  final String redirectFrom;
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
 
   @override
@@ -38,7 +38,9 @@ class _AddShopState extends State<AddShop> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Register as a seller')),
+      appBar: widget.redirectFrom == 'drawer'
+          ? AppBar(title: Text('Register as a seller'))
+          : null,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
         child: Form(

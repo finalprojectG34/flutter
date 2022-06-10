@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:sms/src/models/models.dart';
@@ -23,6 +25,9 @@ class CartPageController extends GetxController {
   RxBool isCategoryLoading = true.obs;
   List<String> tempCategories = [];
   RxList<String> selectedCategoryName = <String>[].obs;
+  RxString err = ''.obs;
+  RxBool errOccurred = false.obs;
+  RxBool isCartLoading = false.obs;
 
   @override
   void onInit() async {
@@ -31,9 +36,20 @@ class CartPageController extends GetxController {
   }
 
   getCart() async {
-    List<Cart> carts = await itemRepository.getCart();
-    cartList!(carts.obs);
-    isCartFetchedFromDB(true);
+    isCartLoading(true);
+    errOccurred(false);
+    try {
+      List<Cart> carts = await itemRepository.getCart();
+      cartList!(carts.obs);
+    } on TimeoutException catch (e) {
+      err(e.message);
+      errOccurred(true);
+    } catch (e) {
+      err('Some error occurred');
+      errOccurred(true);
+    }
+
+    isCartLoading(false);
   }
 
   deleteCart(cartId) async {
