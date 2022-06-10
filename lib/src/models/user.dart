@@ -38,7 +38,7 @@ class User extends Equatable {
   factory User.fromJson(Map<String, dynamic> json, {String? token}) {
     // logTrace("inFactory");
     User item = User(
-      id: json['_id'],
+      id: json['id'],
       firstName: json['firstName'],
       lastName: json['lastName'],
       email: json['email'],
