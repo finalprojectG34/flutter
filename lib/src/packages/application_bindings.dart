@@ -19,7 +19,7 @@ class ApplicationBindings implements Bindings {
 
   final GraphQLClient _gqlClient = GraphQLClient(
       cache: GraphQLCache(),
-      link: HttpLink("http://192.168.0.172:8000/graphql"));
+      link: HttpLink("http://192.168.0.36:8000/graphql"));
 
   @override
   void dependencies() {
