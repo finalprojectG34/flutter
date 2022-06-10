@@ -9,8 +9,6 @@ class UserRepository {
 
   // SignUpController signUpController = Get.find();
 
-  // link: HttpLink("https://finalproject34.herokuapp.com/graphql"));
-
   Future signupUser(variables) async {
     String signupMutation = r'''
      mutation AuthPhoneAndRegister($token: PhoneSignupInput) {
@@ -53,7 +51,7 @@ class UserRepository {
       }
     }));
     print(
-        '${response.data!['authPhoneAndResetPwd']['token']}   zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz');
+        '${response.data!['authPhoneAndResetPwd']['token']}   zzzzzzzzzzzzzzzzzzzzzzzzzzzzzz');
 
     return User.fromJson(response.data!['authPhoneAndResetPwd']['user'],
         token: response.data!['authPhoneAndResetPwd']['token']);
@@ -61,21 +59,25 @@ class UserRepository {
 
   Future signInUser(variables) async {
     String signInMutation = r'''
-     mutation Login($input: loginInput!) {
-        login(input: $input) {
-          user {
-            id
-            firstName
-            lastName
-            phone
-          }
-          token
+             mutation Login($input: loginInput!) {
+                login(input: $input) {
+                  user {
+                    id
+                    firstName
+                    lastName
+                    phone
+                  }
+                  token
+                }
         }
-}
       ''';
     final response = await gqlClient.mutate(
       MutationOptions(document: gql(signInMutation), variables: variables),
     );
+
+    if(response.hasException){
+      print(response.exception);
+    }
 
     if (response.data!['login']['user'] != null) {
       return User.fromJson(response.data!['login']['user'],
