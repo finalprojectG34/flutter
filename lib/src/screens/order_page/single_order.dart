@@ -1,8 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sms/src/screens/order_page/received_order_detail.dart';
 
-class OrderDetail extends StatelessWidget {
-  const OrderDetail({Key? key}) : super(key: key);
+import '../../models/Order.dart';
+
+class SingleOrder extends StatelessWidget {
+  final Order order;
+  const SingleOrder({Key? key, required this.order}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
