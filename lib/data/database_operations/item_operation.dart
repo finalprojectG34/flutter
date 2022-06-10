@@ -30,8 +30,8 @@ class ItemOperation {
         '''),
       ),
     )
-        .timeout(const Duration(seconds: 5), onTimeout: () {
-      throw TimeoutException('request timed out', const Duration(seconds: 20));
+        .timeout(const Duration(seconds: 30), onTimeout: () {
+      throw TimeoutException('request timed out', const Duration(seconds: 30));
     });
     return (response.data!['getAllItems'] as List)
         .map((json) => Item.fromJson(json))

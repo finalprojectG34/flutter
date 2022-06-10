@@ -196,9 +196,12 @@ class ItemMiniDetail extends StatelessWidget {
               padding: const EdgeInsets.only(right: 8.0, bottom: 8),
               child: InkWell(
                 child: Container(
-                  child: const Icon(
-                    Icons.add,
-                    color: Colors.blue,
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: const Icon(
+                      Icons.add_shopping_cart,
+                      color: Colors.blue,
+                    ),
                   ),
                   decoration: BoxDecoration(
                     color: Colors.blue.withOpacity(.2),
@@ -213,7 +216,18 @@ class ItemMiniDetail extends StatelessWidget {
                 },
               ),
             ),
-          )
+          ),
+          // Align(
+          //     child: ElevatedButton(
+          //   onPressed: () {
+          //     addToCartController.addToCart(
+          //         item.name, item.id, item.id, item.id, item.price, "1");
+          //   },
+          //   child: Text('Add to cart'),
+          //   style: ElevatedButton.styleFrom(
+          //     minimumSize: Size(0, 0),
+          //   ),
+          // ))
         ],
       ),
     );
