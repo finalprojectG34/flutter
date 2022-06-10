@@ -17,11 +17,6 @@ import 'graphql_client.dart';
 class ApplicationBindings implements Bindings {
   ApplicationBindings();
 
-  // final GraphQLClient _gqlClient = GraphQLClient(
-  //   cache: GraphQLCache(),
-  //   link: HttpLink("http://192.168.0.167:8000/graphql"),
-  // );
-
   @override
   void dependencies() {
     Get.put(SharedPreference());

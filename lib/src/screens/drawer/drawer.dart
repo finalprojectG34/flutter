@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:sms/src/screens/home_page/AppCtx.dart';
 
 import '../components/add_shop.dart';
+import '../components/delivery_detail.dart';
 import '../components/order.dart';
 import '../components/shop_detail_component.dart';
 
@@ -110,6 +111,16 @@ class DrawerPage extends StatelessWidget {
               title: const Text('a'),
               onTap: () {
                 Get.to(() => ShopDetail());
+              },
+              leading: const Icon(
+                Icons.exit_to_app,
+                color: Color(0xFF0D90EE),
+              ),
+            ),
+            ListTile(
+              title: const Text('delivery detail'),
+              onTap: () {
+                Get.to(() => DeliveryDetail());
               },
               leading: const Icon(
                 Icons.exit_to_app,

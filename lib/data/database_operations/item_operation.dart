@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:sms/mock/mock_category.dart';
 
@@ -9,7 +11,8 @@ class ItemOperation {
   ItemOperation({required this.gqlClient});
 
   Future<List<Item>> getItems() async {
-    final response = await gqlClient.query(
+    final response = await gqlClient
+        .query(
       QueryOptions(
         document: gql(r'''
           query GetAllItems {
@@ -27,11 +30,16 @@ class ItemOperation {
           }
         '''),
       ),
-    );
+    )
+        .timeout(const Duration(seconds: 30), onTimeout: () {
+      throw TimeoutException('request timed out', const Duration(seconds: 30));
+    });
+
     if (response.hasException) {
       print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
       print(response.exception);
     }
+
     return (response.data!['getAllItems'] as List)
         .map((json) => Item.fromJson(json))
         .toList();
@@ -134,14 +142,13 @@ class ItemOperation {
 
   Future<Map<String, dynamic>> getMockCategory() async {
     return Future.delayed(
-        const Duration(seconds: 1),
-        () => {"getAllCategories": mockAllCategories});
+        const Duration(seconds: 1), () => {"getAllCategories": mockAllCategories});
   }
 
   Future<Map<String, dynamic>> getMockSearchItems() async {
     return Future.delayed(
       const Duration(seconds: 1),
-      () => mockCategory,
+          () => mockCategory,
     );
   }
 
@@ -162,7 +169,7 @@ class ItemOperation {
         "name": "item 9",
         "description": {"description": "desc", "lang": "en"},
         "image":
-            "https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg",
+        "https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg",
         "categoryId": "cat id 9"
       },
     }));
