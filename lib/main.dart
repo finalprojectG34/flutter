@@ -30,7 +30,7 @@ class _AppViewState extends State<AppView> {
   ValueNotifier<GraphQLClient> client = ValueNotifier(
     GraphQLClient(
       cache: GraphQLCache(),
-      link: HttpLink("https://finalproject34.herokuapp.com/graphql"),
+      link: HttpLink("http://192.168.0.167:8000/graphql"),
     ),
   );
 

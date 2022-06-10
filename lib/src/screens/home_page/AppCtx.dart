@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:sms/data/repository/item_repository.dart';
@@ -17,8 +19,8 @@ class AppController extends GetxController {
   RxBool isAuthenticated = false.obs;
   RxBool isGettingItems = false.obs;
   RxBool getItemError = false.obs;
-
-  RxList<Item>? itemList = <Item>[].obs;
+  RxString err = ''.obs;
+  RxList<Item>? itemList;
 
   @override
   void onInit() async {
@@ -42,11 +44,19 @@ class AppController extends GetxController {
 
   getItems() async {
     isGettingItems(true);
+    // List<Item> items = await itemRepository.getItems();
+    // itemList!(items);
+    // isGettingItems(false);
     try {
       List<Item> items = await itemRepository.getItems();
-      itemList!(items);
+      itemList = items.obs;
+      // itemList!(items);
+    } on TimeoutException catch (e) {
+      getItemError(true);
+      err(e.message);
     } catch (e) {
       getItemError(true);
+      err('Some error occurred');
     }
     isGettingItems(false);
   }

@@ -91,7 +91,7 @@ class SignUpController extends GetxController {
         .then((UserCredential result) async {
       if (token != null) {
         userVariable['token']['idToken'] = token;
-        userVariable['token']['phone'] = '+251925252525';
+        userVariable['token']['phone'] = '+251923232323';
         await signupUser(userVariable);
         if (createdUser != null) {
           await storage.write(key: 'token', value: createdUser?.token);

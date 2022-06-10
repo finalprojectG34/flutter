@@ -49,14 +49,15 @@ class _SingleCartState extends State<SingleCart> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Expanded(
+                        Expanded(
                           child: Text(
-                            'Nike cscbsjbc sdfasdfie oeoeo',
+                            widget.cart.name!,
                             maxLines: 3,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                                color: color1),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              color: color1,
+                            ),
                           ),
                         ),
                         // Row(
@@ -64,15 +65,6 @@ class _SingleCartState extends State<SingleCart> {
                         //   children: [
                         const SizedBox(
                           width: 10,
-                        ),
-                        GestureDetector(
-                          onTap: () {},
-                          // splashRadius: 20,
-                          child: Icon(
-                            Icons.favorite_rounded,
-                            color: Colors.red.shade300,
-                            size: 30,
-                          ),
                         ),
                         const SizedBox(width: 10),
                         GestureDetector(
@@ -99,98 +91,98 @@ class _SingleCartState extends State<SingleCart> {
                           style: const TextStyle(
                               fontWeight: FontWeight.bold, color: Colors.blue),
                         ),
-                        // SizedBox(
-                        //   width: 100,
-                        //   height: 26,
-                        //   child: Container(
-                        //     decoration: BoxDecoration(
-                        //       border: Border.all(color: Colors.grey.shade300),
-                        //       borderRadius: BorderRadius.circular(5),
-                        //     ),
-                        //     child: Row(
-                        //       children: [
-                        //         Expanded(
-                        //           child: TextButton(
-                        //             child: const Icon(
-                        //               Icons.remove,
-                        //             ),
-                        //             style: TextButton.styleFrom(
-                        //               padding: EdgeInsets.zero,
-                        //             ),
-                        //             onPressed: () async {
-                        //               // await FocusScope.of(context).unfocus();
-                        //               // incomeAndExpenseController.decreaseFrequencyValue(
-                        //               //     widget.categoryModel.id,
-                        //               //     widget.categoryModel.categoryId);
-                        //             },
-                        //           ),
-                        //         ),
-                        //         Expanded(
-                        //           flex: 2,
-                        //           child: TextField(
-                        //             onTap: () {
-                        //               // frequency = widget.categoryModel.frequency.toString();
-                        //
-                        //             },
-                        //             // focusNode: frequencyFocusNode,
-                        //             keyboardType: TextInputType.number,
-                        //             controller: frequencyController,
-                        //             textAlign: TextAlign.center,
-                        //
-                        //             decoration: const InputDecoration(
-                        //               fillColor: color2,
-                        //               focusColor: color2,
-                        //               enabledBorder: InputBorder.none,
-                        //               focusedBorder: InputBorder.none,
-                        //               border: InputBorder.none,
-                        //               filled: true,
-                        //
-                        //               // enabledBorder: OutlineInputBorder(
-                        //               //   borderSide: BorderSide(
-                        //               //       color: Colors.green, width: 0.5),
-                        //               // ),
-                        //               // focusedBorder: OutlineInputBorder(
-                        //               //   borderSide: BorderSide(
-                        //               //       color: Colors.green, width: 0.75),
-                        //               // ),
-                        //               // contentPadding: EdgeInsets.only(bottom: 20),
-                        //             ),
-                        //             showCursor: false,
-                        //
-                        //             onChanged: (givenFrequency) {
-                        //               print('given $givenFrequency');
-                        //               // frequency = givenFrequency;
-                        //             },
-                        //             onEditingComplete: () {
-                        //               FocusScope.of(context).unfocus();
-                        //             },
-                        //           ),
-                        //         ),
-                        //         Expanded(
-                        //           // flex: 2,
-                        //           child: TextButton(
-                        //             child: const Center(
-                        //               child: Icon(Icons.add),
-                        //             ),
-                        //             style: OutlinedButton.styleFrom(
-                        //                 padding: EdgeInsets.zero),
-                        //             onPressed: () async {
-                        //               // await FocusScope.of(context).unfocus();
-                        //               // incomeAndExpenseController.increaseFrequencyValue(
-                        //               //     widget.categoryModel.id,
-                        //               //     widget.categoryModel.categoryId);
-                        //               setState(() {
-                        //                 frequencyController.value.copyWith(
-                        //                     text:
-                        //                     '${int.parse(frequencyController.text) + 1}');
-                        //               });
-                        //             },
-                        //           ),
-                        //         )
-                        //       ],
-                        //     ),
-                        //   ),
-                        // )
+                        SizedBox(
+                          width: 100,
+                          height: 26,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey.shade300),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: TextButton(
+                                    child: const Icon(
+                                      Icons.remove,
+                                    ),
+                                    style: TextButton.styleFrom(
+                                      padding: EdgeInsets.zero,
+                                    ),
+                                    onPressed: () async {
+                                      // await FocusScope.of(context).unfocus();
+                                      // incomeAndExpenseController.decreaseFrequencyValue(
+                                      //     widget.categoryModel.id,
+                                      //     widget.categoryModel.categoryId);
+                                    },
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: TextField(
+                                    onTap: () {
+                                      // frequency = widget.categoryModel.frequency.toString();
+
+                                    },
+                                    // focusNode: frequencyFocusNode,
+                                    keyboardType: TextInputType.number,
+                                    controller: frequencyController,
+                                    textAlign: TextAlign.center,
+
+                                    decoration: const InputDecoration(
+                                      fillColor: color2,
+                                      focusColor: color2,
+                                      enabledBorder: InputBorder.none,
+                                      focusedBorder: InputBorder.none,
+                                      border: InputBorder.none,
+                                      filled: true,
+
+                                      // enabledBorder: OutlineInputBorder(
+                                      //   borderSide: BorderSide(
+                                      //       color: Colors.green, width: 0.5),
+                                      // ),
+                                      // focusedBorder: OutlineInputBorder(
+                                      //   borderSide: BorderSide(
+                                      //       color: Colors.green, width: 0.75),
+                                      // ),
+                                      // contentPadding: EdgeInsets.only(bottom: 20),
+                                    ),
+                                    showCursor: false,
+
+                                    onChanged: (givenFrequency) {
+                                      print('given $givenFrequency');
+                                      // frequency = givenFrequency;
+                                    },
+                                    onEditingComplete: () {
+                                      FocusScope.of(context).unfocus();
+                                    },
+                                  ),
+                                ),
+                                Expanded(
+                                  // flex: 2,
+                                  child: TextButton(
+                                    child: const Center(
+                                      child: Icon(Icons.add),
+                                    ),
+                                    style: OutlinedButton.styleFrom(
+                                        padding: EdgeInsets.zero),
+                                    onPressed: () async {
+                                      // await FocusScope.of(context).unfocus();
+                                      // incomeAndExpenseController.increaseFrequencyValue(
+                                      //     widget.categoryModel.id,
+                                      //     widget.categoryModel.categoryId);
+                                      setState(() {
+                                        frequencyController.value.copyWith(
+                                            text:
+                                            '${int.parse(frequencyController.text) + 1}');
+                                      });
+                                    },
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   ],

@@ -168,19 +168,17 @@ class ItemMiniDetail extends StatelessWidget {
                       height: 10,
                     ),
                     Row(
-                      children: const [
-                        Text(
+                      children: [
+                        const Text(
                           '\$600',
                           style: TextStyle(
                               decoration: TextDecoration.lineThrough,
                               color: Colors.grey),
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
+                        const SizedBox(width: 10),
                         Text(
-                          '\$300',
-                          style: TextStyle(
+                          "${item.price}",
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold, color: Colors.blue),
                         )
                       ],
@@ -196,9 +194,12 @@ class ItemMiniDetail extends StatelessWidget {
               padding: const EdgeInsets.only(right: 8.0, bottom: 8),
               child: InkWell(
                 child: Container(
-                  child: const Icon(
-                    Icons.add,
-                    color: Colors.blue,
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: const Icon(
+                      Icons.add_shopping_cart,
+                      color: Colors.blue,
+                    ),
                   ),
                   decoration: BoxDecoration(
                     color: Colors.blue.withOpacity(.2),
@@ -207,13 +208,25 @@ class ItemMiniDetail extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.circular(50),
                 onTap: () {
+                  //name, shopId, userId, itemId, price, amount
                   addToCartController.addToCart(
-                      item.name, item.id, item.id, item.id, item.price, "1");
+                      item.name, item.id, item.id, item.price, "1");
                   // appController.changePage('Cart', 3);
                 },
               ),
             ),
-          )
+          ),
+          // Align(
+          //     child: ElevatedButton(
+          //   onPressed: () {
+          //     addToCartController.addToCart(
+          //         item.name, item.id, item.id, item.id, item.price, "1");
+          //   },
+          //   child: Text('Add to cart'),
+          //   style: ElevatedButton.styleFrom(
+          //     minimumSize: Size(0, 0),
+          //   ),
+          // ))
         ],
       ),
     );
