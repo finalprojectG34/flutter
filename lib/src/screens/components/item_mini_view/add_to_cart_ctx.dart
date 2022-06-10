@@ -27,7 +27,7 @@ class AddToCartController extends GetxController {
     // await getCategory(queryCategory);
   }
 
-  addToCart(name, shopId, userId, itemId, price, amount) async {
-    await itemRepository.addToCart(name, shopId, userId, itemId, price, amount);
+  addToCart(name, shopId, itemId, price, amount) async {
+    await itemRepository.addToCart(name, shopId, itemId, price, amount);
   }
 }

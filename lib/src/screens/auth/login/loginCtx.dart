@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -34,10 +36,8 @@ class LoginController extends GetxController {
             duration: const Duration(seconds: 3));
         // Get.back();
       } else {
-        // await storage.write(key: 'token', value: createdUser?.token);
-        print(signedInUser);
-
         await storage.write(key: 'token', value: signedInUser?.token);
+        // await storage.write(key: 'user', value: jsonEncode(signedInUser));
         EasyLoading.showSuccess('Logged in successfully',
             maskType: EasyLoadingMaskType.black);
         AppController appController = Get.find();
@@ -46,6 +46,7 @@ class LoginController extends GetxController {
         // Get.offNamed('/');
       }
     } catch (e) {
+      print(e);
       EasyLoading.showError('Please try again',
           maskType: EasyLoadingMaskType.black,
           duration: const Duration(seconds: 3));

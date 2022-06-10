@@ -4,6 +4,9 @@
 // import 'package:delivery_app_getx/features/order/data/documents/docs_gql.dart';
 // import 'package:delivery_app_getx/features/order/data/models/order_model.dart';
 
+import 'dart:convert';
+
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:sms/data/database_operations/item_operation.dart';
 
 import '../../src/app.dart';
@@ -12,6 +15,8 @@ class ItemRepository {
   final ItemOperation itemOperation;
 
   ItemRepository({required this.itemOperation});
+
+  final storage = const FlutterSecureStorage();
 
   // Future<bool> createItem(Map<String, dynamic> body);
   Future<List<Item>> getItems() async {
@@ -26,13 +31,13 @@ class ItemRepository {
     return itemOperation.addItem(variable);
   }
 
-  Future<List<Cart>> getCart(String userId) async {
-    return itemOperation.getCart(userId);
+  Future<List<Cart>> getCart() async {
+    return itemOperation.getCart();
   }
 
-  Future addToCart(String name, String shopId, String userId, String itemId,
+  Future addToCart(String name, String shopId, String itemId,
       String price, String amount) async {
-    await itemOperation.addToCart(name, shopId, userId, itemId, price, amount);
+    await itemOperation.addToCart(name, shopId, itemId, price, amount);
   }
 
   Future deleteCart(String cartId) async {

@@ -168,19 +168,17 @@ class ItemMiniDetail extends StatelessWidget {
                       height: 10,
                     ),
                     Row(
-                      children: const [
-                        Text(
+                      children: [
+                        const Text(
                           '\$600',
                           style: TextStyle(
                               decoration: TextDecoration.lineThrough,
                               color: Colors.grey),
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
+                        const SizedBox(width: 10),
                         Text(
-                          '\$300',
-                          style: TextStyle(
+                          "${item.price}",
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold, color: Colors.blue),
                         )
                       ],
@@ -207,8 +205,9 @@ class ItemMiniDetail extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.circular(50),
                 onTap: () {
+                  //name, shopId, userId, itemId, price, amount
                   addToCartController.addToCart(
-                      item.name, item.id, item.id, item.id, item.price, "1");
+                      item.name, item.id, item.id, item.price, "1");
                   // appController.changePage('Cart', 3);
                 },
               ),

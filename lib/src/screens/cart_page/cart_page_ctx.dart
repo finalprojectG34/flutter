@@ -1,3 +1,4 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:sms/src/models/models.dart';
 
@@ -5,6 +6,8 @@ import '../../../../data/repository/item_repository.dart';
 
 class CartPageController extends GetxController {
   final ItemRepository itemRepository;
+
+  final storage = const FlutterSecureStorage();
 
   CartPageController({required this.itemRepository});
 
@@ -24,17 +27,13 @@ class CartPageController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    await getCart("629af7f97d524a03af577688");
+    await getCart();
   }
 
-  getCart(String userId) async {
-    List<Cart> carts = await itemRepository.getCart(userId);
+  getCart() async {
+    List<Cart> carts = await itemRepository.getCart();
     cartList!(carts.obs);
     isCartFetchedFromDB(true);
-  }
-
-  addToCart(name, shopId, userId, itemId, price, amount) async {
-    await itemRepository.addToCart(name, shopId, userId, itemId, price, amount);
   }
 
   deleteCart(cartId) async {
