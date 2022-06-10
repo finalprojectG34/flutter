@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:sms/src/screens/cart_page/cart_page_ctx.dart';
 import 'package:sms/src/screens/home_page/AppCtx.dart';
 
+import '../../../models/cart.dart';
 import '../../../models/item.dart';
-import 'add_to_cart_ctx.dart';
 
 class ItemMiniDetail extends StatelessWidget {
   final Item item;
 
   ItemMiniDetail({Key? key, required this.item}) : super(key: key);
   final AppController appController = Get.find();
-  final AddToCartController addToCartController = Get.find();
+  final CartPageController addToCartController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -208,9 +209,13 @@ class ItemMiniDetail extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.circular(50),
                 onTap: () {
-                  //name, shopId, userId, itemId, price, amount
-                  addToCartController.addToCart(
-                      item.name, item.id, item.id, item.price, "1");
+                  addToCartController.addToCart(Cart(
+                    name: item.name,
+                    shopId: item.shopId,
+                    itemId: item.id,
+                    price: item.price,
+                    amount: "5",
+                  ));
                   // appController.changePage('Cart', 3);
                 },
               ),

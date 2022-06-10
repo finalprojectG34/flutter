@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-import '../../../data/database_operations/item_operation.dart';
+import '../../../data/data_access/item_operation.dart';
 import '../../../data/repository/item_repository.dart';
 
 class SearchController extends GetxController {

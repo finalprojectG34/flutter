@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sms/src/screens/components/single_cart.dart';
 
+import '../../models/cart.dart';
 import '../components/payment_detail.dart';
 import 'cart_page_ctx.dart';
+import '../order_page/order_page_ctx.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({Key? key, this.index}) : super(key: key);
@@ -19,6 +21,8 @@ class _CartPageState extends State<CartPage> {
   void initState() {
     super.initState();
   }
+
+  final OrderPageController orderPageController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +55,13 @@ class _CartPageState extends State<CartPage> {
                         fixedSize:
                             MaterialStateProperty.all(Size(Get.width, 54)),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        List<Cart> tempCart = [];
+                        ctx.cartList?.toList().forEach((element) {
+                          tempCart.add(element);
+                        });
+                        orderPageController.createOrder(tempCart);
+                      },
                       child: const Text(
                         "Check Out",
                         style: TextStyle(

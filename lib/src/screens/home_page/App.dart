@@ -7,10 +7,10 @@ import 'package:sms/src/app.dart';
 import 'package:sms/src/screens/drawer/drawer.dart';
 import 'package:sms/src/screens/screens.dart';
 
-import '../../../package_delivery_tracking.dart';
 import '../add_item/add_item.dart';
 import '../auth/login/login.dart';
 import '../cart_page/cart_page.dart';
+import '../order_page/sent_order_detail.dart';
 import 'AppCtx.dart';
 
 part 'app_components.dart';
@@ -70,7 +70,7 @@ class _AppState extends State<App> {
       case 1:
         // _selectedIndex = index;
         appController.changePage('Explore', index);
-        return PackageDeliveryTrackingPage();
+        return SentOrderDetail();
       //   Query(
       //   options: QueryOptions(
       //     document: gql(query),

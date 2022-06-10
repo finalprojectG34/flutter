@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:sms/data/database_operations/item_operation.dart';
+import 'package:sms/data/data_access/item_operation.dart';
 import 'package:sms/src/models/models.dart';
 
 import '../../../data/repository/item_repository.dart';
