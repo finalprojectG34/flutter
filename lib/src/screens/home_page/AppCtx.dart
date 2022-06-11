@@ -11,7 +11,7 @@ class AppController extends GetxController {
 
   AppController({required this.itemRepository});
 
-  final storage = const FlutterSecureStorage();
+  final storage = Get.find<FlutterSecureStorage>();
   RxBool hasSearchIcon = true.obs;
   RxString pageName = 'Home'.obs;
   RxInt selectedIndex = 0.obs;

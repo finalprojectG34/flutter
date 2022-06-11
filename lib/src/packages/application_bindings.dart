@@ -44,6 +44,7 @@ class ApplicationBindings implements Bindings {
   @override
   void dependencies() {
     Get.put(SharedPreference());
+
     Get.lazyPut(
       () => LoginController(userRepository: _userRepository),
       fenix: true,

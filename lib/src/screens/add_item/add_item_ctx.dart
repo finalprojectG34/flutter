@@ -1,5 +1,9 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:sms/data/data_access/item_operation.dart';
@@ -78,11 +82,29 @@ class AddItemController extends GetxController {
     // return a;
   }
 
-  addItem(variable) async {
+  addItem(variable, File file) async {
+    var imagePath = await imageUpload(file);
+    variable["imagePath"] = imagePath;
     Item item = await itemRepository.addItem(variable);
     itemId(item.id);
-    print(item.toString() + ' ############################aaaa');
-    // isCategoryFetchedFromDB(true);
+  }
+
+  Future<String?> imageUpload(File file) async {
+    var storage = Get.find<FlutterSecureStorage>();
+    var userId = await storage.read(key: "userId");
+    final storageRef = FirebaseStorage.instance.ref();
+
+    final mountainsRef = storageRef.child(userId ?? "userId");
+
+    try {
+      await mountainsRef.putFile(file);
+      return await mountainsRef.getDownloadURL();
+    } on FirebaseException catch (e) {
+      // ..
+      // .
+      Fluttertoast.showToast(msg: "Uploading failed");
+      return null;
+    }
   }
 
   addSelectedAttribute(String key, String value) {

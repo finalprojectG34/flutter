@@ -26,7 +26,7 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   bool searchBar = false;
   late Widget body;
-  final storage = const FlutterSecureStorage();
+  final storage = Get.find<FlutterSecureStorage>();
 
   // late OrderRespositoryImpl aa;
   late AppBar appbar;

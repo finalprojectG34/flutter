@@ -8,7 +8,7 @@ import '../../models/Order.dart';
 class OrderPageController extends GetxController {
   final OrderRepository orderRepository;
 
-  final storage = const FlutterSecureStorage();
+  final storage = Get.find<FlutterSecureStorage>();
 
   OrderPageController({required this.orderRepository});
 

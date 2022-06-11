@@ -21,7 +21,7 @@ class SignUpController extends GetxController {
 
   // String? signUpToken;
   user.User? createdUser;
-  final storage = const FlutterSecureStorage();
+  final storage = Get.find<FlutterSecureStorage>();
   var userVariable;
 
   signupUser(variable) async {
