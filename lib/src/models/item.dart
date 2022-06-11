@@ -8,7 +8,7 @@ class Item {
     this.shopId,
     this.imagePath,
     this.description,
-    this.amount,
+    // this.amount,
   });
 
   final String? id;
@@ -19,7 +19,7 @@ class Item {
   final String? category;
   final String? imagePath;
   final String? description;
-  final double? amount;
+  // final double? amount;
 
   factory Item.fromJson(Map<String, dynamic> json) {
     Item item = Item(
@@ -31,7 +31,7 @@ class Item {
       shopId: json['shopId'],
       imagePath: json['image'],
       description: json['desc'],
-      amount: double.parse(json['count']),
+      // amount: double.parse(json['count']),
     );
     return item;
   }

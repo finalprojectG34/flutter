@@ -43,6 +43,7 @@ class AppController extends GetxController {
   }
 
   getItems() async {
+    getItemError(false);
     isGettingItems(true);
     // List<Item> items = await itemRepository.getItems();
     // itemList!(items);
@@ -56,7 +57,7 @@ class AppController extends GetxController {
       err(e.message);
     } catch (e) {
       getItemError(true);
-      err('Some error occurred');
+      err(e.toString());
     }
     isGettingItems(false);
   }

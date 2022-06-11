@@ -4,10 +4,13 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:sms/src/screens/home_page/AppCtx.dart';
 
+import '../../app.dart';
+import '../components/add_address.dart';
 import '../components/add_shop.dart';
 import '../components/delivery_detail.dart';
-import '../components/order.dart';
 import '../components/shop_detail_component.dart';
+import '../order_page/order_page.dart';
+import '../order_page/received_orders.dart';
 
 class DrawerPage extends StatelessWidget {
   const DrawerPage({Key? key}) : super(key: key);
@@ -86,7 +89,7 @@ class DrawerPage extends StatelessWidget {
                 onTap: () {
                   // context.read<NavigationBloc>().add(Navigated(Routes.admin));
                   // Navigator.pop(context);
-                  Get.to(() => OrderPage());
+                  Get.to(() => ReceivedOrdersPage());
                 },
                 leading: const Icon(
                   Icons.description,
@@ -99,7 +102,7 @@ class DrawerPage extends StatelessWidget {
               title: const Text('Sent Orders'),
               onTap: () {
                 // Navigator.pushNamed(context, "/add_item");
-                Get.to(() => AddShop());
+                Get.to(() => OrderPage());
               },
               leading: const Icon(
                 Icons.fiber_new,
@@ -111,6 +114,16 @@ class DrawerPage extends StatelessWidget {
               title: const Text('a'),
               onTap: () {
                 Get.to(() => ShopDetail());
+              },
+              leading: const Icon(
+                Icons.exit_to_app,
+                color: Color(0xFF0D90EE),
+              ),
+            ),
+            ListTile(
+              title: const Text('address'),
+              onTap: () {
+                Get.to(() => AddAddress());
               },
               leading: const Icon(
                 Icons.exit_to_app,

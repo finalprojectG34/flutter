@@ -18,6 +18,7 @@ class SingleCart extends StatefulWidget {
 class _SingleCartState extends State<SingleCart> {
   TextEditingController frequencyController = TextEditingController();
   final CartPageController cartPageController = Get.find();
+  int frequency = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -118,46 +119,56 @@ class _SingleCartState extends State<SingleCart> {
                                   ),
                                 ),
                                 Expanded(
-                                  flex: 2,
-                                  child: TextField(
-                                    onTap: () {
-                                      // frequency = widget.categoryModel.frequency.toString();
-
-                                    },
-                                    // focusNode: frequencyFocusNode,
-                                    keyboardType: TextInputType.number,
-                                    controller: frequencyController,
-                                    textAlign: TextAlign.center,
-
-                                    decoration: const InputDecoration(
-                                      fillColor: color2,
-                                      focusColor: color2,
-                                      enabledBorder: InputBorder.none,
-                                      focusedBorder: InputBorder.none,
-                                      border: InputBorder.none,
-                                      filled: true,
-
-                                      // enabledBorder: OutlineInputBorder(
-                                      //   borderSide: BorderSide(
-                                      //       color: Colors.green, width: 0.5),
-                                      // ),
-                                      // focusedBorder: OutlineInputBorder(
-                                      //   borderSide: BorderSide(
-                                      //       color: Colors.green, width: 0.75),
-                                      // ),
-                                      // contentPadding: EdgeInsets.only(bottom: 20),
+                                    flex: 2,
+                                    child: Container(
+                                      padding: EdgeInsets.zero,
+                                      decoration: const BoxDecoration(
+                                        color: color2,
+                                      ),
+                                      child: Text(
+                                        '$frequency',
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    )
+//                                   TextField(
+//                                     onTap: () {
+//                                       // frequency = widget.categoryModel.frequency.toString();
+//                                     },
+//                                     enabled: false,
+//                                     // focusNode: frequencyFocusNode,
+//                                     keyboardType: TextInputType.number,
+//                                     controller: frequencyController,
+//                                     textAlign: TextAlign.center,
+// // textAlignVertical: TextAlignVertical.center,
+//                                     decoration: const InputDecoration(
+//                                       fillColor: color2,
+//                                       focusColor: color2,
+//                                       enabledBorder: InputBorder.none,
+//                                       focusedBorder: InputBorder.none,
+//                                       border: InputBorder.none,
+//                                       filled: true,
+//
+//                                       // enabledBorder: OutlineInputBorder(
+//                                       //   borderSide: BorderSide(
+//                                       //       color: Colors.green, width: 0.5),
+//                                       // ),
+//                                       // focusedBorder: OutlineInputBorder(
+//                                       //   borderSide: BorderSide(
+//                                       //       color: Colors.green, width: 0.75),
+//                                       // ),
+//                                       // contentPadding: EdgeInsets.only(bottom: 20),
+//                                     ),
+//                                     showCursor: false,
+//
+//                                     onChanged: (givenFrequency) {
+//                                       print('given $givenFrequency');
+//                                       // frequency = givenFrequency;
+//                                     },
+//                                     onEditingComplete: () {
+//                                       FocusScope.of(context).unfocus();
+//                                     },
+//                                   ),
                                     ),
-                                    showCursor: false,
-
-                                    onChanged: (givenFrequency) {
-                                      print('given $givenFrequency');
-                                      // frequency = givenFrequency;
-                                    },
-                                    onEditingComplete: () {
-                                      FocusScope.of(context).unfocus();
-                                    },
-                                  ),
-                                ),
                                 Expanded(
                                   // flex: 2,
                                   child: TextButton(
@@ -166,15 +177,17 @@ class _SingleCartState extends State<SingleCart> {
                                     ),
                                     style: OutlinedButton.styleFrom(
                                         padding: EdgeInsets.zero),
-                                    onPressed: () async {
+                                    onPressed: () {
                                       // await FocusScope.of(context).unfocus();
                                       // incomeAndExpenseController.increaseFrequencyValue(
                                       //     widget.categoryModel.id,
                                       //     widget.categoryModel.categoryId);
                                       setState(() {
-                                        frequencyController.value.copyWith(
-                                            text:
-                                            '${int.parse(frequencyController.text) + 1}');
+                                        frequencyController.text =
+                                            '${frequency++}';
+                                        // frequencyController.value.copyWith(
+                                        //     text:
+                                        //         '${frequency++}');
                                       });
                                     },
                                   ),

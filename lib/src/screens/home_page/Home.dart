@@ -67,7 +67,19 @@ class _HomeState extends State<Home> {
                           ? Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 10),
-                              child: Text(ctx.err.value),
+                              child: Row(
+                                children: [
+                                  Text(ctx.err.value),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  TextButton(
+                                      onPressed: () {
+                                        ctx.getItems();
+                                      },
+                                      child: Text('Retry'))
+                                ],
+                              ),
                             )
                           : Container()
                       : ctx.itemList!.isEmpty
