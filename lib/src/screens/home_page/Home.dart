@@ -6,8 +6,9 @@ import 'package:sms/src/screens/components/suggested_items.dart';
 import 'package:sms/src/screens/shops_list/shops_list.dart';
 
 import '../components/item_mini_view/item_mini_detail.dart';
-import '../components/shop_item.dart';
 import '../components/searchbar.dart';
+import '../components/shop_item.dart';
+import '../items/item_list.dart';
 import 'AppCtx.dart';
 
 class Home extends StatefulWidget {
@@ -44,14 +45,22 @@ class _HomeState extends State<Home> {
                   ),
                   const CategoryList(),
                   // if (ctx.isGettingItems.isTrue || ctx.itemList!.isNotEmpty)
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                      'Flash Sale',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color: Colors.black),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text('Flash Sale',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: Colors.black)),
+                        TextButton(
+                            onPressed: () {
+                              Get.to(const ItemList());
+                            },
+                            child: const Text('See all'))
+                      ],
                     ),
                   ),
                   // if (ctx.getItemError.isTrue)
