@@ -1,4 +1,3 @@
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:sms/data/data_access/cart_data_access.dart';
 import 'package:sms/data/data_access/item_operation.dart';
@@ -45,7 +44,7 @@ class ApplicationBindings implements Bindings {
   @override
   void dependencies() {
     Get.put(SharedPreference());
-    Get.put(const FlutterSecureStorage());
+
     Get.lazyPut(
       () => LoginController(userRepository: _userRepository),
       fenix: true,
