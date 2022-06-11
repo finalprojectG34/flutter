@@ -30,20 +30,40 @@ class _CartPageState extends State<CartPage> {
       builder: (ctx) {
         return Padding(
           padding: const EdgeInsets.all(10.0),
-          child: ctx.isCartFetchedFromDB.isFalse
+          child: ctx.isCartLoading.isTrue
               ? const Center(child: CircularProgressIndicator())
-              : Column(
-                  children: [
-                    Expanded(
-                      child: ListView(
-                        clipBehavior: Clip.none,
-                        children: (ctx.cartList as List)
-                            .map((cart) => SingleCart(cart: cart))
-                            .toList()
-                            .obs,
+              : ctx.errOccurred.isTrue
+                  ? Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(ctx.err.value),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            TextButton(
+                                onPressed: () {
+                                  ctx.getCart();
+                                },
+                                child: Text('Retry'))
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 50),
+                    )
+                  : Column(
+                      children: [
+                        Expanded(
+                          child: ListView(
+                            clipBehavior: Clip.none,
+                            children: (ctx.cartList as List)
+                                .map((cart) => SingleCart(cart: cart))
+                                .toList()
+                                .obs,
+                          ),
+                        ),
+                        const SizedBox(height: 50),
                     const PaymentDetail(),
                     ElevatedButton(
                       style: ButtonStyle(

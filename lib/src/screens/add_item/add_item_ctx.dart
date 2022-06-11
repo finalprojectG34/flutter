@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:sms/data/data_access/item_operation.dart';
@@ -26,10 +28,16 @@ class AddItemController extends GetxController {
   RxBool isCategoryLoading = true.obs;
   List<String> tempCategories = [];
   RxList<String> selectedCategoryName = <String>[].obs;
+  RxBool? userHasShop;
+  RxBool isShopLoading = false.obs;
+  RxBool isTimedOut = false.obs;
+  RxString err = ''.obs;
+  RxBool errOccurred = false.obs;
 
   @override
   void onInit() async {
     super.onInit();
+    await getUserShop();
     await getCategory();
   }
 
@@ -38,6 +46,27 @@ class AddItemController extends GetxController {
     categoryList!(categories.obs);
     print(categoryList);
     isCategoryFetchedFromDB(true);
+  }
+
+  getUserShop() async {
+    isShopLoading(true);
+    errOccurred(false);
+    try {
+      bool hasShop = await itemRepository.getUserShop('');
+      userHasShop = hasShop.obs;
+      // itemList!(items);
+    } on TimeoutException catch (e) {
+      err(e.message);
+      errOccurred(true);
+    } catch (e) {
+      err('Some error occurred');
+      errOccurred(true);
+    }
+
+    isShopLoading(false);
+    // categoryList!(categories.obs);
+    // print(categoryList);
+    // isCategoryFetchedFromDB(true);
   }
 
   getMockCategory() async {

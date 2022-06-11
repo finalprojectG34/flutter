@@ -18,6 +18,10 @@ class ItemRepository {
     return itemOperation.getCategory();
   }
 
+  Future<bool> getUserShop(String userId) async {
+    return itemOperation.getUserShop(userId);
+  }
+
   Future<Item> addItem(variable) async {
     return itemOperation.addItem(variable);
   }
