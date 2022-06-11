@@ -119,12 +119,12 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
               if (ctx.isOrderLoading.isFalse)
                 ...ctx.orderList!
                     .map((order) => GestureDetector(
-                  onTap: () {
-                    ctx.getOrderById(order.id!);
-                    Get.to(() => const SentOrderDetail());
-                  },
-                  child: SingleOrder(order: order),
-                ))
+                          onTap: () {
+                            ctx.getOrderById(order.id!);
+                            Get.to(() => const SentOrderDetail());
+                          },
+                          child: SingleOrder(order: order),
+                        ))
                     .toList()
             ],
           );

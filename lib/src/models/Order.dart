@@ -25,7 +25,9 @@ class Order {
       status: json['status'],
       userId: json['userId'],
       shopId: json['shopId'],
-      orderItems: (json['orderItems'] as List).map((e) => OrderItem.fromJson(e)).toList(),
+      orderItems: (json['orderItems'] as List)
+          .map((e) => OrderItem.fromJson(e))
+          .toList(),
       subTotal: json['subTotal'].toString(),
       actions: json['actions'],
       deliveryAddress: json['deliveryAddress'],
@@ -39,8 +41,7 @@ class Order {
   }
 }
 
-
-class OrderItem{
+class OrderItem {
   const OrderItem({
     this.id,
     this.name,

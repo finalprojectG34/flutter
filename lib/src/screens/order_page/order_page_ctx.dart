@@ -35,21 +35,21 @@ class OrderPageController extends GetxController {
 
   getOrder(String status) async {
     isOrderLoading(true);
-    List<Order> orders =  await orderRepository.getOrder(status);
+    List<Order> orders = await orderRepository.getOrder(status);
     orderList!(orders);
     isOrderLoading(false);
   }
 
   getOrderById(String orderId) async {
     isOrderLoading(true);
-    Order newOrder =  await orderRepository.getOrderById(orderId);
+    Order newOrder = await orderRepository.getOrderById(orderId);
     order(newOrder);
     isOrderLoading(false);
   }
 
   updateOrderStatus(String orderId, String status) async {
     isOrderLoading(true);
-    Order newOrder =  await orderRepository.updateOrderStatus(orderId, status);
+    Order newOrder = await orderRepository.updateOrderStatus(orderId, status);
     order(newOrder);
     isOrderLoading(false);
   }

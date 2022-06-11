@@ -89,21 +89,19 @@ class OrderRepository {
       '''),
       variables: {
         "input": orders
-            .map((order) =>
-        {
-          "name": "name",
-          "description": "description",
-          "shopId": order.shopId,
-          "orderItems": order.orderItems
-              ?.map((orderItem) =>
-          {
-            "id": orderItem.id,
-            "name": orderItem.name,
-            "price": orderItem.price,
-            "amount": orderItem.amount,
-          })
-              .toList()
-        })
+            .map((order) => {
+                  "name": "name",
+                  "description": "description",
+                  "shopId": order.shopId,
+                  "orderItems": order.orderItems
+                      ?.map((orderItem) => {
+                            "id": orderItem.id,
+                            "name": orderItem.name,
+                            "price": orderItem.price,
+                            "amount": orderItem.amount,
+                          })
+                      .toList()
+                })
             .toList(),
       },
       fetchPolicy: FetchPolicy.networkOnly,
@@ -138,10 +136,7 @@ class OrderRepository {
               }
             }
       '''),
-      variables: {
-        "updateOrderStatusId": orderId,
-        "status": status
-      },
+      variables: {"updateOrderStatusId": orderId, "status": status},
       fetchPolicy: FetchPolicy.networkOnly,
     ));
     Order newOrder = const Order();

@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:sms/src/app.dart';
 
+import '../components/add_address.dart';
+
 class ProfilePage extends StatelessWidget {
   static const String pathName = '/profile';
 
@@ -57,7 +59,7 @@ class ProfilePage extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 30, right: 30, top: 100),
+                  margin: EdgeInsets.only(left: 30, right: 30, top: 130),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25),
                     color: Colors.white,
@@ -72,17 +74,7 @@ class ProfilePage extends StatelessWidget {
                   padding: EdgeInsets.all(20),
                   child: Column(
                     children: [
-                      ListTile(
-                        onTap: () {
-                          // context
-                          //     .read<AuthenticationBloc>()
-                          //     .add(AuthenticationLogoutRequested());
-                          // Navigator.pushNamed(context, "/");
-                        },
-                        contentPadding: EdgeInsets.all(0),
-                        leading: Icon(Icons.logout),
-                        title: Text("Logout"),
-                      ),
+                      Container(),
                     ],
                   ),
                 ),
@@ -134,6 +126,31 @@ class ProfilePage extends StatelessWidget {
                       leading: Icon(Icons.edit),
                       title: Text("Change Password"),
                       trailing: Icon(Icons.chevron_right),
+                    ),
+                    ListTile(
+                      onTap: () {
+                        Get.to(() => AddAddress());
+                      },
+                      // onTap: () => Navigator.pushNamed(
+                      //   context,
+                      //   ChangePassword.pathName,
+                      //   arguments: user,
+                      // ),
+                      contentPadding: EdgeInsets.all(0),
+                      leading: Icon(Icons.location_on_outlined),
+                      title: Text("Address"),
+                      trailing: Icon(Icons.chevron_right),
+                    ),
+                    ListTile(
+                      onTap: () {
+                        // context
+                        //     .read<AuthenticationBloc>()
+                        //     .add(AuthenticationLogoutRequested());
+                        // Navigator.pushNamed(context, "/");
+                      },
+                      contentPadding: EdgeInsets.all(0),
+                      leading: Icon(Icons.logout),
+                      title: Text("Logout"),
                     ),
                   ],
                 ),

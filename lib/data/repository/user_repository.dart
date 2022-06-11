@@ -75,7 +75,7 @@ class UserRepository {
       MutationOptions(document: gql(signInMutation), variables: variables),
     );
 
-    if(response.hasException){
+    if (response.hasException) {
       print(response.exception);
     }
 
