@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sms/data/repository/shop_repository.dart';
 import 'package:sms/src/screens/components/category_list.dart';
 import 'package:sms/src/screens/components/suggested_items.dart';
+import 'package:sms/src/screens/shops_list/shops_list.dart';
 
 import '../components/item_mini_view/item_mini_detail.dart';
-import '../components/profile_mini_detail.dart';
+import '../components/shop_item.dart';
 import '../components/searchbar.dart';
 import 'AppCtx.dart';
 
@@ -124,16 +126,18 @@ class _HomeState extends State<Home> {
                                 fontSize: 16,
                                 color: Colors.black)),
                         TextButton(
-                            onPressed: () {}, child: const Text('See all'))
+                            onPressed: () {
+                              Get.to(const ShopsList());
+                            }, child: const Text('See all'))
                       ],
                     ),
                   ),
                   GridView.count(
                     childAspectRatio: 1.1,
                     crossAxisCount: 2,
-                    children: const [
-                      ProfileMiniDetail(),
-                      ProfileMiniDetail(),
+                    children:  [
+                      ShopItem(shop: mockShop),
+                      ShopItem(shop: mockShop,),
                     ],
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,

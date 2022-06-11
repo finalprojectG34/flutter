@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:sms/src/models/shop.dart';
 
-class ProfileMiniDetail extends StatelessWidget {
-  const ProfileMiniDetail({Key? key}) : super(key: key);
+class ShopItem extends StatelessWidget {
+  const ShopItem({Key? key,required this.shop}) : super(key: key);
+
+  final Shop shop;
 
   @override
   Widget build(BuildContext context) {
@@ -26,57 +29,38 @@ class ProfileMiniDetail extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      const Text(
-                        'Coveted clicks',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                      Text(
+                        '${shop.name}',
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(
                         height: 5,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(
+                        children:  [
+                         const Icon(
                             Icons.location_on_outlined,
                             color: Colors.white,
                           ),
-                          Text('Addis Ababa')
+                          Text('${shop.address?.addressName}')
                         ],
                       )
                     ],
                   ),
                 ),
-                // Align(
-                //   alignment: Alignment.topRight,
-                //   child: Padding(
-                //     padding: const EdgeInsets.only(right: 8.0, top: 8),
-                //     child: InkWell(
-                //       child: Container(
-                //         child: const Icon(
-                //           Icons.add,
-                //           color: Colors.blue,
-                //         ),
-                //         decoration: BoxDecoration(
-                //           color: Colors.white70,
-                //           borderRadius: BorderRadius.circular(100),
-                //         ),
-                //       ),
-                //       borderRadius: BorderRadius.circular(50),
-                //       onTap: () {},
-                //     ),
-                //   ),
-                // ),
+
                 Container(
                   transform: Matrix4.translationValues(0.0, 25.0, 0.0),
                   padding: const EdgeInsets.only(left: 10),
-                  child: const Align(
+                  child: Align(
                     alignment: Alignment.bottomLeft,
                     child: CircleAvatar(
                       radius: 28,
                       backgroundColor: Colors.white,
                       child: CircleAvatar(
                         backgroundImage: NetworkImage(
-                            'https://www.woolha.com/media/2020/03/eevee.png'),
+                            '${shop.image}'),
                         radius: 25,
                       ),
                     ),
@@ -89,16 +73,16 @@ class ProfileMiniDetail extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 20.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Icon(Icons.phone),
-                SizedBox(
+              children: [
+                const Icon(Icons.phone),
+                const SizedBox(
                   width: 5,
                 ),
-                Text('+251900000000'),
-                SizedBox(
+                Text('${shop.phoneNumber}'),
+                const SizedBox(
                   width: 10,
                 ),
-                Icon(
+                const Icon(
                   Icons.arrow_forward,
                   color: Colors.grey,
                 ),
