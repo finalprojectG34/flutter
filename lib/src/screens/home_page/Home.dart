@@ -128,16 +128,19 @@ class _HomeState extends State<Home> {
                         TextButton(
                             onPressed: () {
                               Get.to(const ShopsList());
-                            }, child: const Text('See all'))
+                            },
+                            child: const Text('See all'))
                       ],
                     ),
                   ),
                   GridView.count(
                     childAspectRatio: 1.1,
                     crossAxisCount: 2,
-                    children:  [
+                    children: [
                       ShopItem(shop: mockShop),
-                      ShopItem(shop: mockShop,),
+                      ShopItem(
+                        shop: mockShop,
+                      ),
                     ],
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,

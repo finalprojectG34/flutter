@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sms/src/models/shop.dart';
 
 class ShopItem extends StatelessWidget {
-  const ShopItem({Key? key,required this.shop}) : super(key: key);
+  const ShopItem({Key? key, required this.shop}) : super(key: key);
 
   final Shop shop;
 
@@ -38,8 +38,8 @@ class ShopItem extends StatelessWidget {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children:  [
-                         const Icon(
+                        children: [
+                          const Icon(
                             Icons.location_on_outlined,
                             color: Colors.white,
                           ),
@@ -49,7 +49,6 @@ class ShopItem extends StatelessWidget {
                     ],
                   ),
                 ),
-
                 Container(
                   transform: Matrix4.translationValues(0.0, 25.0, 0.0),
                   padding: const EdgeInsets.only(left: 10),
@@ -59,8 +58,7 @@ class ShopItem extends StatelessWidget {
                       radius: 28,
                       backgroundColor: Colors.white,
                       child: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            '${shop.image}'),
+                        backgroundImage: NetworkImage('${shop.image}'),
                         radius: 25,
                       ),
                     ),

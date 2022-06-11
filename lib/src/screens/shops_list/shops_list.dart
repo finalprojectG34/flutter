@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -18,16 +16,14 @@ class ShopsList extends StatefulWidget {
 
 class _ShopsListState extends State<ShopsList> {
   static const _pageSize = 20;
-  final ShopsListController shopsListCtx=Get.find();
+  final ShopsListController shopsListCtx = Get.find();
 
   final PagingController<int, Shop> _pagingController =
-  PagingController(firstPageKey: 0);
+      PagingController(firstPageKey: 0);
 
   @override
   void initState() {
-
     _pagingController.addPageRequestListener((pageKey) {
-
       _fetchPage(pageKey);
     });
     _fetchPage(0);
@@ -36,8 +32,8 @@ class _ShopsListState extends State<ShopsList> {
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      final newItems = await shopsListCtx.getShops(pageKey,_pageSize);
-      if(newItems!=null){
+      final newItems = await shopsListCtx.getShops(pageKey, _pageSize);
+      if (newItems != null) {
         final isLastPage = newItems.length < _pageSize;
         if (isLastPage) {
           _pagingController.appendLastPage(newItems);
@@ -46,7 +42,6 @@ class _ShopsListState extends State<ShopsList> {
           _pagingController.appendPage(newItems, nextPageKey);
         }
       }
-
     } catch (error) {
       _pagingController.error = error;
     }
@@ -56,40 +51,39 @@ class _ShopsListState extends State<ShopsList> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: const Text("Shops")),
-        body:
-    GetX<ShopsListController>(
-      builder: (ctx){
-        if(ctx.isLoading.isTrue){
-          return const Center(child: CircularProgressIndicator(),);
-        }
-        if(ctx.shopsList.value!=null){
-          if(ctx.shopsList.value!.isEmpty){
-            return const Center(child: Text("No shop"),);
-          }
-          return  PagedGridView<int, Shop>(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: MediaQuery.of(context).size.width /
-                  (MediaQuery.of(context).size.height/2 ),
-            ),
-            pagingController: _pagingController,
-            showNewPageProgressIndicatorAsGridChild: false,
-
-            builderDelegate: PagedChildBuilderDelegate<Shop>(
-              itemBuilder: (context, item, index) =>
-                  ShopItem(
+        body: GetX<ShopsListController>(
+          builder: (ctx) {
+            if (ctx.isLoading.isTrue) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if (ctx.shopsList.value != null) {
+              if (ctx.shopsList.value!.isEmpty) {
+                return const Center(
+                  child: Text("No shop"),
+                );
+              }
+              return PagedGridView<int, Shop>(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: MediaQuery.of(context).size.width /
+                      (MediaQuery.of(context).size.height / 2),
+                ),
+                pagingController: _pagingController,
+                showNewPageProgressIndicatorAsGridChild: false,
+                builderDelegate: PagedChildBuilderDelegate<Shop>(
+                  itemBuilder: (context, item, index) => ShopItem(
                     shop: item,
                   ),
-
-            ),
-          );
-        }
-        return errorPage(onTryAgain: (){
-          _fetchPage(0);
-        });
-      },
-    ));
-
+                ),
+              );
+            }
+            return errorPage(onTryAgain: () {
+              _fetchPage(0);
+            });
+          },
+        ));
   }
 
   @override

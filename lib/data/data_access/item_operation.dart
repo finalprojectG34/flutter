@@ -166,13 +166,13 @@ class ItemOperation {
 
   Future<Map<String, dynamic>> getMockCategory() async {
     return Future.delayed(const Duration(seconds: 1),
-            () => {"getAllCategories": mockAllCategories});
+        () => {"getAllCategories": mockAllCategories});
   }
 
   Future<Map<String, dynamic>> getMockSearchItems() async {
     return Future.delayed(
       const Duration(seconds: 1),
-          () => mockCategory,
+      () => mockCategory,
     );
   }
 
@@ -193,7 +193,7 @@ class ItemOperation {
         "name": "item 9",
         "description": {"description": "desc", "lang": "en"},
         "image":
-        "https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg",
+            "https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg",
         "categoryId": "cat id 9"
       },
     }));

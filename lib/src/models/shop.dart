@@ -1,21 +1,18 @@
-
-
 import 'category.dart';
-class Shop {
-  const Shop({
-    this.id,
-    this.name,
-    this.count,
-    this.description,
-    this.ownerId,
-    this.sellingCategories,
-    this.poster,
-    this.image,
-    this.phoneNumber,
-    this.slug,
-    this.address
 
-  });
+class Shop {
+  const Shop(
+      {this.id,
+      this.name,
+      this.count,
+      this.description,
+      this.ownerId,
+      this.sellingCategories,
+      this.poster,
+      this.image,
+      this.phoneNumber,
+      this.slug,
+      this.address});
 
   final String? id;
   final String? name;
@@ -29,44 +26,39 @@ class Shop {
   final String? description;
   final Address? address;
 
-
   factory Shop.fromJson(Map<String, dynamic> json) {
     return Shop(
       id: json['id'],
       name: json['name'],
-      slug:json["slug"],
+      slug: json["slug"],
       ownerId: json['ownerId'],
       image: json['image'],
       description: json['desc'],
-      address: json["address"] !=null ? Address.fromJson(json["address"]):null,
+      address:
+          json["address"] != null ? Address.fromJson(json["address"]) : null,
       count: json["count"],
       phoneNumber: json["phoneNumber"],
       poster: json["poster"],
-      sellingCategories: json["sellingCategories"] !=null ? List.from(json["sellingCategories"]).map((e) => Category.fromJson(e)).toList():null,
-
+      sellingCategories: json["sellingCategories"] != null
+          ? List.from(json["sellingCategories"])
+              .map((e) => Category.fromJson(e))
+              .toList()
+          : null,
     );
-
   }
-
 }
 
-class Address{
+class Address {
   final String? addressName;
   final String? city;
   final String? subCity;
 
-  Address({
-    this.addressName,
-    this.city,
-    this.subCity
-});
+  Address({this.addressName, this.city, this.subCity});
 
-  factory Address.fromJson(Map<String,dynamic>json){
+  factory Address.fromJson(Map<String, dynamic> json) {
     return Address(
-      addressName: json["addressName"],
-      city: json["city"],
-      subCity: json["subCity"]
-    );
+        addressName: json["addressName"],
+        city: json["city"],
+        subCity: json["subCity"]);
   }
-
 }

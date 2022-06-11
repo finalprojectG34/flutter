@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:sms/src/screens/order_page/order_page_ctx.dart';
 
 class ReceivedDetail extends StatelessWidget {
-
   const ReceivedDetail({Key? key}) : super(key: key);
 
   @override
@@ -256,7 +255,8 @@ class ReceivedDetail extends StatelessWidget {
                               //       Size(Get.width, 54)),
                               // ),
                               onPressed: () async {
-                                ctx.updateOrderStatus("62a348c25800e4e4af26004d", "ACCEPTED");
+                                ctx.updateOrderStatus(
+                                    "62a348c25800e4e4af26004d", "ACCEPTED");
                               },
                               child: const Text(
                                 "Accept",

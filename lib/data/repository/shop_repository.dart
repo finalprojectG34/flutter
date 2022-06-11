@@ -57,13 +57,13 @@ class ShopRepository {
   }
 }
 
-final mockShop= Shop(
-id: "1",
-phoneNumber: "+2519499494",
-image:
-"https://www.shutterstock.com/image-photo/young-student-watching-lesson-online-studying-1676998306",
-count: 4,
-name: "Shop 1",
-address: Address(addressName: "Jemo"),
-description: "Shop 1 sells shoes",
+final mockShop = Shop(
+  id: "1",
+  phoneNumber: "+2519499494",
+  image:
+      "https://www.shutterstock.com/image-photo/young-student-watching-lesson-online-studying-1676998306",
+  count: 4,
+  name: "Shop 1",
+  address: Address(addressName: "Jemo"),
+  description: "Shop 1 sells shoes",
 );
