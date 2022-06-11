@@ -54,7 +54,7 @@ var mockCategory = {
   ]
 };
 
-var mockAllCategories =  [
+var mockAllCategories = [
   {
     "id": "612e17f2443a71e64c66c7aa",
     "name": "electronics",
@@ -130,15 +130,7 @@ var mockAllCategories =  [
                     "display": "number",
                     "categoryIds": ["612e17f2443a71e64c66c7bb"],
                     "isRequired": true,
-                    "options": [
-                      "8",
-                      "16",
-                      "32",
-                      "64",
-                      "128",
-                      "256",
-                      "500"
-                    ],
+                    "options": ["8", "16", "32", "64", "128", "256", "500"],
                     "currentData": [
                       {"value": "128", "count": 15},
                       {"value": "256", "count": 29},
@@ -171,12 +163,7 @@ var mockAllCategories =  [
                       "612e17f2443a71e64c66c7cc"
                     ],
                     "isRequired": true,
-                    "options": [
-                      "new",
-                      "used",
-                      "almost new",
-                      "used abroad"
-                    ],
+                    "options": ["new", "used", "almost new", "used abroad"],
                     "currentData": [
                       {"value": "new", "count": 20},
                       {"value": "used", "count": 25},
@@ -225,15 +212,7 @@ var mockAllCategories =  [
                     "name": "internal hard disk",
                     "categoryIds": ["612e17f2443a71e64c66c7bb"],
                     "isRequired": true,
-                    "options": [
-                      "8",
-                      "16",
-                      "32",
-                      "64",
-                      "128",
-                      "256",
-                      "500"
-                    ],
+                    "options": ["8", "16", "32", "64", "128", "256", "500"],
                     "currentData": [
                       {"value": "128", "count": 15},
                       {"value": "256", "count": 29},
@@ -265,12 +244,7 @@ var mockAllCategories =  [
                       "612e17f2443a71e64c66c7cc"
                     ],
                     "isRequired": true,
-                    "options": [
-                      "new",
-                      "used",
-                      "almost new",
-                      "used abroad"
-                    ],
+                    "options": ["new", "used", "almost new", "used abroad"],
                     "currentData": [
                       {"value": "new", "count": 20},
                       {"value": "used", "count": 25},
@@ -315,15 +289,7 @@ var mockAllCategories =  [
                 "display": "number",
                 "categoryIds": ["612e17f2443a71e64c66c7bb"],
                 "isRequired": true,
-                "options": [
-                  "8",
-                  "16",
-                  "32",
-                  "64",
-                  "128",
-                  "256",
-                  "500"
-                ],
+                "options": ["8", "16", "32", "64", "128", "256", "500"],
                 "currentData": [
                   {"value": "128", "count": 15},
                   {"value": "256", "count": 29},
@@ -356,12 +322,7 @@ var mockAllCategories =  [
                   "612e17f2443a71e64c66c7cc"
                 ],
                 "isRequired": true,
-                "options": [
-                  "new",
-                  "used",
-                  "almost new",
-                  "used abroad"
-                ],
+                "options": ["new", "used", "almost new", "used abroad"],
                 "currentData": [
                   {"value": "new", "count": 20},
                   {"value": "used", "count": 25},
@@ -411,15 +372,7 @@ var mockAllCategories =  [
                 "display": "number",
                 "categoryIds": ["612e17f2443a71e64c66c7bb"],
                 "isRequired": true,
-                "options": [
-                  "8",
-                  "16",
-                  "32",
-                  "64",
-                  "128",
-                  "256",
-                  "500"
-                ],
+                "options": ["8", "16", "32", "64", "128", "256", "500"],
                 "currentData": [
                   {"value": "128", "count": 15},
                   {"value": "256", "count": 29},
@@ -452,12 +405,7 @@ var mockAllCategories =  [
                   "612e17f2443a71e64c66c7cc"
                 ],
                 "isRequired": true,
-                "options": [
-                  "new",
-                  "used",
-                  "almost new",
-                  "used abroad"
-                ],
+                "options": ["new", "used", "almost new", "used abroad"],
                 "currentData": [
                   {"value": "new", "count": 20},
                   {"value": "used", "count": 25},
@@ -502,15 +450,7 @@ var mockAllCategories =  [
             "display": "number",
             "categoryIds": ["612e17f2443a71e64c66c7bb"],
             "isRequired": true,
-            "options": [
-              "8",
-              "16",
-              "32",
-              "64",
-              "128",
-              "256",
-              "500"
-            ],
+            "options": ["8", "16", "32", "64", "128", "256", "500"],
             "currentData": [
               {"value": "128", "count": 15},
               {"value": "256", "count": 29},
@@ -543,12 +483,7 @@ var mockAllCategories =  [
               "612e17f2443a71e64c66c7cc"
             ],
             "isRequired": true,
-            "options": [
-              "new",
-              "used",
-              "almost new",
-              "used abroad"
-            ],
+            "options": ["new", "used", "almost new", "used abroad"],
             "currentData": [
               {"value": "new", "count": 20},
               {"value": "used", "count": 25},
@@ -598,15 +533,7 @@ var mockAllCategories =  [
             "display": "number",
             "categoryIds": ["612e17f2443a71e64c66c7bb"],
             "isRequired": true,
-            "options": [
-              "8",
-              "16",
-              "32",
-              "64",
-              "128",
-              "256",
-              "500"
-            ],
+            "options": ["8", "16", "32", "64", "128", "256", "500"],
             "currentData": [
               {"value": "128", "count": 15},
               {"value": "256", "count": 29},
@@ -639,12 +566,7 @@ var mockAllCategories =  [
               "612e17f2443a71e64c66c7cc"
             ],
             "isRequired": true,
-            "options": [
-              "new",
-              "used",
-              "almost new",
-              "used abroad"
-            ],
+            "options": ["new", "used", "almost new", "used abroad"],
             "currentData": [
               {"value": "new", "count": 20},
               {"value": "used", "count": 25},

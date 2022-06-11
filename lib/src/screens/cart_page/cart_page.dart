@@ -16,7 +16,6 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-
   @override
   void initState() {
     super.initState();
@@ -64,35 +63,35 @@ class _CartPageState extends State<CartPage> {
                           ),
                         ),
                         const SizedBox(height: 50),
-                    const PaymentDetail(),
-                    ElevatedButton(
-                      style: ButtonStyle(
-                        shadowColor:
-                            MaterialStateProperty.all(Colors.lightBlueAccent),
-                        elevation: MaterialStateProperty.all(5),
-                        backgroundColor:
-                            MaterialStateProperty.all(const Color(0xff40BFFF)),
-                        fixedSize:
-                            MaterialStateProperty.all(Size(Get.width, 54)),
-                      ),
-                      onPressed: () {
-                        List<Cart> tempCart = [];
-                        ctx.cartList?.toList().forEach((element) {
-                          tempCart.add(element);
-                        });
-                        orderPageController.createOrder(tempCart);
-                      },
-                      child: const Text(
-                        "Check Out",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13,
+                        const PaymentDetail(),
+                        ElevatedButton(
+                          style: ButtonStyle(
+                            shadowColor: MaterialStateProperty.all(
+                                Colors.lightBlueAccent),
+                            elevation: MaterialStateProperty.all(5),
+                            backgroundColor: MaterialStateProperty.all(
+                                const Color(0xff40BFFF)),
+                            fixedSize:
+                                MaterialStateProperty.all(Size(Get.width, 54)),
+                          ),
+                          onPressed: () {
+                            List<Cart> tempCart = [];
+                            ctx.cartList?.toList().forEach((element) {
+                              tempCart.add(element);
+                            });
+                            orderPageController.createOrder(tempCart);
+                          },
+                          child: const Text(
+                            "Check Out",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
         );
       },
     );

@@ -89,16 +89,16 @@ class _InnerTimeline extends StatelessWidget {
         theme: TimelineTheme.of(context).copyWith(
           nodePosition: 0,
           connectorTheme: TimelineTheme.of(context).connectorTheme.copyWith(
-            thickness: 1.0,
-          ),
+                thickness: 1.0,
+              ),
           indicatorTheme: TimelineTheme.of(context).indicatorTheme.copyWith(
-            size: 10.0,
-            position: 0.5,
-          ),
+                size: 10.0,
+                position: 0.5,
+              ),
         ),
         builder: TimelineTileBuilder(
           indicatorBuilder: (_, index) =>
-          !isEdgeIndex(index) ? Indicator.outlined(borderWidth: 1.0) : null,
+              !isEdgeIndex(index) ? Indicator.outlined(borderWidth: 1.0) : null,
           // startConnectorBuilder: (_, index) => Connector.solidLine(),
           // endConnectorBuilder: (_, index) => Connector.solidLine(),
           contentsBuilder: (_, index) {
@@ -113,7 +113,7 @@ class _InnerTimeline extends StatelessWidget {
           },
           // itemExtentBuilder: (_, index) => isEdgeIndex(index) ? 10.0 : 30.0,
           nodeItemOverlapBuilder: (_, index) =>
-          isEdgeIndex(index) ? true : null,
+              isEdgeIndex(index) ? true : null,
           itemCount: messages.length + 2,
         ),
       ),
@@ -166,15 +166,15 @@ class _DeliveryProcesses extends StatelessWidget {
                     Text(
                       processes[index].name,
                       style: DefaultTextStyle.of(context).style.copyWith(
-                        fontSize: 18.0,
-                      ),
+                            fontSize: 18.0,
+                          ),
                     ),
                     Card(
                       color: Colors.green.shade50,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child:
-                        _InnerTimeline(messages: processes[index].messages),
+                            _InnerTimeline(messages: processes[index].messages),
                       ),
                     ),
                   ],
@@ -261,39 +261,39 @@ class _OnTimeBar extends StatelessWidget {
 }
 
 _OrderInfo _data(int id) => _OrderInfo(
-  id: id,
-  date: DateTime.now(),
-  driverInfo: const _DriverInfo(
-    name: 'Philipe',
-    thumbnailUrl:
-    'https://i.pinimg.com/originals/08/45/81/084581e3155d339376bf1d0e17979dc6.jpg',
-  ),
-  deliveryProcesses: const [
-    _DeliveryProcess(
-      'Package Process',
-      messages: [
-        _DeliveryMessage('8:30am', 'Package received by driver'),
-        _DeliveryMessage('11:30am', 'Reached halfway mark'),
+      id: id,
+      date: DateTime.now(),
+      driverInfo: const _DriverInfo(
+        name: 'Philipe',
+        thumbnailUrl:
+            'https://i.pinimg.com/originals/08/45/81/084581e3155d339376bf1d0e17979dc6.jpg',
+      ),
+      deliveryProcesses: const [
+        _DeliveryProcess(
+          'Package Process',
+          messages: [
+            _DeliveryMessage('8:30am', 'Package received by driver'),
+            _DeliveryMessage('11:30am', 'Reached halfway mark'),
+          ],
+        ),
+        _DeliveryProcess(
+          'In Transit',
+          messages: [
+            _DeliveryMessage('13:00pm', 'Driver arrived at destination'),
+            _DeliveryMessage('11:35am', 'Package delivered by m.vassiliades'),
+          ],
+        ),
+        _DeliveryProcess(
+          'In Transit',
+          isFinal: true,
+          messages: [
+            _DeliveryMessage('13:00pm', 'Driver arrived at destination'),
+            _DeliveryMessage('11:35am', 'Package delivered by m.vassiliades'),
+          ],
+        ),
+        _DeliveryProcess.complete(),
       ],
-    ),
-    _DeliveryProcess(
-      'In Transit',
-      messages: [
-        _DeliveryMessage('13:00pm', 'Driver arrived at destination'),
-        _DeliveryMessage('11:35am', 'Package delivered by m.vassiliades'),
-      ],
-    ),
-    _DeliveryProcess(
-      'In Transit',
-      isFinal: true,
-      messages: [
-        _DeliveryMessage('13:00pm', 'Driver arrived at destination'),
-        _DeliveryMessage('11:35am', 'Package delivered by m.vassiliades'),
-      ],
-    ),
-    _DeliveryProcess.complete(),
-  ],
-);
+    );
 
 class _OrderInfo {
   const _OrderInfo({
