@@ -61,15 +61,118 @@ class ItemOperation {
         .toList();
   }
 
+  Future<bool> getUserShop(String userId) async {
+    final response = await gqlClient
+        .query(
+      QueryOptions(
+        document: gql(r'''
+          query GetCompanyByUserId($getCompanyByUserIdId: ID) {
+              getCompanyByUserId(id: $getCompanyByUserIdId) {
+                id
+              }
+          }
+  '''),
+      ),
+    )
+        .timeout(Duration(seconds: 30), onTimeout: () {
+      throw TimeoutException('request timed out', const Duration(seconds: 30));
+    });
+    print((response.data!['getCompanyByUserId'] as List));
+    return (response.data!['getCompanyByUserId'] as List).isNotEmpty;
+  }
+
+  Future<List<Cart>> getCart() async {
+    final response = await gqlClient
+        .query(
+      QueryOptions(document: gql(r'''
+            query GetCartByUserId($getCartByUserIdId: ID) {
+              getCartByUserId(id: $getCartByUserIdId) {
+                id
+                itemId
+                name
+                amount
+                price
+                status
+                userId
+                shopId
+                deliveryAddress
+              }
+            }
+      ''')),
+    )
+        .timeout(Duration(seconds: 30), onTimeout: () {
+      throw TimeoutException('request timed out', const Duration(seconds: 30));
+    });
+    if (response.hasException) {
+      print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+      print(response.exception);
+      // throw response.exception;
+    } else {
+      print("rrrrrrrrrrrrrrrrrrrrrrrrr");
+      print(response);
+    }
+    return (response.data!['getCartByUserId'] as List)
+        .map((json) => Cart.fromJson(json))
+        .toList();
+  }
+
+  Future addToCart(name, shopId, itemId, price, amount) async {
+    final response = await gqlClient.mutate(MutationOptions(
+      document: gql(r'''
+            mutation Mutation($input: CartItemsInput!) {
+              addToCart(input: $input) {
+                id
+              }
+            }
+      '''),
+      variables: {
+        "input": {
+          "name": name,
+          "shopId": shopId,
+          "itemId": itemId,
+          "price": price,
+          "amount": amount,
+          "deliveryAddress": "alembank"
+        }
+      },
+      fetchPolicy: FetchPolicy.networkOnly,
+    ));
+    if (response.hasException) {
+      print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+      print(response.exception);
+      // throw response.exception;
+    } else {
+      print("rrrrrrrrrrrrrrrrrrrrrrrrr");
+      print(response);
+    }
+  }
+
+  Future deleteCart(cartId) async {
+    final response = await gqlClient.mutate(MutationOptions(
+      document: gql(r'''
+            mutation Mutation($deleteCartId: ID!) {
+              deleteCart(id: $deleteCartId) {
+                id
+              }
+            }
+      '''),
+      variables: {"deleteCartId": cartId},
+      fetchPolicy: FetchPolicy.networkOnly,
+    ));
+    if (response.hasException) {
+      // throw response.exception;
+    } else {}
+  }
+
   Future<Map<String, dynamic>> getMockCategory() async {
     return Future.delayed(const Duration(seconds: 1),
-        () => {"getAllCategories": mockAllCategories});
+            () => {"getAllCategories": mockAllCategories});
   }
 
   Future<Map<String, dynamic>> getMockSearchItems() async {
     return Future.delayed(
       const Duration(seconds: 1),
-      () => mockCategory,
+          () => mockCategory,
     );
   }
 
@@ -90,7 +193,7 @@ class ItemOperation {
         "name": "item 9",
         "description": {"description": "desc", "lang": "en"},
         "image":
-            "https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg",
+        "https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg",
         "categoryId": "cat id 9"
       },
     }));
