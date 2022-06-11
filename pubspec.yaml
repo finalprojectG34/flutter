@@ -61,6 +61,8 @@ dependencies:
   flutter_secure_storage: ^5.0.2
   group_button:
   infinite_scroll_pagination:
+  firebase_storage: ^10.2.17
+  path_provider:
 
 
 

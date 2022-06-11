@@ -551,16 +551,18 @@ class _AddItemState extends State<AddItem> {
                                             // if (_formKey.currentState!.validate()) {
                                             //   _formKey.currentState!.save();
                                             // }
-                                            addItemController.addItem({
-                                              "input": {
-                                                "name": name,
-                                                "description": description,
-                                                "poster":
-                                                    'https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg',
-                                                "price": {"sale": price},
-                                                "categoryId": 'cat id 9'
-                                              }
-                                            });
+                                            if (_image != null) {
+                                              addItemController.addItem({
+                                                "input": {
+                                                  "name": name,
+                                                  "description": description,
+                                                  "poster":
+                                                      'https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg',
+                                                  "price": {"sale": price},
+                                                  "categoryId": 'cat id 9'
+                                                }
+                                              }, _image!);
+                                            }
                                           },
                                           child: const Text('Save'),
                                         ),

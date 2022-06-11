@@ -9,7 +9,7 @@ import '../../../data/repository/cart_repository.dart';
 class CartPageController extends GetxController {
   final CartRepository cartRepository;
 
-  final storage = const FlutterSecureStorage();
+  final storage = Get.find<FlutterSecureStorage>();
 
   CartPageController({required this.cartRepository});
 

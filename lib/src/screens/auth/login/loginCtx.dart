@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -23,7 +21,7 @@ class LoginController extends GetxController {
   final AppController appController = Get.find();
   user.User? signedInUser;
 
-  final storage = const FlutterSecureStorage();
+  final storage = Get.find<FlutterSecureStorage>();
 
   signInUser(variable) async {
     // print(userVariable);
@@ -37,6 +35,7 @@ class LoginController extends GetxController {
         // Get.back();
       } else {
         await storage.write(key: 'token', value: signedInUser?.token);
+        await storage.write(key: "userId", value: signedInUser?.id);
         // await storage.write(key: 'user', value: jsonEncode(signedInUser));
         EasyLoading.showSuccess('Logged in successfully',
             maskType: EasyLoadingMaskType.black);
