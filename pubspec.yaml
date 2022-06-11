@@ -61,6 +61,7 @@ dependencies:
   flutter_secure_storage: ^5.0.2
   group_button:
   infinite_scroll_pagination:
+  flutter_rating_bar: ^4.0.1
 
 
 
