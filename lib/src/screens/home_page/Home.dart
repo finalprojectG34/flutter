@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sms/data/repository/shop_repository.dart';
 import 'package:sms/src/screens/components/category_list.dart';
 import 'package:sms/src/screens/components/suggested_items.dart';
+import 'package:sms/src/screens/shops_list/shops_list.dart';
 
 import '../components/item_mini_view/item_mini_detail.dart';
-import '../components/profile_mini_detail.dart';
 import '../components/searchbar.dart';
+import '../components/shop_item.dart';
+import '../items/item_list.dart';
 import 'AppCtx.dart';
 
 class Home extends StatefulWidget {
@@ -42,14 +45,22 @@ class _HomeState extends State<Home> {
                   ),
                   const CategoryList(),
                   // if (ctx.isGettingItems.isTrue || ctx.itemList!.isNotEmpty)
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                      'Flash Sale',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color: Colors.black),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text('Flash Sale',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: Colors.black)),
+                        TextButton(
+                            onPressed: () {
+                              Get.to(const ItemList());
+                            },
+                            child: const Text('See all'))
+                      ],
                     ),
                   ),
                   // if (ctx.getItemError.isTrue)
@@ -124,16 +135,21 @@ class _HomeState extends State<Home> {
                                 fontSize: 16,
                                 color: Colors.black)),
                         TextButton(
-                            onPressed: () {}, child: const Text('See all'))
+                            onPressed: () {
+                              Get.to(const ShopsList());
+                            },
+                            child: const Text('See all'))
                       ],
                     ),
                   ),
                   GridView.count(
                     childAspectRatio: 1.1,
                     crossAxisCount: 2,
-                    children: const [
-                      ProfileMiniDetail(),
-                      ProfileMiniDetail(),
+                    children: [
+                      ShopItem(shop: mockShop),
+                      ShopItem(
+                        shop: mockShop,
+                      ),
                     ],
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,

@@ -2,9 +2,11 @@ import 'package:get/get.dart';
 import 'package:sms/data/data_access/cart_data_access.dart';
 import 'package:sms/data/data_access/item_operation.dart';
 import 'package:sms/data/repository/item_repository.dart';
+import 'package:sms/data/repository/shop_repository.dart';
 import 'package:sms/data/repository/user_repository.dart';
 import 'package:sms/src/packages/shared_preferences.dart';
 import 'package:sms/src/screens/auth/reset_password/resetCtx.dart';
+import 'package:sms/src/screens/shops_list/shops_list_ctx.dart';
 
 import '../../data/repository/cart_repository.dart';
 import '../../data/repository/order_repository.dart';
@@ -13,6 +15,7 @@ import '../screens/auth/login/loginCtx.dart';
 import '../screens/auth/signup/signupCtx.dart';
 import '../screens/cart_page/cart_page_ctx.dart';
 import '../screens/home_page/AppCtx.dart';
+import '../screens/items/item_list_ctx.dart';
 import '../screens/order_page/order_page_ctx.dart';
 import '../screens/search_item/search_item_ctx.dart';
 import 'graphql_client.dart';
@@ -34,6 +37,9 @@ class ApplicationBindings implements Bindings {
   final OrderRepository _orderRepository = OrderRepository(
     gqlClient: Client().connect,
   );
+
+  final ShopRepository _shopRepository =
+      ShopRepository(gqlClient: Client().connect);
 
   @override
   void dependencies() {
@@ -66,6 +72,14 @@ class ApplicationBindings implements Bindings {
     );
     Get.lazyPut(
       () => ResetController(userRepository: _userRepository),
+      fenix: true,
+    );
+    Get.lazyPut(
+      () => ShopsListController(shopRepository: _shopRepository),
+      fenix: true,
+    );
+    Get.lazyPut(
+      () => ItemListController(itemRepository: _itemRepository),
       fenix: true,
     );
   }

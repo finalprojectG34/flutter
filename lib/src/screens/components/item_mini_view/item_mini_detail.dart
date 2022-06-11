@@ -47,185 +47,101 @@ class ItemMiniDetail extends StatelessWidget {
                     horizontal: 12,
                   ),
                 ),
-                // Column(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: [
-                //     Padding(
-                //       padding: const EdgeInsets.only(right: 8.0, top: 8),
-                //       child: IconButton(
-                //         padding: EdgeInsets.zero,
-                //         constraints: const BoxConstraints(),
-                //         splashRadius: 10,
-                //         onPressed: () {},
-                //         icon: const Icon(
-                //           Icons.favorite_border_rounded,
-                //           color: Colors.white,
-                //         ),
-                //       ),
-                //     ),
-                //     Padding(
-                //       padding: const EdgeInsets.only(right: 8.0),
-                //       child: Container(
-                //         decoration: const BoxDecoration(
-                //           color: Colors.white,
-                //           shape: BoxShape.circle,
-                //           boxShadow: [
-                //             BoxShadow(
-                //               color: Colors.grey,
-                //               offset: Offset(
-                //                 2.0,
-                //                 2.0,
-                //               ),
-                //               blurRadius: 5.0,
-                //               spreadRadius: 2.0,
-                //             ), //BoxShadow
-                //             BoxShadow(
-                //               color: Colors.white,
-                //               offset: Offset(0.0, 0.0),
-                //               blurRadius: 0.0,
-                //               spreadRadius: 0.0,
-                //             ),
-                //           ],
-                //         ),
-                //         transform: Matrix4.translationValues(0.0, 10.0, 0.0),
-                //         child: Padding(
-                //           padding: const EdgeInsets.all(2.0),
-                //           child: IconButton(
-                //             padding: EdgeInsets.zero,
-                //             constraints: const BoxConstraints(),
-                //             splashRadius: 10,
-                //             onPressed: () {},
-                //             icon: const Icon(
-                //               Icons.remove_red_eye,
-                //               color: Colors.grey,
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //     ),
-                //   ],
-                // )
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 5),
-            child: Row(
+            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  children: [
-                    // Text(
-                    //   item.id!,
-                    //   style: TextStyle(color: Colors.grey),
-                    // ),
+                Text(
+                  item.name!,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  children: const [
+                    Icon(
+                      Icons.star,
+                      size: 16,
+                      color: Colors.amber,
+                    ),
+                    Icon(
+                      Icons.star,
+                      size: 16,
+                      color: Colors.amber,
+                    ),
+                    Icon(
+                      Icons.star,
+                      size: 16,
+                      color: Colors.amber,
+                    ),
+                    Icon(
+                      Icons.star,
+                      size: 16,
+                      color: Colors.amber,
+                    ),
+                    Icon(
+                      Icons.star,
+                      size: 16,
+                      color: Colors.amber,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
                     Text(
-                      item.name!,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      '(12)',
+                      style: TextStyle(color: Colors.grey),
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  children: [
+                    const Text(
+                      '\$600',
+                      style: TextStyle(
+                          decoration: TextDecoration.lineThrough,
+                          color: Colors.grey),
                     ),
-                    const SizedBox(
-                      height: 5,
+                    const SizedBox(width: 10),
+                    Text(
+                      "${item.price}",
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.blue),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10.0),
-                      child: Row(
-                        children: const [
-                          Icon(
-                            Icons.star,
-                            size: 16,
-                            color: Colors.amber,
-                          ),
-                          Icon(
-                            Icons.star,
-                            size: 16,
-                            color: Colors.amber,
-                          ),
-                          Icon(
-                            Icons.star,
-                            size: 16,
-                            color: Colors.amber,
-                          ),
-                          Icon(
-                            Icons.star,
-                            size: 16,
-                            color: Colors.amber,
-                          ),
-                          Icon(
-                            Icons.star,
-                            size: 16,
-                            color: Colors.amber,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            '(12)',
-                            style: TextStyle(color: Colors.grey),
-                          )
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: [
-                        const Text(
-                          '\$600',
-                          style: TextStyle(
-                              decoration: TextDecoration.lineThrough,
-                              color: Colors.grey),
+                    const Spacer(),
+                    InkWell(
+                      child: const Padding(
+                        padding: EdgeInsets.all(5.0),
+                        child: Icon(
+                          Icons.add_shopping_cart,
+                          color: Colors.blue,
                         ),
-                        const SizedBox(width: 10),
-                        Text(
-                          "${item.price}",
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.blue),
-                        )
-                      ],
+                      ),
+                      borderRadius: BorderRadius.circular(50),
+                      onTap: () {
+                        addToCartController.addToCart(Cart(
+                          name: item.name,
+                          shopId: item.shopId,
+                          itemId: item.id,
+                          price: item.price,
+                          amount: "5",
+                        ));
+                        // appController.changePage('Cart', 3);
+                      },
                     ),
                   ],
                 ),
               ],
             ),
           ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Padding(
-              padding: const EdgeInsets.only(right: 8.0, bottom: 8),
-              child: InkWell(
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: const Icon(
-                    Icons.add_shopping_cart,
-                    color: Colors.blue,
-                  ),
-                ),
-                borderRadius: BorderRadius.circular(50),
-                onTap: () {
-                  addToCartController.addToCart(Cart(
-                    name: item.name,
-                    shopId: item.shopId,
-                    itemId: item.id,
-                    price: item.price,
-                    amount: "5",
-                  ));
-                  // appController.changePage('Cart', 3);
-                },
-              ),
-            ),
-          ),
-          // Align(
-          //     child: ElevatedButton(
-          //   onPressed: () {
-          //     addToCartController.addToCart(
-          //         item.name, item.id, item.id, item.id, item.price, "1");
-          //   },
-          //   child: Text('Add to cart'),
-          //   style: ElevatedButton.styleFrom(
-          //     minimumSize: Size(0, 0),
-          //   ),
-          // ))
         ],
       ),
     );
