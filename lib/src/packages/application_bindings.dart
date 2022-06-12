@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:sms/data/data_access/cart_data_access.dart';
 import 'package:sms/data/data_access/item_operation.dart';
 import 'package:sms/data/repository/item_repository.dart';
 import 'package:sms/data/repository/shop_repository.dart';
@@ -31,7 +30,7 @@ class ApplicationBindings implements Bindings {
   );
 
   final CartRepository _cartRepository = CartRepository(
-    cartDataAccess: CartDataAccess(gqlClient: Client().connect),
+    gqlClient: Client().connect,
   );
 
   final OrderRepository _orderRepository = OrderRepository(

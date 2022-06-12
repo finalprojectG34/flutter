@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:sms/src/screens/components/add_shop.dart';
 import 'package:sms/src/screens/home_page/AppCtx.dart';
 
-import '../../app.dart';
-import '../components/add_address.dart';
-import '../components/add_review.dart';
-import '../components/add_shop.dart';
-import '../components/delivery_detail.dart';
-import '../components/shop_detail_component.dart';
+import '../auth/login/login.dart';
 import '../order_page/order_page.dart';
 import '../order_page/received_orders.dart';
 
@@ -47,36 +43,47 @@ class DrawerPage extends StatelessWidget {
                 color: Color(0xFF0D90EE),
               ),
             ),
-            // ListTile(
-            //   title: const Text('Category'),
-            //   onTap: () {
-            //     // context.read<NavigationBloc>().add(Navigated(Routes.category));
-            //     // Navigator.pop(context);
-            //     Navigator.pushNamed(context, "/add_image");
-            //   },
-            //   leading: const Icon(
-            //     Icons.category,
-            //     color: Color(0xFF0D90EE),
-            //   ),
-            //   // selected: routes == Routes.category,
-            // ),
-            // if (ctx.isAuthenticated.isTrue)
-            ListTile(
-              title: const Text('Add product'),
-              onTap: () {
-                Navigator.pushNamed(context, "/add_item");
-              },
-              leading: const Icon(
-                Icons.fiber_new,
-                color: Color(0xFF0D90EE),
+            if (ctx.isAuthenticated.isFalse)
+              ListTile(
+                title: const Text('Login'),
+                onTap: () {
+                  Get.to(() => Login());
+                },
+                // selected: routes == Routes.home,
+                leading: const Icon(
+                  Icons.login,
+                  color: Color(0xFF0D90EE),
+                ),
               ),
-              // selected: routes == Routes.newProducts,
-            ),
+            if (ctx.isAuthenticated.isTrue)
+              ListTile(
+                title: const Text('Add product'),
+                onTap: () {
+                  Navigator.pushNamed(context, "/add_item");
+                },
+                leading: const Icon(
+                  Icons.fiber_new,
+                  color: Color(0xFF0D90EE),
+                ),
+                // selected: routes == Routes.newProducts,
+              ),
             if (ctx.isAuthenticated.isTrue)
               ListTile(
                 title: const Text('My Items'),
                 onTap: () {
                   Navigator.pushNamed(context, "/add_item");
+                },
+                leading: const Icon(
+                  Icons.fiber_new,
+                  color: Color(0xFF0D90EE),
+                ),
+                // selected: routes == Routes.newProducts,
+              ),
+            if (ctx.isAuthenticated.isTrue)
+              ListTile(
+                title: const Text('My Shop'),
+                onTap: () {
+                  Get.to(() => AddShop(redirectFrom: 'drawer'));
                 },
                 leading: const Icon(
                   Icons.fiber_new,
@@ -98,76 +105,23 @@ class DrawerPage extends StatelessWidget {
                 ),
                 // selected: routes == Routes.admin,
               ),
-            // if (ctx.isAuthenticated.isTrue)
-            ListTile(
-              title: const Text('Sent Orders'),
-              onTap: () {
-                // Navigator.pushNamed(context, "/add_item");
-                Get.to(() => OrderPage());
-              },
-              leading: const Icon(
-                Icons.fiber_new,
-                color: Color(0xFF0D90EE),
+            if (ctx.isAuthenticated.isTrue)
+              ListTile(
+                title: const Text('Sent Orders'),
+                onTap: () {
+                  // Navigator.pushNamed(context, "/add_item");
+                  Get.to(() => OrderPage());
+                },
+                leading: const Icon(
+                  Icons.fiber_new,
+                  color: Color(0xFF0D90EE),
+                ),
+                // selected: routes == Routes.newProducts,
               ),
-              // selected: routes == Routes.newProducts,
-            ),
-            ListTile(
-              title: const Text('a'),
-              onTap: () {
-                Get.to(() => ShopDetail());
-              },
-              leading: const Icon(
-                Icons.exit_to_app,
-                color: Color(0xFF0D90EE),
-              ),
-            ),
-            ListTile(
-              title: const Text('address'),
-              onTap: () {
-                Get.to(() => AddAddress());
-              },
-              leading: const Icon(
-                Icons.exit_to_app,
-                color: Color(0xFF0D90EE),
-              ),
-            ),
-            ListTile(
-              title: const Text('review'),
-              onTap: () {
-                Get.to(() => AddReview());
-              },
-              leading: const Icon(
-                Icons.exit_to_app,
-                color: Color(0xFF0D90EE),
-              ),
-            ),
-            ListTile(
-              title: const Text('delivery detail'),
-              onTap: () {
-                Get.to(() => DeliveryDetail());
-              },
-              leading: const Icon(
-                Icons.exit_to_app,
-                color: Color(0xFF0D90EE),
-              ),
-            ),
             if (ctx.isAuthenticated.isTrue)
               const Divider(
                 height: 1.0,
               ),
-            // ListTile(
-            //   title: const Text('Profile'),
-            //   onTap: () {
-            //     // context.read<NavigationBloc>().add(Navigated(Routes.profile));
-            //     // Navigator.pop(context);
-            //   },
-            //   leading: const Icon(
-            //     Icons.account_circle,
-            //     color: Color(0xFF0D90EE),
-            //   ),
-            //   // selected: routes == Routes.profile,
-            // ),
-
             if (ctx.isAuthenticated.isTrue)
               ListTile(
                 title: const Text('Logout'),
@@ -210,7 +164,7 @@ class DrawerPage extends StatelessWidget {
                   );
                 },
                 leading: const Icon(
-                  Icons.exit_to_app,
+                  Icons.logout,
                   color: Color(0xFF0D90EE),
                 ),
               )

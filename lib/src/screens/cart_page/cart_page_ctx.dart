@@ -39,7 +39,7 @@ class CartPageController extends GetxController {
     isCartLoading(true);
     try {
       List<Cart> carts = await cartRepository.getCart();
-      cartList!(carts.obs);
+      cartList!(carts);
     } on TimeoutException catch (e) {
       err(e.message);
       errOccurred(true);

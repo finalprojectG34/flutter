@@ -69,7 +69,7 @@ class _AppState extends State<App> {
     switch (index) {
       case 1:
         // _selectedIndex = index;
-        appController.changePage('Explore', index);
+        appController.changePage('My Items', index);
         return SentOrderDetail();
       //   Query(
       //   options: QueryOptions(
@@ -180,7 +180,7 @@ class _AppState extends State<App> {
               const BottomNavigationBarItem(
                   icon: Icon(Icons.home_outlined), label: 'Home'),
               const BottomNavigationBarItem(
-                  icon: Icon(Icons.search), label: 'Explore'),
+                  icon: Icon(Icons.my_library_books_outlined), label: 'My Items'),
               const BottomNavigationBarItem(
                   icon: Icon(Icons.add), label: 'Add'),
               const BottomNavigationBarItem(
