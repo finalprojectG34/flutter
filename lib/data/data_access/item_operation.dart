@@ -36,7 +36,6 @@ class ItemOperation {
     });
 
     if (response.hasException) {
-      print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
       print(response.exception);
     }
 
@@ -104,11 +103,9 @@ class ItemOperation {
       throw TimeoutException('request timed out', const Duration(seconds: 30));
     });
     if (response.hasException) {
-      print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
       print(response.exception);
       // throw response.exception;
     } else {
-      print("rrrrrrrrrrrrrrrrrrrrrrrrr");
       print(response);
     }
     return (response.data!['getCartByUserId'] as List)
@@ -138,11 +135,9 @@ class ItemOperation {
       fetchPolicy: FetchPolicy.networkOnly,
     ));
     if (response.hasException) {
-      print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
       print(response.exception);
       // throw response.exception;
     } else {
-      print("rrrrrrrrrrrrrrrrrrrrrrrrr");
       print(response);
     }
   }
