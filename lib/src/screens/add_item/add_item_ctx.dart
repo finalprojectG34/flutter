@@ -84,6 +84,7 @@ class AddItemController extends GetxController {
 
   addItem(variable, File file) async {
     var imagePath = await imageUpload(file);
+    print('$imagePath -----------------------');
     variable["imagePath"] = imagePath;
     Item item = await itemRepository.addItem(variable);
     itemId(item.id);
