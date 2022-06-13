@@ -24,24 +24,14 @@ class SignUpController extends GetxController {
   final storage = Get.find<FlutterSecureStorage>();
   var userVariable;
 
-  signupUser(variable) async {
-    // print(userVariable);
-    isLoading(true);
-    try {
-      createdUser = await userRepository.signupUser(userVariable);
-    } catch (e) {
-      EasyLoading.showError('Some error occurred. Please try again',
-          maskType: EasyLoadingMaskType.black,
-          duration: const Duration(seconds: 3));
-      Get.back();
-    }
-  }
+
 
   sendOtp(variable) async {
     userVariable = variable;
     try {
       await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: variable['token']['phone'],
+        phoneNumber: '+251900000000',
+        // phoneNumber: variable['token']['phone'],
         verificationCompleted: (PhoneAuthCredential credential) {},
         verificationFailed: (FirebaseAuthException e) {
           EasyLoading.dismiss();
@@ -91,8 +81,10 @@ class SignUpController extends GetxController {
         .then((UserCredential result) async {
       if (token != null) {
         userVariable['token']['idToken'] = token;
-        userVariable['token']['phone'] = '+251923232323';
+        // userVariable['token']['phone'] = ;
+        print("token found sucessfully");
         await signupUser(userVariable);
+
         if (createdUser != null) {
           await storage.write(key: 'token', value: createdUser?.token);
           EasyLoading.showSuccess('Account created successfully',
@@ -112,4 +104,24 @@ class SignUpController extends GetxController {
       Get.back();
     });
   }
+
+  signupUser(variable) async {
+    // print(userVariable);
+    isLoading(true);
+    try {
+      createdUser = await userRepository.signupUser(userVariable);
+      print("SignUp succesfully");
+
+    } catch (e) {
+      print("error  $e  ------------------------------------");
+      EasyLoading.showError('Some error occurred. Please try again',
+          maskType: EasyLoadingMaskType.black,
+          duration: const Duration(seconds: 3));
+      Get.back();
+    }
+  }
+
+
+
+
 }
