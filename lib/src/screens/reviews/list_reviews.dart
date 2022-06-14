@@ -3,14 +3,14 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-class AddReview extends StatefulWidget {
-  const AddReview({Key? key}) : super(key: key);
+class ListReviews extends StatefulWidget {
+  const ListReviews({Key? key}) : super(key: key);
 
   @override
-  State<AddReview> createState() => _AddReviewState();
+  State<ListReviews> createState() => _ListReviewsState();
 }
 
-class _AddReviewState extends State<AddReview> {
+class _ListReviewsState extends State<ListReviews> {
   double userRating = 0;
 
   @override
@@ -86,7 +86,7 @@ class _AddReviewState extends State<AddReview> {
               shadowColor: MaterialStateProperty.all(Colors.lightBlueAccent),
               elevation: MaterialStateProperty.all(6),
               backgroundColor:
-                  MaterialStateProperty.all(const Color(0xff40BFFF)),
+              MaterialStateProperty.all(const Color(0xff40BFFF)),
               fixedSize: MaterialStateProperty.all(Size(Get.width, 54)),
             ),
             onPressed: () async {},

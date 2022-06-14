@@ -8,6 +8,7 @@ import 'package:sms/src/screens/home_page/AppCtx.dart';
 import '../auth/login/login.dart';
 import '../order_page/order_page.dart';
 import '../order_page/received_orders.dart';
+import '../reviews/add_review.dart';
 
 class DrawerPage extends StatelessWidget {
   const DrawerPage({Key? key}) : super(key: key);
@@ -118,6 +119,18 @@ class DrawerPage extends StatelessWidget {
                 ),
                 // selected: routes == Routes.newProducts,
               ),
+            ListTile(
+              title: const Text('Review'),
+              onTap: () {
+                // Navigator.pushNamed(context, "/add_item");
+                Get.to(() => AddReview());
+              },
+              leading: const Icon(
+                Icons.fiber_new,
+                color: Color(0xFF0D90EE),
+              ),
+              // selected: routes == Routes.newProducts,
+            ),
             if (ctx.isAuthenticated.isTrue)
               const Divider(
                 height: 1.0,

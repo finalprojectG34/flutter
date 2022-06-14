@@ -44,7 +44,7 @@ class LoginController extends GetxController {
         appController.isAuthenticated(true);
         // Get.offNamed('/');
       }
-    } catch (e) {
+    }catch (e) {
       print(e);
       EasyLoading.showError('Please try again',
           maskType: EasyLoadingMaskType.black,
@@ -95,6 +95,7 @@ class LoginController extends GetxController {
       final a = await event?.getIdToken();
       print('**************************** $a');
     });
+
     FirebaseAuth.instance
         .signInWithCredential(credential)
         .then((UserCredential result) {
@@ -106,4 +107,5 @@ class LoginController extends GetxController {
       Fluttertoast.showToast(msg: e);
     });
   }
+
 }

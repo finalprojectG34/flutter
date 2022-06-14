@@ -1,4 +1,5 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:sms/src/utils/loger/console_loger.dart';
 
 import '../../src/models/models.dart';
 
@@ -58,6 +59,7 @@ class UserRepository {
   }
 
   Future signInUser(variables) async {
+
     String signInMutation = r'''
              mutation Login($input: loginInput!) {
                 login(input: $input) {
@@ -76,10 +78,12 @@ class UserRepository {
     );
 
     if (response.hasException) {
-      print(response.exception);
+      logTrace("response exception", response.exception);
+
     }
 
     if (response.data!['login']['user'] != null) {
+      logTrace("new key",response);
       return User.fromJson(response.data!['login']['user'],
           token: response.data!['login']['token']);
     }

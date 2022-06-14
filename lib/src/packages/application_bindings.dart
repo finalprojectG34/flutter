@@ -16,6 +16,8 @@ import '../screens/cart_page/cart_page_ctx.dart';
 import '../screens/home_page/AppCtx.dart';
 import '../screens/items/item_list_ctx.dart';
 import '../screens/order_page/order_page_ctx.dart';
+import '../screens/reviews/repository.review.dart';
+import '../screens/reviews/review_ctx.dart';
 import '../screens/search_item/search_item_ctx.dart';
 import 'graphql_client.dart';
 
@@ -34,6 +36,10 @@ class ApplicationBindings implements Bindings {
   );
 
   final OrderRepository _orderRepository = OrderRepository(
+    gqlClient: Client().connect,
+  );
+
+  final ReviewRepository _reviewRepository = ReviewRepository(
     gqlClient: Client().connect,
   );
 
@@ -80,6 +86,11 @@ class ApplicationBindings implements Bindings {
     );
     Get.lazyPut(
       () => ItemListController(itemRepository: _itemRepository),
+      fenix: true,
+    );
+
+    Get.lazyPut(
+          () => ReviewController(reviewRepository: _reviewRepository),
       fenix: true,
     );
   }
