@@ -9,32 +9,35 @@ class UserRepository {
 
   UserRepository({required this.gqlClient});
 
-  // SignUpController signUpController = Get.find();
-
   Future signupUser(variables) async {
     String signupMutation = r'''
      mutation AuthPhoneAndRegister($token: PhoneSignupInput) {
-          authPhoneAndRegister(token: $token) {
-            user {
-              id
-              firstName
-              lastName
-              phone
-              role
-            }
-            token
+        authPhoneAndRegister(token: $token) {
+          user {
+            id
+            firstName
+            lastName
+            phone
+            role
           }
+          token
         }
+     }
       ''';
-    // print(variables.toString() + 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq');
+
     final response = await gqlClient
         .mutate(MutationOptions(
             document: gql(signupMutation), variables: variables))
         .timeout(const Duration(seconds: 30), onTimeout: () {
       throw TimeoutException('request timed out', const Duration(seconds: 30));
     });
-    print(
-        '${response.data!['authPhoneAndRegister']['token']}   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
+
+    if (response.hasException) {
+      print(response.exception);
+      // throw response.exception;
+    } else {
+      print(response);
+    }
 
     return User.fromJson(response.data!['authPhoneAndRegister']['user'],
         token: response.data!['authPhoneAndRegister']['token']);
@@ -46,9 +49,8 @@ class UserRepository {
           authPhoneAndRegister(token: $token) {
               token
           }
-        }
-      ''';
-    // print(variables.toString() + 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq');
+     }
+     ''';
     final response = await gqlClient
         .mutate(MutationOptions(document: gql(signupMutation), variables: {
       "token": {
@@ -57,8 +59,13 @@ class UserRepository {
         "idToken": token
       }
     }));
-    print(
-        '${response.data!['authPhoneAndResetPwd']['token']}   zzzzzzzzzzzzzzzzzzzzzzzzzzzzzz');
+
+    if (response.hasException) {
+      print(response.exception);
+      // throw response.exception;
+    } else {
+      print(response);
+    }
 
     return User.fromJson(response.data!['authPhoneAndResetPwd']['user'],
         token: response.data!['authPhoneAndResetPwd']['token']);

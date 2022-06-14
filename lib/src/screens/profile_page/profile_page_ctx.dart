@@ -20,8 +20,10 @@ class ProfilePageController extends GetxController {
   RxString errorText = "".obs;
   RxBool isProfileLoading = false.obs;
 
-  init(){
-    getUserAddress();
+  @override
+  void onInit() async {
+    super.onInit();
+    await getUserAddress();
   }
 
   Future<bool> getUserAddress() async {

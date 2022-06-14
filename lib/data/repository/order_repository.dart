@@ -9,7 +9,8 @@ class OrderRepository {
 
   Future<List<Order>> getOrder(String status) async {
     final response = await gqlClient.query(
-      QueryOptions(document: gql(r'''
+      QueryOptions(
+        document: gql(r'''
         query GetOrderByUserId($status: String) {
           getOrderByUserId(status: $status) {
             id
@@ -23,13 +24,23 @@ class OrderRepository {
               amount
             }
             subTotal
+            deliveryAddress {
+              addressName
+              city
+              subCity
+              country
+            }
           }
         }
-      '''), variables: {"status": status}),
+      '''),
+        variables: {"status": status},
+        fetchPolicy: FetchPolicy.networkOnly,
+      ),
     );
     List<Order> newOrders = [];
     if (response.hasException) {
       print(response.exception);
+      throw Exception("Error Happened");
     } else {
       print(response);
       for (var element in (response.data!["getOrderByUserId"] as List)) {
@@ -42,7 +53,7 @@ class OrderRepository {
   Future<Order> getOrderById(String orderId) async {
     final response = await gqlClient.query(
       QueryOptions(document: gql(r'''
-        query GetOrderByUserId($getOneOrderId: String!) {
+        query GetOneOrder($getOneOrderId: String!) {
           getOneOrder(id: $getOneOrderId) {
             id
             status
@@ -55,9 +66,15 @@ class OrderRepository {
               amount
             }
             subTotal
+            deliveryAddress {
+              subCity
+              city
+              addressName
+              country
+            }
           }
         }
-      '''), variables: {"getOneOrderId": "62a348c25800e4e4af26004d"}),
+      '''), variables: {"getOneOrderId": orderId}),
     );
     Order newOrder = const Order();
     if (response.hasException) {
@@ -72,20 +89,11 @@ class OrderRepository {
   Future<List<Order>> createOrder(List<Order> orders) async {
     final response = await gqlClient.mutate(MutationOptions(
       document: gql(r'''
-            mutation CreateManyOrders($input: [OrderCreateInput!]!) {
-              createManyOrders(input: $input) {
-                id
-                status
-                userId
-                shopId
-                orderItems {
-                  id
-                  name
-                  price
-                  amount
-                }
-              }
-            }
+        mutation CreateManyOrders($input: [OrderCreateInput!]!) {
+          createManyOrders(input: $input) {
+            id
+          }
+        }
       '''),
       variables: {
         "input": orders
@@ -93,6 +101,12 @@ class OrderRepository {
                   "name": "name",
                   "description": "description",
                   "shopId": order.shopId,
+                  "deliveryAddress": {
+                    "subCity": order.deliveryAddress?.subCity,
+                    "city": order.deliveryAddress?.city,
+                    "addressName": order.deliveryAddress?.addressName,
+                    "country": order.deliveryAddress?.country,
+                  },
                   "orderItems": order.orderItems
                       ?.map((orderItem) => {
                             "id": orderItem.id,
