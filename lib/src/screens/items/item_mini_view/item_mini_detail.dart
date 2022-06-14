@@ -104,9 +104,9 @@ class ItemMiniDetail extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    const Text(
-                      '\$600',
-                      style: TextStyle(
+                    Text(
+                      "${item.discountPrice}",
+                      style: const TextStyle(
                           decoration: TextDecoration.lineThrough,
                           color: Colors.grey),
                     ),
@@ -132,7 +132,7 @@ class ItemMiniDetail extends StatelessWidget {
                           shopId: item.shopId,
                           itemId: item.id,
                           price: item.price,
-                          amount: "5",
+                          amount: "1",
                         ));
                         // appController.changePage('Cart', 3);
                       },

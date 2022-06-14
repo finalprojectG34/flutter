@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../helper/constance.dart';
+import '../cart_page/cart_page_ctx.dart';
 
 class PaymentDetail extends StatelessWidget {
   const PaymentDetail({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    CartPageController ctx = Get.find();
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
@@ -14,54 +18,45 @@ class PaymentDetail extends StatelessWidget {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 Text(
-                  'Items (2)',
-                  style: TextStyle(color: Colors.grey, fontSize: 16),
+                  'Items (${(ctx.cartList as List).length})',
+                  style: const TextStyle(color: Colors.grey, fontSize: 16),
                 ),
                 Text(
-                  'ETB 46.22',
-                  style: TextStyle(fontSize: 16),
+                  'ETB ${ctx.totalPrice.toString()}',
+                  style: const TextStyle(fontSize: 16),
                 ),
               ],
             ),
-            SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
+              children: [
+                const Text(
                   'Shipping',
                   style: TextStyle(color: Colors.grey, fontSize: 16),
                 ),
                 Text(
-                  'ETB 50.22',
-                  style: TextStyle(fontSize: 16),
+                  'ETB ${ctx.shippingPrice.toString()}',
+                  style: const TextStyle(fontSize: 16),
                 ),
               ],
             ),
-            SizedBox(
-              height: 5,
-            ),
-            Divider(
-              height: 10,
-              color: Colors.grey,
-            ),
-            SizedBox(
-              height: 5,
-            ),
+            const SizedBox(height: 5),
+            const Divider(height: 10, color: Colors.grey),
+            const SizedBox(height: 5),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
+              children: [
+                const Text(
                   'Total Price',
                   style: TextStyle(
                       color: color1, fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  'ETB 150.22',
-                  style: TextStyle(fontSize: 16, color: Colors.lightBlue),
+                  'ETB ${ctx.totalPrice.toString()}',
+                  style: const TextStyle(fontSize: 16, color: Colors.lightBlue),
                 ),
               ],
             ),

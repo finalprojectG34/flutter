@@ -5,7 +5,7 @@ import 'package:sms/src/app.dart';
 import 'package:sms/src/screens/items/item_list_ctx.dart';
 
 import '../components/error_page.dart';
-import '../components/item_mini_view/item_mini_detail.dart';
+import 'item_mini_view/item_mini_detail.dart';
 
 class ItemList extends StatefulWidget {
   const ItemList({Key? key}) : super(key: key);

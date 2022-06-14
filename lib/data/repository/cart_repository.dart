@@ -20,10 +20,9 @@ class CartRepository {
                 status
                 userId
                 shopId
-                deliveryAddress
               }
             }
-      ''')),
+      '''), fetchPolicy: FetchPolicy.networkOnly),
     );
     if (response.hasException) {
       print(response.exception);
@@ -39,7 +38,7 @@ class CartRepository {
   Future addToCart(Cart cart) async {
     final response = await gqlClient.mutate(MutationOptions(
       document: gql(r'''
-            mutation Mutation($input: CartItemsInput!) {
+            mutation AddToCart($input: CartItemsInput!) {
               addToCart(input: $input) {
                 id
               }
@@ -52,7 +51,6 @@ class CartRepository {
           "itemId": cart.itemId,
           "price": cart.price,
           "amount": cart.amount,
-          "deliveryAddress": "alembank"
         }
       },
       fetchPolicy: FetchPolicy.networkOnly,

@@ -8,7 +8,7 @@ class SentOrderDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Order Your Order'),
+        title: const Text('Track Your Order'),
       ),
       body: ListView.builder(
         itemBuilder: (context, index) {

@@ -7,6 +7,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sms/src/app.dart';
+import 'package:sms/src/screens/profile_page/profile_page_ctx.dart';
 
 import '../../../../data/repository/user_repository.dart';
 import '../../../models/user.dart' as user;
@@ -22,6 +23,7 @@ class LoginController extends GetxController {
   var error = false.obs;
   String verificationId = "";
   final AppController appController = Get.find();
+  final ProfilePageController profilePageController = Get.find();
   user.User? signedInUser;
   RxString err = ''.obs;
   RxBool loginError = false.obs;
@@ -46,6 +48,10 @@ class LoginController extends GetxController {
         await storage.write(key: 'phone', value: signedInUser?.phone);
         await storage.write(key: 'role', value: signedInUser?.role);
         await storage.write(key: 'shopId', value: signedInUser?.shopId);
+
+        if(signedInUser?.address?.addressName != null){
+          await profilePageController.setUserAddress(signedInUser?.address);
+        }
         // await storage.write(key: 'user', value: jsonEncode(signedInUser));
         EasyLoading.showSuccess('Logged in successfully',
             dismissOnTap: true, maskType: EasyLoadingMaskType.black);
