@@ -80,7 +80,10 @@ class _HomeState extends State<Home> {
                                   const EdgeInsets.symmetric(horizontal: 10),
                               child: Row(
                                 children: [
-                                  Text(ctx.err.value),
+                                  Expanded(
+                                      child: Text(
+                                    ctx.err.value,
+                                  )),
                                   SizedBox(
                                     width: 20,
                                   ),

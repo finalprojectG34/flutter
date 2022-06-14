@@ -13,9 +13,11 @@ class User extends Equatable {
       this.token,
       this.phone,
       this.password,
-      this.profile});
+      this.profile,
+      this.shopId});
 
   final String? id;
+  final String? shopId;
   final String? firstName;
   final String? lastName;
   final String? email;
@@ -47,7 +49,7 @@ class User extends Equatable {
       token: token,
       password: json['password'],
       phone: json['phone'],
-    );
+        shopId: json['shopId']);
     // logTrace("afterFactory", item);
     return item;
   }

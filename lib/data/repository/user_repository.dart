@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 import '../../src/models/models.dart';
@@ -14,10 +16,11 @@ class UserRepository {
      mutation AuthPhoneAndRegister($token: PhoneSignupInput) {
           authPhoneAndRegister(token: $token) {
             user {
+              id
               firstName
               lastName
               phone
-              password
+              role
             }
             token
           }
@@ -66,17 +69,30 @@ class UserRepository {
                     firstName
                     lastName
                     phone
+                    shopId
+                    role
                   }
                   token
                 }
         }
       ''';
-    final response = await gqlClient.mutate(
+    final response = await gqlClient
+        .mutate(
       MutationOptions(document: gql(signInMutation), variables: variables),
-    );
+    )
+        .timeout(const Duration(seconds: 30), onTimeout: () {
+      throw TimeoutException('request timed out', const Duration(seconds: 30));
+    });
 
     if (response.hasException) {
-      print(response.exception);
+      for (var element in response.exception!.graphqlErrors) {
+        if (element.message == 'info or password wrong') {
+          return null;
+        }
+        // if (response.exception!.graphqlErrors[0].message ==
+        //     'info or password wrong') {
+        return null;
+      }
     }
 
     if (response.data!['login']['user'] != null) {

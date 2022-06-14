@@ -127,6 +127,7 @@ class Login extends StatelessWidget {
                         onPressed: () async {
                           if (formState.currentState!.validate()) {
                             FocusScope.of(context).unfocus();
+
                             EasyLoading.instance.loadingStyle =
                                 EasyLoadingStyle.light;
                             await EasyLoading.show(

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:sms/data/repository/item_repository.dart';
@@ -21,6 +22,7 @@ class AppController extends GetxController {
   RxBool getItemError = false.obs;
   RxString err = ''.obs;
   RxList<Item>? itemList;
+  FocusNode searchBarFocusNode = FocusNode();
 
   @override
   void onInit() async {
@@ -57,7 +59,7 @@ class AppController extends GetxController {
       err(e.message);
     } catch (e) {
       getItemError(true);
-      err(e.toString());
+      err('Connection error');
     }
     isGettingItems(false);
   }

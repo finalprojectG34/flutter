@@ -154,6 +154,7 @@ class DrawerPage extends StatelessWidget {
                               ctx.isAuthenticated(false);
                               ctx.changePage('Home', 0);
                               EasyLoading.showSuccess('Logged out',
+                                  dismissOnTap: true,
                                   maskType: EasyLoadingMaskType.black);
                               Get.offNamed('/');
                             },

@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -20,7 +23,8 @@ class LoginController extends GetxController {
   String verificationId = "";
   final AppController appController = Get.find();
   user.User? signedInUser;
-
+  RxString err = ''.obs;
+  RxBool loginError = false.obs;
   final storage = Get.find<FlutterSecureStorage>();
 
   signInUser(variable) async {
@@ -29,24 +33,35 @@ class LoginController extends GetxController {
     try {
       signedInUser = await userRepository.signInUser(variable);
       if (signedInUser == null) {
-        EasyLoading.showError('Try again',
+        EasyLoading.showError('Incorrect username or password',
+            dismissOnTap: true,
             maskType: EasyLoadingMaskType.black,
             duration: const Duration(seconds: 3));
         // Get.back();
       } else {
         await storage.write(key: 'token', value: signedInUser?.token);
-        await storage.write(key: "userId", value: signedInUser?.id);
+        await storage.write(key: 'userId', value: signedInUser?.id);
+        await storage.write(key: 'firstName', value: signedInUser?.firstName);
+        await storage.write(key: 'lastName', value: signedInUser?.lastName);
+        await storage.write(key: 'phone', value: signedInUser?.phone);
+        await storage.write(key: 'role', value: signedInUser?.role);
+        await storage.write(key: 'shopId', value: signedInUser?.shopId);
         // await storage.write(key: 'user', value: jsonEncode(signedInUser));
         EasyLoading.showSuccess('Logged in successfully',
-            maskType: EasyLoadingMaskType.black);
+            dismissOnTap: true, maskType: EasyLoadingMaskType.black);
         AppController appController = Get.find();
         appController.changePage('Home', 0);
         appController.isAuthenticated(true);
         // Get.offNamed('/');
       }
+    } on TimeoutException catch (e) {
+      EasyLoading.showError(e.message!,
+          dismissOnTap: true,
+          maskType: EasyLoadingMaskType.black,
+          duration: const Duration(seconds: 3));
     } catch (e) {
-      print(e);
-      EasyLoading.showError('Please try again',
+      EasyLoading.showError('Connection error. Please try again',
+          dismissOnTap: true,
           maskType: EasyLoadingMaskType.black,
           duration: const Duration(seconds: 3));
       // Get.back();
@@ -62,13 +77,13 @@ class LoginController extends GetxController {
         verificationFailed: (FirebaseAuthException e) {
           EasyLoading.dismiss();
           EasyLoading.showError(e.message ?? "Something went wrong. Try Again",
-              maskType: EasyLoadingMaskType.black);
+              dismissOnTap: true, maskType: EasyLoadingMaskType.black);
         },
         codeSent: (verificationId, [resendToken]) {
           this.verificationId = verificationId;
           EasyLoading.dismiss();
           Get.to(
-            () => CodeVerification(
+                () => CodeVerification(
               redirectFrom: 'signIn',
             ),
           );
@@ -100,8 +115,8 @@ class LoginController extends GetxController {
         .then((UserCredential result) {
       // result.additionalUserInfo.
       Get.offAll(() => Home(
-            hasSearchBar: appController.hasSearchIcon.isFalse,
-          ));
+        hasSearchBar: appController.hasSearchIcon.isFalse,
+      ));
     }).catchError((e) {
       Fluttertoast.showToast(msg: e);
     });

@@ -16,26 +16,27 @@ class _SearchBarState extends State<SearchBar> {
   SearchController searchController = Get.find();
   TextEditingController searchTextEditingController = TextEditingController();
   String? searchItemName;
-  FocusNode searchBarFocusNode = FocusNode();
+  // FocusNode searchBarFocusNode = FocusNode();
   AppController appController = Get.find();
 
   void onSearchBarFocusChange() {
-    if (!searchBarFocusNode.hasFocus) {
+    if (!appController.searchBarFocusNode.hasFocus) {
       appController.isSearchBarActive(false);
+      appController.searchBarFocusNode.unfocus();
     }
   }
 
   @override
   void initState() {
     super.initState();
-    searchBarFocusNode.addListener(onSearchBarFocusChange);
+    appController.searchBarFocusNode.addListener(onSearchBarFocusChange);
   }
 
   @override
   Widget build(BuildContext context) {
     return GetX<AppController>(builder: (ctx) {
       if (ctx.isSearchBarActive.isTrue) {
-        searchBarFocusNode.requestFocus();
+        ctx.searchBarFocusNode.requestFocus();
         print(
             'req focus  iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
       }
@@ -49,7 +50,7 @@ class _SearchBarState extends State<SearchBar> {
                   padding: const EdgeInsets.only(left: 15.0),
                   child: TextField(
                     controller: searchTextEditingController,
-                    focusNode: searchBarFocusNode,
+                    focusNode: ctx.searchBarFocusNode,
                     decoration: const InputDecoration(
                       hintText: 'Search',
                       border: InputBorder.none,
@@ -59,7 +60,7 @@ class _SearchBarState extends State<SearchBar> {
                     onChanged: (text) => searchItemName = text,
                     onEditingComplete: () {
                       ctx.isSearchBarActive(false);
-                      searchBarFocusNode.unfocus();
+                      ctx.searchBarFocusNode.unfocus();
                     },
                   ),
                 ),
