@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -24,8 +26,6 @@ class SignUpController extends GetxController {
   final storage = Get.find<FlutterSecureStorage>();
   var userVariable;
 
-
-
   sendOtp(variable) async {
     userVariable = variable;
     try {
@@ -43,7 +43,7 @@ class SignUpController extends GetxController {
           this.verificationId = verificationId;
           EasyLoading.dismiss();
           Get.to(
-            () => CodeVerification(
+                () => CodeVerification(
               redirectFrom: 'signUp',
             ),
           );
@@ -118,7 +118,11 @@ class SignUpController extends GetxController {
     try {
       createdUser = await userRepository.signupUser(userVariable);
       print("SignUp succesfully");
-
+    } on TimeoutException catch (e) {
+      EasyLoading.showError(e.message!,
+          dismissOnTap: true,
+          maskType: EasyLoadingMaskType.black,
+          duration: const Duration(seconds: 3));
     } catch (e) {
       print("error  $e  ------------------------------------");
       EasyLoading.showError('Some error occurred. Please try again',
@@ -128,8 +132,4 @@ class SignUpController extends GetxController {
       Get.back();
     }
   }
-
-
-
-
 }

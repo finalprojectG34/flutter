@@ -27,8 +27,12 @@ class UserRepository {
         }
       ''';
     // print(variables.toString() + 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq');
-    final response = await gqlClient.mutate(
-        MutationOptions(document: gql(signupMutation), variables: variables));
+    final response = await gqlClient
+        .mutate(MutationOptions(
+            document: gql(signupMutation), variables: variables))
+        .timeout(const Duration(seconds: 30), onTimeout: () {
+      throw TimeoutException('request timed out', const Duration(seconds: 30));
+    });
     print(
         '${response.data!['authPhoneAndRegister']['token']}   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
 

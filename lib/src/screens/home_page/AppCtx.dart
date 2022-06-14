@@ -24,6 +24,10 @@ class AppController extends GetxController {
   RxList<Item>? itemList;
   FocusNode searchBarFocusNode = FocusNode();
 
+  RxString firstName = ''.obs;
+  RxString lastName = ''.obs;
+  RxString phone = ''.obs;
+
   @override
   void onInit() async {
     super.onInit();
@@ -33,6 +37,7 @@ class AppController extends GetxController {
       isAuthenticated(true);
     }
     getItems();
+    getUserInfo();
   }
 
   disableSearchIcon() {
@@ -42,6 +47,12 @@ class AppController extends GetxController {
   changePage(String name, int index) {
     pageName(name);
     selectedIndex(index);
+  }
+
+  getUserInfo() async {
+    firstName((await storage.read(key: 'firstName')));
+    lastName((await storage.read(key: 'lastName')));
+    phone((await storage.read(key: 'phone')));
   }
 
   getItems() async {
@@ -65,6 +76,6 @@ class AppController extends GetxController {
   }
 
   logout() async {
-    await storage.delete(key: 'token');
+    await storage.deleteAll();
   }
 }

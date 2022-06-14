@@ -32,7 +32,7 @@ class _AppState extends State<App> {
   // late OrderRespositoryImpl aa;
   late AppBar appbar;
   late String appbarName;
-  late String userRole;
+  late String? userRole;
   late bool hasShopId;
   String query = '''
   query GetAllItems{
@@ -69,7 +69,7 @@ class _AppState extends State<App> {
 
   getShopId() async {
     hasShopId = await storage.read(key: 'shopId') != null;
-    userRole = (await storage.read(key: 'role'))!;
+    userRole = await storage.read(key: 'role');
     // userRole = 'SELLER';
     // hasShopId = true;
   }
@@ -151,11 +151,13 @@ class _AppState extends State<App> {
         appController.changePage('Cart', index);
         if (appController.isAuthenticated.isFalse) {
           Get.snackbar('Sign in',
-              'You need to sign in first before you add item to cart_page',
+              'You need to sign in first before you add item to cart',
               snackPosition: SnackPosition.BOTTOM);
           appController.changePage('Account', 4);
         }
-        return appController.isAuthenticated.isTrue ? CartPage() : Container();
+        return appController.isAuthenticated.isTrue
+            ? const CartPage()
+            : Container();
       // ItemDetails(Item(name: 'name',price: '230',category: 'cat',description: 'some desc',));
       case 4:
         appController.changePage(
