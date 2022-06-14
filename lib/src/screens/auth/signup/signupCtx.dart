@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -24,8 +26,6 @@ class SignUpController extends GetxController {
   final storage = Get.find<FlutterSecureStorage>();
   var userVariable;
 
-
-
   sendOtp(variable) async {
     userVariable = variable;
     try {
@@ -34,15 +34,16 @@ class SignUpController extends GetxController {
         // phoneNumber: variable['token']['phone'],
         verificationCompleted: (PhoneAuthCredential credential) {},
         verificationFailed: (FirebaseAuthException e) {
-          EasyLoading.dismiss();
+          // EasyLoading.dismiss();
+          print(e.message);
           EasyLoading.showError(e.message ?? "Something went wrong. Try Again",
-              maskType: EasyLoadingMaskType.black);
+              dismissOnTap: true, maskType: EasyLoadingMaskType.black);
         },
         codeSent: (verificationId, [resendToken]) {
           this.verificationId = verificationId;
           EasyLoading.dismiss();
           Get.to(
-            () => CodeVerification(
+                () => CodeVerification(
               redirectFrom: 'signUp',
             ),
           );
@@ -55,10 +56,10 @@ class SignUpController extends GetxController {
         timeout: const Duration(seconds: 60),
       );
     } catch (e) {
-      EasyLoading.dismiss();
+      // EasyLoading.dismiss();
       EasyLoading.showError(e.toString(),
           maskType: EasyLoadingMaskType.black,
-          duration: const Duration(seconds: 5));
+          duration: const Duration(seconds: 3));
     } finally {}
   }
 
@@ -87,8 +88,14 @@ class SignUpController extends GetxController {
 
         if (createdUser != null) {
           await storage.write(key: 'token', value: createdUser?.token);
+          await storage.write(key: 'userId', value: createdUser?.id);
+          await storage.write(key: 'firstName', value: createdUser?.firstName);
+          await storage.write(key: 'lastName', value: createdUser?.lastName);
+          await storage.write(key: 'phone', value: createdUser?.phone);
+          await storage.write(key: 'role', value: createdUser?.role);
+
           EasyLoading.showSuccess('Account created successfully',
-              maskType: EasyLoadingMaskType.black);
+              dismissOnTap: true, maskType: EasyLoadingMaskType.black);
           AppController appController = Get.find();
           appController.changePage('Home', 0);
           appController.isAuthenticated(true);
@@ -96,7 +103,7 @@ class SignUpController extends GetxController {
         }
       } else {
         EasyLoading.showError('Some error occurred',
-            maskType: EasyLoadingMaskType.black);
+            dismissOnTap: true, maskType: EasyLoadingMaskType.black);
         Get.back();
       }
     }).catchError((e) {
@@ -111,17 +118,18 @@ class SignUpController extends GetxController {
     try {
       createdUser = await userRepository.signupUser(userVariable);
       print("SignUp succesfully");
-
+    } on TimeoutException catch (e) {
+      EasyLoading.showError(e.message!,
+          dismissOnTap: true,
+          maskType: EasyLoadingMaskType.black,
+          duration: const Duration(seconds: 3));
     } catch (e) {
       print("error  $e  ------------------------------------");
       EasyLoading.showError('Some error occurred. Please try again',
+          dismissOnTap: true,
           maskType: EasyLoadingMaskType.black,
           duration: const Duration(seconds: 3));
       Get.back();
     }
   }
-
-
-
-
 }

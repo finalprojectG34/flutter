@@ -5,10 +5,10 @@ import 'package:sms/src/screens/components/category_list.dart';
 import 'package:sms/src/screens/components/suggested_items.dart';
 import 'package:sms/src/screens/shops_list/shops_list.dart';
 
-import '../components/item_mini_view/item_mini_detail.dart';
 import '../components/searchbar.dart';
 import '../components/shop_item.dart';
 import '../items/item_list.dart';
+import '../items/item_mini_view/item_mini_detail.dart';
 import 'AppCtx.dart';
 
 class Home extends StatefulWidget {
@@ -80,7 +80,10 @@ class _HomeState extends State<Home> {
                                   const EdgeInsets.symmetric(horizontal: 10),
                               child: Row(
                                 children: [
-                                  Text(ctx.err.value),
+                                  Expanded(
+                                      child: Text(
+                                    ctx.err.value,
+                                  )),
                                   SizedBox(
                                     width: 20,
                                   ),

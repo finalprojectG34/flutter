@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:sms/data/repository/item_repository.dart';
@@ -21,6 +22,11 @@ class AppController extends GetxController {
   RxBool getItemError = false.obs;
   RxString err = ''.obs;
   RxList<Item>? itemList;
+  FocusNode searchBarFocusNode = FocusNode();
+
+  RxString firstName = ''.obs;
+  RxString lastName = ''.obs;
+  RxString phone = ''.obs;
 
   @override
   void onInit() async {
@@ -31,6 +37,7 @@ class AppController extends GetxController {
       isAuthenticated(true);
     }
     getItems();
+    getUserInfo();
   }
 
   disableSearchIcon() {
@@ -40,6 +47,12 @@ class AppController extends GetxController {
   changePage(String name, int index) {
     pageName(name);
     selectedIndex(index);
+  }
+
+  getUserInfo() async {
+    firstName((await storage.read(key: 'firstName')));
+    lastName((await storage.read(key: 'lastName')));
+    phone((await storage.read(key: 'phone')));
   }
 
   getItems() async {
@@ -57,12 +70,12 @@ class AppController extends GetxController {
       err(e.message);
     } catch (e) {
       getItemError(true);
-      err(e.toString());
+      err('Connection error');
     }
     isGettingItems(false);
   }
 
   logout() async {
-    await storage.delete(key: 'token');
+    await storage.deleteAll();
   }
 }

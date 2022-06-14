@@ -8,6 +8,8 @@ import '../../src/app.dart';
 class ItemOperation {
   final GraphQLClient gqlClient;
 
+  // AppController appController = Get.find();
+
   ItemOperation({required this.gqlClient});
 
   Future<List<Item>> getItems() async {
@@ -78,6 +80,25 @@ class ItemOperation {
     });
     print((response.data!['getCompanyByUserId'] as List));
     return (response.data!['getCompanyByUserId'] as List).isNotEmpty;
+  }
+
+  Future<bool> updateProfile(variable) async {
+    print(variable);
+    final response = await gqlClient.mutate(MutationOptions(
+      document: gql(r'''
+            mutation UpdateMe($input: UserUpdateInput) {
+                  updateMe(input: $input) {
+                    id
+                    firstName
+                    lastName
+                    phone
+              }
+            }
+      '''),
+      variables: variable,
+    ));
+    print('responce $response');
+    return (response.data!['updateMe']['id']) != null;
   }
 
   Future<List<Cart>> getCart() async {

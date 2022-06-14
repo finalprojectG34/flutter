@@ -1,28 +1,52 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:sms/src/screens/home_page/AppCtx.dart';
+import 'package:sms/src/screens/profile_page/update_profile_ctx.dart';
 import 'package:sms/src/utils/loger/console_loger.dart';
 
 import '../../packages/validators.dart';
 
-class UpdateProfile extends StatelessWidget {
-  static const String pathName = '/update_profile';
+class UpdateProfile extends StatefulWidget {
+  const UpdateProfile({Key? key}) : super(key: key);
 
+  @override
+  State<UpdateProfile> createState() => _UpdateProfileState();
+}
+
+class _UpdateProfileState extends State<UpdateProfile> {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
-
-  // final User user;
+  AppController appController = Get.find();
+  UpdateProfileController updateProfileController = Get.find();
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   String? firstName;
   String? lastName;
   String? phoneNumber;
 
-  // UpdateProfile();
-
-  final Map<String, dynamic> _user = {};
+  @override
+  void initState() {
+    super.initState();
+    firstName = appController.firstName.value;
+    lastName = appController.lastName.value;
+    phoneNumber = appController.phone.value.replaceFirst('+251', '');
+  }
 
   @override
   Widget build(BuildContext context) {
     logTrace("here");
+    firstNameController.value = firstNameController.value.copyWith(
+      text: firstName,
+    );
+    lastNameController.value = lastNameController.value.copyWith(
+      text: lastName,
+    );
+    phoneController.value = phoneController.value.copyWith(
+      text: phoneNumber,
+    );
     return Scaffold(
       appBar: AppBar(
         title: Text("Update Profile"),
@@ -34,6 +58,8 @@ class UpdateProfile extends StatelessWidget {
           child: ListView(
             children: [
               TextFormField(
+                validator: validateName,
+                controller: firstNameController,
                 decoration: InputDecoration(
                   prefixIcon: const Icon(Icons.person_outline),
                   contentPadding: const EdgeInsets.all(10),
@@ -60,6 +86,8 @@ class UpdateProfile extends StatelessWidget {
                 height: 20,
               ),
               TextFormField(
+                validator: validateName,
+                controller: lastNameController,
                 decoration: InputDecoration(
                   prefixIcon: const Icon(Icons.person_outline),
                   contentPadding: const EdgeInsets.all(10),
@@ -86,8 +114,17 @@ class UpdateProfile extends StatelessWidget {
                 height: 20,
               ),
               TextFormField(
+                controller: phoneController,
                 decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.phone),
+                  prefixIcon: const SizedBox(
+                    width: 50,
+                    child: Center(
+                      child: Text(
+                        "+251",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
+                  ),
                   contentPadding: const EdgeInsets.all(10),
                   hintText: "Phone number",
                   border: OutlineInputBorder(
@@ -105,85 +142,15 @@ class UpdateProfile extends StatelessWidget {
                 ),
                 maxLines: 1,
                 keyboardType: TextInputType.phone,
-                onChanged: (text) => phoneNumber = text,
+                onChanged: (text) {
+                  phoneNumber = text;
+                  print(phoneNumber);
+                },
                 validator: validateMobileNum,
               ),
               SizedBox(
                 height: 20,
               ),
-              // Container(
-              //   margin: EdgeInsets.only(bottom: 30),
-              //   child: TextFormField(
-              //     controller: TextEditingController(text: 'user.name'),
-              //     onSaved: (value) {
-              //       this._user["username"] = value;
-              //     },
-              //     // validator: (value) {
-              //     //   if (value.isEmpty) {
-              //     //     return 'Please enter some text';
-              //     //   }
-              //     //   return null;
-              //     // },
-              //     decoration: InputDecoration(
-              //       labelText: 'Full Name',
-              //       contentPadding: EdgeInsets.only(bottom: 0),
-              //     ),
-              //   ),
-              // ),
-              // Container(
-              //   margin: EdgeInsets.only(bottom: 30),
-              //   child: TextFormField(
-              //     controller: TextEditingController(text: 'user.email'),
-              //     onSaved: (value) {
-              //       this._user["email"] = value;
-              //     },
-              //     // validator: (value) {
-              //     //   if (value.isEmpty) {
-              //     //     return 'Please enter some text';
-              //     //   }
-              //     //   return null;
-              //     // },
-              //     decoration: InputDecoration(
-              //       labelText: 'Email',
-              //       contentPadding: EdgeInsets.only(bottom: 0),
-              //     ),
-              //   ),
-              // ),
-              // Container(
-              //   margin: EdgeInsets.only(bottom: 30),
-              //   child: TextFormField(
-              //     controller: TextEditingController(text: 'user.phone'),
-              //     onSaved: (value) {
-              //       this._user["phone"] = value;
-              //     },
-              //     // validator: (value) {
-              //     //   if (value.isEmpty) {
-              //     //     return 'Please enter some text';
-              //     //   }
-              //     //   return null;
-              //     // },
-              //     decoration: InputDecoration(
-              //       labelText: 'Phone number',
-              //       contentPadding: EdgeInsets.only(bottom: 0),
-              //     ),
-              //   ),
-              // ),
-              // Container(
-              //   margin: EdgeInsets.only(bottom: 40),
-              //   child: TextFormField(
-              //     // validator: (value) {
-              //     //   if (value.isEmpty) {
-              //     //     return 'Please enter some text';
-              //     //   }
-              //     //   return null;
-              //     // },
-              //     onTap: () => Navigator.pushNamed(context, "/add_address"),
-              //     decoration: InputDecoration(
-              //       labelText: 'Address',
-              //       contentPadding: EdgeInsets.only(bottom: 0),
-              //     ),
-              //   ),
-              // ),
               ElevatedButton(
                 style: ButtonStyle(
                   shadowColor:
@@ -193,8 +160,33 @@ class UpdateProfile extends StatelessWidget {
                       MaterialStateProperty.all(const Color(0xff40BFFF)),
                   fixedSize: MaterialStateProperty.all(Size(Get.width, 54)),
                 ),
-                onPressed: () {
-                  if (formState.currentState!.validate()) {}
+                onPressed: () async {
+                  if (formState.currentState!.validate()) {
+                    EasyLoading.instance.loadingStyle = EasyLoadingStyle.light;
+                    await EasyLoading.show(
+                      status: 'Updating profile ...',
+                      maskType: EasyLoadingMaskType.black,
+                    );
+                    FocusScope.of(context).unfocus();
+                    if (firstName == appController.firstName &&
+                        lastName != appController.lastName &&
+                        phoneNumber != appController.phone) {
+                      EasyLoading.showInfo('Nothing changed',
+                          dismissOnTap: true,
+                          maskType: EasyLoadingMaskType.black);
+                    } else {
+                      updateProfileController.updateProfile({
+                        "input": {
+                          if (firstName != appController.firstName)
+                            "firstName": firstName,
+                          if (lastName != appController.lastName)
+                            "lastName": lastName,
+                          if (phoneNumber != appController.phone)
+                            "phone": '+251' + phoneNumber!,
+                        }
+                      });
+                    }
+                  }
                 },
                 child: const Text(
                   "Update",

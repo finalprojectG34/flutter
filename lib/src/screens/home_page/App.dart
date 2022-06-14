@@ -10,6 +10,7 @@ import 'package:sms/src/screens/screens.dart';
 import '../add_item/add_item.dart';
 import '../auth/login/login.dart';
 import '../cart_page/cart_page.dart';
+import '../components/add_shop.dart';
 import '../order_page/sent_order_detail.dart';
 import 'AppCtx.dart';
 
@@ -31,7 +32,8 @@ class _AppState extends State<App> {
   // late OrderRespositoryImpl aa;
   late AppBar appbar;
   late String appbarName;
-
+  late String? userRole;
+  late bool hasShopId;
   String query = '''
   query GetAllItems{
   getAllItems{
@@ -51,6 +53,7 @@ class _AppState extends State<App> {
     // );
     // aa.getItems();
     getToken();
+    getShopId();
     body = const Home(
       hasSearchBar: false,
     );
@@ -64,8 +67,17 @@ class _AppState extends State<App> {
     print('token $value');
   }
 
+  getShopId() async {
+    hasShopId = await storage.read(key: 'shopId') != null;
+    userRole = await storage.read(key: 'role');
+    // userRole = 'SELLER';
+    // hasShopId = true;
+  }
+
   Widget _mapIndexToPage(int index) {
     final AppController appController = Get.find();
+    getShopId();
+    getToken();
     switch (index) {
       case 1:
         // _selectedIndex = index;
@@ -99,18 +111,36 @@ class _AppState extends State<App> {
       // );
       // CategoriesPage();
       case 2:
-        appController.changePage('Add Item', index);
         // return PackageDeliveryTrackingPage();
         if (appController.isAuthenticated.isFalse) {
           Get.snackbar(
               'Sign in', 'You need to sign in first before you add item',
               snackPosition: SnackPosition.BOTTOM);
           appController.changePage('Account', 4);
+        } else if (hasShopId && userRole == 'SELLER') {
+          appController.changePage('Add Item', index);
+        } else if (hasShopId && userRole == 'USER') {
+          appController.changePage('Pending', index);
+        } else {
+          appController.changePage('Register as seller', index);
         }
         return appController.isAuthenticated.isTrue
-            ? AddItem(
-                hasAppbar: false,
-              )
+            ? hasShopId && userRole == 'SELLER'
+                ? AddItem(
+                    hasAppbar: false,
+                  )
+                : hasShopId && userRole == 'USER'
+                    ? Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Center(
+                          child: Text(
+                            'Your request to be a seller is under review. You will be a seller as soon as the review is complete.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ),
+                      )
+                    : AddShop(redirectFrom: 'home')
             : Container();
 
       // if (state.status == AuthenticationStatus.authenticated) {
@@ -121,11 +151,13 @@ class _AppState extends State<App> {
         appController.changePage('Cart', index);
         if (appController.isAuthenticated.isFalse) {
           Get.snackbar('Sign in',
-              'You need to sign in first before you add item to cart_page',
+              'You need to sign in first before you add item to cart',
               snackPosition: SnackPosition.BOTTOM);
           appController.changePage('Account', 4);
         }
-        return appController.isAuthenticated.isTrue ? CartPage() : Container();
+        return appController.isAuthenticated.isTrue
+            ? const CartPage()
+            : Container();
       // ItemDetails(Item(name: 'name',price: '230',category: 'cat',description: 'some desc',));
       case 4:
         appController.changePage(
@@ -152,7 +184,7 @@ class _AppState extends State<App> {
             elevation: 2,
             centerTitle: true,
             actions: [
-              if (ctx.hasSearchIcon.value)
+              if (ctx.hasSearchIcon.value && ctx.selectedIndex.value == 0)
                 IconButton(
                   onPressed: () {
                     ctx.disableSearchIcon();
@@ -180,7 +212,8 @@ class _AppState extends State<App> {
               const BottomNavigationBarItem(
                   icon: Icon(Icons.home_outlined), label: 'Home'),
               const BottomNavigationBarItem(
-                  icon: Icon(Icons.my_library_books_outlined), label: 'My Items'),
+                  icon: Icon(Icons.my_library_books_outlined),
+                  label: 'My Items'),
               const BottomNavigationBarItem(
                   icon: Icon(Icons.add), label: 'Add'),
               const BottomNavigationBarItem(

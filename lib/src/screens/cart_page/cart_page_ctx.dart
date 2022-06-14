@@ -16,18 +16,11 @@ class CartPageController extends GetxController {
   RxBool isCartFetchedFromDB = false.obs;
   RxList<Cart>? cartList = <Cart>[].obs;
 
-  RxString itemId = ''.obs;
-  RxList attributes = [].obs;
-  RxMap<String, String> selectedAttributes = <String, String>{}.obs;
-
-  RxMap<String, dynamic>? mockCategory = <String, dynamic>{}.obs;
-  RxInt categorySelectPages = 0.obs;
-  RxBool isCategoryLoading = true.obs;
-  List<String> tempCategories = [];
-  RxList<String> selectedCategoryName = <String>[].obs;
   RxString err = ''.obs;
   RxBool errOccurred = false.obs;
   RxBool isCartLoading = false.obs;
+  RxDouble totalPrice = (0.0).obs;
+  RxDouble shippingPrice = (0.0).obs;
 
   @override
   void onInit() async {
@@ -35,11 +28,20 @@ class CartPageController extends GetxController {
     await getCart();
   }
 
+  calculatePrice() {
+    var temp = 0.0;
+    cartList?.forEach((cart) {
+      temp += double.parse(cart.price!);
+    });
+    totalPrice(temp);
+  }
+
   getCart() async {
     isCartLoading(true);
     try {
       List<Cart> carts = await cartRepository.getCart();
       cartList!(carts);
+      calculatePrice();
     } on TimeoutException catch (e) {
       err(e.message);
       errOccurred(true);
@@ -47,7 +49,6 @@ class CartPageController extends GetxController {
       err('Some error occurred');
       errOccurred(true);
     }
-
     isCartLoading(false);
   }
 
@@ -58,5 +59,6 @@ class CartPageController extends GetxController {
   deleteCart(cartId) async {
     await cartRepository.deleteCart(cartId);
     cartList!(cartList?.where((p0) => p0.id != cartId).toList());
+    calculatePrice();
   }
 }

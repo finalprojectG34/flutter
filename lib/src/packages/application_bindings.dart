@@ -18,6 +18,8 @@ import '../screens/items/item_list_ctx.dart';
 import '../screens/order_page/order_page_ctx.dart';
 import '../screens/reviews/repository.review.dart';
 import '../screens/reviews/review_ctx.dart';
+import '../screens/profile_page/update_profile_ctx.dart';
+import '../screens/profile_page/profile_page_ctx.dart';
 import '../screens/search_item/search_item_ctx.dart';
 import 'graphql_client.dart';
 
@@ -65,6 +67,10 @@ class ApplicationBindings implements Bindings {
       fenix: true,
     );
     Get.lazyPut(
+      () => ProfilePageController(userRepository: _userRepository),
+      fenix: true,
+    );
+    Get.lazyPut(
       () => OrderPageController(orderRepository: _orderRepository),
       fenix: true,
     );
@@ -86,6 +92,10 @@ class ApplicationBindings implements Bindings {
     );
     Get.lazyPut(
       () => ItemListController(itemRepository: _itemRepository),
+      fenix: true,
+    );
+    Get.lazyPut(
+      () => UpdateProfileController(itemRepository: _itemRepository),
       fenix: true,
     );
 

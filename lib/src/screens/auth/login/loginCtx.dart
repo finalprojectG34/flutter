@@ -1,9 +1,13 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sms/src/app.dart';
+import 'package:sms/src/screens/profile_page/profile_page_ctx.dart';
 
 import '../../../../data/repository/user_repository.dart';
 import '../../../models/user.dart' as user;
@@ -19,8 +23,10 @@ class LoginController extends GetxController {
   var error = false.obs;
   String verificationId = "";
   final AppController appController = Get.find();
+  final ProfilePageController profilePageController = Get.find();
   user.User? signedInUser;
-
+  RxString err = ''.obs;
+  RxBool loginError = false.obs;
   final storage = Get.find<FlutterSecureStorage>();
 
   signInUser(variable) async {
@@ -29,24 +35,39 @@ class LoginController extends GetxController {
     try {
       signedInUser = await userRepository.signInUser(variable);
       if (signedInUser == null) {
-        EasyLoading.showError('Try again',
+        EasyLoading.showError('Incorrect username or password',
+            dismissOnTap: true,
             maskType: EasyLoadingMaskType.black,
             duration: const Duration(seconds: 3));
         // Get.back();
       } else {
         await storage.write(key: 'token', value: signedInUser?.token);
-        await storage.write(key: "userId", value: signedInUser?.id);
+        await storage.write(key: 'userId', value: signedInUser?.id);
+        await storage.write(key: 'firstName', value: signedInUser?.firstName);
+        await storage.write(key: 'lastName', value: signedInUser?.lastName);
+        await storage.write(key: 'phone', value: signedInUser?.phone);
+        await storage.write(key: 'role', value: signedInUser?.role);
+        await storage.write(key: 'shopId', value: signedInUser?.shopId);
+
+        if(signedInUser?.address?.addressName != null){
+          await profilePageController.setUserAddress(signedInUser?.address);
+        }
         // await storage.write(key: 'user', value: jsonEncode(signedInUser));
         EasyLoading.showSuccess('Logged in successfully',
-            maskType: EasyLoadingMaskType.black);
+            dismissOnTap: true, maskType: EasyLoadingMaskType.black);
         AppController appController = Get.find();
         appController.changePage('Home', 0);
         appController.isAuthenticated(true);
         // Get.offNamed('/');
       }
-    }catch (e) {
-      print(e);
-      EasyLoading.showError('Please try again',
+    } on TimeoutException catch (e) {
+      EasyLoading.showError(e.message!,
+          dismissOnTap: true,
+          maskType: EasyLoadingMaskType.black,
+          duration: const Duration(seconds: 3));
+    } catch (e) {
+      EasyLoading.showError('Connection error. Please try again',
+          dismissOnTap: true,
           maskType: EasyLoadingMaskType.black,
           duration: const Duration(seconds: 3));
       // Get.back();
@@ -62,13 +83,13 @@ class LoginController extends GetxController {
         verificationFailed: (FirebaseAuthException e) {
           EasyLoading.dismiss();
           EasyLoading.showError(e.message ?? "Something went wrong. Try Again",
-              maskType: EasyLoadingMaskType.black);
+              dismissOnTap: true, maskType: EasyLoadingMaskType.black);
         },
         codeSent: (verificationId, [resendToken]) {
           this.verificationId = verificationId;
           EasyLoading.dismiss();
           Get.to(
-            () => CodeVerification(
+                () => CodeVerification(
               redirectFrom: 'signIn',
             ),
           );
@@ -95,17 +116,15 @@ class LoginController extends GetxController {
       final a = await event?.getIdToken();
       print('**************************** $a');
     });
-
     FirebaseAuth.instance
         .signInWithCredential(credential)
         .then((UserCredential result) {
       // result.additionalUserInfo.
       Get.offAll(() => Home(
-            hasSearchBar: appController.hasSearchIcon.isFalse,
-          ));
+        hasSearchBar: appController.hasSearchIcon.isFalse,
+      ));
     }).catchError((e) {
       Fluttertoast.showToast(msg: e);
     });
   }
-
 }

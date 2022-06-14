@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:sms/src/utils/loger/console_loger.dart';
 
@@ -15,18 +17,23 @@ class UserRepository {
      mutation AuthPhoneAndRegister($token: PhoneSignupInput) {
           authPhoneAndRegister(token: $token) {
             user {
+              id
               firstName
               lastName
               phone
-              password
+              role
             }
             token
           }
         }
       ''';
     // print(variables.toString() + 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq');
-    final response = await gqlClient.mutate(
-        MutationOptions(document: gql(signupMutation), variables: variables));
+    final response = await gqlClient
+        .mutate(MutationOptions(
+            document: gql(signupMutation), variables: variables))
+        .timeout(const Duration(seconds: 30), onTimeout: () {
+      throw TimeoutException('request timed out', const Duration(seconds: 30));
+    });
     print(
         '${response.data!['authPhoneAndRegister']['token']}   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
 
@@ -58,28 +65,81 @@ class UserRepository {
         token: response.data!['authPhoneAndResetPwd']['token']);
   }
 
-  Future signInUser(variables) async {
-
-    String signInMutation = r'''
-             mutation Login($input: loginInput!) {
-                login(input: $input) {
-                  user {
-                    id
-                    firstName
-                    lastName
-                    phone
-                  }
-                  token
-                }
+  Future<Address> updateUserAddress(Address address) async {
+    final response = await gqlClient.mutate(MutationOptions(
+      document: gql(r'''
+        mutation Mutation($input: UserAddressUpdateInput!) {
+          updateUserAddress(input: $input) {
+            id
+            address {
+              subCity
+              city
+              addressName
+              country
+            }
+          }
         }
+        '''),
+      variables: {
+        "input": {
+          "subCity": address.subCity,
+          "city": address.city,
+          "addressName": address.addressName,
+          "country": address.country,
+        }
+      },
+    ));
+
+    if (response.hasException) {
+      print(response.exception);
+      // throw response.exception;
+    } else {
+      print(response);
+    }
+
+    return Address.fromJson(response.data!['updateUserAddress']['address']);
+  }
+
+  Future signInUser(variables) async {
+    String signInMutation = r'''
+       mutation Login($input: loginInput!) {
+          login(input: $input) {
+            user {
+              id
+              firstName
+              lastName
+              phone
+              shopId
+              role
+              address {
+                addressName
+                city
+                country
+                subCity
+              }
+            }
+            token
+          }
+      }
       ''';
-    final response = await gqlClient.mutate(
+    final response = await gqlClient
+        .mutate(
       MutationOptions(document: gql(signInMutation), variables: variables),
-    );
+    )
+        .timeout(const Duration(seconds: 30), onTimeout: () {
+      throw TimeoutException('request timed out', const Duration(seconds: 30));
+    });
 
     if (response.hasException) {
       logTrace("response exception", response.exception);
-
+      for (var element in response.exception!.graphqlErrors) {
+        if (element.message == 'info or password wrong') {
+          return null;
+        }
+        // if (response.exception!.graphqlErrors[0].message ==
+        //     'info or password wrong') {
+        return null;
+      }
     }
 
     if (response.data!['login']['user'] != null) {

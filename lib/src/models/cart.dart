@@ -8,7 +8,6 @@ class Cart {
     this.status,
     this.userId,
     this.shopId,
-    this.deliveryAddress,
   });
 
   final String? id;
@@ -19,7 +18,6 @@ class Cart {
   final String? status;
   final String? userId;
   final String? shopId;
-  final String? deliveryAddress;
 
   factory Cart.fromJson(Map<String, dynamic> json) {
     Cart item = Cart(
@@ -31,7 +29,6 @@ class Cart {
       status: json['status'],
       userId: json['userId'],
       shopId: json['shopId'],
-      deliveryAddress: json['deliveryAddress'],
     );
     return item;
   }

@@ -129,6 +129,7 @@ class Login extends StatelessWidget {
                           if (formState.currentState!.validate()) {
 
                             FocusScope.of(context).unfocus();
+
                             EasyLoading.instance.loadingStyle =
                                 EasyLoadingStyle.light;
                             await EasyLoading.show(
