@@ -34,7 +34,7 @@ class UserRepository {
 
     if (response.hasException) {
       print(response.exception);
-      // throw response.exception;
+      throw Exception("Error Happened");
     } else {
       print(response);
     }
@@ -62,7 +62,7 @@ class UserRepository {
 
     if (response.hasException) {
       print(response.exception);
-      // throw response.exception;
+      throw Exception("Error Happened");
     } else {
       print(response);
     }
@@ -98,7 +98,7 @@ class UserRepository {
 
     if (response.hasException) {
       print(response.exception);
-      // throw response.exception;
+      throw Exception("Error Happened");
     } else {
       print(response);
     }
@@ -130,7 +130,10 @@ class UserRepository {
       ''';
     final response = await gqlClient
         .mutate(
-      MutationOptions(document: gql(signInMutation), variables: variables),
+      MutationOptions(
+        document: gql(signInMutation),
+        variables: variables,
+      ),
     )
         .timeout(const Duration(seconds: 30), onTimeout: () {
       throw TimeoutException('request timed out', const Duration(seconds: 30));
@@ -139,12 +142,13 @@ class UserRepository {
     if (response.hasException) {
       for (var element in response.exception!.graphqlErrors) {
         if (element.message == 'info or password wrong') {
-          return null;
+          throw Exception("Username or Password Incorrect");
         }
         // if (response.exception!.graphqlErrors[0].message ==
         //     'info or password wrong') {
-        return null;
+        throw Exception("Error Happened");
       }
+      throw Exception("Error Happened");
     }
 
     if (response.data!['login']['user'] != null) {

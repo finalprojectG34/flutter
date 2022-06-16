@@ -43,7 +43,7 @@ class SignUpController extends GetxController {
           this.verificationId = verificationId;
           EasyLoading.dismiss();
           Get.to(
-                () => CodeVerification(
+            () => CodeVerification(
               redirectFrom: 'signUp',
             ),
           );

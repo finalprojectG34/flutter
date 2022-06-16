@@ -60,6 +60,8 @@ class ShopItem extends StatelessWidget {
                       child: CircleAvatar(
                         backgroundImage: NetworkImage('${shop.image}'),
                         radius: 25,
+                        // onBackgroundImageError: (o,s){},
+                        // onForegroundImageError: (o,s){},
                       ),
                     ),
                   ),
@@ -73,13 +75,9 @@ class ShopItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Icon(Icons.phone),
-                const SizedBox(
-                  width: 5,
-                ),
+                const SizedBox(width: 5),
                 Text('${shop.phoneNumber}'),
-                const SizedBox(
-                  width: 10,
-                ),
+                const SizedBox(width: 10),
                 const Icon(
                   Icons.arrow_forward,
                   color: Colors.grey,

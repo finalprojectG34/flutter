@@ -27,12 +27,16 @@ class Order {
       status: json['status'],
       userId: json['userId'],
       shopId: json['shopId'],
-      orderItems: (json['orderItems'] != null) ? (json['orderItems'] as List)
-          .map((e) => OrderItem.fromJson(e))
-          .toList() : [],
+      orderItems: (json['orderItems'] != null)
+          ? (json['orderItems'] as List)
+              .map((e) => OrderItem.fromJson(e))
+              .toList()
+          : [],
       subTotal: (json['subTotal'] != null) ? json['subTotal'].toString() : "",
       actions: json['actions'],
-      deliveryAddress: (json['deliveryAddress'] != null) ? Address.fromJson(json['deliveryAddress']) : Address(),
+      deliveryAddress: (json['deliveryAddress'] != null)
+          ? Address.fromJson(json['deliveryAddress'])
+          : Address(),
     );
     return item;
   }

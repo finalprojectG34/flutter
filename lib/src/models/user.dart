@@ -34,8 +34,6 @@ class User extends Equatable {
 
   String? token;
 
-  // final []String categories;
-
   @override
   List<Object?> get props =>
       [id, firstName, email, role, image, password, phone];
@@ -52,7 +50,9 @@ class User extends Equatable {
       password: json['password'],
       phone: json['phone'],
       shopId: json['shopId'],
-      address: (json['address'] != null) ? Address.fromJson(json['address']) : Address(),
+      address: (json['address'] != null)
+          ? Address.fromJson(json['address'])
+          : Address(),
     );
     return item;
   }

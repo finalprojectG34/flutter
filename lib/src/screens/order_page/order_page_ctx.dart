@@ -19,29 +19,13 @@ class OrderPageController extends GetxController {
   RxList<Order>? orderList = <Order>[].obs;
   Rx<Order> order = const Order().obs;
 
-  RxString itemId = ''.obs;
-  RxList attributes = [].obs;
-  RxMap<String, String> selectedAttributes = <String, String>{}.obs;
-
-  RxMap<String, dynamic>? mockCategory = <String, dynamic>{}.obs;
-  RxInt categorySelectPages = 0.obs;
-  RxBool isCategoryLoading = true.obs;
-  List<String> tempCategories = [];
-  RxList<String> selectedCategoryName = <String>[].obs;
-
-  @override
-  void onInit() async {
-    super.onInit();
-    await getOrder("PENDING");
-  }
-
   getOrder(String status) async {
     isOrderLoading(true);
-    try{
+    try {
       List<Order> orders = await orderRepository.getOrder(status);
       orderList!(orders);
       print(orders);
-    }catch(e){
+    } catch (e) {
       isOrderError(true);
       orderErrorText("Error Happened");
       print(e);
@@ -94,7 +78,7 @@ class OrderPageController extends GetxController {
     });
     try {
       await orderRepository.createOrder(orders);
-      Get.to(SentOrders());
+      Get.to(() => SentOrders());
     } catch (e) {
       isOrderError(true);
       orderErrorText("Error Happened");

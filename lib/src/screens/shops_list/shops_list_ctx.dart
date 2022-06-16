@@ -7,6 +7,7 @@ class ShopsListController extends GetxController {
   var errorOccurred = false.obs;
   var shopsList = Rx<List<Shop>?>(null);
   final ShopRepository shopRepository;
+
   ShopsListController({required this.shopRepository});
 
   Future<List<Shop>?> getShops(int pageIndex, int pageSize) async {

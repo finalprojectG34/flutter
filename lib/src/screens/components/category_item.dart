@@ -16,6 +16,7 @@ class CategoryItem extends StatelessWidget {
           child: Image.network(
             imagePath,
             fit: BoxFit.cover,
+            errorBuilder: (error, o, s) => const Text(""),
           ),
           radius: 40,
         ),

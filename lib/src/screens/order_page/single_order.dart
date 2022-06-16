@@ -20,7 +20,7 @@ class SingleOrder extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '{order.id}',
+            '${order.id}',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
           ),
           SizedBox(height: 5),
@@ -36,7 +36,7 @@ class SingleOrder extends StatelessWidget {
                 'Order status',
                 style: TextStyle(fontSize: 16, color: Colors.grey),
               ),
-              Text('{order.status}',
+              Text('${order.status}',
                   style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -51,7 +51,7 @@ class SingleOrder extends StatelessWidget {
                 'Items',
                 style: TextStyle(fontSize: 16, color: Colors.grey),
               ),
-              Text('{order.orderItems?.length.toString()}',
+              Text('${order.orderItems?.length.toString()}',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
             ],
           ),

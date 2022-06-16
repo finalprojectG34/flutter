@@ -18,9 +18,12 @@ class _SentOrdersState extends State<SentOrders> with TickerProviderStateMixin {
   // TabController? _tabController;
   List<int> aa = [1, 2, 3, 4, 5];
 
+  OrderPageController orderPageController = Get.find();
+
   @override
   void initState() {
     super.initState();
+    // orderPageController.getOrder("PENDING");
     // _tabController = TabController(length: 5, vsync: this);
   }
 

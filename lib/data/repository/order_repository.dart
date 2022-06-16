@@ -8,9 +8,7 @@ class OrderRepository {
   OrderRepository({required this.gqlClient});
 
   Future<List<Order>> getOrder(String status) async {
-    final response = await gqlClient.query(
-      QueryOptions(
-        document: gql(r'''
+    String getOrderByUserId = r'''
         query GetOrderByUserId($status: String) {
           getOrderByUserId(status: $status) {
             id
@@ -32,9 +30,12 @@ class OrderRepository {
             }
           }
         }
-      '''),
+      ''';
+    final response = await gqlClient.query(
+      QueryOptions(
+        document: gql(getOrderByUserId),
         variables: {"status": status},
-        fetchPolicy: FetchPolicy.networkOnly,
+        fetchPolicy: FetchPolicy.noCache,
       ),
     );
     List<Order> newOrders = [];
@@ -44,6 +45,7 @@ class OrderRepository {
     } else {
       print(response);
       for (var element in (response.data!["getOrderByUserId"] as List)) {
+        print(element);
         newOrders.add(Order.fromJson(element));
       }
     }
@@ -76,13 +78,12 @@ class OrderRepository {
         }
       '''), variables: {"getOneOrderId": orderId}),
     );
-    Order newOrder = const Order();
     if (response.hasException) {
       print(response.exception);
-    } else {
-      print(response);
-      newOrder = Order.fromJson(response.data!["getOneOrder"]);
+      throw Exception("Error Happened");
     }
+    print(response);
+    Order newOrder = Order.fromJson(response.data!["getOneOrder"]);
     return newOrder;
   }
 
@@ -118,10 +119,11 @@ class OrderRepository {
                 })
             .toList(),
       },
-      fetchPolicy: FetchPolicy.networkOnly,
+      fetchPolicy: FetchPolicy.noCache,
     ));
     if (response.hasException) {
       print(response.exception);
+      throw Exception("Error Happened");
     }
     print(response);
     List<Order> newOrders = [];
@@ -151,15 +153,14 @@ class OrderRepository {
             }
       '''),
       variables: {"updateOrderStatusId": orderId, "status": status},
-      fetchPolicy: FetchPolicy.networkOnly,
+      fetchPolicy: FetchPolicy.noCache,
     ));
-    Order newOrder = const Order();
     if (response.hasException) {
       print(response.exception);
-    } else {
-      print(response);
-      newOrder = Order.fromJson(response.data!["getOneOrder"]);
+      throw Exception("Error Happened");
     }
+    print(response);
+    Order newOrder = Order.fromJson(response.data!["getOneOrder"]);
     return newOrder;
   }
 
@@ -173,10 +174,11 @@ class OrderRepository {
             }
       '''),
       variables: {"deleteCartId": cartId},
-      fetchPolicy: FetchPolicy.networkOnly,
+      fetchPolicy: FetchPolicy.noCache,
     ));
     if (response.hasException) {
-      // throw response.exception;
-    } else {}
+      print(response.exception);
+      throw Exception("Error Happened");
+    }
   }
 }

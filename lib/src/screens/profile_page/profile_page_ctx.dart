@@ -1,6 +1,3 @@
-import 'dart:ffi';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:sms/data/repository/user_repository.dart';
@@ -27,7 +24,7 @@ class ProfilePageController extends GetxController {
   }
 
   Future<bool> getUserAddress() async {
-    if(await storage.read(key: "country") == null){
+    if (await storage.read(key: "country") == null) {
       return false;
     } else {
       Address temp = Address(
@@ -58,7 +55,7 @@ class ProfilePageController extends GetxController {
 
       await setUserAddress(temp);
       getUserAddress();
-    }catch (e) {
+    } catch (e) {
       errOccurred(true);
       errorText("Please try again!");
     }

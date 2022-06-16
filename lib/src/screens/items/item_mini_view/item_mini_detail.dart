@@ -33,14 +33,14 @@ class ItemMiniDetail extends StatelessWidget {
                       topLeft: Radius.circular(10),
                     ),
                     image: DecorationImage(
-                      fit: BoxFit.cover,
-                      colorFilter: ColorFilter.mode(
-                        Colors.black.withOpacity(0.9),
-                        BlendMode.dstATop,
-                      ),
-                      image: const NetworkImage(
-                          "https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg"),
-                    ),
+                        fit: BoxFit.cover,
+                        colorFilter: ColorFilter.mode(
+                          Colors.black.withOpacity(0.9),
+                          BlendMode.dstATop,
+                        ),
+                        image: const NetworkImage(
+                            "https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg"),
+                        onError: (e, s) {}),
                   ),
                   padding: const EdgeInsets.symmetric(
                     vertical: 18,

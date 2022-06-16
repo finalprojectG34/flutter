@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -49,7 +48,7 @@ class LoginController extends GetxController {
         await storage.write(key: 'role', value: signedInUser?.role);
         await storage.write(key: 'shopId', value: signedInUser?.shopId);
 
-        if(signedInUser?.address?.addressName != null){
+        if (signedInUser?.address?.addressName != null) {
           await profilePageController.setUserAddress(signedInUser?.address);
         }
         // await storage.write(key: 'user', value: jsonEncode(signedInUser));
@@ -89,7 +88,7 @@ class LoginController extends GetxController {
           this.verificationId = verificationId;
           EasyLoading.dismiss();
           Get.to(
-                () => CodeVerification(
+            () => CodeVerification(
               redirectFrom: 'signIn',
             ),
           );
@@ -121,8 +120,8 @@ class LoginController extends GetxController {
         .then((UserCredential result) {
       // result.additionalUserInfo.
       Get.offAll(() => Home(
-        hasSearchBar: appController.hasSearchIcon.isFalse,
-      ));
+            hasSearchBar: appController.hasSearchIcon.isFalse,
+          ));
     }).catchError((e) {
       Fluttertoast.showToast(msg: e);
     });
