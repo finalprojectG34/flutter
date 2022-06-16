@@ -82,6 +82,9 @@ class ProfilePage extends StatelessWidget {
                   ),
                   Container(
                     margin: EdgeInsets.only(left: 30, right: 30, top: 130),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
                     padding: EdgeInsets.all(20),
                     child: Column(
                       children: [Container()],

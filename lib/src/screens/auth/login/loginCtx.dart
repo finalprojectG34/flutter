@@ -65,6 +65,7 @@ class LoginController extends GetxController {
           maskType: EasyLoadingMaskType.black,
           duration: const Duration(seconds: 3));
     } catch (e) {
+      print(e);
       EasyLoading.showError('Connection error. Please try again',
           dismissOnTap: true,
           maskType: EasyLoadingMaskType.black,

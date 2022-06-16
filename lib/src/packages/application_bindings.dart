@@ -77,7 +77,10 @@ class ApplicationBindings implements Bindings {
       fenix: true,
     );
     Get.lazyPut(
-      () => SearchController(itemRepository: _itemRepository),
+      () => SearchController(
+        itemRepository: _itemRepository,
+        itemOperation: ItemOperation(gqlClient: Client().connect),
+      ),
       fenix: true,
     );
     Get.lazyPut(

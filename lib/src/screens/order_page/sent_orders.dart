@@ -5,6 +5,7 @@ import 'package:group_button/group_button.dart';
 import 'package:sms/src/screens/order_page/order_page_ctx.dart';
 import 'package:sms/src/screens/order_page/sent_order_detail.dart';
 
+import 'sent_orders/sent_orders.dart';
 import 'single_order.dart';
 
 class SentOrders extends StatefulWidget {
@@ -23,7 +24,6 @@ class _SentOrdersState extends State<SentOrders> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    // orderPageController.getOrder("PENDING");
     // _tabController = TabController(length: 5, vsync: this);
   }
 
@@ -31,112 +31,30 @@ class _SentOrdersState extends State<SentOrders> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Sent Orders'),
-      ),
-      body: GetX<OrderPageController>(
-        builder: (ctx) {
-          return RefreshIndicator(
-            onRefresh: () async {
-              await ctx.getOrder("PENDING");
-            },
-            child: ListView(
-              children: [
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Card(
-                    child: GroupButton<Map<String, dynamic>>(
-                      buttons: const [
-                        {
-                          'name': 'Pending',
-                          'icon': Icons.description,
-                          'amount': 1,
-                          'color': Colors.orange,
-                          'value': "PENDING",
-                        },
-                        {
-                          'name': 'Accepted',
-                          'icon': Icons.event,
-                          'amount': 1,
-                          'color': Colors.amberAccent,
-                          'value': "ACCEPTED",
-                        },
-                        {
-                          'name': 'Canceled',
-                          'icon': Icons.stop_circle_outlined,
-                          'amount': 1,
-                          'color': Colors.red,
-                          'value': "CANCELED",
-                        },
-                        {
-                          'name': 'On Delivery',
-                          'icon': Icons.shopping_cart,
-                          'amount': 1,
-                          'color': Colors.grey,
-                          'value': "ON_DELIVERY",
-                        },
-                        {
-                          'name': 'Delivered',
-                          'icon': Icons.check,
-                          'amount': 1,
-                          'color': Colors.green,
-                          'value': "DELIVERED",
-                        },
-                      ],
-                      onSelected: (data, index, isSelected) {
-                        ctx.getOrder(data['value']);
-                      },
-                      buttonBuilder: (selected, data, context) {
-                        return Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: selected ? Colors.green.shade100 : null,
-                          ),
-                          child: Column(
-                            children: [
-                              Icon(
-                                data['icon'],
-                                color: data['color'],
-                              ),
-                              const SizedBox(height: 5),
-                              Text(
-                                data['name'],
-                                style: TextStyle(
-                                  color: data['color'],
-                                ),
-                              ),
-                              const SizedBox(height: 5),
-                              Text(
-                                '${data['amount']}',
-                                style: TextStyle(
-                                  color: data['color'],
-                                ),
-                              )
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ),
-                if (ctx.isOrderLoading.isTrue)
-                  const Center(child: CircularProgressIndicator()),
-                if (ctx.isOrderLoading.isFalse)
-                  ...ctx.orderList!
-                      .map((order) => GestureDetector(
-                            onTap: () {
-                              ctx.getOrderById(order.id!);
-                              Get.to(() => const SentOrderDetail());
-                            },
-                            child: SingleOrder(order: order),
-                          ))
-                      .toList()
-              ],
-            ),
-          );
-        },
+    return DefaultTabController(
+      length: 5,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Sent Orders'),
+          bottom: const TabBar(
+            tabs: [
+              Tab(icon: Icon(Icons.description)),
+              Tab(icon: Icon(Icons.event)),
+              Tab(icon: Icon(Icons.stop_circle_outlined)),
+              Tab(icon: Icon(Icons.shopping_cart)),
+              Tab(icon: Icon(Icons.check)),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            SentOrderStatus(status: "PENDING"),
+            SentOrderStatus(status: "ACCEPTED"),
+            SentOrderStatus(status: "CANCELED"),
+            SentOrderStatus(status: "ON_DELIVERY"),
+            SentOrderStatus(status: "DELIVERED"),
+          ],
+        ),
       ),
     );
   }
