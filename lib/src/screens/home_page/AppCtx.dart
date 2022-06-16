@@ -24,6 +24,7 @@ class AppController extends GetxController {
   RxList<Item>? itemList;
   FocusNode searchBarFocusNode = FocusNode();
 
+  RxString userId = ''.obs;
   RxString firstName = ''.obs;
   RxString lastName = ''.obs;
   RxString phone = ''.obs;
@@ -50,9 +51,15 @@ class AppController extends GetxController {
   }
 
   getUserInfo() async {
-    firstName((await storage.read(key: 'firstName')));
-    lastName((await storage.read(key: 'lastName')));
-    phone((await storage.read(key: 'phone')));
+    String? _id = await storage.read(key: 'userId');
+    String? _firstName = await storage.read(key: 'firstName');
+    String? _lastName = await storage.read(key: 'lastName');
+    String? _phone = await storage.read(key: 'phone');
+
+    userId(_id);
+    firstName(_firstName);
+    lastName(_lastName);
+    phone(_phone);
   }
 
   getItems() async {

@@ -7,6 +7,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../packages/validators.dart';
+import '../add_item/add_item_ctx.dart';
 
 class AddShop extends StatefulWidget {
   AddShop({Key? key, required this.redirectFrom}) : super(key: key);
@@ -23,7 +24,37 @@ class _AddShopState extends State<AddShop> {
   String area = '';
   String location = '';
   final ImagePicker _picker = ImagePicker();
+  AddItemController addItemController = Get.find();
   File? _image;
+  String? selectedArea;
+  String? selectedSubCity;
+  List<String> locationArea = [
+    'Addis Ababa',
+    'Harar',
+    'Diredawa',
+    'Oromia',
+    'Amhara',
+    'Tigray',
+    'Gambela',
+    'Somalia'
+  ];
+
+  List<String> aaArea = [
+    'Kolfe keranyo',
+    'Arada',
+    'Nifas silk',
+    'Yeka',
+    'Lideta',
+    'Bole',
+    'Kirkos'
+  ];
+  List<String> hararArea = ['Harar a1', 'Harar a2', 'Harar a3', 'Harar a4'];
+  List<String> ddArea = ['Dire a1', 'Dire a2', 'Dire a3', 'Dire a4'];
+  List<String> orArea = ['OR a1', 'OR a2', 'OR a3', 'OR a4', 'OR a5'];
+  List<String> amArea = ['AM a1', 'AM a2', 'AM a3', 'AM a4', 'AM a5'];
+  List<String> tgArea = ['TG a1', 'TG a2', 'TG a3', 'TG a4', 'TG a5'];
+  List<String> gmArea = ['GM a1', 'GM a2', 'GM a3', 'GM a4', 'GM a5'];
+  List<String> smArea = ['SM a1', 'SM a2', 'SM a3', 'SM a4', 'SM a5'];
 
   Future<void> _openImagePicker(String type) async {
     final XFile? pickedImage = await _picker.pickImage(
@@ -33,6 +64,28 @@ class _AddShopState extends State<AddShop> {
         _image = File(pickedImage.path);
       });
     }
+  }
+
+  List<String> getSubCityFromArea(String name) {
+    switch (name) {
+      case 'Somalia':
+        return smArea;
+      case 'Gambela':
+        return gmArea;
+      case 'Tigray':
+        return tgArea;
+      case 'Amhara':
+        return amArea;
+      case 'Oromia':
+        return orArea;
+      case 'Diredawa':
+        return ddArea;
+      case 'Harar':
+        return hararArea;
+      case 'Addis Ababa':
+        return aaArea;
+    }
+    return [];
   }
 
   @override
@@ -83,7 +136,7 @@ class _AddShopState extends State<AddShop> {
                     ],
                   ),
                   contentPadding: const EdgeInsets.all(10),
-                  hintText: "Description",
+                  hintText: "Shop Description",
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(6),
                       borderSide:
@@ -101,12 +154,19 @@ class _AddShopState extends State<AddShop> {
                 minLines: 5,
                 keyboardType: TextInputType.text,
                 onChanged: (text) => shopName = text,
-                // validator: validateName,
+                validator: (val) {
+                  if (val == '') return 'Please enter description';
+                  return null;
+                },
               ),
               SizedBox(
                 height: 10,
               ),
               DropdownButtonFormField2(
+                validator: (val) {
+                  if (selectedArea == null) return 'Please select area';
+                  return null;
+                },
                 // value: 'Select ',
                 // key: UniqueKey(),
                 decoration: InputDecoration(
@@ -136,11 +196,12 @@ class _AddShopState extends State<AddShop> {
                 dropdownDecoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                items: ['area1', 'area2'].map(
+                items: locationArea.map(
                   (item) {
                     // print(item);
                     return DropdownMenuItem<String>(
                       value: item,
+
                       // key: UniqueKey(),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -160,6 +221,10 @@ class _AddShopState extends State<AddShop> {
                   },
                 ).toList(),
                 onChanged: (value) {
+                  setState(() {
+                    selectedArea = value.toString();
+                    selectedSubCity = null;
+                  });
                   // print('onsaved  $value');
                   // ctx.addSelectedAttribute(
                   //     ctx.attributes[index]['name'],
@@ -176,17 +241,21 @@ class _AddShopState extends State<AddShop> {
                 height: 10,
               ),
               Text(
-                'Choose area location',
+                'Choose Sub city area',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
               ),
               SizedBox(
                 height: 10,
               ),
               DropdownButtonFormField2(
-                // value: 'Select ',
-                // key: UniqueKey(),
+                value: selectedSubCity,
+                validator: (val) {
+                  if (selectedSubCity == null) return 'Please select sub city';
+                  return null;
+                },
+                key: UniqueKey(),
                 decoration: InputDecoration(
-                  labelText: 'Area',
+                  labelText: 'Sub city',
                   enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.blue, width: 0.5),
                   ),
@@ -212,30 +281,33 @@ class _AddShopState extends State<AddShop> {
                 dropdownDecoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                items: ['area1', 'area2'].map(
-                  (item) {
-                    // print(item);
-                    return DropdownMenuItem<String>(
-                      value: item,
-                      // key: UniqueKey(),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              item,
-                              style: const TextStyle(
-                                fontSize: 14,
-                              ),
-                              textAlign: TextAlign.center,
+                items: selectedArea == null
+                    ? null
+                    : getSubCityFromArea(selectedArea!).map(
+                        (item) {
+                          // print(item);
+                          return DropdownMenuItem<String>(
+                            value: item,
+                            // key: Key(item),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    item,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ).toList(),
+                          );
+                        },
+                      ).toList(),
                 onChanged: (value) {
+                  selectedSubCity = value.toString();
                   // print('onsaved  $value');
                   // ctx.addSelectedAttribute(
                   //     ctx.attributes[index]['name'],
@@ -389,6 +461,16 @@ class _AddShopState extends State<AddShop> {
                 ),
                 onPressed: () async {
                   if (widget.formState.currentState!.validate()) {
+                    addItemController.addShop({
+                      "input": {
+                        "name": shopName,
+                        "description": description,
+                        "address": {
+                          "city": selectedArea,
+                          "subCity": selectedSubCity
+                        }
+                      }
+                    }, _image!);
                     // FocusScope.of(context).unfocus();
                     // EasyLoading.instance.loadingStyle =
                     //     EasyLoadingStyle.light;

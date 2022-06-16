@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:sms/src/utils/loger/console_loger.dart';
 
 import '../../src/models/models.dart';
 
@@ -110,12 +111,7 @@ class UserRepository {
               phone
               shopId
               role
-              address {
-                addressName
-                city
-                country
-                subCity
-              }
+              
             }
             token
           }
@@ -136,7 +132,7 @@ class UserRepository {
         }
         // if (response.exception!.graphqlErrors[0].message ==
         //     'info or password wrong') {
-        return null;
+        // return null;
       }
     }
 

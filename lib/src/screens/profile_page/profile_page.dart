@@ -1,17 +1,28 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sms/src/app.dart';
 import 'package:sms/src/screens/home_page/AppCtx.dart';
 
 import '../components/add_address.dart';
 
-class ProfilePage extends StatelessWidget {
-  static const String pathName = '/profile';
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({Key? key}) : super(key: key);
 
-// String
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
   final AppController appController = Get.find();
+  File? _image;
+
+  final ImagePicker _picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +53,7 @@ class ProfilePage extends StatelessWidget {
                               padding: EdgeInsets.all(2),
                               decoration: BoxDecoration(
                                 border:
-                                    Border.all(color: Colors.white, width: 4),
+                                Border.all(color: Colors.white, width: 4),
                                 borderRadius: BorderRadius.circular(100),
                               ),
                               child: CircleAvatar(
@@ -164,11 +175,45 @@ class ProfilePage extends StatelessWidget {
                         trailing: Icon(Icons.chevron_right),
                       ),
                       ListTile(
-                        onTap: () {
-                          // context
-                          //     .read<AuthenticationBloc>()
-                          //     .add(AuthenticationLogoutRequested());
-                          // Navigator.pushNamed(context, "/");
+                        onTap: () async {
+                          // context.read<AuthenticationBloc>().add(AuthenticationLogoutRequested());
+                          // Navigator.pop(context);
+                          return showDialog<void>(
+                            context: context,
+                            barrierDismissible: true, // user must tap button!
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text(
+                                    'Are you sure you want to log out?'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: const Text('Cancel'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                  TextButton(
+                                    child: const Text('Log out'),
+                                    onPressed: () async {
+                                      EasyLoading.instance.loadingStyle =
+                                          EasyLoadingStyle.light;
+                                      EasyLoading.show(
+                                        status: 'Logging out ...',
+                                        maskType: EasyLoadingMaskType.black,
+                                      );
+                                      await ctx.logout();
+                                      ctx.isAuthenticated(false);
+                                      ctx.changePage('Home', 0);
+                                      EasyLoading.showSuccess('Logged out',
+                                          dismissOnTap: true,
+                                          maskType: EasyLoadingMaskType.black);
+                                      Get.offNamed('/');
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                         },
                         contentPadding: EdgeInsets.all(0),
                         leading: Icon(Icons.logout),

@@ -160,6 +160,7 @@ class _AppState extends State<App> {
             : Container();
       // ItemDetails(Item(name: 'name',price: '230',category: 'cat',description: 'some desc',));
       case 4:
+        appController.getUserInfo();
         appController.changePage(
             appController.isAuthenticated.isTrue ? 'Profile' : 'Account',
             index);

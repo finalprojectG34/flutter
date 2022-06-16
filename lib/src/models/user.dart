@@ -52,7 +52,7 @@ class User extends Equatable {
       password: json['password'],
       phone: json['phone'],
       shopId: json['shopId'],
-      address: Address.fromJson(json['address']),
+      // address: Address.fromJson(json['address']),
     );
     return item;
   }

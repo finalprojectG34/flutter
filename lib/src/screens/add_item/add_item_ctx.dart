@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:sms/data/data_access/item_operation.dart';
 import 'package:sms/src/models/models.dart';
+import 'package:sms/src/utils/loger/console_loger.dart';
 
 import '../../../data/repository/item_repository.dart';
 
@@ -37,6 +38,8 @@ class AddItemController extends GetxController {
   RxBool isTimedOut = false.obs;
   RxString err = ''.obs;
   RxBool errOccurred = false.obs;
+  RxString shopImageLink = ''.obs;
+  RxString itemImageLink = ''.obs;
 
   @override
   void onInit() async {
@@ -90,19 +93,28 @@ class AddItemController extends GetxController {
     itemId(item.id);
   }
 
+  addShop(variable, File file) async {
+    logTrace('var', variable);
+    // var imagePath = await imageUpload(file);
+    // if(imagePath!=null){
+    //
+    // }
+    // print('$imagePath -----------------------');
+    // variable["imagePath"] = imagePath;
+    // Item item = await itemRepository.addItem(variable);
+    // itemId(item.id);
+  }
+
   Future<String?> imageUpload(File file) async {
     var storage = Get.find<FlutterSecureStorage>();
     var userId = await storage.read(key: "userId");
     final storageRef = FirebaseStorage.instance.ref();
-
     final mountainsRef = storageRef.child(userId ?? "userId");
 
     try {
       await mountainsRef.putFile(file);
       return await mountainsRef.getDownloadURL();
     } on FirebaseException catch (e) {
-      // ..
-      // .
       Fluttertoast.showToast(msg: "Uploading failed");
       return null;
     }

@@ -245,7 +245,9 @@ class Signup extends StatelessWidget {
                                     "phone": "+251" + phoneNumber!,
                                     "password": password,
                                     "confirmPassword": password,
-                                    "idToken": ''
+                                    "idToken": '',
+                                    "image":
+                                        "https://i.pinimg.com/564x/d9/56/9b/d9569bbed4393e2ceb1af7ba64fdf86a.jpg"
                                   }
                                 });
                               }
