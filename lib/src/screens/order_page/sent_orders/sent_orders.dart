@@ -1,40 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_getx_widget.dart';
 import 'package:group_button/group_button.dart';
-import 'package:sms/src/screens/order_page/order_page_ctx.dart';
-import 'package:sms/src/screens/order_page/sent_order_detail.dart';
 
-import 'single_order.dart';
+import '../order_page_ctx.dart';
+import '../sent_order_detail.dart';
+import '../single_order.dart';
 
-class OrderPage extends StatefulWidget {
-  const OrderPage({Key? key}) : super(key: key);
+class SentOrderStatus extends StatefulWidget {
+  final String status;
+  const SentOrderStatus({Key? key, required this.status}) : super(key: key);
 
   @override
-  State<OrderPage> createState() => _OrderPageState();
+  State<SentOrderStatus> createState() => _SentOrderStatusState();
 }
 
-class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
-  // TabController? _tabController;
-  List<int> aa = [1, 2, 3, 4, 5];
+class _SentOrderStatusState extends State<SentOrderStatus> {
+
+  OrderPageController orderPageController = Get.find();
 
   @override
   void initState() {
     super.initState();
+    orderPageController.getOrder(widget.status);
     // _tabController = TabController(length: 5, vsync: this);
   }
 
-  int id = 1;
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Sent Orders'),
-      ),
-      body: GetX<OrderPageController>(
-        builder: (ctx) {
-          return ListView(
+    return GetX<OrderPageController>(
+      builder: (ctx) {
+        return RefreshIndicator(
+          onRefresh: () async {
+            await ctx.getOrder(widget.status);
+          },
+          child: ListView(
             children: [
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -119,17 +118,17 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
               if (ctx.isOrderLoading.isFalse)
                 ...ctx.orderList!
                     .map((order) => GestureDetector(
-                          onTap: () {
-                            ctx.getOrderById(order.id!);
-                            Get.to(() => const SentOrderDetail());
-                          },
-                          child: SingleOrder(order: order),
-                        ))
+                  onTap: () {
+                    ctx.getOrderById(order.id!);
+                    Get.to(() => const SentOrderDetail());
+                  },
+                  child: SingleOrder(order: order),
+                ))
                     .toList()
             ],
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

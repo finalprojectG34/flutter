@@ -39,6 +39,7 @@ class ItemOperation {
 
     if (response.hasException) {
       print(response.exception);
+      throw Exception("Error Happened");
     }
 
     return (response.data!['getAllItems'] as List)
@@ -57,6 +58,10 @@ class ItemOperation {
         }
   ''')),
     );
+    if (response.hasException) {
+      print(response.exception);
+      throw Exception("Error Happened");
+    }
     return (response.data!['getAllCategories'] as List)
         .map((json) => Category.fromJson(json))
         .toList();
@@ -78,6 +83,10 @@ class ItemOperation {
         .timeout(Duration(seconds: 30), onTimeout: () {
       throw TimeoutException('request timed out', const Duration(seconds: 30));
     });
+    if (response.hasException) {
+      print(response.exception);
+      throw Exception("Error Happened");
+    }
     print((response.data!['getCompanyByUserId'] as List));
     return (response.data!['getCompanyByUserId'] as List).isNotEmpty;
   }
@@ -97,6 +106,10 @@ class ItemOperation {
       '''),
       variables: variable,
     ));
+    if (response.hasException) {
+      print(response.exception);
+      throw Exception("Error Happened");
+    }
     print('responce $response');
     return (response.data!['updateMe']['id']) != null;
   }
@@ -125,10 +138,9 @@ class ItemOperation {
     });
     if (response.hasException) {
       print(response.exception);
-      // throw response.exception;
-    } else {
-      print(response);
+      throw Exception("Error Happened");
     }
+    print(response);
     return (response.data!['getCartByUserId'] as List)
         .map((json) => Cart.fromJson(json))
         .toList();
@@ -150,17 +162,15 @@ class ItemOperation {
           "itemId": itemId,
           "price": price,
           "amount": amount,
-          "deliveryAddress": "alembank"
         }
       },
-      fetchPolicy: FetchPolicy.networkOnly,
+      fetchPolicy: FetchPolicy.noCache,
     ));
     if (response.hasException) {
       print(response.exception);
-      // throw response.exception;
-    } else {
-      print(response);
+      throw Exception("Error Happened");
     }
+    print(response);
   }
 
   Future deleteCart(cartId) async {
@@ -173,11 +183,12 @@ class ItemOperation {
             }
       '''),
       variables: {"deleteCartId": cartId},
-      fetchPolicy: FetchPolicy.networkOnly,
+      fetchPolicy: FetchPolicy.noCache,
     ));
     if (response.hasException) {
-      // throw response.exception;
-    } else {}
+      print(response.exception);
+      throw Exception("Error Happened");
+    }
   }
 
   Future<Map<String, dynamic>> getMockCategory() async {
@@ -213,6 +224,10 @@ class ItemOperation {
         "categoryId": "cat id 9"
       },
     }));
+    if (response.hasException) {
+      print(response.exception);
+      throw Exception("Error Happened");
+    }
     print(response);
     return Item.fromJson(response.data!['createItem']);
   }

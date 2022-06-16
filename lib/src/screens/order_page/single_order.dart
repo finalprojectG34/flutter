@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:sms/src/screens/order_page/received_order_detail.dart';
 
 import '../../models/Order.dart';
 
 class SingleOrder extends StatelessWidget {
   final Order order;
+
   const SingleOrder({Key? key, required this.order}) : super(key: key);
 
   @override
@@ -21,19 +20,15 @@ class SingleOrder extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'order id',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            '${order.id}',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
           ),
-          SizedBox(
-            height: 5,
-          ),
+          SizedBox(height: 5),
           Text(
             'Order date:  august 19',
             style: TextStyle(fontSize: 16, color: Colors.grey),
           ),
-          Divider(
-            color: Colors.grey,
-          ),
+          Divider(color: Colors.grey),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -41,13 +36,14 @@ class SingleOrder extends StatelessWidget {
                 'Order status',
                 style: TextStyle(fontSize: 16, color: Colors.grey),
               ),
-              Text('shipping',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
+              Text('${order.status}',
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey))
             ],
           ),
-          SizedBox(
-            height: 5,
-          ),
+          SizedBox(height: 5),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -55,13 +51,11 @@ class SingleOrder extends StatelessWidget {
                 'Items',
                 style: TextStyle(fontSize: 16, color: Colors.grey),
               ),
-              Text('2',
+              Text('${order.orderItems?.length.toString()}',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
             ],
           ),
-          SizedBox(
-            height: 5,
-          ),
+          SizedBox(height: 5),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

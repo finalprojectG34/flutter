@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sms/src/screens/cart_page/shipping_address.dart';
+import 'package:sms/src/screens/profile_page/profile_page_ctx.dart';
 
 import '../../models/cart.dart';
 import '../components/payment_detail.dart';
@@ -23,6 +24,7 @@ class _ShipmentInfoPageState extends State<ShipmentInfoPage> {
   }
 
   final OrderPageController orderPageController = Get.find();
+  final ProfilePageController profilePageController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,8 @@ class _ShipmentInfoPageState extends State<ShipmentInfoPage> {
             },
             child: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: ctx.isCartLoading.isTrue
+              child: ctx.isCartLoading.isTrue ||
+                      orderPageController.isOrderLoading.isTrue
                   ? const Center(child: CircularProgressIndicator())
                   : ctx.errOccurred.isTrue
                       ? Center(
@@ -57,100 +60,103 @@ class _ShipmentInfoPageState extends State<ShipmentInfoPage> {
                           ),
                         )
                       : Column(
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const Align(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(vertical: 15),
-                                  child: Text(
-                                    "Your Cart",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const Align(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(vertical: 10),
-                                  child: Text(
-                                    "Shipping Address",
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                ),
-                              ),
-                              ShippingAddress(),
-                              const Align(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(vertical: 10),
-                                  child: Text(
-                                    "Payment Method",
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                width: double.infinity,
-                                child: Card(
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Align(
+                                  alignment: Alignment.centerLeft,
                                   child: Padding(
-                                    padding: EdgeInsets.all(10),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text("Payment"),
-                                        Text("On Delivery")
-                                      ],
+                                    padding: EdgeInsets.symmetric(vertical: 15),
+                                    child: Text(
+                                      "Your Cart",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Spacer(),
-                          Column(
-                            children: [
-                              const PaymentDetail(),
-                              ElevatedButton(
-                                style: ButtonStyle(
-                                  shadowColor: MaterialStateProperty.all(
-                                      Colors.lightBlueAccent),
-                                  elevation: MaterialStateProperty.all(5),
-                                  backgroundColor:
-                                      MaterialStateProperty.all(
-                                          const Color(0xff40BFFF)),
-                                  fixedSize: MaterialStateProperty.all(
-                                      Size(Get.width, 54)),
-                                ),
-                                onPressed: () {
-                                  List<Cart> tempCart = [];
-                                  ctx.cartList?.toList().forEach((element) {
-                                    tempCart.add(element);
-                                  });
-                                  orderPageController.createOrder(tempCart);
-                                },
-                                child: const Text(
-                                  "Continue To Delivery",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 13,
+                                const Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 10),
+                                    child: Text(
+                                      "Shipping Address",
+                                      style: TextStyle(fontSize: 16),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                                const ShippingAddress(),
+                                const Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 10),
+                                    child: Text(
+                                      "Payment Method",
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  width: double.infinity,
+                                  child: Card(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text("Payment"),
+                                          Text(
+                                            "On Delivery",
+                                            style:
+                                                TextStyle(color: Colors.grey),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const Spacer(),
+                            Column(
+                              children: [
+                                const PaymentDetail(),
+                                ElevatedButton(
+                                  style: ButtonStyle(
+                                    shadowColor: MaterialStateProperty.all(
+                                        Colors.lightBlueAccent),
+                                    elevation: MaterialStateProperty.all(5),
+                                    backgroundColor: MaterialStateProperty.all(
+                                        const Color(0xff40BFFF)),
+                                    fixedSize: MaterialStateProperty.all(
+                                        Size(Get.width, 54)),
+                                  ),
+                                  onPressed: () {
+                                    List<Cart> tempCart = [];
+                                    ctx.cartList?.toList().forEach((element) {
+                                      tempCart.add(element);
+                                    });
+                                    orderPageController.createOrder(
+                                      tempCart,
+                                      profilePageController.address?.value,
+                                    );
+                                  },
+                                  child: const Text(
+                                    "Continue To Delivery",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 13,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
             ),
           );
         },

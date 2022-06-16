@@ -8,6 +8,7 @@ class ItemListController extends GetxController {
   var errorOccurred = false.obs;
   var itemList = Rx<List<Item>?>(null);
   final ItemRepository itemRepository;
+
   ItemListController({required this.itemRepository});
 
   Future<List<Item>?> getItems(int pageIndex, int pageSize) async {

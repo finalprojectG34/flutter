@@ -9,7 +9,8 @@ class CartRepository {
 
   Future<List<Cart>> getCart() async {
     final response = await gqlClient.query(
-      QueryOptions(document: gql(r'''
+      QueryOptions(
+        document: gql(r'''
             query GetCartByUserId {
               getCartByUserId {
                 id
@@ -22,14 +23,14 @@ class CartRepository {
                 shopId
               }
             }
-      '''), fetchPolicy: FetchPolicy.networkOnly),
+      '''),
+      ),
     );
     if (response.hasException) {
       print(response.exception);
-      // throw response.exception;
-    } else {
-      print(response);
+      throw Exception("Error Happened");
     }
+    print(response);
     return (response.data!['getCartByUserId'] as List)
         .map((json) => Cart.fromJson(json))
         .toList();
@@ -53,14 +54,13 @@ class CartRepository {
           "amount": cart.amount,
         }
       },
-      fetchPolicy: FetchPolicy.networkOnly,
+      fetchPolicy: FetchPolicy.noCache,
     ));
     if (response.hasException) {
       print(response.exception);
-      // throw response.exception;
-    } else {
-      print(response);
+      throw Exception("Error Happened");
     }
+    print(response);
   }
 
   Future deleteCart(cartId) async {
@@ -73,13 +73,12 @@ class CartRepository {
             }
       '''),
       variables: {"deleteCartId": cartId},
-      fetchPolicy: FetchPolicy.networkOnly,
+      fetchPolicy: FetchPolicy.noCache,
     ));
     if (response.hasException) {
       print(response.exception);
-      // throw response.exception;
-    } else {
-      print(response);
+      throw Exception("Error Happened");
     }
+    print(response);
   }
 }

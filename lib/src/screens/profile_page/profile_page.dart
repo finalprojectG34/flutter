@@ -95,20 +95,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     margin: EdgeInsets.only(left: 30, right: 30, top: 130),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(25),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.7),
-                          spreadRadius: -6,
-                          blurRadius: 10,
-                        )
-                      ],
                     ),
                     padding: EdgeInsets.all(20),
                     child: Column(
-                      children: [
-                        Container(),
-                      ],
+                      children: [Container()],
                     ),
                   ),
                 ],

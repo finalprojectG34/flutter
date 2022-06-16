@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:sms/src/screens/cart_page/shippment_info.dart';
 import 'package:sms/src/screens/components/single_cart.dart';
 
-import '../../models/cart.dart';
 import '../components/payment_detail.dart';
 import '../order_page/order_page_ctx.dart';
 import 'cart_page_ctx.dart';
@@ -74,8 +73,8 @@ class _CartPageState extends State<CartPage> {
                               elevation: MaterialStateProperty.all(5),
                               backgroundColor: MaterialStateProperty.all(
                                   const Color(0xff40BFFF)),
-                              fixedSize:
-                                  MaterialStateProperty.all(Size(Get.width, 54)),
+                              fixedSize: MaterialStateProperty.all(
+                                  Size(Get.width, 54)),
                             ),
                             onPressed: () {
                               Get.to(const ShipmentInfoPage());

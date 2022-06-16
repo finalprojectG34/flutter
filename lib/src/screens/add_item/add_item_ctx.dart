@@ -5,7 +5,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:sms/data/data_access/item_operation.dart';
 import 'package:sms/src/models/models.dart';
 import 'package:sms/src/utils/loger/console_loger.dart';
@@ -14,12 +13,10 @@ import '../../../data/repository/item_repository.dart';
 
 class AddItemController extends GetxController {
   final ItemRepository itemRepository;
+  final ItemOperation itemOperation;
 
-  AddItemController({required this.itemRepository});
-
-  final GraphQLClient _gqlClient = GraphQLClient(
-      cache: GraphQLCache(),
-      link: HttpLink("http://192.168.0.172:8000/graphql"));
+  AddItemController(
+      {required this.itemOperation, required this.itemRepository});
 
   RxBool isCategoryFetchedFromDB = false.obs;
   RxList<Category>? categoryList = <Category>[].obs;
@@ -77,7 +74,6 @@ class AddItemController extends GetxController {
   }
 
   getMockCategory() async {
-    ItemOperation itemOperation = ItemOperation(gqlClient: _gqlClient);
     Map<String, dynamic> result = await itemOperation.getMockCategory();
     mockCategory!(result);
     isCategoryLoading(false);
