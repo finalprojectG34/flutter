@@ -8,8 +8,11 @@ class SingleOrder extends StatelessWidget {
 
   const SingleOrder({Key? key, required this.order}) : super(key: key);
 
+  static const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
   @override
   Widget build(BuildContext context) {
+    DateTime date = DateTime.fromMicrosecondsSinceEpoch(int.parse(order.createdAt!));
     return Container(
       margin: EdgeInsets.all(16),
       padding: EdgeInsets.all(10),
@@ -25,7 +28,7 @@ class SingleOrder extends StatelessWidget {
           ),
           SizedBox(height: 5),
           Text(
-            'Order date:  June 17',
+            'Order date:  ${date.day} ${months[date.month]}, ${date.year}',
             style: TextStyle(fontSize: 16, color: Colors.grey),
           ),
           Divider(color: Colors.grey),
