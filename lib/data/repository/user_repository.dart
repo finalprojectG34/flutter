@@ -133,6 +133,7 @@ class UserRepository {
       MutationOptions(
         document: gql(signInMutation),
         variables: variables,
+        fetchPolicy: FetchPolicy.noCache,
       ),
     )
         .timeout(const Duration(seconds: 30), onTimeout: () {

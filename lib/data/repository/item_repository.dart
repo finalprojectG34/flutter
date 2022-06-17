@@ -1,4 +1,5 @@
 import 'package:sms/data/data_access/item_operation.dart';
+import 'package:sms/src/models/shop.dart';
 
 import '../../src/app.dart';
 
@@ -26,6 +27,16 @@ class ItemRepository {
 
   Future<Item> addItem(variable) async {
     return itemOperation.addItem(variable);
+  }
+
+  Future<Shop> addShop({name, description, subCity, city, imageCover}) async {
+    return itemOperation.addShop(
+      name: name,
+      description: description,
+      subCity: subCity,
+      city: city,
+      imageCover: imageCover,
+    );
   }
 
   Future<bool> updateProfile(variable) {

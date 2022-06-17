@@ -280,7 +280,7 @@ _OrderInfo _data(int id) => _OrderInfo(
           'In Transit',
           messages: [
             _DeliveryMessage('13:00pm', 'Driver arrived at destination'),
-            _DeliveryMessage('11:35am', 'Package delivered by m.vassiliades'),
+            _DeliveryMessage('11:35am', 'Package delivered by Yonathan'),
           ],
         ),
         _DeliveryProcess(
@@ -288,7 +288,7 @@ _OrderInfo _data(int id) => _OrderInfo(
           isFinal: true,
           messages: [
             _DeliveryMessage('13:00pm', 'Driver arrived at destination'),
-            _DeliveryMessage('11:35am', 'Package delivered by m.vassiliades'),
+            _DeliveryMessage('11:35am', 'Package delivered by Yonathan'),
           ],
         ),
         _DeliveryProcess.complete(),

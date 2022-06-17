@@ -32,7 +32,7 @@ class _SingleCartState extends State<SingleCart> {
             Expanded(
               flex: 1,
               child: Image.asset(
-                'assets/images/nike_shoe.jpg',
+                'assets/images/img.png',
                 fit: BoxFit.fitHeight,
                 height: 120,
               ),

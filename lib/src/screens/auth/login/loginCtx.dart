@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sms/src/app.dart';
 import 'package:sms/src/screens/profile_page/profile_page_ctx.dart';
+import 'package:sms/src/utils/loger/console_loger.dart';
 
 import '../../../../data/repository/user_repository.dart';
 import '../../../models/user.dart' as user;
@@ -65,8 +66,8 @@ class LoginController extends GetxController {
           maskType: EasyLoadingMaskType.black,
           duration: const Duration(seconds: 3));
     } catch (e) {
-      print(e);
-      EasyLoading.showError('Connection error. Please try again',
+      logTrace("error", e.toString());
+      EasyLoading.showError(e.toString(),
           dismissOnTap: true,
           maskType: EasyLoadingMaskType.black,
           duration: const Duration(seconds: 3));

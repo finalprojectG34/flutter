@@ -25,7 +25,7 @@ class SingleOrder extends StatelessWidget {
           ),
           SizedBox(height: 5),
           Text(
-            'Order date:  august 19',
+            'Order date:  June 17',
             style: TextStyle(fontSize: 16, color: Colors.grey),
           ),
           Divider(color: Colors.grey),

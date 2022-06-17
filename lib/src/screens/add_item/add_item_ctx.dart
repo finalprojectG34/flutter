@@ -2,17 +2,22 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sms/data/data_access/item_operation.dart';
 import 'package:sms/src/models/models.dart';
+import 'package:sms/src/screens/home_page/AppCtx.dart';
+import 'package:sms/src/utils/loger/console_loger.dart';
 
 import '../../../data/repository/item_repository.dart';
+import '../../models/shop.dart';
 
 class AddItemController extends GetxController {
   final ItemRepository itemRepository;
   final ItemOperation itemOperation;
+  AppController appController = Get.find();
 
   AddItemController(
       {required this.itemOperation, required this.itemRepository});
@@ -33,7 +38,14 @@ class AddItemController extends GetxController {
   RxBool isShopLoading = false.obs;
   RxBool isTimedOut = false.obs;
   RxString err = ''.obs;
+  RxBool shopImageErr = false.obs;
+  RxBool addItemImageErr = false.obs;
+  RxBool isShopAdding = false.obs;
+  RxBool isItemAdding = false.obs;
   RxBool errOccurred = false.obs;
+  RxString shopImageLink = ''.obs;
+  RxString itemImageLink = ''.obs;
+  final storage = Get.find<FlutterSecureStorage>();
 
   @override
   void onInit() async {
@@ -86,19 +98,47 @@ class AddItemController extends GetxController {
     itemId(item.id);
   }
 
-  Future<String?> imageUpload(File file) async {
-    var storage = Get.find<FlutterSecureStorage>();
-    var userId = await storage.read(key: "userId");
-    final storageRef = FirebaseStorage.instance.ref();
+  addShop({name, description, subCity, city, required File file}) async {
+    isShopLoading(true);
+    // logTrace('var', variable);
+    var imagePath = await imageUpload(file);
+    if (imagePath != null) {
+      // variable['input']["image"]['imageCover'] = imagePath;
+      try {
+        Shop shop = await itemRepository.addShop(name: name, description:description, subCity:subCity, city:city, imageCover:imagePath,);
+        if (shop != null) {
+          // await .
+          await storage.write(key: 'shopId', value: shop.id);
+          appController.hasShopId(true);
+          appController.changePage('Pending', 2);
+          // await storage.write(key: 'userRole', value: 'PENDING');
+          EasyLoading.showSuccess('Shop created successfully',
+              dismissOnTap: true, maskType: EasyLoadingMaskType.black);
+        }
+      } catch (e) {
+        EasyLoading.showError('Some error happened',
+            dismissOnTap: true, maskType: EasyLoadingMaskType.black);
+      }
+    } else {
+      shopImageErr(true);
+    }
+    isShopLoading(false);
+    // // print('$imagePath -----------------------');
 
-    final mountainsRef = storageRef.child(userId ?? "userId");
+    // Item item = await itemRepository.addItem(variable);
+    // itemId(item.id);
+  }
+
+  Future<String?> imageUpload(File file) async {
+    // var storage = Get.find<FlutterSecureStorage>();
+    // var userId = await storage.read(key: "userId");
+    final storageRef = FirebaseStorage.instance.ref();
+    final mountainsRef = storageRef.child(appController.userId.value);
 
     try {
       await mountainsRef.putFile(file);
       return await mountainsRef.getDownloadURL();
-    } on FirebaseException catch (e) {
-      // ..
-      // .
+    } on FirebaseException {
       Fluttertoast.showToast(msg: "Uploading failed");
       return null;
     }
