@@ -11,6 +11,7 @@ class Order {
     this.actions,
     this.deliveryAddress,
     this.createdAt,
+    this.orderActions,
   });
 
   final String? id;
@@ -18,6 +19,7 @@ class Order {
   final String? userId;
   final String? shopId;
   final List<OrderItem>? orderItems;
+  final List<OrderAction>? orderActions;
   final String? subTotal;
   final String? actions;
   final String? createdAt;
@@ -34,8 +36,12 @@ class Order {
               .map((e) => OrderItem.fromJson(e))
               .toList()
           : [],
+      orderActions: (json['actions'] != null)
+          ? (json['actions'] as List)
+              .map((e) => OrderAction.fromJson(e))
+              .toList()
+          : [],
       subTotal: (json['subTotal'] != null) ? json['subTotal'].toString() : "",
-      actions: json['actions'],
       createdAt: json['createdAt'],
       deliveryAddress: (json['deliveryAddress'] != null)
           ? Address.fromJson(json['deliveryAddress'])
@@ -46,7 +52,7 @@ class Order {
 
   @override
   String toString() {
-    return '{id: $id status: $status userId: $userId}';
+    return '{id: $id status: $status userId: $userId, createdAt: $createdAt}';
   }
 }
 
@@ -76,5 +82,31 @@ class OrderItem {
   @override
   String toString() {
     return '{id: $id name: $name, price: $price, amountL $amount }';
+  }
+}
+
+class OrderAction {
+  const OrderAction({
+    this.date,
+    this.messages,
+    this.type,
+  });
+
+  final String? date;
+  final String? messages;
+  final String? type;
+
+  factory OrderAction.fromJson(Map<String, dynamic> json) {
+    OrderAction item = OrderAction(
+      date: json['date'],
+      messages: json['messages'],
+      type: json['type'],
+    );
+    return item;
+  }
+
+  @override
+  String toString() {
+    return '{date: $date type: $type, messages: $messages }';
   }
 }

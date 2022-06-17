@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../order_page_ctx.dart';
-import '../sent_order_detail.dart';
+import 'sent_order_detail.dart';
 import '../single_order.dart';
 
 class SentOrderStatus extends StatefulWidget {
@@ -18,24 +18,12 @@ class _SentOrderStatusState extends State<SentOrderStatus> {
   OrderPageController orderPageController = Get.find();
 
   @override
-  void initState() {
-    super.initState();
-    // getStatus();
-    // orderPageController.getOrder(widget.status);
-    // _tabController = TabController(length: 5, vsync: this);
-  }
-
-  getStatus() async {
-    await orderPageController.getOrder(widget.status);
-  }
-
-  @override
   Widget build(BuildContext context) {
     return GetX<OrderPageController>(
       builder: (ctx) {
         return RefreshIndicator(
           onRefresh: () async {
-            await ctx.getOrder(widget.status);
+            await ctx.getSentOrders(widget.status);
           },
           child: ctx.isOrderLoading.isTrue
               ? const Center(child: CircularProgressIndicator())
@@ -46,7 +34,7 @@ class _SentOrderStatusState extends State<SentOrderStatus> {
                           .map((order) => GestureDetector(
                                 onTap: () {
                                   ctx.getOrderById(order.id!);
-                                  Get.to(() => const SentOrderDetail());
+                                  Get.to(() => SentOrderDetail(orderId: order.id!));
                                 },
                                 child: SingleOrder(order: order),
                               ))

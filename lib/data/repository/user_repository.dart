@@ -27,7 +27,10 @@ class UserRepository {
 
     final response = await gqlClient
         .mutate(MutationOptions(
-            document: gql(signupMutation), variables: variables))
+      document: gql(signupMutation),
+      variables: variables,
+      fetchPolicy: FetchPolicy.noCache,
+    ))
         .timeout(const Duration(seconds: 30), onTimeout: () {
       throw TimeoutException('request timed out', const Duration(seconds: 30));
     });
@@ -51,14 +54,17 @@ class UserRepository {
           }
      }
      ''';
-    final response = await gqlClient
-        .mutate(MutationOptions(document: gql(signupMutation), variables: {
-      "token": {
-        "password": password,
-        "confirmPassword": password,
-        "idToken": token
-      }
-    }));
+    final response = await gqlClient.mutate(MutationOptions(
+      document: gql(signupMutation),
+      variables: {
+        "token": {
+          "password": password,
+          "confirmPassword": password,
+          "idToken": token
+        }
+      },
+      fetchPolicy: FetchPolicy.noCache,
+    ));
 
     if (response.hasException) {
       print(response.exception);
@@ -94,6 +100,7 @@ class UserRepository {
           "country": address.country,
         }
       },
+      fetchPolicy: FetchPolicy.noCache,
     ));
 
     if (response.hasException) {

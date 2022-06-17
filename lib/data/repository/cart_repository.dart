@@ -23,7 +23,7 @@ class CartRepository {
                 shopId
               }
             }
-      '''),
+      '''),fetchPolicy: FetchPolicy.noCache,
       ),
     );
     if (response.hasException) {

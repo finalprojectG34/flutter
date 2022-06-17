@@ -6,8 +6,8 @@ import 'package:sms/src/screens/components/add_shop.dart';
 import 'package:sms/src/screens/home_page/AppCtx.dart';
 
 import '../auth/login/login.dart';
-import '../order_page/received_orders.dart';
-import '../order_page/sent_orders.dart';
+import '../order_page/received_orders_page.dart';
+import '../order_page/sent_orders_page.dart';
 
 class DrawerPage extends StatelessWidget {
   const DrawerPage({Key? key}) : super(key: key);
@@ -110,7 +110,7 @@ class DrawerPage extends StatelessWidget {
                 title: const Text('Sent Orders'),
                 onTap: () {
                   // Navigator.pushNamed(context, "/add_item");
-                  Get.to(() => SentOrders());
+                  Get.to(() => SentOrdersPage());
                 },
                 leading: const Icon(
                   Icons.fiber_new,

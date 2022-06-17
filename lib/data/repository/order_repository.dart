@@ -1,6 +1,6 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-import '../../src/models/Order.dart';
+import '../../src/models/order.dart';
 
 class OrderRepository {
   final GraphQLClient gqlClient;
@@ -54,8 +54,7 @@ class OrderRepository {
   }
 
   Future<Order> getOrderById(String orderId) async {
-    final response = await gqlClient.query(
-      QueryOptions(document: gql(r'''
+    String getOneOrder = r'''
         query GetOneOrder($getOneOrderId: String!) {
           getOneOrder(id: $getOneOrderId) {
             id
@@ -76,9 +75,20 @@ class OrderRepository {
               addressName
               country
             }
+            actions {
+              date
+              messages
+              type
+            }
           }
         }
-      '''), variables: {"getOneOrderId": orderId}),
+      ''';
+    final response = await gqlClient.query(
+      QueryOptions(
+        document: gql(getOneOrder),
+        variables: {"getOneOrderId": orderId},
+        fetchPolicy: FetchPolicy.noCache,
+      ),
     );
     if (response.hasException) {
       print(response.exception);
@@ -135,26 +145,39 @@ class OrderRepository {
     return newOrders;
   }
 
-  Future<Order> updateOrderStatus(String orderId, String status) async {
-    final response = await gqlClient.mutate(MutationOptions(
-      document: gql(r'''
-            mutation Mutation($updateOrderStatusId: String, $status: OrderStatus!) {
-              updateOrderStatus(id: $updateOrderStatusId, status: $status) {
+  Future<Order> updateOrderStatus(String orderId, String action) async {
+    String updateOrderStatus = r'''
+           mutation OrderAction($orderId: ID, $action: OrderActionsTypes) {
+            orderAction(orderId: $orderId, action: $action) {
+              id
+              status
+              userId
+              shopId
+              createdAt
+              orderItems {
                 id
-                status
-                userId
-                shopId
-                subTotal
-                orderItems {
-                  price
-                  id
-                  name
-                  amount
-                }
+                name
+                price
+                amount
+              }
+              subTotal
+              deliveryAddress {
+                subCity
+                city
+                addressName
+                country
+              }
+              actions {
+                type
+                date
+                messages
               }
             }
-      '''),
-      variables: {"updateOrderStatusId": orderId, "status": status},
+          }
+      ''';
+    final response = await gqlClient.mutate(MutationOptions(
+      document: gql(updateOrderStatus),
+      variables: {"orderId": orderId, "action": action},
       fetchPolicy: FetchPolicy.noCache,
     ));
     if (response.hasException) {
@@ -162,7 +185,7 @@ class OrderRepository {
       throw Exception("Error Happened");
     }
     print(response);
-    Order newOrder = Order.fromJson(response.data!["getOneOrder"]);
+    Order newOrder = Order.fromJson(response.data!["updateOrderStatus"]);
     return newOrder;
   }
 

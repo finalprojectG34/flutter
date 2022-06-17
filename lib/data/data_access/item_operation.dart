@@ -85,6 +85,7 @@ class ItemOperation {
               }
           }
   '''),
+        fetchPolicy: FetchPolicy.noCache,
       ),
     )
         .timeout(Duration(seconds: 30), onTimeout: () {
@@ -112,6 +113,7 @@ class ItemOperation {
             }
       '''),
       variables: variable,
+      fetchPolicy: FetchPolicy.noCache,
     ));
     if (response.hasException) {
       print(response.exception);
@@ -124,7 +126,8 @@ class ItemOperation {
   Future<List<Cart>> getCart() async {
     final response = await gqlClient
         .query(
-      QueryOptions(document: gql(r'''
+      QueryOptions(
+        document: gql(r'''
             query GetCartByUserId($getCartByUserIdId: ID) {
               getCartByUserId(id: $getCartByUserIdId) {
                 id
@@ -138,7 +141,9 @@ class ItemOperation {
                 deliveryAddress
               }
             }
-      ''')),
+      '''),
+        fetchPolicy: FetchPolicy.noCache,
+      ),
     )
         .timeout(Duration(seconds: 30), onTimeout: () {
       throw TimeoutException('request timed out', const Duration(seconds: 30));
@@ -221,16 +226,19 @@ class ItemOperation {
       }
       ''';
 
-    final response = await gqlClient
-        .query(QueryOptions(document: gql(addItemMutation), variables: {
-      "input": {
-        "name": "item 9",
-        "description": {"description": "desc", "lang": "en"},
-        "image":
-            "https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg",
-        "categoryId": "cat id 9"
+    final response = await gqlClient.query(QueryOptions(
+      document: gql(addItemMutation),
+      variables: {
+        "input": {
+          "name": "item 9",
+          "description": {"description": "desc", "lang": "en"},
+          "image":
+              "https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg",
+          "categoryId": "cat id 9"
+        },
       },
-    }));
+      fetchPolicy: FetchPolicy.noCache,
+    ));
     if (response.hasException) {
       print(response.exception);
       throw Exception("Error Happened");
@@ -263,6 +271,7 @@ class ItemOperation {
           "image": {"imageCover": imageCover}
         }
       },
+      fetchPolicy: FetchPolicy.noCache,
     ));
     if (response.hasException) {
       print(response.exception);
