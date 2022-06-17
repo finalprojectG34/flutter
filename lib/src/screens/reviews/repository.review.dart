@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:sms/src/utils/loger/console_loger.dart';
+
 import './model.review.dart';
 // import '../../src/models/models.dart';
 
@@ -12,23 +13,35 @@ class ReviewRepository {
 
   // SignUpController signUpController = Get.find();
 
-  Future CreateReview(variables) async {
+  Future CreateReview(Review variables) async {
+    logTrace("variable==", variables.onModel);
     String createReviewMutation = r'''
     mutation CreateReview($input: ReviewInput!) {
       createReview(input: $input) {
         id
         modelId
-        user
+        ownerId
         body
       }
     }
       ''';
+    try {
+      final response = await gqlClient.mutate(
+          MutationOptions(document: gql(createReviewMutation), variables: {
+        "input": {
+          "onModel": variables.onModel,
+          "modelId": variables.modelId,
+          "body": variables.body,
+          "rating": variables.rating
+        },
+      }));
 
-    final response = await gqlClient.mutate(
-        MutationOptions(document: gql(createReviewMutation), variables: variables));
-
-    logTrace("review", response.data!['createReview']);
-    return Review.fromJson(response.data!['createReview']);
+      logTrace("review", response.data!['createReview']);
+      return Review.fromJson(response.data!['createReview']);
+    } catch (e) {
+      logTrace("mutation Error", e.toString());
+      rethrow;
+    }
   }
 
   Future updateReview(String id, String body, double rating) async {
@@ -47,20 +60,16 @@ class ReviewRepository {
     // print(variables.toString() + 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq');
     final response = await gqlClient
         .mutate(MutationOptions(document: gql(updateRvw), variables: {
-      "updateReviewInput": {
-        "body": body,
-        "rating": rating
-      },
+      "updateReviewInput": {"body": body, "rating": rating},
       "updateReviewId": id
     }));
 
-    logTrace("update Review",'${response.data!['updateReview']}');
+    logTrace("update Review", '${response.data!['updateReview']}');
 
     return Review.fromJson(response.data!['authPhoneAndResetPwd']['user']);
   }
 
   Future<List<Review>> getReviews() async {
-
     final response = await gqlClient
         .query(
       QueryOptions(

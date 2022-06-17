@@ -1,33 +1,41 @@
 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:sms/src/utils/loger/console_loger.dart';
 
+enum OnModel{
+  ITEM,
+  SHOP
+}
 class Review {
   final String? id;
 
   const Review(
-      {this.id,
-        this.onModel,
-        this.modelId,
-
+      {
+        required this.body,
+        required this.rating,
+        required this.onModel,
+        required this.modelId,
         this.ownerId,
         this.miniUser,
-        this.body,
-        this.rating
-
-
+        this.id,
 
         });
-  final String? onModel;
-  final String? modelId;
+  final OnModel onModel;
+  final String modelId;
   final String? ownerId;
 
   final MiniUser? miniUser;
-  final double? rating;
-  final String? body;
+  final double rating;
+  final String body;
+
 
 
 
 
   factory Review.fromJson(Map<String, dynamic> json) {
+
+
+
     return Review(
       id: json['id'],
       onModel: json['onModel'],
@@ -38,8 +46,6 @@ class Review {
 
       ownerId: json['ownerId'],
       miniUser:json["user"] != null ? MiniUser.fromJson(json["user"]) : null,
-
-
     );
   }
 }

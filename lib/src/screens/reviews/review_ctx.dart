@@ -13,7 +13,7 @@ class ReviewController extends GetxController {
   var isLoading = false.obs;
   var errorOccurred = false.obs;
   var reviewsList = Rx<List<Review>?>(null);
-  Rx<Review> review = const Review().obs;
+  Rx<Review> review =  Review(modelId: "", ownerId: "", onModel: OnModel.ITEM,  body:"", rating: 4.5,).obs;
 
   final ReviewRepository reviewRepository;
   ReviewController({required this.reviewRepository});
@@ -33,13 +33,14 @@ class ReviewController extends GetxController {
     }
     return null;
   }
-  createReview( variables) async {
-    logTrace("reviewVariable", variables);
+  createReview( Review variables) async {
+    logTrace("reviewVariable", variables.body);
     try {
       final reviews = await reviewRepository.CreateReview(variables);
       reviewsList(reviews);
       return reviews;
     } catch (e) {
+      logTrace("createRvwCtx", e.toString());
       errorOccurred(true);
     } finally {
       isLoading(false);
