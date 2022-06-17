@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -8,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sms/src/app.dart';
 import 'package:sms/src/screens/profile_page/profile_page_ctx.dart';
+import 'package:sms/src/utils/loger/console_loger.dart';
 
 import '../../../../data/repository/user_repository.dart';
 import '../../../models/user.dart' as user;
@@ -49,7 +49,7 @@ class LoginController extends GetxController {
         await storage.write(key: 'role', value: signedInUser?.role);
         await storage.write(key: 'shopId', value: signedInUser?.shopId);
 
-        if(signedInUser?.address?.addressName != null){
+        if (signedInUser?.address?.addressName != null) {
           await profilePageController.setUserAddress(signedInUser?.address);
         }
         // await storage.write(key: 'user', value: jsonEncode(signedInUser));
@@ -66,7 +66,8 @@ class LoginController extends GetxController {
           maskType: EasyLoadingMaskType.black,
           duration: const Duration(seconds: 3));
     } catch (e) {
-      EasyLoading.showError('Connection error. Please try again',
+      logTrace("error", e.toString());
+      EasyLoading.showError(e.toString(),
           dismissOnTap: true,
           maskType: EasyLoadingMaskType.black,
           duration: const Duration(seconds: 3));
@@ -89,7 +90,7 @@ class LoginController extends GetxController {
           this.verificationId = verificationId;
           EasyLoading.dismiss();
           Get.to(
-                () => CodeVerification(
+            () => CodeVerification(
               redirectFrom: 'signIn',
             ),
           );
@@ -121,8 +122,8 @@ class LoginController extends GetxController {
         .then((UserCredential result) {
       // result.additionalUserInfo.
       Get.offAll(() => Home(
-        hasSearchBar: appController.hasSearchIcon.isFalse,
-      ));
+            hasSearchBar: appController.hasSearchIcon.isFalse,
+          ));
     }).catchError((e) {
       Fluttertoast.showToast(msg: e);
     });

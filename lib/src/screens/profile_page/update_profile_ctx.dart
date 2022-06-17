@@ -5,6 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:sms/data/repository/item_repository.dart';
 import 'package:sms/src/screens/home_page/AppCtx.dart';
+import 'package:sms/src/utils/loger/console_loger.dart';
 
 class UpdateProfileController extends GetxController {
   final ItemRepository itemRepository;
@@ -21,24 +22,24 @@ class UpdateProfileController extends GetxController {
   updateProfile(variable) async {
     isUpdateProfileLoading(true);
     print('var $variable');
+    logTrace('phone', variable['input']['phone']);
     try {
       isProfileUpdated = await itemRepository.updateProfile(variable);
-      print(isProfileUpdated);
-      print(variable['phone']);
       if (isProfileUpdated == true) {
-        if (variable['firstName'] != null) {
-          await storage.write(key: 'firstName', value: variable['firstName']);
-          appController.firstName(variable['firstName']);
+        if (variable['input']['firstName'] != null) {
+          await storage.write(
+              key: 'firstName', value: variable['input']['firstName']);
+          appController.firstName(variable['input']['firstName']);
         }
-        if (variable['lastName'] != null) {
-          await storage.write(key: 'lastName', value: variable['lastName']);
-          appController.lastName(variable['lastName']);
+        if (variable['input']['lastName'] != null) {
+          await storage.write(
+              key: 'lastName', value: variable['input']['lastName']);
+          appController.lastName(variable['input']['lastName']);
         }
-        if (variable['phone'] != null) {
+        if (variable['input']['phone'] != null) {
           print(variable['phone']);
-          await storage.write(key: 'phone', value: variable['phone']);
-          appController.phone(variable['phone']);
-          print('ph ${appController.phone.value}');
+          await storage.write(key: 'phone', value: variable['input']['phone']);
+          appController.phone(variable['input']['phone']);
         }
         EasyLoading.showSuccess('Profile updated successfully',
             dismissOnTap: true, maskType: EasyLoadingMaskType.black);

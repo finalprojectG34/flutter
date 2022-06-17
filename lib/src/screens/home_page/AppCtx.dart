@@ -24,9 +24,12 @@ class AppController extends GetxController {
   RxList<Item>? itemList;
   FocusNode searchBarFocusNode = FocusNode();
 
+  RxString userId = ''.obs;
   RxString firstName = ''.obs;
   RxString lastName = ''.obs;
   RxString phone = ''.obs;
+  RxBool hasShopId = false.obs;
+  RxString userRole = ''.obs;
 
   @override
   void onInit() async {
@@ -38,6 +41,16 @@ class AppController extends GetxController {
     }
     getItems();
     getUserInfo();
+    getShopId();
+  }
+
+  getShopId() async {
+    hasShopId(await storage.read(key: 'shopId') != null);
+    userRole(await storage.read(key: 'role'));
+    // hasShopId(true);
+    // userRole('SELLER');
+    // userRole = 'SELLER';
+    // hasShopId = true;
   }
 
   disableSearchIcon() {
@@ -50,9 +63,15 @@ class AppController extends GetxController {
   }
 
   getUserInfo() async {
-    firstName((await storage.read(key: 'firstName')));
-    lastName((await storage.read(key: 'lastName')));
-    phone((await storage.read(key: 'phone')));
+    String? _id = await storage.read(key: 'userId');
+    String? _firstName = await storage.read(key: 'firstName');
+    String? _lastName = await storage.read(key: 'lastName');
+    String? _phone = await storage.read(key: 'phone');
+
+    userId(_id);
+    firstName(_firstName);
+    lastName(_lastName);
+    phone(_phone);
   }
 
   getItems() async {

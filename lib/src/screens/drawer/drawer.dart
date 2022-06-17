@@ -6,10 +6,12 @@ import 'package:sms/src/screens/components/add_shop.dart';
 import 'package:sms/src/screens/home_page/AppCtx.dart';
 
 import '../auth/login/login.dart';
-import '../order_page/order_page.dart';
-import '../order_page/received_orders.dart';
 import '../reviews/ui/add_review.dart';
 import '../reviews/ui/list_reviews.dart';
+
+// import '../order_page/order_page.dart';
+import '../order_page/received_orders.dart';
+import '../order_page/sent_orders.dart';
 
 class DrawerPage extends StatelessWidget {
   const DrawerPage({Key? key}) : super(key: key);
@@ -31,8 +33,7 @@ class DrawerPage extends StatelessWidget {
                 ),
               ),
               decoration: BoxDecoration(
-                  color: Color(0xFF0D90EE), shape: BoxShape.rectangle
-              ),
+                  color: Color(0xFF0D90EE), shape: BoxShape.rectangle),
             ),
             ListTile(
               title: const Text('Home'),
@@ -113,7 +114,7 @@ class DrawerPage extends StatelessWidget {
                 title: const Text('Sent Orders'),
                 onTap: () {
                   // Navigator.pushNamed(context, "/add_item");
-                  Get.to(() => OrderPage());
+                  Get.to(() => SentOrders());
                 },
                 leading: const Icon(
                   Icons.fiber_new,

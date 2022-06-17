@@ -40,9 +40,7 @@ class _HomeState extends State<Home> {
                 shrinkWrap: true,
                 children: [
                   const SuggestedItems(),
-                  const SizedBox(
-                    height: 15.0,
-                  ),
+                  const SizedBox(height: 15.0),
                   const CategoryList(),
                   // if (ctx.isGettingItems.isTrue || ctx.itemList!.isNotEmpty)
                   Padding(
@@ -84,14 +82,12 @@ class _HomeState extends State<Home> {
                                       child: Text(
                                     ctx.err.value,
                                   )),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
+                                  const SizedBox(width: 20),
                                   TextButton(
                                       onPressed: () {
                                         ctx.getItems();
                                       },
-                                      child: Text('Retry'))
+                                      child: const Text('Retry'))
                                 ],
                               ),
                             )
@@ -106,7 +102,7 @@ class _HomeState extends State<Home> {
                               shrinkWrap: true,
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
-                                childAspectRatio: .5,
+                                childAspectRatio: .6,
                                 crossAxisCount: 2,
                                 crossAxisSpacing: 5,
                                 mainAxisSpacing: 5,

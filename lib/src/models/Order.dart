@@ -1,3 +1,5 @@
+import 'package:sms/src/app.dart';
+
 class Order {
   const Order({
     this.id,
@@ -8,6 +10,7 @@ class Order {
     this.subTotal,
     this.actions,
     this.deliveryAddress,
+    this.createdAt,
   });
 
   final String? id;
@@ -17,7 +20,8 @@ class Order {
   final List<OrderItem>? orderItems;
   final String? subTotal;
   final String? actions;
-  final String? deliveryAddress;
+  final String? createdAt;
+  final Address? deliveryAddress;
 
   factory Order.fromJson(Map<String, dynamic> json) {
     Order item = Order(
@@ -25,12 +29,17 @@ class Order {
       status: json['status'],
       userId: json['userId'],
       shopId: json['shopId'],
-      orderItems: (json['orderItems'] as List)
-          .map((e) => OrderItem.fromJson(e))
-          .toList(),
-      subTotal: json['subTotal'].toString(),
+      orderItems: (json['orderItems'] != null)
+          ? (json['orderItems'] as List)
+              .map((e) => OrderItem.fromJson(e))
+              .toList()
+          : [],
+      subTotal: (json['subTotal'] != null) ? json['subTotal'].toString() : "",
       actions: json['actions'],
-      deliveryAddress: json['deliveryAddress'],
+      createdAt: json['createdAt'],
+      deliveryAddress: (json['deliveryAddress'] != null)
+          ? Address.fromJson(json['deliveryAddress'])
+          : Address(),
     );
     return item;
   }

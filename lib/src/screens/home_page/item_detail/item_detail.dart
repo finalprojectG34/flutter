@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/suggested_items.dart';
-import 'information.dart';
 
 class ItemDetails extends StatefulWidget {
   static const routeName = '/itemDetail';
@@ -253,16 +252,16 @@ class _ItemDetailState extends State<ItemDetails> {
           SizedBox(
             height: 20.0,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Text(
-              "Information",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0),
-            ),
-          ),
-          SizedBox(
-            height: 15.0,
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 20),
+          //   child: Text(
+          //     "Information",
+          //     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0),
+          //   ),
+          // ),
+          // SizedBox(
+          //   height: 10.0,
+          // ),
           // Padding(
           //   padding: const EdgeInsets.symmetric(horizontal: 20),
           //   child: RowElement(
@@ -277,67 +276,222 @@ class _ItemDetailState extends State<ItemDetails> {
           //   height: 10.0,
           // ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: RowElement(
-              description: "Condition",
-              descriptionColor: Colors.grey,
-              // isButton: false,
-              status: widget.item['attrs'][0]['val'],
-              statusColor: Colors.grey,
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: Card(
+              color: Colors.blue.shade300,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+                child: Column(
+                  children: [
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     Text(
+                    //       'Total',
+                    //       style: TextStyle(
+                    //           color: Colors.white,
+                    //           fontWeight: FontWeight.bold,
+                    //           fontSize: 16),
+                    //     ),
+                    //     Text(
+                    //       'ETB 300',
+                    //       style: TextStyle(
+                    //           color: Colors.white,
+                    //           fontWeight: FontWeight.bold,
+                    //           fontSize: 16),
+                    //     )
+                    //   ],
+                    // ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Information",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 22.0,
+                                color: Colors.white),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Icon(
+                            Icons.info_outline,
+                            color: Colors.white,
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Divider(
+                        color: Colors.white,
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Condition',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          'new',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'RAM',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        Text(
+                          '2 GB',
+                          style: TextStyle(color: Colors.white),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Internal HDD',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        Text(
+                          '300 GB',
+                          style: TextStyle(color: Colors.white),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
             ),
           ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 20),
+          //   child: RowElement(
+          //     description: "Condition",
+          //     descriptionColor: Colors.grey,
+          //     // isButton: false,
+          //     status: widget.item['attrs'][0]['val'],
+          //     statusColor: Colors.grey,
+          //   ),
+          // ),
+          // SizedBox(
+          //   height: 10.0,
+          // ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 20),
+          //   child: RowElement(
+          //     description: "Category",
+          //     descriptionColor: Colors.grey,
+          //     // isButton: false,
+          //     status: "Electronic",
+          //     statusColor: Colors.blue,
+          //   ),
+          // ),
           SizedBox(
             height: 10.0,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: RowElement(
-              description: "Category",
-              descriptionColor: Colors.grey,
-              // isButton: false,
-              status: "Electronic",
-              statusColor: Colors.blue,
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: Card(
+              color: Colors.black54,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                child: Column(
+                  children: [
+                    Text(
+                      "Description",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 22.0,
+                          color: Colors.white),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(widget.item['description'],
+                        style: TextStyle(color: Colors.white)),
+                  ],
+                ),
+              ),
             ),
-          ),
-          SizedBox(
-            height: 20.0,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Text(
-              "Description",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0),
-            ),
-          ),
-          SizedBox(
-            height: 20.0,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Text(widget.item['description']),
           ),
           SizedBox(
             height: 10,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: ElevatedButton(
-              style: ButtonStyle(
-                shadowColor: MaterialStateProperty.all(Colors.lightBlueAccent),
-                elevation: MaterialStateProperty.all(5),
-                backgroundColor:
-                    MaterialStateProperty.all(const Color(0xff40BFFF)),
-                // fixedSize: MaterialStateProperty.all(Size(Get.width, 54)),
-              ),
-              onPressed: () {},
-              child: const Text(
-                "Add to cart_page",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13),
-              ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton(
+                    // style: ButtonStyle(
+                    //   shadowColor: MaterialStateProperty.all(Colors.lightBlueAccent),
+                    //   elevation: MaterialStateProperty.all(5),
+                    //   backgroundColor:
+                    //       MaterialStateProperty.all(const Color(0xff40BFFF)),
+                    //   // fixedSize: MaterialStateProperty.all(Size(Get.width, 54)),
+                    // ),
+                    onPressed: () {},
+                    child: const Text(
+                      "View item history",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        // color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        // fontSize: 13
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Expanded(
+                  child: OutlinedButton(
+                    // style: ButtonStyle(
+                    //   shadowColor: MaterialStateProperty.all(Colors.lightBlueAccent),
+                    //   elevation: MaterialStateProperty.all(5),
+                    //   backgroundColor:
+                    //       MaterialStateProperty.all(const Color(0xff40BFFF)),
+                    //   // fixedSize: MaterialStateProperty.all(Size(Get.width, 54)),
+                    // ),
+                    onPressed: () {},
+                    child: const Text(
+                      "Add to cart",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        // color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        // fontSize: 13
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           // Icon(Icons.shopping_cart)

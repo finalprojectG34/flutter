@@ -10,32 +10,35 @@ class UserRepository {
 
   UserRepository({required this.gqlClient});
 
-  // SignUpController signUpController = Get.find();
-
   Future signupUser(variables) async {
     String signupMutation = r'''
      mutation AuthPhoneAndRegister($token: PhoneSignupInput) {
-          authPhoneAndRegister(token: $token) {
-            user {
-              id
-              firstName
-              lastName
-              phone
-              role
-            }
-            token
+        authPhoneAndRegister(token: $token) {
+          user {
+            id
+            firstName
+            lastName
+            phone
+            role
           }
+          token
         }
+     }
       ''';
-    // print(variables.toString() + 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq');
+
     final response = await gqlClient
         .mutate(MutationOptions(
             document: gql(signupMutation), variables: variables))
         .timeout(const Duration(seconds: 30), onTimeout: () {
       throw TimeoutException('request timed out', const Duration(seconds: 30));
     });
-    print(
-        '${response.data!['authPhoneAndRegister']['token']}   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
+
+    if (response.hasException) {
+      print(response.exception);
+      throw Exception("Error Happened");
+    } else {
+      print(response);
+    }
 
     return User.fromJson(response.data!['authPhoneAndRegister']['user'],
         token: response.data!['authPhoneAndRegister']['token']);
@@ -47,9 +50,8 @@ class UserRepository {
           authPhoneAndRegister(token: $token) {
               token
           }
-        }
-      ''';
-    // print(variables.toString() + 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq');
+     }
+     ''';
     final response = await gqlClient
         .mutate(MutationOptions(document: gql(signupMutation), variables: {
       "token": {
@@ -58,8 +60,13 @@ class UserRepository {
         "idToken": token
       }
     }));
-    print(
-        '${response.data!['authPhoneAndResetPwd']['token']}   zzzzzzzzzzzzzzzzzzzzzzzzzzzzzz');
+
+    if (response.hasException) {
+      print(response.exception);
+      throw Exception("Error Happened");
+    } else {
+      print(response);
+    }
 
     return User.fromJson(response.data!['authPhoneAndResetPwd']['user'],
         token: response.data!['authPhoneAndResetPwd']['token']);
@@ -92,7 +99,7 @@ class UserRepository {
 
     if (response.hasException) {
       print(response.exception);
-      // throw response.exception;
+      throw Exception("Error Happened");
     } else {
       print(response);
     }
@@ -124,7 +131,11 @@ class UserRepository {
       ''';
     final response = await gqlClient
         .mutate(
-      MutationOptions(document: gql(signInMutation), variables: variables),
+      MutationOptions(
+        document: gql(signInMutation),
+        variables: variables,
+        fetchPolicy: FetchPolicy.noCache,
+      ),
     )
         .timeout(const Duration(seconds: 30), onTimeout: () {
       throw TimeoutException('request timed out', const Duration(seconds: 30));
@@ -134,12 +145,13 @@ class UserRepository {
       logTrace("response exception", response.exception);
       for (var element in response.exception!.graphqlErrors) {
         if (element.message == 'info or password wrong') {
-          return null;
+          throw Exception("Username or Password Incorrect");
         }
         // if (response.exception!.graphqlErrors[0].message ==
         //     'info or password wrong') {
-        return null;
+        throw Exception("Error Happened");
       }
+      throw Exception("Error Happened");
     }
 
     if (response.data!['login']['user'] != null) {

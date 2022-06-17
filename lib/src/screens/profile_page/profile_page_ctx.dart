@@ -1,6 +1,3 @@
-// import 'dart:ffi';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:sms/data/repository/user_repository.dart';
@@ -20,12 +17,14 @@ class ProfilePageController extends GetxController {
   RxString errorText = "".obs;
   RxBool isProfileLoading = false.obs;
 
-  init(){
-    getUserAddress();
+  @override
+  void onInit() async {
+    super.onInit();
+    await getUserAddress();
   }
 
   Future<bool> getUserAddress() async {
-    if(await storage.read(key: "country") == null){
+    if (await storage.read(key: "country") == null) {
       return false;
     } else {
       Address temp = Address(

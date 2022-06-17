@@ -19,6 +19,7 @@ class Item {
   final String? category;
   final String? imagePath;
   final String? description;
+
   // final double? amount;
 
   factory Item.fromJson(Map<String, dynamic> json) {
