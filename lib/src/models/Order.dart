@@ -10,6 +10,7 @@ class Order {
     this.subTotal,
     this.actions,
     this.deliveryAddress,
+    this.createdAt,
   });
 
   final String? id;
@@ -19,6 +20,7 @@ class Order {
   final List<OrderItem>? orderItems;
   final String? subTotal;
   final String? actions;
+  final String? createdAt;
   final Address? deliveryAddress;
 
   factory Order.fromJson(Map<String, dynamic> json) {
@@ -34,6 +36,7 @@ class Order {
           : [],
       subTotal: (json['subTotal'] != null) ? json['subTotal'].toString() : "",
       actions: json['actions'],
+      createdAt: json['createdAt'],
       deliveryAddress: (json['deliveryAddress'] != null)
           ? Address.fromJson(json['deliveryAddress'])
           : Address(),

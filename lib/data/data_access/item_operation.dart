@@ -4,7 +4,6 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:sms/mock/mock_category.dart';
 
 import '../../src/app.dart';
-import '../../src/models/shop.dart';
 
 class ItemOperation {
   final GraphQLClient gqlClient;
