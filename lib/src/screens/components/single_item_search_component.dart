@@ -40,9 +40,15 @@ class SingleItemSearch extends StatelessWidget {
                     SizedBox(
                       height: 5,
                     ),
-                    Text(
-                      variable['attrs'][0]['val'],
-                      style: TextStyle(color: Colors.grey),
+                    Container(
+                      padding: EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                          color: Colors.green.shade300,
+                          borderRadius: BorderRadius.all(Radius.circular(5))),
+                      child: Text(
+                        variable['attrs'][0]['val'],
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                     SizedBox(
                       height: 5,
