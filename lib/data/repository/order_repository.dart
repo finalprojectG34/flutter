@@ -15,6 +15,7 @@ class OrderRepository {
             status
             userId
             shopId
+            createdAt
             orderItems {
               id
               name
@@ -61,6 +62,7 @@ class OrderRepository {
             status
             userId
             shopId
+            createdAt
             orderItems {
               id
               name
@@ -164,7 +166,7 @@ class OrderRepository {
     return newOrder;
   }
 
-  Future deleteOrder(cartId) async {
+  Future deleteOrder(String orderId) async {
     final response = await gqlClient.mutate(MutationOptions(
       document: gql(r'''
             mutation Mutation($deleteCartId: ID!) {
@@ -173,7 +175,7 @@ class OrderRepository {
               }
             }
       '''),
-      variables: {"deleteCartId": cartId},
+      variables: {"deleteCartId": orderId},
       fetchPolicy: FetchPolicy.noCache,
     ));
     if (response.hasException) {
