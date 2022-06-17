@@ -4,6 +4,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:sms/mock/mock_category.dart';
 
 import '../../src/app.dart';
+import '../../src/models/shop.dart';
 
 class ItemOperation {
   final GraphQLClient gqlClient;
@@ -230,5 +231,29 @@ class ItemOperation {
     }
     print(response);
     return Item.fromJson(response.data!['createItem']);
+  }
+
+  Future<Shop> addShop(variable) async {
+    String addItemMutation = r'''
+     mutation CreateCompany($input: UserCompanyInput!) {
+        createCompany(input: $input) {
+          id
+          slug
+          name
+          ownerId
+          status
+          sellingCategories
+        }
+      }
+      ''';
+
+    final response = await gqlClient.query(
+        QueryOptions(document: gql(addItemMutation), variables: variable));
+    if (response.hasException) {
+      print(response.exception);
+      throw Exception("Error Happened");
+    }
+    print(response);
+    return Shop.fromJson(response.data!['createCompany']);
   }
 }

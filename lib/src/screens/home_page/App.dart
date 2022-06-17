@@ -32,8 +32,9 @@ class _AppState extends State<App> {
   // late OrderRespositoryImpl aa;
   late AppBar appbar;
   late String appbarName;
-  late String? userRole;
-  late bool hasShopId;
+
+  // late String? userRole;
+  // late bool hasShopId;
   String query = '''
   query GetAllItems{
   getAllItems{
@@ -53,7 +54,7 @@ class _AppState extends State<App> {
     // );
     // aa.getItems();
     getToken();
-    getShopId();
+    // getShopId();
     body = const Home(
       hasSearchBar: false,
     );
@@ -67,16 +68,16 @@ class _AppState extends State<App> {
     print('token $value');
   }
 
-  getShopId() async {
-    hasShopId = await storage.read(key: 'shopId') != null;
-    userRole = await storage.read(key: 'role');
-    // userRole = 'SELLER';
-    // hasShopId = true;
-  }
+  // getShopId() async {
+  //   hasShopId = await storage.read(key: 'shopId') != null;
+  //   userRole = await storage.read(key: 'role');
+  //   // userRole = 'SELLER';
+  //   // hasShopId = true;
+  // }
 
   Widget _mapIndexToPage(int index) {
     final AppController appController = Get.find();
-    getShopId();
+    // getShopId();
     getToken();
     switch (index) {
       case 1:
@@ -117,19 +118,23 @@ class _AppState extends State<App> {
               'Sign in', 'You need to sign in first before you add item',
               snackPosition: SnackPosition.BOTTOM);
           appController.changePage('Account', 4);
-        } else if (hasShopId && userRole == 'SELLER') {
+        } else if (appController.hasShopId.isTrue &&
+            appController.userRole.value == 'SELLER') {
           appController.changePage('Add Item', index);
-        } else if (hasShopId && userRole == 'USER') {
+        } else if (appController.hasShopId.isTrue &&
+            appController.userRole.value == 'USER') {
           appController.changePage('Pending', index);
         } else {
           appController.changePage('Register as seller', index);
         }
         return appController.isAuthenticated.isTrue
-            ? hasShopId && userRole == 'SELLER'
+            ? appController.hasShopId.isTrue &&
+                    appController.userRole.value == 'SELLER'
                 ? AddItem(
                     hasAppbar: false,
                   )
-                : hasShopId && userRole == 'USER'
+                : appController.hasShopId.isTrue &&
+                        appController.userRole.value == 'USER'
                     ? Padding(
                         padding: const EdgeInsets.all(20),
                         child: Center(

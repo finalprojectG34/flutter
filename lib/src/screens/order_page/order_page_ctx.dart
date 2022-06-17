@@ -19,6 +19,12 @@ class OrderPageController extends GetxController {
   RxList<Order>? orderList = <Order>[].obs;
   Rx<Order> order = const Order().obs;
 
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   getOrder(widget.status);
+  // }
+
   getOrder(String status) async {
     isOrderLoading(true);
     try {

@@ -28,6 +28,8 @@ class AppController extends GetxController {
   RxString firstName = ''.obs;
   RxString lastName = ''.obs;
   RxString phone = ''.obs;
+  RxBool hasShopId = false.obs;
+  RxString userRole = ''.obs;
 
   @override
   void onInit() async {
@@ -39,6 +41,16 @@ class AppController extends GetxController {
     }
     getItems();
     getUserInfo();
+    getShopId();
+  }
+
+  getShopId() async {
+    hasShopId(await storage.read(key: 'shopId') != null);
+    userRole(await storage.read(key: 'role'));
+    // hasShopId(true);
+    // userRole('SELLER');
+    // userRole = 'SELLER';
+    // hasShopId = true;
   }
 
   disableSearchIcon() {

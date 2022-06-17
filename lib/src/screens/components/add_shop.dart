@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
@@ -153,7 +154,7 @@ class _AddShopState extends State<AddShop> {
                 maxLines: 10,
                 minLines: 5,
                 keyboardType: TextInputType.text,
-                onChanged: (text) => shopName = text,
+                onChanged: (text) => description = text,
                 validator: (val) {
                   if (val == '') return 'Please enter description';
                   return null;
@@ -461,6 +462,14 @@ class _AddShopState extends State<AddShop> {
                 ),
                 onPressed: () async {
                   if (widget.formState.currentState!.validate()) {
+                    FocusScope.of(context).unfocus();
+
+                    EasyLoading.instance.loadingStyle = EasyLoadingStyle.light;
+                    await EasyLoading.show(
+                      status: 'Creating shop',
+                      maskType: EasyLoadingMaskType.black,
+                    );
+
                     addItemController.addShop({
                       "input": {
                         "name": shopName,
@@ -468,7 +477,8 @@ class _AddShopState extends State<AddShop> {
                         "address": {
                           "city": selectedArea,
                           "subCity": selectedSubCity
-                        }
+                        },
+                        "image": {"imageCover": ''}
                       }
                     }, _image!);
                     // FocusScope.of(context).unfocus();
