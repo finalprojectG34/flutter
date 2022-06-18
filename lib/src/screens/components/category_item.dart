@@ -9,6 +9,7 @@ class CategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         CircleAvatar(
           backgroundColor: Colors.blue.shade100,

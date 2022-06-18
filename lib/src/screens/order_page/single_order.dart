@@ -1,18 +1,34 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../models/Order.dart';
+import '../../models/order.dart';
 
 class SingleOrder extends StatelessWidget {
   final Order order;
 
-  const SingleOrder({Key? key, required this.order}) : super(key: key);
+  static const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"
+  ];
 
-  static const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const SingleOrder({Key? key, required this.order}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    DateTime date = DateTime.fromMicrosecondsSinceEpoch(int.parse(order.createdAt!));
+    DateTime getDate(String date) {
+      return DateTime.parse(date);
+    }
+
     return Container(
       margin: EdgeInsets.all(16),
       padding: EdgeInsets.all(10),
@@ -28,7 +44,7 @@ class SingleOrder extends StatelessWidget {
           ),
           SizedBox(height: 5),
           Text(
-            'Order date:  ${date.day} ${months[date.month]}, ${date.year}',
+            'Order date: ${getDate(order.createdAt!).day} ${months[getDate(order.createdAt!).month]}, ${getDate(order.createdAt!).year}',
             style: TextStyle(fontSize: 16, color: Colors.grey),
           ),
           Divider(color: Colors.grey),

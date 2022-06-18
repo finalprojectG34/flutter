@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sms/src/screens/order_page/received_orders/received_order_detail.dart';
 
 import '../order_page_ctx.dart';
 import '../single_order.dart';
-import 'sent_order_detail.dart';
 
-class SentOrderStatus extends StatefulWidget {
+class ReceivedOrderStatus extends StatefulWidget {
   final String status;
   final String tabName;
 
-  const SentOrderStatus({Key? key, required this.status, required this.tabName})
+  const ReceivedOrderStatus(
+      {Key? key, required this.status, required this.tabName})
       : super(key: key);
 
   @override
-  State<SentOrderStatus> createState() => _SentOrderStatusState();
+  State<ReceivedOrderStatus> createState() => _ReceivedOrderStatusState();
 }
 
-class _SentOrderStatusState extends State<SentOrderStatus> {
+class _ReceivedOrderStatusState extends State<ReceivedOrderStatus> {
   @override
   Widget build(BuildContext context) {
     return GetX<OrderPageController>(
       builder: (ctx) {
         return RefreshIndicator(
           onRefresh: () async {
-            await ctx.getSentOrders(widget.status);
+            await ctx.getReceivedOrders(widget.status);
           },
           child: ctx.isOrderLoading.isTrue
               ? const Center(child: CircularProgressIndicator())
@@ -52,7 +53,7 @@ class _SentOrderStatusState extends State<SentOrderStatus> {
                                   .map((order) => GestureDetector(
                                         onTap: () {
                                           ctx.getOrderById(order.id!);
-                                          Get.to(() => SentOrderDetail(
+                                          Get.to(() => ReceivedOrderDetail(
                                               orderId: order.id!));
                                         },
                                         child: SingleOrder(order: order),

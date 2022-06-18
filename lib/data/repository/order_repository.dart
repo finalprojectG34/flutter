@@ -1,6 +1,6 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-import '../../src/models/Order.dart';
+import '../../src/models/order.dart';
 
 class OrderRepository {
   final GraphQLClient gqlClient;
@@ -9,7 +9,7 @@ class OrderRepository {
 
   Future<List<Order>> getOrder(String status) async {
     String getOrderByUserId = r'''
-        query GetOrderByUserId($status: String) {
+        query GetOrderByUserId($status: OrderStatus) {
           getOrderByUserId(status: $status) {
             id
             status
@@ -28,6 +28,16 @@ class OrderRepository {
               city
               subCity
               country
+            }
+            actions {
+              date
+              messages
+              type
+            }
+            sellerActions {
+              date
+              messages
+              type
             }
           }
         }
@@ -54,8 +64,7 @@ class OrderRepository {
   }
 
   Future<Order> getOrderById(String orderId) async {
-    final response = await gqlClient.query(
-      QueryOptions(document: gql(r'''
+    String getOneOrder = r'''
         query GetOneOrder($getOneOrderId: String!) {
           getOneOrder(id: $getOneOrderId) {
             id
@@ -63,6 +72,7 @@ class OrderRepository {
             userId
             shopId
             createdAt
+            deliveryId
             orderItems {
               id
               name
@@ -76,9 +86,25 @@ class OrderRepository {
               addressName
               country
             }
+            actions {
+              date
+              messages
+              type
+            }
+            sellerActions {
+              date
+              messages
+              type
+            }
           }
         }
-      '''), variables: {"getOneOrderId": orderId}),
+      ''';
+    final response = await gqlClient.query(
+      QueryOptions(
+        document: gql(getOneOrder),
+        variables: {"getOneOrderId": orderId},
+        fetchPolicy: FetchPolicy.noCache,
+      ),
     );
     if (response.hasException) {
       print(response.exception);
@@ -135,26 +161,47 @@ class OrderRepository {
     return newOrders;
   }
 
-  Future<Order> updateOrderStatus(String orderId, String status) async {
-    final response = await gqlClient.mutate(MutationOptions(
-      document: gql(r'''
-            mutation Mutation($updateOrderStatusId: String, $status: OrderStatus!) {
-              updateOrderStatus(id: $updateOrderStatusId, status: $status) {
+  Future<Order> updateOrderStatus(String orderId, String action) async {
+    String updateOrderStatus = r'''
+          mutation OrderAction($orderId: ID, $action: OrderActionsTypesInput) {
+            orderAction(orderId: $orderId, action: $action) {
+              id
+              status
+              userId
+              shopId
+              deliveryId
+              createdAt
+              orderItems {
                 id
-                status
-                userId
-                shopId
-                subTotal
-                orderItems {
-                  price
-                  id
-                  name
-                  amount
-                }
+                name
+                price
+                amount
+              }
+              subTotal
+              deliveryAddress {
+                subCity
+                city
+                addressName
+              }
+              actions {
+                date
+                messages
+                type
+              }
+              sellerActions {
+                date
+                messages
+                type
               }
             }
-      '''),
-      variables: {"updateOrderStatusId": orderId, "status": status},
+          }
+      ''';
+    final response = await gqlClient.mutate(MutationOptions(
+      document: gql(updateOrderStatus),
+      variables: {
+        "orderId": orderId,
+        "action": {"actionType": action}
+      },
       fetchPolicy: FetchPolicy.noCache,
     ));
     if (response.hasException) {
@@ -162,8 +209,116 @@ class OrderRepository {
       throw Exception("Error Happened");
     }
     print(response);
-    Order newOrder = Order.fromJson(response.data!["getOneOrder"]);
+    Order newOrder = Order.fromJson(response.data!["orderAction"]);
     return newOrder;
+  }
+
+  Future<Order> removeDelivery(String orderId) async {
+    String orderAction = r'''
+        mutation Mutation($orderId: ID, $action: OrderActionsTypesInput) {
+          orderAction(orderId: $orderId, action: $action) {
+            id
+            status
+            userId
+            shopId
+            createdAt
+            deliveryId
+            orderItems {
+              id
+              name
+              price
+              amount
+            }
+            subTotal
+            deliveryAddress {
+              subCity
+              city
+              addressName
+              country
+            }
+            actions {
+              type
+              date
+              messages
+            }
+            sellerActions {
+              type
+              date
+              messages
+            }
+          }
+        }
+      ''';
+    final response = await gqlClient.query(
+      QueryOptions(
+        document: gql(orderAction),
+        variables: {
+          "orderId": orderId,
+          "action": const {"actionType": "DeclinedByDelivery"}
+        },
+        fetchPolicy: FetchPolicy.noCache,
+      ),
+    );
+    if (response.hasException) {
+      print(response.exception);
+      throw Exception("Error Happened");
+    }
+    print(response);
+    return Order.fromJson(response.data!["orderAction"]);
+  }
+
+  Future<Order> assignDelivery(String orderId, String shopId) async {
+    String orderAction = r'''
+        mutation Mutation($orderId: ID, $action: OrderActionsTypesInput) {
+          orderAction(orderId: $orderId, action: $action) {
+            id
+            status
+            userId
+            shopId
+            createdAt
+            deliveryId
+            orderItems {
+              id
+              name
+              price
+              amount
+            }
+            subTotal
+            deliveryAddress {
+              subCity
+              city
+              addressName
+              country
+            }
+            actions {
+              type
+              date
+              messages
+            }
+            sellerActions {
+              type
+              date
+              messages
+            }
+          }
+        }
+      ''';
+    final response = await gqlClient.query(
+      QueryOptions(
+        document: gql(orderAction),
+        variables: {
+          "orderId": orderId,
+          "action": {"actionType": "RequestDelivery", "deliveryId": shopId}
+        },
+        fetchPolicy: FetchPolicy.noCache,
+      ),
+    );
+    if (response.hasException) {
+      print(response.exception);
+      throw Exception("Error Happened");
+    }
+    print(response);
+    return Order.fromJson(response.data!["orderAction"]);
   }
 
   Future deleteOrder(String orderId) async {

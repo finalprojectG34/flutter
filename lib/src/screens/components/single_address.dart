@@ -53,8 +53,11 @@ class SingleAddress extends StatelessWidget {
                     builder: (context) => Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 30, vertical: 10),
-                      child:
-                          AddressInput(address1: address1, address2: address2),
+                      child: AddressInput(
+                          city: address1,
+                          subCity: address2,
+                          country: 'Ethiopia',
+                          streetName: 'king george'),
                     ),
                   )
                 },

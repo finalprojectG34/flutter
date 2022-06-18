@@ -24,6 +24,7 @@ class CartRepository {
               }
             }
       '''),
+        fetchPolicy: FetchPolicy.noCache,
       ),
     );
     if (response.hasException) {

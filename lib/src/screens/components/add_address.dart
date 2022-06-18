@@ -11,6 +11,7 @@ class AddAddress extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: Text('Modify Address'),
       ),
@@ -54,6 +55,7 @@ class AddAddress extends StatelessWidget {
               onPressed: () {
                 showModalBottomSheet(
                   isDismissible: true,
+                  isScrollControlled: true,
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(10),
@@ -64,7 +66,17 @@ class AddAddress extends StatelessWidget {
                   builder: (context) => Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 30, vertical: 10),
-                    child: AddressInput(address1: '', address2: ''),
+                    child: SingleChildScrollView(
+                        child: Container(
+                            padding: EdgeInsets.only(
+                                bottom:
+                                    MediaQuery.of(context).viewInsets.bottom),
+                            child: AddressInput(
+                              city: '',
+                              subCity: '',
+                              country: 'Ethiopia',
+                              streetName: '',
+                            ))),
                   ),
                 );
               },

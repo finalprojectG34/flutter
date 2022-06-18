@@ -86,6 +86,7 @@ class ItemOperation {
               }
           }
   '''),
+        fetchPolicy: FetchPolicy.noCache,
       ),
     )
         .timeout(Duration(seconds: 30), onTimeout: () {
@@ -109,10 +110,14 @@ class ItemOperation {
                     firstName
                     lastName
                     phone
+                    image {
+                        imageCover
+                    }
               }
             }
       '''),
       variables: variable,
+      fetchPolicy: FetchPolicy.noCache,
     ));
     if (response.hasException) {
       print(response.exception);
@@ -122,10 +127,38 @@ class ItemOperation {
     return (response.data!['updateMe']['id']) != null;
   }
 
+  Future<bool> updatePassword(variable) async {
+    // print(variable);
+    final response = await gqlClient.mutate(MutationOptions(
+      document: gql(r'''
+            mutation ChangePassword($input: changePwdInput) {
+                changePassword(input: $input) {
+                  id
+               }
+}
+      '''),
+      variables: variable,
+    ));
+    if (response.hasException) {
+      for (var element in response.exception!.graphqlErrors) {
+        if (element.message == 'User credentials not correct') {
+          throw Exception("Incorrect old password");
+        }
+        // if (response.exception!.graphqlErrors[0].message ==
+        //     'info or password wrong') {
+        // throw Exception("Error Happened");
+      }
+      throw Exception("Error Happened");
+    }
+    // print('responce $response');
+    return (response.data!['changePassword']['id']) != null;
+  }
+
   Future<List<Cart>> getCart() async {
     final response = await gqlClient
         .query(
-      QueryOptions(document: gql(r'''
+      QueryOptions(
+        document: gql(r'''
             query GetCartByUserId($getCartByUserIdId: ID) {
               getCartByUserId(id: $getCartByUserIdId) {
                 id
@@ -139,7 +172,9 @@ class ItemOperation {
                 deliveryAddress
               }
             }
-      ''')),
+      '''),
+        fetchPolicy: FetchPolicy.noCache,
+      ),
     )
         .timeout(Duration(seconds: 30), onTimeout: () {
       throw TimeoutException('request timed out', const Duration(seconds: 30));
@@ -274,16 +309,19 @@ class ItemOperation {
       }
       ''';
 
-    final response = await gqlClient
-        .query(QueryOptions(document: gql(addItemMutation), variables: {
-      "input": {
-        "name": "item 9",
-        "description": {"description": "desc", "lang": "en"},
-        "image":
-            "https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg",
-        "categoryId": "cat id 9"
+    final response = await gqlClient.query(QueryOptions(
+      document: gql(addItemMutation),
+      variables: {
+        "input": {
+          "name": "item 9",
+          "description": {"description": "desc", "lang": "en"},
+          "image":
+              "https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg",
+          "categoryId": "cat id 9"
+        },
       },
-    }));
+      fetchPolicy: FetchPolicy.noCache,
+    ));
     if (response.hasException) {
       print(response.exception);
       throw Exception("Error Happened");
@@ -294,7 +332,7 @@ class ItemOperation {
 
   Future<Shop> addShop({name, description, subCity, city, imageCover}) async {
     String addItemMutation = r'''
-     mutation CreateCompany($input: UserCompanyInput!) {
+     mutation CreateCompany($input: CompanyInput!) {
         createCompany(input: $input) {
           id
           slug
@@ -316,6 +354,7 @@ class ItemOperation {
           "image": {"imageCover": imageCover}
         }
       },
+      fetchPolicy: FetchPolicy.noCache,
     ));
     if (response.hasException) {
       print(response.exception);
@@ -323,5 +362,31 @@ class ItemOperation {
     }
     print(response);
     return Shop.fromJson(response.data!['createCompany']);
+  }
+
+  Future<User> getMe() async {
+    String queryGetMe = r'''
+     query GetMe {
+        getMe {
+          id
+          role
+          image {
+            imageCover
+          }
+        }
+    }
+      ''';
+
+    final response = await gqlClient.query(
+      QueryOptions(
+        document: gql(queryGetMe),
+      ),
+    );
+    if (response.hasException) {
+      print(response.exception);
+      throw Exception("Error Happened");
+    }
+    print(response);
+    return User.fromJson(response.data!['getMe']);
   }
 }

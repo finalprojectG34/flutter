@@ -1,8 +1,25 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sms/src/models/order.dart';
+import 'package:sms/src/screens/order_page/order_page_ctx.dart';
 import 'package:timelines/timelines.dart';
 
-class SentOrderDetail extends StatelessWidget {
-  const SentOrderDetail({Key? key}) : super(key: key);
+class SentOrderDetail extends StatefulWidget {
+  final String orderId;
+
+  const SentOrderDetail({Key? key, required this.orderId}) : super(key: key);
+
+  @override
+  State<SentOrderDetail> createState() => _SentOrderDetailState();
+}
+
+class _SentOrderDetailState extends State<SentOrderDetail> {
+  @override
+  void initState() {
+    OrderPageController orderPageController = Get.find();
+    orderPageController.getOrderById(widget.orderId);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -10,30 +27,138 @@ class SentOrderDetail extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Track Your Order'),
       ),
-      body: ListView.builder(
-        itemBuilder: (context, index) {
-          final data = _data(index + 1);
-          return Center(
-            child: Card(
-              margin: const EdgeInsets.all(20.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: _OrderTitle(
-                      orderInfo: data,
-                    ),
-                  ),
-                  const Divider(height: 1.0),
-                  _DeliveryProcesses(processes: data.deliveryProcesses),
-                  const Divider(height: 1.0),
-                ],
+      body: GetX<OrderPageController>(
+        builder: (ctx) {
+          return ctx.isOrderLoading.isTrue
+              ? const Center(child: CircularProgressIndicator())
+              : ctx.isOrderError.isTrue
+                  ? Center(
+                      child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("${ctx.orderErrorText}"),
+                        TextButton(
+                          onPressed: () {
+                            ctx.getOrderById(widget.orderId);
+                          },
+                          child: Text("Retry!"),
+                        ),
+                      ],
+                    ))
+                  : ListView.builder(
+                      itemBuilder: (context, index) {
+                        final data = _data(index + 1);
+                        return Center(
+                          child: Card(
+                            margin: const EdgeInsets.all(20.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: _OrderTitle(orderInfo: data),
+                                ),
+                                SimpleOrderDetail(order: ctx.order.value),
+                                const Divider(height: 1.0),
+                                if (ctx.order.value.status == "ON_DELIVERY")
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 15),
+                                    child: ReceiveOrder(ctx),
+                                  ),
+                                const Divider(height: 1.0),
+                                DeliveryProcesses(
+                                  orderActions: ctx.order.value.orderActions!,
+                                ),
+                                const Divider(height: 1.0),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                      itemCount: 1,
+                    );
+        },
+      ),
+    );
+  }
+
+  SimpleOrderDetail({required Order order}) {
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ];
+    DateTime getDate(String date) {
+      return DateTime.parse(date);
+    }
+
+    return Container(
+      padding: const EdgeInsets.all(10),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [const Text("Order Id:"), Text("${order.id}")],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [const Text("Status:"), Text("${order.status}")],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text("Created At:"),
+              Text(
+                  "${getDate(order.createdAt!).day} ${months[getDate(order.createdAt!).month]}, ${getDate(order.createdAt!).year}")
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text("Ordered Items:"),
+              Text("${order.orderItems?.length}")
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  ReceiveOrder(OrderPageController ctx) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        children: [
+          Expanded(
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.blue,
+              ),
+              onPressed: () async {
+                ctx.updateOrderStatus(
+                  ctx.order.value.id!,
+                  "ReceivedByUser",
+                );
+              },
+              child: const Text(
+                "Order Received",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          );
-        },
-        itemCount: 1,
+          )
+        ],
       ),
     );
   }
@@ -71,15 +196,15 @@ class _OrderTitle extends StatelessWidget {
 
 class _InnerTimeline extends StatelessWidget {
   const _InnerTimeline({
-    required this.messages,
+    required this.message,
   });
 
-  final List<_DeliveryMessage> messages;
+  final String message;
 
   @override
   Widget build(BuildContext context) {
     bool isEdgeIndex(int index) {
-      return index == 0 || index == messages.length + 1;
+      return index == 0 || index == 2;
     }
 
     return Padding(
@@ -99,36 +224,51 @@ class _InnerTimeline extends StatelessWidget {
         builder: TimelineTileBuilder(
           indicatorBuilder: (_, index) =>
               !isEdgeIndex(index) ? Indicator.outlined(borderWidth: 1.0) : null,
-          // startConnectorBuilder: (_, index) => Connector.solidLine(),
-          // endConnectorBuilder: (_, index) => Connector.solidLine(),
           contentsBuilder: (_, index) {
             if (isEdgeIndex(index)) {
               return null;
             }
-
             return Padding(
-              padding: const EdgeInsets.only(left: 8.0, bottom: 10),
-              child: Text(messages[index - 1].toString()),
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Text(message),
             );
           },
-          // itemExtentBuilder: (_, index) => isEdgeIndex(index) ? 10.0 : 30.0,
           nodeItemOverlapBuilder: (_, index) =>
               isEdgeIndex(index) ? true : null,
-          itemCount: messages.length + 2,
+          itemCount: 2,
         ),
       ),
     );
   }
 }
 
-class _DeliveryProcesses extends StatelessWidget {
-  const _DeliveryProcesses({Key? key, required this.processes})
+class DeliveryProcesses extends StatelessWidget {
+  const DeliveryProcesses({Key? key, required this.orderActions})
       : super(key: key);
 
-  final List<_DeliveryProcess> processes;
+  final List<OrderAction> orderActions;
+
+  static const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"
+  ];
 
   @override
   Widget build(BuildContext context) {
+    DateTime getDate(String date) {
+      return DateTime.fromMillisecondsSinceEpoch(int.parse(date));
+    }
+
     return DefaultTextStyle(
       style: const TextStyle(
         color: Color(0xff9b9b9b),
@@ -150,13 +290,11 @@ class _DeliveryProcesses extends StatelessWidget {
             ),
           ),
           builder: TimelineTileBuilder.connected(
-            // connectionDirection: ConnectionDirection.before,
-            itemCount: processes.length,
+            itemCount: orderActions.length,
             contentsBuilder: (_, index) {
-              // if (processes[index].isCompleted) return null;
-              if (processes[index].isHidden) {
-                return null;
-              }
+              // if (orderActions[index].isHidden) {
+              //   return null;
+              // }
               return Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Column(
@@ -164,7 +302,7 @@ class _DeliveryProcesses extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      processes[index].name,
+                      "${orderActions[index].type}",
                       style: DefaultTextStyle.of(context).style.copyWith(
                             fontSize: 18.0,
                           ),
@@ -173,8 +311,16 @@ class _DeliveryProcesses extends StatelessWidget {
                       color: Colors.green.shade50,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child:
-                            _InnerTimeline(messages: processes[index].messages),
+                        child: Column(
+                          children: [
+                            _InnerTimeline(
+                                message: orderActions[index].messages!),
+                            _InnerTimeline(
+                              message:
+                                  "${getDate(orderActions[index].date!).day} ${months[getDate(orderActions[index].date!).month]}, ${getDate(orderActions[index].date!).year}: ${getDate(orderActions[index].date!).hour}:${getDate(orderActions[index].date!).minute}",
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -185,10 +331,7 @@ class _DeliveryProcesses extends StatelessWidget {
               // if(processes[index].isHidden){
               //   return null;
               // }
-              if (processes[index].isHidden) {
-                return null;
-              } else if (processes[index].isCompleted) {
-                // return null;
+              if ("${orderActions[index].type}" == "PlacedOrder") {
                 return const DotIndicator(
                   color: Color(0xff66c97f),
                   child: Icon(
@@ -204,7 +347,9 @@ class _DeliveryProcesses extends StatelessWidget {
               }
             },
             connectorBuilder: (_, index, ___) => SolidLineConnector(
-              color: !processes[index].isCompleted ? Colors.blue : Colors.green,
+              color: "${orderActions[index].type}" == "PlacedOrder"
+                  ? Colors.blue
+                  : Colors.green,
             ),
           ),
         ),

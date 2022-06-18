@@ -4,19 +4,13 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:sms/src/screens/components/add_shop.dart';
 import 'package:sms/src/screens/home_page/AppCtx.dart';
-
-import '../auth/login/login.dart';
-import '../reviews/ui/add_review.dart';
-import '../reviews/ui/list_reviews.dart';
-
-// import '../order_page/order_page.dart';
-import '../order_page/received_orders.dart';
-import '../order_page/sent_orders.dart';
+import 'package:sms/src/screens/order_page/received_orders_page.dart';
+import 'package:sms/src/screens/order_page/sent_orders_page.dart';
+import 'package:sms/src/screens/reviews/ui/add_review.dart';
+import 'package:sms/src/screens/reviews/ui/list_reviews.dart';
 
 class DrawerPage extends StatelessWidget {
   const DrawerPage({Key? key}) : super(key: key);
-
-  // final AppController appController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +109,7 @@ class DrawerPage extends StatelessWidget {
                 title: const Text('Sent Orders'),
                 onTap: () {
                   // Navigator.pushNamed(context, "/add_item");
-                  Get.to(() => SentOrders());
+                  Get.to(() => SentOrdersPage());
                 },
                 leading: const Icon(
                   Icons.fiber_new,
