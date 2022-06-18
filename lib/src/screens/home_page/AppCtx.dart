@@ -51,9 +51,11 @@ class AppController extends GetxController {
 
   getShopId() async {
     hasShopId(await storage.read(key: 'shopId') != null);
-    if (hasShopId.isTrue) {}
+    if (hasShopId.isTrue) {
+      getMe();
+    }
     // userRole(await storage.read(key: 'role'));
-    getMe();
+
     // hasShopId(false);
     // userRole('SELLER');
     // userRole = 'SELLER';
