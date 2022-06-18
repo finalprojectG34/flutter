@@ -5,7 +5,6 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:sms/src/screens/components/add_shop.dart';
 import 'package:sms/src/screens/home_page/AppCtx.dart';
 
-import '../auth/login/login.dart';
 import '../order_page/received_orders.dart';
 import '../order_page/sent_orders.dart';
 
@@ -47,7 +46,8 @@ class DrawerPage extends StatelessWidget {
               ListTile(
                 title: const Text('Login'),
                 onTap: () {
-                  Get.to(() => Login());
+                  Get.back();
+                  ctx.selectedIndex.value = 4;
                 },
                 // selected: routes == Routes.home,
                 leading: const Icon(

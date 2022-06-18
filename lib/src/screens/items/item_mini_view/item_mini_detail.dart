@@ -131,7 +131,7 @@ class ItemMiniDetail extends StatelessWidget {
                           name: item.name,
                           shopId: item.shopId,
                           itemId: item.id,
-                          price: item.price,
+                          price: item.price?.sale.toString(),
                           amount: "1",
                         ));
                         // appController.changePage('Cart', 3);

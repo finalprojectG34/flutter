@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sms/src/app.dart';
 import 'package:sms/src/screens/components/category_item.dart';
 
 import '../../utils/Constants.dart';
@@ -18,29 +19,33 @@ class CategoryList extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           children: const [
             CategoryItem(
-              imagePath: Constants.foodImagePath,
-              title: "Food",
-            ),
+                category:
+                    Category(image: Constants.foodImagePath, name: "Food")),
             CategoryItem(
-              imagePath: Constants.candyImagePath,
-              title: "Candies",
-            ),
+                category: Category(
+              image: Constants.candyImagePath,
+              name: "Candies",
+            )),
             CategoryItem(
-              imagePath: Constants.watchImagePath,
-              title: "Watches",
-            ),
+                category: Category(
+              image: Constants.watchImagePath,
+              name: "Watches",
+            )),
             CategoryItem(
-              imagePath: Constants.sneakersImagePath,
-              title: "Sneakers",
-            ),
+                category: Category(
+              image: Constants.sneakersImagePath,
+              name: "Sneakers",
+            )),
             CategoryItem(
-              imagePath: Constants.cosmeticsImagePath,
-              title: "Beauty",
-            ),
+                category: Category(
+              image: Constants.cosmeticsImagePath,
+              name: "Beauty",
+            )),
             CategoryItem(
-              imagePath: Constants.sampleImagePath,
-              title: "Smartphones",
-            ),
+                category: Category(
+              image: Constants.sampleImagePath,
+              name: "Smartphones",
+            )),
           ],
         ),
         TextButton(

@@ -53,7 +53,7 @@ class ItemRepository {
                 "https://www.shutterstock.com/image-photo/young-student-watching-lesson-online-studying-1676998306",
             name: "Item $i",
             description: "Shop $i sells shoes",
-            price: "24\$",
+            price: Price(),
             shopId: "1");
       });
     });
