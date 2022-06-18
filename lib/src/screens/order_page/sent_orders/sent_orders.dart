@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../order_page_ctx.dart';
-import 'sent_order_detail.dart';
 import '../single_order.dart';
+import 'sent_order_detail.dart';
 
 class SentOrderStatus extends StatefulWidget {
   final String status;
+  final String tabName;
 
-  const SentOrderStatus({Key? key, required this.status}) : super(key: key);
+  const SentOrderStatus({Key? key, required this.status, required this.tabName})
+      : super(key: key);
 
   @override
   State<SentOrderStatus> createState() => _SentOrderStatusState();
 }
 
 class _SentOrderStatusState extends State<SentOrderStatus> {
-  OrderPageController orderPageController = Get.find();
-
   @override
   Widget build(BuildContext context) {
     return GetX<OrderPageController>(
@@ -27,20 +27,39 @@ class _SentOrderStatusState extends State<SentOrderStatus> {
           },
           child: ctx.isOrderLoading.isTrue
               ? const Center(child: CircularProgressIndicator())
-              : ListView(
-                  children: [
-                    if (ctx.isOrderLoading.isFalse)
-                      ...ctx.orderList!
-                          .map((order) => GestureDetector(
-                                onTap: () {
-                                  ctx.getOrderById(order.id!);
-                                  Get.to(() => SentOrderDetail(orderId: order.id!));
-                                },
-                                child: SingleOrder(order: order),
-                              ))
-                          .toList()
-                  ],
-                ),
+              : ctx.isOrderError.isTrue
+                  ? Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Error happened! Please,"),
+                          TextButton(
+                              onPressed: () {
+                                ctx.getReceivedOrders(widget.status);
+                              },
+                              child: Text("Retry"))
+                        ],
+                      ),
+                    )
+                  : ctx.orderList!.isEmpty
+                      ? Center(
+                          child: Text("No ${widget.tabName} orders yet."),
+                        )
+                      : ListView(
+                          children: [
+                            if (ctx.isOrderLoading.isFalse)
+                              ...ctx.orderList!
+                                  .map((order) => GestureDetector(
+                                        onTap: () {
+                                          ctx.getOrderById(order.id!);
+                                          Get.to(() => SentOrderDetail(
+                                              orderId: order.id!));
+                                        },
+                                        child: SingleOrder(order: order),
+                                      ))
+                                  .toList()
+                          ],
+                        ),
         );
       },
     );

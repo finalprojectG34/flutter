@@ -11,7 +11,6 @@ import '../add_item/add_item.dart';
 import '../auth/login/login.dart';
 import '../cart_page/cart_page.dart';
 import '../components/add_shop.dart';
-import '../order_page/sent_orders/sent_order_detail.dart';
 import 'AppCtx.dart';
 
 part 'app_components.dart';

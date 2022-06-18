@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sms/src/screens/order_page/order_page_ctx.dart';
 import 'package:sms/src/screens/order_page/received_orders/received_orders.dart';
-import 'package:sms/src/screens/order_page/sent_orders/sent_orders.dart';
 
 class ReceivedOrdersPage extends StatefulWidget {
   const ReceivedOrdersPage({Key? key}) : super(key: key);
@@ -58,11 +57,11 @@ class _ReceivedOrderPageState extends State<ReceivedOrdersPage>
         body: TabBarView(
           controller: _tabController,
           children: const [
-            ReceivedOrderStatus(status: "PENDING"),
-            ReceivedOrderStatus(status: "ACCEPTED"),
-            ReceivedOrderStatus(status: "CANCELED"),
-            ReceivedOrderStatus(status: "ON_DELIVERY"),
-            ReceivedOrderStatus(status: "DELIVERED"),
+            ReceivedOrderStatus(status: "PENDING", tabName: "pending"),
+            ReceivedOrderStatus(status: "ACCEPTED", tabName: "accepted"),
+            ReceivedOrderStatus(status: "CANCELED", tabName: "canceled"),
+            ReceivedOrderStatus(status: "ON_DELIVERY", tabName: "on delivery"),
+            ReceivedOrderStatus(status: "DELIVERED", tabName: "delivered"),
           ],
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sms/src/models/order.dart';
@@ -31,7 +32,19 @@ class _SentOrderDetailState extends State<SentOrderDetail> {
           return ctx.isOrderLoading.isTrue
               ? const Center(child: CircularProgressIndicator())
               : ctx.isOrderError.isTrue
-                  ? Text("${ctx.orderErrorText}")
+                  ? Center(
+                      child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("${ctx.orderErrorText}"),
+                        TextButton(
+                          onPressed: () {
+                            ctx.getOrderById(widget.orderId);
+                          },
+                          child: Text("Retry!"),
+                        ),
+                      ],
+                    ))
                   : ListView.builder(
                       itemBuilder: (context, index) {
                         final data = _data(index + 1);
@@ -47,7 +60,13 @@ class _SentOrderDetailState extends State<SentOrderDetail> {
                                 ),
                                 SimpleOrderDetail(order: ctx.order.value),
                                 const Divider(height: 1.0),
-                                _DeliveryProcesses(
+                                if (ctx.order.value.status == "ON_DELIVERY")
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 15),
+                                    child: ReceiveOrder(ctx),
+                                  ),
+                                const Divider(height: 1.0),
+                                DeliveryProcesses(
                                   orderActions: ctx.order.value.orderActions!,
                                 ),
                                 const Divider(height: 1.0),
@@ -109,6 +128,36 @@ class _SentOrderDetailState extends State<SentOrderDetail> {
               Text("${order.orderItems?.length}")
             ],
           ),
+        ],
+      ),
+    );
+  }
+
+  ReceiveOrder(OrderPageController ctx) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        children: [
+          Expanded(
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.blue,
+              ),
+              onPressed: () async {
+                ctx.updateOrderStatus(
+                  ctx.order.value.id!,
+                  "ReceivedByUser",
+                );
+              },
+              child: const Text(
+                "Order Received",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );
@@ -193,8 +242,8 @@ class _InnerTimeline extends StatelessWidget {
   }
 }
 
-class _DeliveryProcesses extends StatelessWidget {
-  const _DeliveryProcesses({Key? key, required this.orderActions})
+class DeliveryProcesses extends StatelessWidget {
+  const DeliveryProcesses({Key? key, required this.orderActions})
       : super(key: key);
 
   final List<OrderAction> orderActions;

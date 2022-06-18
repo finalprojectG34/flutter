@@ -53,7 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               padding: EdgeInsets.all(2),
                               decoration: BoxDecoration(
                                 border:
-                                Border.all(color: Colors.white, width: 4),
+                                    Border.all(color: Colors.white, width: 4),
                                 borderRadius: BorderRadius.circular(100),
                               ),
                               child: CircleAvatar(

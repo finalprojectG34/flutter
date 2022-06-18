@@ -11,7 +11,8 @@ class SentOrdersPage extends StatefulWidget {
   State<SentOrdersPage> createState() => _SentOrdersPageState();
 }
 
-class _SentOrdersPageState extends State<SentOrdersPage> with TickerProviderStateMixin {
+class _SentOrdersPageState extends State<SentOrdersPage>
+    with TickerProviderStateMixin {
   late TabController _tabController;
   List<String> aa = [
     'PENDING',
@@ -57,11 +58,11 @@ class _SentOrdersPageState extends State<SentOrdersPage> with TickerProviderStat
         body: TabBarView(
           controller: _tabController,
           children: const [
-            SentOrderStatus(status: "PENDING"),
-            SentOrderStatus(status: "ACCEPTED"),
-            SentOrderStatus(status: "CANCELED"),
-            SentOrderStatus(status: "ON_DELIVERY"),
-            SentOrderStatus(status: "DELIVERED"),
+            SentOrderStatus(status: "PENDING", tabName: "pending"),
+            SentOrderStatus(status: "ACCEPTED", tabName: "accepted"),
+            SentOrderStatus(status: "CANCELED", tabName: "canceled"),
+            SentOrderStatus(status: "ON_DELIVERY", tabName: "on delivery"),
+            SentOrderStatus(status: "DELIVERED", tabName: "delivered"),
           ],
         ),
       ),

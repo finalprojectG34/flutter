@@ -12,6 +12,8 @@ class Order {
     this.deliveryAddress,
     this.createdAt,
     this.orderActions,
+    this.deliveryId,
+    this.sellerActions,
   });
 
   final String? id;
@@ -22,15 +24,19 @@ class Order {
   final List<OrderAction>? orderActions;
   final String? subTotal;
   final String? actions;
+  final List<OrderAction>? sellerActions;
   final String? createdAt;
+  final String? deliveryId;
   final Address? deliveryAddress;
 
   factory Order.fromJson(Map<String, dynamic> json) {
+    print(json);
     Order item = Order(
       id: json['id'],
       status: json['status'],
       userId: json['userId'],
       shopId: json['shopId'],
+      deliveryId: (json['deliveryId'] != null) ? json['deliveryId'] : "",
       orderItems: (json['orderItems'] != null)
           ? (json['orderItems'] as List)
               .map((e) => OrderItem.fromJson(e))
@@ -38,6 +44,11 @@ class Order {
           : [],
       orderActions: (json['actions'] != null)
           ? (json['actions'] as List)
+              .map((e) => OrderAction.fromJson(e))
+              .toList()
+          : [],
+      sellerActions: (json['sellerActions'] != null)
+          ? (json['sellerActions'] as List)
               .map((e) => OrderAction.fromJson(e))
               .toList()
           : [],

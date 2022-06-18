@@ -8,6 +8,8 @@ class ShopsListController extends GetxController {
   var shopsList = Rx<List<Shop>?>(null);
   final ShopRepository shopRepository;
 
+  Rx<Shop> shop = const Shop().obs;
+
   ShopsListController({required this.shopRepository});
 
   Future<List<Shop>?> getShops(int pageIndex, int pageSize) async {
@@ -24,5 +26,30 @@ class ShopsListController extends GetxController {
       isLoading(false);
     }
     return null;
+  }
+
+  getShopByRole(String role) async {
+    isLoading(true);
+    try {
+      final shops = await shopRepository.getShopByRole(role);
+      shopsList(shops);
+    } catch (e) {
+      print(e);
+      errorOccurred(true);
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  getShopById(String shopId) async {
+    isLoading(true);
+    try {
+      Shop newShop = await shopRepository.getShopById(shopId);
+      shop(newShop);
+    } catch (e) {
+      print(e);
+      errorOccurred(true);
+    }
+    isLoading(false);
   }
 }

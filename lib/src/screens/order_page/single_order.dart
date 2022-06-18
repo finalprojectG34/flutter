@@ -28,6 +28,7 @@ class SingleOrder extends StatelessWidget {
     DateTime getDate(String date) {
       return DateTime.parse(date);
     }
+
     return Container(
       margin: EdgeInsets.all(16),
       padding: EdgeInsets.all(10),
