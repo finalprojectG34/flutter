@@ -34,13 +34,13 @@ class ChangePasswordController extends GetxController {
       err(e.message);
       EasyLoading.showError(e.message!,
           maskType: EasyLoadingMaskType.black,
-          duration: const Duration(seconds: 3));
+          duration: const Duration(seconds: 2));
     } catch (e) {
       passwordError(true);
       // err('Connection error');
-      EasyLoading.showError('Connection error',
+      EasyLoading.showError(e.toString(),
           maskType: EasyLoadingMaskType.black,
-          duration: const Duration(seconds: 3));
+          duration: const Duration(seconds: 2));
     }
     isChangePasswordLoading(false);
   }

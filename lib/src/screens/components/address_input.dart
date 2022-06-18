@@ -3,34 +3,47 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 class AddressInput extends StatefulWidget {
-  const AddressInput({Key? key, required this.address1, required this.address2})
+  const AddressInput(
+      {Key? key,
+      required this.city,
+      required this.subCity,
+      required this.country,
+      required this.streetName})
       : super(key: key);
-  final String address1;
-  final String address2;
+  final String city;
+  final String subCity;
+  final String country;
+  final String streetName;
 
   @override
   State<AddressInput> createState() => _AddressInputState();
 }
 
 class _AddressInputState extends State<AddressInput> {
-  final TextEditingController address1Controller = TextEditingController();
-  final TextEditingController address2Controller = TextEditingController();
+  final TextEditingController cityController = TextEditingController();
+  final TextEditingController subCityController = TextEditingController();
+  final TextEditingController countryController = TextEditingController();
+  final TextEditingController streetAddressController = TextEditingController();
   FocusNode address1FocusNode = FocusNode();
-  String address1 = '';
-  String address2 = '';
+  String city = '';
+  String subCity = '';
+  String country = '';
+  String streetName = '';
 
   @override
   void initState() {
     super.initState();
     address1FocusNode.addListener(onAddress1FocusChange);
-    address1Controller.text = widget.address1;
-    address2Controller.text = widget.address2;
+    cityController.text = widget.city;
+    subCityController.text = widget.subCity;
+    countryController.text = widget.country;
+    streetAddressController.text = widget.streetName;
   }
 
   void onAddress1FocusChange() {
     if (!address1FocusNode.hasFocus) {
       setState(() {
-        address1Controller.text = address1;
+        cityController.text = city;
       });
     }
   }
@@ -38,8 +51,10 @@ class _AddressInputState extends State<AddressInput> {
   @override
   Widget build(BuildContext context) {
     // address1Controller.text = address1;
-    address1Controller.value.copyWith(text: address1);
-    address2Controller.value.copyWith(text: address2);
+    cityController.value.copyWith(text: city);
+    subCityController.value.copyWith(text: subCity);
+    countryController.value.copyWith(text: country);
+    streetAddressController.value.copyWith(text: streetName);
     // address2Controller.text = widget.address2;
 
     return Column(
@@ -47,6 +62,42 @@ class _AddressInputState extends State<AddressInput> {
       children: [
         SizedBox(
           height: 10,
+        ),
+        const Text(
+          'Enter the country you live in',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        TextField(
+          readOnly: true,
+          keyboardType: TextInputType.text,
+          controller: cityController,
+          // focusNode: address1FocusNode,
+          decoration: const InputDecoration(
+            // enabledBorder: OutlineInputBorder(
+            //   borderSide: BorderSide(color: Colors.blue, width: 0.5),
+            // ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.blue, width: 0.75),
+            ),
+            labelText: 'Country of living',
+            labelStyle: TextStyle(
+              fontSize: 16,
+              color: Colors.blue,
+            ),
+            contentPadding: EdgeInsets.only(left: 20, bottom: 20),
+          ),
+          onChanged: (value) {
+            country = value;
+          },
+          onEditingComplete: () {
+            FocusScope.of(context).unfocus();
+          },
+        ),
+        const SizedBox(
+          height: 20,
         ),
         const Text(
           'Enter the city you live in',
@@ -57,16 +108,15 @@ class _AddressInputState extends State<AddressInput> {
         ),
         TextField(
           keyboardType: TextInputType.text,
-          controller: address1Controller,
-          focusNode: address1FocusNode,
+          controller: cityController,
           decoration: const InputDecoration(
             // enabledBorder: OutlineInputBorder(
-            //   borderSide: BorderSide(color: Colors.blue, width: 0.5),
+            //   borderSide: BorderSide(color: Colors.green, width: 0.5),
             // ),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.blue, width: 0.75),
             ),
-            labelText: 'Area of living',
+            labelText: 'City of living',
             labelStyle: TextStyle(
               fontSize: 16,
               color: Colors.blue,
@@ -74,7 +124,7 @@ class _AddressInputState extends State<AddressInput> {
             contentPadding: EdgeInsets.only(left: 20, bottom: 20),
           ),
           onChanged: (value) {
-            address1 = value;
+            city = value;
           },
           onEditingComplete: () {
             FocusScope.of(context).unfocus();
@@ -92,7 +142,7 @@ class _AddressInputState extends State<AddressInput> {
         ),
         TextField(
           keyboardType: TextInputType.text,
-          controller: address2Controller,
+          controller: subCityController,
           decoration: const InputDecoration(
             // enabledBorder: OutlineInputBorder(
             //   borderSide: BorderSide(color: Colors.green, width: 0.5),
@@ -100,7 +150,7 @@ class _AddressInputState extends State<AddressInput> {
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.blue, width: 0.75),
             ),
-            labelText: 'Sub-City',
+            labelText: 'Sub-City of living',
             labelStyle: TextStyle(
               fontSize: 16,
               color: Colors.blue,
@@ -108,7 +158,41 @@ class _AddressInputState extends State<AddressInput> {
             contentPadding: EdgeInsets.only(left: 20, bottom: 20),
           ),
           onChanged: (value) {
-            address2 = value;
+            subCity = value;
+          },
+          onEditingComplete: () {
+            FocusScope.of(context).unfocus();
+          },
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        const Text(
+          'Enter the street name you live around',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        TextField(
+          keyboardType: TextInputType.text,
+          controller: streetAddressController,
+          decoration: const InputDecoration(
+            // enabledBorder: OutlineInputBorder(
+            //   borderSide: BorderSide(color: Colors.green, width: 0.5),
+            // ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.blue, width: 0.75),
+            ),
+            labelText: 'Street name',
+            labelStyle: TextStyle(
+              fontSize: 16,
+              color: Colors.blue,
+            ),
+            contentPadding: EdgeInsets.only(left: 20, bottom: 20),
+          ),
+          onChanged: (value) {
+            streetName = value;
           },
           onEditingComplete: () {
             FocusScope.of(context).unfocus();
@@ -126,7 +210,7 @@ class _AddressInputState extends State<AddressInput> {
           ),
           onPressed: () async {},
           child: Text(
-            '${widget.address1 == '' ? 'Add' : 'Update'}  location',
+            '${widget.city == '' ? 'Add' : 'Update'}  location',
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,

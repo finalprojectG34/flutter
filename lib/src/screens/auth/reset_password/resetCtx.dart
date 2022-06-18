@@ -52,7 +52,7 @@ class ResetController extends GetxController {
       EasyLoading.dismiss();
       EasyLoading.showError(e.toString(),
           maskType: EasyLoadingMaskType.black,
-          duration: const Duration(seconds: 5));
+          duration: const Duration(seconds: 2));
     } finally {}
   }
 
@@ -92,7 +92,9 @@ class ResetController extends GetxController {
         //   Get.back();
       }
     }).catchError((e) {
-      EasyLoading.showError(e, maskType: EasyLoadingMaskType.black);
+      EasyLoading.showError(e,
+          maskType: EasyLoadingMaskType.black,
+          duration: const Duration(seconds: 2));
       Get.back();
     });
   }
@@ -122,14 +124,14 @@ class ResetController extends GetxController {
       } else {
         EasyLoading.showError('Some error occurred. Please try again',
             maskType: EasyLoadingMaskType.black,
-            duration: const Duration(seconds: 3));
+            duration: const Duration(seconds: 2));
         Get.offAllNamed('/');
         // appController.changePage('Account', 3);
       }
     } catch (e) {
       EasyLoading.showError('Some error occurred. Please try again',
           maskType: EasyLoadingMaskType.black,
-          duration: const Duration(seconds: 3));
+          duration: const Duration(seconds: 2));
       Get.back();
     }
   }

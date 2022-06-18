@@ -59,7 +59,7 @@ class SignUpController extends GetxController {
       // EasyLoading.dismiss();
       EasyLoading.showError(e.toString(),
           maskType: EasyLoadingMaskType.black,
-          duration: const Duration(seconds: 3));
+          duration: const Duration(seconds: 2));
     } finally {}
   }
 
@@ -122,13 +122,13 @@ class SignUpController extends GetxController {
       EasyLoading.showError(e.message!,
           dismissOnTap: true,
           maskType: EasyLoadingMaskType.black,
-          duration: const Duration(seconds: 3));
+          duration: const Duration(seconds: 2));
     } catch (e) {
       print("error  $e  ------------------------------------");
       EasyLoading.showError('Some error occurred. Please try again',
           dismissOnTap: true,
           maskType: EasyLoadingMaskType.black,
-          duration: const Duration(seconds: 3));
+          duration: const Duration(seconds: 2));
       Get.back();
     }
   }

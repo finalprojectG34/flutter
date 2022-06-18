@@ -71,7 +71,12 @@ class AddAddress extends StatelessWidget {
                             padding: EdgeInsets.only(
                                 bottom:
                                     MediaQuery.of(context).viewInsets.bottom),
-                            child: AddressInput(address1: '', address2: ''))),
+                            child: AddressInput(
+                              city: '',
+                              subCity: '',
+                              country: 'Ethiopia',
+                              streetName: '',
+                            ))),
                   ),
                 );
               },

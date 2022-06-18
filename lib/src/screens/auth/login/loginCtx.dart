@@ -38,7 +38,7 @@ class LoginController extends GetxController {
         EasyLoading.showError('Incorrect username or password',
             dismissOnTap: true,
             maskType: EasyLoadingMaskType.black,
-            duration: const Duration(seconds: 3));
+            duration: const Duration(seconds: 2));
         // Get.back();
       } else {
         await storage.write(key: 'token', value: signedInUser?.token);
@@ -65,13 +65,13 @@ class LoginController extends GetxController {
       EasyLoading.showError(e.message!,
           dismissOnTap: true,
           maskType: EasyLoadingMaskType.black,
-          duration: const Duration(seconds: 3));
+          duration: const Duration(seconds: 2));
     } catch (e) {
       logTrace("error", e.toString());
       EasyLoading.showError(e.toString(),
           dismissOnTap: true,
           maskType: EasyLoadingMaskType.black,
-          duration: const Duration(seconds: 3));
+          duration: const Duration(seconds: 2));
       // Get.back();
     }
   }

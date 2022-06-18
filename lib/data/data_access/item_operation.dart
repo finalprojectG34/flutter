@@ -137,7 +137,7 @@ class ItemOperation {
         }
         // if (response.exception!.graphqlErrors[0].message ==
         //     'info or password wrong') {
-        throw Exception("Error Happened");
+        // throw Exception("Error Happened");
       }
       throw Exception("Error Happened");
     }
