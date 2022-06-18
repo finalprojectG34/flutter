@@ -1,24 +1,24 @@
 import 'package:get/get.dart';
 import 'package:sms/src/app.dart';
 
-import '../../../data/repository/item_repository.dart';
+import '../../../data/repository/category_repository.dart';
 
-class ItemListController extends GetxController {
+class CategoryListController extends GetxController {
   var isLoading = false.obs;
   var errorOccurred = false.obs;
-  var itemList = Rx<List<Item>?>(null);
-  final ItemRepository itemRepository;
+  var categoryList = Rx<List<Category>?>(null);
+  final CategoryRepository categoryRepository;
 
-  ItemListController({required this.itemRepository});
+  CategoryListController({required this.categoryRepository});
 
-  Future<List<Item>?> getItems(int pageIndex, int pageSize) async {
+  Future<List<Category>?> getCategory(int pageIndex, int pageSize) async {
     if (pageIndex < 1) {
       isLoading(true);
     }
     try {
-      final items = await itemRepository.getFlashSaleItems(pageSize, pageIndex);
-      itemList.value = items;
-      return items;
+      final categories = await categoryRepository.getCategory();
+      categoryList.value = categories;
+      return categories;
     } catch (e) {
       errorOccurred(true);
     } finally {

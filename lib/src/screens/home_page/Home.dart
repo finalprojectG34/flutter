@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sms/data/repository/shop_repository.dart';
-import 'package:sms/src/screens/components/category_list.dart';
+import 'package:sms/src/screens/category_page/category_list.dart';
 import 'package:sms/src/screens/components/suggested_items.dart';
 import 'package:sms/src/screens/search_item/search_item_list.dart';
 import 'package:sms/src/screens/shops_list/shops_list.dart';
