@@ -14,6 +14,7 @@ class SearchController extends GetxController {
   RxBool isLoading = false.obs;
   RxMap<String, dynamic>? mockSearchItem = <String, dynamic>{}.obs;
   final items = Rx<List<Item>?>(null);
+
   // getMockSearchItems() async {
   //   isLoading(true);
   //   Map<String, dynamic> result = await itemOperation.getMockSearchItems();

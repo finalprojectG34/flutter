@@ -16,11 +16,13 @@ class ItemSearchFilter {
 class FilterAttributes {
   String? name;
   List<String>? values;
+
   FilterAttributes({this.name, this.values});
 }
 
 class ReqPagInfo {
   int pageNo;
   int limit;
+
   ReqPagInfo({this.pageNo = 1, this.limit = 20});
 }

@@ -18,6 +18,7 @@ class _SearchBarState extends State<SearchBar> {
   // SearchController searchController = Get.find();
   TextEditingController searchTextEditingController = TextEditingController();
   String searchItemName = "";
+
   // @override
   // initState() {
   //

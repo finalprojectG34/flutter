@@ -7,9 +7,11 @@ import '../../../helper/constance.dart';
 class Filter extends StatefulWidget {
   final ItemSearchFilter itemSearchFilter;
   final Function(ItemSearchFilter itemSearchFilter) onFilter;
+
   const Filter(
       {Key? key, required this.itemSearchFilter, required this.onFilter})
       : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return FilterState();

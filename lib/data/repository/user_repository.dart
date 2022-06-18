@@ -170,7 +170,7 @@ class UserRepository {
     }
 
     if (response.data!['login']['user'] != null) {
-      logTrace("new key",response);
+      logTrace("new key", response);
       return User.fromJson(response.data!['login']['user'],
           token: response.data!['login']['token']);
     }

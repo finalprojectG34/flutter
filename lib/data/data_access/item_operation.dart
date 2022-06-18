@@ -366,15 +366,15 @@ class ItemOperation {
 
   Future<User> getMe() async {
     String queryGetMe = r'''
-     query GetMe {
-        getMe {
-          id
-          role
-          image {
-            imageCover
+       query GetMe {
+          getMe {
+            id
+            role
+            image {
+              imageCover
+            }
           }
-        }
-    }
+      }
       ''';
 
     final response = await gqlClient.query(

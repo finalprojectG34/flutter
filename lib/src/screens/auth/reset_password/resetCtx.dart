@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 import '../../../../data/repository/user_repository.dart';
 import '../../../models/user.dart' as userX;
-import '../../home_page/AppCtx.dart';
 import '../../profile_page/reset_password.dart';
 import '../verification/code_verification.dart';
 

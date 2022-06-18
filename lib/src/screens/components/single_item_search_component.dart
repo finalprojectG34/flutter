@@ -8,6 +8,7 @@ import 'package:sms/src/screens/home_page/item_detail/item_detail.dart';
 class SingleItemSearch extends StatelessWidget {
   final variable;
   final Item item;
+
   const SingleItemSearch({Key? key, this.variable, required this.item})
       : super(key: key);
 

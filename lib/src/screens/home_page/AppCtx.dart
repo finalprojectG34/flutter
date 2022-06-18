@@ -137,6 +137,7 @@ class AppController extends GetxController {
       getItemError(true);
       err(e.message);
     } catch (e) {
+      print(e);
       getItemError(true);
       err('Connection error');
     }

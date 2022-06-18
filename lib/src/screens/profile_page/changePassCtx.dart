@@ -5,7 +5,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:sms/data/repository/item_repository.dart';
 import 'package:sms/src/screens/home_page/AppCtx.dart';
-import 'package:sms/src/utils/loger/console_loger.dart';
 
 class ChangePasswordController extends GetxController {
   final ItemRepository itemRepository;

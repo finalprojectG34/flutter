@@ -115,6 +115,7 @@ class Attribute {
 class CurrentData {
   final String? value;
   final String? count;
+
   CurrentData({this.value, this.count});
 
   factory CurrentData.fromJson(Map<String, dynamic> json) {
