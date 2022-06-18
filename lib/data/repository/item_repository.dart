@@ -29,8 +29,14 @@ class ItemRepository {
     return itemOperation.addItem(variable);
   }
 
-  Future<Shop> addShop(variable) async {
-    return itemOperation.addShop(variable);
+  Future<Shop> addShop({name, description, subCity, city, imageCover}) async {
+    return itemOperation.addShop(
+      name: name,
+      description: description,
+      subCity: subCity,
+      city: city,
+      imageCover: imageCover,
+    );
   }
 
   Future<User> getMe() async {
@@ -55,7 +61,7 @@ class ItemRepository {
                 "https://www.shutterstock.com/image-photo/young-student-watching-lesson-online-studying-1676998306",
             name: "Item $i",
             description: "Shop $i sells shoes",
-            price: "24\$",
+            price: Price(),
             shopId: "1");
       });
     });

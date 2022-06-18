@@ -139,6 +139,7 @@ class UserRepository {
       MutationOptions(
         document: gql(signInMutation),
         variables: variables,
+        fetchPolicy: FetchPolicy.noCache,
       ),
     )
         .timeout(const Duration(seconds: 30), onTimeout: () {
@@ -146,6 +147,7 @@ class UserRepository {
     });
 
     if (response.hasException) {
+      logTrace("response exception", response.exception);
       for (var element in response.exception!.graphqlErrors) {
         if (element.message == 'info or password wrong') {
           throw Exception("Username or Password Incorrect");
@@ -158,6 +160,7 @@ class UserRepository {
     }
 
     if (response.data!['login']['user'] != null) {
+      logTrace("new key",response);
       return User.fromJson(response.data!['login']['user'],
           token: response.data!['login']['token']);
     }

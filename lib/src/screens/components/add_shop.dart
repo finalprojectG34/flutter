@@ -470,17 +470,13 @@ class _AddShopState extends State<AddShop> {
                       maskType: EasyLoadingMaskType.black,
                     );
 
-                    addItemController.addShop({
-                      "input": {
-                        "name": shopName,
-                        "description": description,
-                        "address": {
-                          "city": selectedArea,
-                          "subCity": selectedSubCity
-                        },
-                        "image": {"imageCover": ''}
-                      }
-                    }, _image!);
+                    addItemController.addShop(
+                      name: shopName,
+                      description: description,
+                      city: selectedArea,
+                      subCity: selectedSubCity,
+                      file: _image!,
+                    );
                     // FocusScope.of(context).unfocus();
                     // EasyLoading.instance.loadingStyle =
                     //     EasyLoadingStyle.light;

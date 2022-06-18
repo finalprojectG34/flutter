@@ -6,6 +6,10 @@ import 'package:sms/src/screens/components/add_shop.dart';
 import 'package:sms/src/screens/home_page/AppCtx.dart';
 
 import '../auth/login/login.dart';
+import '../reviews/ui/add_review.dart';
+import '../reviews/ui/list_reviews.dart';
+
+// import '../order_page/order_page.dart';
 import '../order_page/received_orders.dart';
 import '../order_page/sent_orders.dart';
 
@@ -47,7 +51,8 @@ class DrawerPage extends StatelessWidget {
               ListTile(
                 title: const Text('Login'),
                 onTap: () {
-                  Get.to(() => Login());
+                  Get.back();
+                  ctx.selectedIndex.value = 4;
                 },
                 // selected: routes == Routes.home,
                 leading: const Icon(
@@ -118,6 +123,29 @@ class DrawerPage extends StatelessWidget {
                 ),
                 // selected: routes == Routes.newProducts,
               ),
+            ListTile(
+              title: const Text('Review'),
+              onTap: () {
+                // Navigator.pushNamed(context, "/add_item");
+                Get.to(() => AddReview());
+              },
+              leading: const Icon(
+                Icons.fiber_new,
+                color: Color(0xFF0D90EE),
+              ),
+              // selected: routes == Routes.newProducts,
+            ),ListTile(
+              title: const Text('List Of Reviews'),
+              onTap: () {
+                // Navigator.pushNamed(context, "/add_item");
+                Get.to(() => ListReviews());
+              },
+              leading: const Icon(
+                Icons.fiber_new,
+                color: Color(0xFF0D90EE),
+              ),
+              // selected: routes == Routes.newProducts,
+            ),
             if (ctx.isAuthenticated.isTrue)
               const Divider(
                 height: 1.0,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:sms/src/utils/loger/console_loger.dart';
 
 import '../../../packages/validators.dart';
 import '../reset_password/reset_password.dart';
@@ -127,6 +128,7 @@ class Login extends StatelessWidget {
                         ),
                         onPressed: () async {
                           if (formState.currentState!.validate()) {
+
                             FocusScope.of(context).unfocus();
 
                             EasyLoading.instance.loadingStyle =
@@ -135,6 +137,8 @@ class Login extends StatelessWidget {
                               status: 'Please wait',
                               maskType: EasyLoadingMaskType.black,
                             );
+
+                            logTrace("loginValue", phoneCtrl.text.toString());
                             // ctx.sendOtp("+251" + phoneCtrl.text.toString());
                             loginController.signInUser({
                               "input": {
@@ -155,6 +159,7 @@ class Login extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
+
                     // Row(
                     //   children: [
                     //     const Expanded(
@@ -265,6 +270,7 @@ class Login extends StatelessWidget {
                     // const SizedBox(
                     //   height: 10,
                     // ),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

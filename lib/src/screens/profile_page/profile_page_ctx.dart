@@ -55,7 +55,7 @@ class ProfilePageController extends GetxController {
 
       await setUserAddress(temp);
       getUserAddress();
-    } catch (e) {
+    }catch (e) {
       errOccurred(true);
       errorText("Please try again!");
     }

@@ -9,7 +9,6 @@ import 'package:get/get.dart';
 import 'package:sms/data/data_access/item_operation.dart';
 import 'package:sms/src/models/models.dart';
 import 'package:sms/src/screens/home_page/AppCtx.dart';
-import 'package:sms/src/utils/loger/console_loger.dart';
 
 import '../../../data/repository/item_repository.dart';
 import '../../models/shop.dart';
@@ -98,14 +97,20 @@ class AddItemController extends GetxController {
     itemId(item.id);
   }
 
-  addShop(variable, File file) async {
+  addShop({name, description, subCity, city, required File file}) async {
     isShopLoading(true);
-    logTrace('var', variable);
+    // logTrace('var', variable);
     var imagePath = await imageUpload(file);
     if (imagePath != null) {
-      variable['input']["image"]['imageCover'] = imagePath;
+      // variable['input']["image"]['imageCover'] = imagePath;
       try {
-        Shop shop = await itemRepository.addShop(variable);
+        Shop shop = await itemRepository.addShop(
+          name: name,
+          description: description,
+          subCity: subCity,
+          city: city,
+          imageCover: imagePath,
+        );
         if (shop != null) {
           // await .
           await storage.write(key: 'shopId', value: shop.id);

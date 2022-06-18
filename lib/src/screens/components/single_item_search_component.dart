@@ -2,12 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:sms/src/app.dart';
 import 'package:sms/src/screens/home_page/item_detail/item_detail.dart';
 
 class SingleItemSearch extends StatelessWidget {
   final variable;
-
-  const SingleItemSearch({Key? key, this.variable}) : super(key: key);
+  final Item item;
+  const SingleItemSearch({Key? key, this.variable, required this.item})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class SingleItemSearch extends StatelessWidget {
             children: [
               Expanded(
                 flex: 3,
-                child: Image.network(variable['poster']),
+                child: Image.network("${item.poster}"),
               ),
               SizedBox(
                 width: 20,
@@ -34,7 +36,7 @@ class SingleItemSearch extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      variable['name'],
+                      "${item.name}",
                       style: TextStyle(fontSize: 16),
                     ),
                     SizedBox(
@@ -46,7 +48,8 @@ class SingleItemSearch extends StatelessWidget {
                           color: Colors.green.shade300,
                           borderRadius: BorderRadius.all(Radius.circular(5))),
                       child: Text(
-                        variable['attrs'][0]['val'],
+                        // variable['attrs'][0]['val'],
+                        "${item.attrs != null && item.attrs!.isNotEmpty ? item.attrs?.elementAt(0).val : ""}",
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
@@ -55,28 +58,27 @@ class SingleItemSearch extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        if (variable['price']['discountPrice'] != null)
+                        if (item.price?.discountPrice != null) ...[
                           Text(
                             variable['price']['discountPrice'].toString(),
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
-                        if (variable['price']['discountPrice'] != null)
                           SizedBox(
                             width: 20,
                           ),
+                        ],
                         Text(
-                          variable['price']['sale'].toString(),
+                          "${item.price?.sale.toString()}",
                           style: TextStyle(
                               fontSize: 18,
-                              color: variable['price']['discountPrice'] != null
+                              color: item.price?.discountPrice != null
                                   ? Colors.grey
                                   : null,
                               fontWeight: FontWeight.bold,
-                              decoration:
-                                  variable['price']['discountPrice'] != null
-                                      ? TextDecoration.lineThrough
-                                      : null),
+                              decoration: item.price?.discountPrice != null
+                                  ? TextDecoration.lineThrough
+                                  : null),
                         ),
                       ],
                     )

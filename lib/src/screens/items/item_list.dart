@@ -65,7 +65,7 @@ class _ItemListState extends State<ItemList> {
                 );
               }
               return PagedGridView<int, Item>(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     childAspectRatio: .65,
                     crossAxisSpacing: 5,

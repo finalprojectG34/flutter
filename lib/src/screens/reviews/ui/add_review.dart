@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:sms/src/screens/reviews/review_ctx.dart';
+
+import '../model.review.dart';
 
 class AddReview extends StatefulWidget {
   const AddReview({Key? key}) : super(key: key);
@@ -12,6 +15,8 @@ class AddReview extends StatefulWidget {
 
 class _AddReviewState extends State<AddReview> {
   double userRating = 0;
+  String body = '';
+  ReviewController reviewController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -55,12 +60,14 @@ class _AddReviewState extends State<AddReview> {
           SizedBox(
             height: 10,
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.only(bottom: 15),
+            //-----------------------  Text Field -----------------------
             child: TextField(
               maxLines: 20,
               minLines: 5,
-              decoration: InputDecoration(
+              onChanged: (input) => body = input,
+              decoration: const InputDecoration(
                 labelText: 'Your review (Optional)',
                 labelStyle: TextStyle(
                   fontSize: 16,
@@ -81,6 +88,8 @@ class _AddReviewState extends State<AddReview> {
               ),
             ),
           ),
+
+          // -----------------       Review Button ---------------------
           ElevatedButton(
             style: ButtonStyle(
               shadowColor: MaterialStateProperty.all(Colors.lightBlueAccent),
@@ -89,7 +98,17 @@ class _AddReviewState extends State<AddReview> {
                   MaterialStateProperty.all(const Color(0xff40BFFF)),
               fixedSize: MaterialStateProperty.all(Size(Get.width, 54)),
             ),
-            onPressed: () async {},
+            onPressed: () async {
+              reviewController.createReview(
+                Review(
+                  rating: userRating,
+                  body: body,
+                  onModel: OnModel.ITEM,
+                  modelId: "62a4d8c5eab9ffc41e17a380",
+                ),
+              );
+              // reviewController.createReview({body, userRating});
+            },
             child: const Text(
               'Review',
               style: TextStyle(

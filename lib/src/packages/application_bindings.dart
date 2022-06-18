@@ -1,10 +1,14 @@
 import 'package:get/get.dart';
 import 'package:sms/data/data_access/item_operation.dart';
+import 'package:sms/data/repository/category_repository.dart';
+import 'package:sms/data/repository/category_repository.dart';
 import 'package:sms/data/repository/item_repository.dart';
 import 'package:sms/data/repository/shop_repository.dart';
 import 'package:sms/data/repository/user_repository.dart';
 import 'package:sms/src/packages/shared_preferences.dart';
 import 'package:sms/src/screens/auth/reset_password/resetCtx.dart';
+import 'package:sms/src/screens/category_page/categories_list_ctx.dart';
+import 'package:sms/src/screens/category_page/categories_list_ctx.dart';
 import 'package:sms/src/screens/shops_list/shops_list_ctx.dart';
 
 import '../../data/repository/cart_repository.dart';
@@ -19,6 +23,8 @@ import '../screens/order_page/order_page_ctx.dart';
 import '../screens/profile_page/changePassCtx.dart';
 import '../screens/profile_page/profile_page_ctx.dart';
 import '../screens/profile_page/update_profile_ctx.dart';
+import '../screens/reviews/repository.review.dart';
+import '../screens/reviews/review_ctx.dart';
 import '../screens/search_item/search_item_ctx.dart';
 import 'graphql_client.dart';
 
@@ -40,8 +46,15 @@ class ApplicationBindings implements Bindings {
     gqlClient: Client().connect,
   );
 
+  final ReviewRepository _reviewRepository = ReviewRepository(
+    gqlClient: Client().connect,
+  );
+
   final ShopRepository _shopRepository =
       ShopRepository(gqlClient: Client().connect);
+
+  final CategoryRepository _categoryRepository =
+      CategoryRepository(gqlClient: Client().connect);
 
   @override
   void dependencies() {
@@ -49,6 +62,10 @@ class ApplicationBindings implements Bindings {
 
     Get.lazyPut(
       () => LoginController(userRepository: _userRepository),
+      fenix: true,
+    );
+    Get.lazyPut(
+      () => CategoryListController(categoryRepository: _categoryRepository),
       fenix: true,
     );
     Get.lazyPut(
@@ -102,6 +119,11 @@ class ApplicationBindings implements Bindings {
     );
     Get.lazyPut(
       () => ChangePasswordController(itemRepository: _itemRepository),
+      fenix: true,
+    );
+
+    Get.lazyPut(
+      () => ReviewController(reviewRepository: _reviewRepository),
       fenix: true,
     );
   }
