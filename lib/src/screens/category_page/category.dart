@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/Constants.dart';
-import '../components/category_item.dart';
-
 class CategoryDetailPage extends StatelessWidget {
   const CategoryDetailPage({Key? key}) : super(key: key);
 
@@ -56,42 +53,42 @@ class CategoryDetailPage extends StatelessWidget {
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               children: [
-                CategoryItem(
-                  imagePath: Constants.foodImagePath,
-                  title: "Food",
-                ),
-                CategoryItem(
-                  imagePath: Constants.foodImagePath,
-                  title: "Food",
-                ),
-                CategoryItem(
-                  imagePath: Constants.foodImagePath,
-                  title: "Food",
-                ),
-                CategoryItem(
-                  imagePath: Constants.foodImagePath,
-                  title: "Food",
-                ),
-                CategoryItem(
-                  imagePath: Constants.foodImagePath,
-                  title: "Food",
-                ),
-                CategoryItem(
-                  imagePath: Constants.foodImagePath,
-                  title: "Food",
-                ),
-                CategoryItem(
-                  imagePath: Constants.foodImagePath,
-                  title: "Food",
-                ),
-                CategoryItem(
-                  imagePath: Constants.foodImagePath,
-                  title: "Food",
-                ),
-                CategoryItem(
-                  imagePath: Constants.foodImagePath,
-                  title: "Food",
-                ),
+                // CategoryItem(
+                //   imagePath: Constants.foodImagePath,
+                //   title: "Food",
+                // ),
+                // CategoryItem(
+                //   imagePath: Constants.foodImagePath,
+                //   title: "Food",
+                // ),
+                // CategoryItem(
+                //   imagePath: Constants.foodImagePath,
+                //   title: "Food",
+                // ),
+                // CategoryItem(
+                //   imagePath: Constants.foodImagePath,
+                //   title: "Food",
+                // ),
+                // CategoryItem(
+                //   imagePath: Constants.foodImagePath,
+                //   title: "Food",
+                // ),
+                // CategoryItem(
+                //   imagePath: Constants.foodImagePath,
+                //   title: "Food",
+                // ),
+                // CategoryItem(
+                //   imagePath: Constants.foodImagePath,
+                //   title: "Food",
+                // ),
+                // CategoryItem(
+                //   imagePath: Constants.foodImagePath,
+                //   title: "Food",
+                // ),
+                // CategoryItem(
+                //   imagePath: Constants.foodImagePath,
+                //   title: "Food",
+                // ),
               ],
             ),
           ),
