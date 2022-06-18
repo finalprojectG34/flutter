@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:sms/data/repository/shop_repository.dart';
 import 'package:sms/src/screens/components/category_list.dart';
 import 'package:sms/src/screens/components/suggested_items.dart';
+import 'package:sms/src/screens/search_item/search_item_list.dart';
 import 'package:sms/src/screens/shops_list/shops_list.dart';
 
 import '../components/searchbar.dart';
@@ -25,7 +26,12 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if (widget.hasSearchBar) const SearchBar(),
+        if (widget.hasSearchBar)
+          SearchBar(
+            onSearch: (value) {
+              Get.to(SearchItemList(searchText: value));
+            },
+          ),
         GetX<AppController>(
           builder: (ctx) {
             // appController.itemList =

@@ -195,6 +195,7 @@ class _AppState extends State<App> {
                   onPressed: () {
                     ctx.disableSearchIcon();
                     ctx.isSearchBarActive(true);
+                    // Get.to(SearchItemList(searchItemName: searchItemName))
                   },
                   icon: const Icon(Icons.search),
                 ),

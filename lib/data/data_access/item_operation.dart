@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:sms/mock/mock_category.dart';
+import 'package:sms/src/models/item_search_filter.dart';
 
 import '../../src/app.dart';
 import '../../src/models/shop.dart';
@@ -208,6 +209,58 @@ class ItemOperation {
       const Duration(seconds: 1),
       () => mockCategory,
     );
+  }
+
+  Future<List<Item>> searchItem(ItemSearchFilter query) async {
+    final response = await gqlClient
+        .query(
+      QueryOptions(document: gql(r'''
+            query searchItems($searchItemsInput2: ItemSearchFilter) {
+                  searchItems(input: $searchItemsInput2) {
+                  items {
+                    name
+                    description
+                    price {
+                      sale
+                    }
+                    
+                  }
+                  total
+                }
+              }
+      '''), fetchPolicy: FetchPolicy.noCache, variables: {
+        "searchItemsInput2": {
+          "searchTerm": query.searchTerm,
+          "minPrice": query.minPrice,
+          "maxPrice": query.maxPrice,
+          "attributes": [
+            query.attributes != null && query.attributes!.isNotEmpty
+                ? {
+                    "name": query.attributes![0].name,
+                    "values": query.attributes![0].values
+                  }
+                : null,
+          ],
+          "paginationInfo": {
+            "limit": query.reqPagInfo?.limit,
+            "pageNo": query.reqPagInfo?.pageNo
+          }
+        },
+      }),
+    )
+        .timeout(const Duration(seconds: 30), onTimeout: () {
+      throw TimeoutException('request timed out', const Duration(seconds: 30));
+    });
+    if (response.hasException) {
+      print("exception happened");
+      print(response.exception);
+      throw Exception("Error Happened");
+    }
+    print("search response");
+    print(response);
+    return (response.data!['searchItems']["items"] as List)
+        .map((json) => Item.fromJson(json))
+        .toList();
   }
 
   Future<Item> addItem(variable) async {

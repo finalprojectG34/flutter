@@ -4,17 +4,17 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:sms/src/app.dart';
 import 'package:sms/src/screens/items/item_list_ctx.dart';
 
+import '../components/category_item.dart';
 import '../components/error_page.dart';
-import 'item_mini_view/item_mini_detail.dart';
 
-class ItemList extends StatefulWidget {
-  const ItemList({Key? key}) : super(key: key);
+class CategoryList extends StatefulWidget {
+  const CategoryList({Key? key}) : super(key: key);
 
   @override
-  _ItemListState createState() => _ItemListState();
+  _CategoryListState createState() => _CategoryListState();
 }
 
-class _ItemListState extends State<ItemList> {
+class _CategoryListState extends State<CategoryList> {
   static const _pageSize = 20;
   final ItemListController itemListCtx = Get.find();
 
@@ -50,7 +50,7 @@ class _ItemListState extends State<ItemList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("Flash Sales")),
+        appBar: AppBar(title: const Text("Categories")),
         body: GetX<ItemListController>(
           builder: (ctx) {
             if (ctx.isLoading.isTrue) {
@@ -61,7 +61,7 @@ class _ItemListState extends State<ItemList> {
             if (ctx.itemList.value != null) {
               if (ctx.itemList.value!.isEmpty) {
                 return const Center(
-                  child: Text("No item"),
+                  child: Text("No category"),
                 );
               }
               return PagedGridView<int, Item>(
@@ -73,7 +73,7 @@ class _ItemListState extends State<ItemList> {
                 pagingController: _pagingController,
                 showNewPageProgressIndicatorAsGridChild: false,
                 builderDelegate: PagedChildBuilderDelegate<Item>(
-                  itemBuilder: (context, item, index) => ItemMiniDetail(
+                  itemBuilder: (context, item, index) => CategoryItem(
                     item: item,
                   ),
                 ),

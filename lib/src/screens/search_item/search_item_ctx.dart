@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:sms/src/app.dart';
+import 'package:sms/src/models/item_search_filter.dart';
 
 import '../../../data/data_access/item_operation.dart';
 import '../../../data/repository/item_repository.dart';
@@ -11,14 +13,28 @@ class SearchController extends GetxController {
 
   RxBool isLoading = false.obs;
   RxMap<String, dynamic>? mockSearchItem = <String, dynamic>{}.obs;
+  final items = Rx<List<Item>?>(null);
+  // getMockSearchItems() async {
+  //   isLoading(true);
+  //   Map<String, dynamic> result = await itemOperation.getMockSearchItems();
+  //   mockSearchItem!(result);
+  //   print('$mockSearchItem  pppppppppppppppppppppppppppppp');
+  //   isLoading(false);
+  //   // print('mock $mockCategory');
+  //   // return a;
+  // }
 
-  getMockSearchItems() async {
+  getSearchItems(ItemSearchFilter itemSearchFilter) async {
+    print("getSearchItems called");
     isLoading(true);
-    Map<String, dynamic> result = await itemOperation.getMockSearchItems();
-    mockSearchItem!(result);
-    print('$mockSearchItem  pppppppppppppppppppppppppppppp');
-    isLoading(false);
-    // print('mock $mockCategory');
-    // return a;
+    try {
+      List<Item> result = await itemOperation.searchItem(itemSearchFilter);
+      items.value = result;
+    } catch (e) {
+      print("error happened $e");
+    } finally {
+      isLoading(false);
+    }
+    // mockSearchItem!(result);
   }
 }

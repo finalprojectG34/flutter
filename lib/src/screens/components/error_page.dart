@@ -4,6 +4,7 @@ Widget errorPage(
     {Function()? onTryAgain, String errorMessage = "Something went wrong"}) {
   return Center(
     child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(errorMessage),
         const SizedBox(

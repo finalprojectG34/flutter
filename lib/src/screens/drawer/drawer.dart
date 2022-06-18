@@ -51,7 +51,8 @@ class DrawerPage extends StatelessWidget {
               ListTile(
                 title: const Text('Login'),
                 onTap: () {
-                  Get.to(() => Login());
+                  Get.back();
+                  ctx.selectedIndex.value = 4;
                 },
                 // selected: routes == Routes.home,
                 leading: const Icon(

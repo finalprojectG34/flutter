@@ -1,10 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sms/src/models/item_search_filter.dart';
 
 import '../../../helper/constance.dart';
 
-class Filter extends StatelessWidget {
-  const Filter({Key? key}) : super(key: key);
+class Filter extends StatefulWidget {
+  final ItemSearchFilter itemSearchFilter;
+  final Function(ItemSearchFilter itemSearchFilter) onFilter;
+  const Filter(
+      {Key? key, required this.itemSearchFilter, required this.onFilter})
+      : super(key: key);
+  @override
+  State<StatefulWidget> createState() {
+    return FilterState();
+  }
+}
+
+class FilterState extends State<Filter> {
+  late double min;
+  late double max;
+  late TextEditingController minCtrl;
+  late TextEditingController maxCtrl;
+  List<String> conditions = [];
+
+  @override
+  initState() {
+    super.initState();
+    min = widget.itemSearchFilter.minPrice;
+    max = widget.itemSearchFilter.maxPrice;
+    minCtrl = TextEditingController(text: min.toStringAsFixed(1));
+    maxCtrl = TextEditingController(text: max.toStringAsFixed(1));
+    conditions = widget.itemSearchFilter.attributes
+            ?.firstWhere((element) => element.name == "condition")
+            .values ??
+        [];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +58,8 @@ class Filter extends StatelessWidget {
           Row(children: [
             Expanded(
               child: TextFormField(
+                controller: minCtrl,
+                enabled: false,
                 decoration: InputDecoration(
                   contentPadding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
@@ -52,6 +84,8 @@ class Filter extends StatelessWidget {
             ),
             Expanded(
               child: TextFormField(
+                controller: maxCtrl,
+                enabled: false,
                 decoration: InputDecoration(
                   contentPadding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
@@ -76,10 +110,17 @@ class Filter extends StatelessWidget {
             height: 20,
           ),
           RangeSlider(
-            values: const RangeValues(0, 100),
-            onChanged: (values) {},
+            values: RangeValues(min, max),
+            onChanged: (values) {
+              setState(() {
+                min = values.start;
+                max = values.end;
+                minCtrl.text = min.toStringAsFixed(1);
+                maxCtrl.text = max.toStringAsFixed(1);
+              });
+            },
             min: 0,
-            max: 100,
+            max: 10000,
             inactiveColor: color3,
             activeColor: Colors.lightBlue,
           ),
@@ -116,17 +157,48 @@ class Filter extends StatelessWidget {
             height: 10,
           ),
           Wrap(spacing: 5, runSpacing: 5, children: [
-            CustomChip(isSelected: false, label: "New", onSelected: (value) {}),
-            CustomChip(isSelected: true, label: "Used", onSelected: (value) {}),
             CustomChip(
-                isSelected: true,
+                isSelected: conditions.contains("New"),
+                label: "New",
+                onSelected: (value) {
+                  print("onSelected");
+                  print(value);
+                  setState(() {
+                    if (!conditions.contains("New")) {
+                      conditions.add("New");
+                    } else {
+                      conditions.remove("New");
+                    }
+                  });
+                }),
+            CustomChip(
+                isSelected: conditions.contains("Used"),
+                label: "Used",
+                onSelected: (value) {
+                  setState(() {
+                    if (!conditions.contains("Used")) {
+                      conditions.add("Used");
+                    } else {
+                      conditions.remove("Used");
+                    }
+                  });
+                }),
+            CustomChip(
+                isSelected: conditions.contains("Not Specified"),
                 label: "Not Specified",
-                onSelected: (value) {}),
+                onSelected: (value) {
+                  setState(() {
+                    if (!conditions.contains("Not Specified")) {
+                      conditions.add("Not Specified");
+                    } else {
+                      conditions.remove("Not Specified");
+                    }
+                  });
+                }),
           ]),
           const SizedBox(
             height: 20,
           ),
-
           ElevatedButton(
             style: ButtonStyle(
               shadowColor: MaterialStateProperty.all(Colors.lightBlueAccent),
@@ -137,17 +209,15 @@ class Filter extends StatelessWidget {
             ),
             onPressed: () {
               Get.back();
-
-              // signUpController.signupUser({
-              //   "input": {
-              //     "firstName": firstName,
-              //     "lastName": lastName,
-              //     "phone": phoneNumber,
-              //     // "password": "my password"
-              //   }
-              // });
-
-              // ctx.sendFakeOtp();
+              var itemFilter = ItemSearchFilter(
+                  searchTerm: widget.itemSearchFilter.searchTerm,
+                  attributes: [
+                    FilterAttributes(name: "condition", values: conditions)
+                  ],
+                  maxPrice: max,
+                  minPrice: min,
+                  reqPagInfo: widget.itemSearchFilter.reqPagInfo);
+              widget.onFilter(itemFilter);
             },
             child: const Text(
               "Filter",
@@ -157,34 +227,6 @@ class Filter extends StatelessWidget {
                   fontSize: 13),
             ),
           ),
-          // const Text(
-          //   "Buying Format",
-          //   style: TextStyle(
-          //       fontWeight: FontWeight.bold, fontSize: 14, color: color1),
-          // ),
-          // const SizedBox(
-          //   height: 10,
-          // ),
-          // Wrap(spacing: 5, runSpacing: 5, children: [
-          //   CustomChip(
-          //       isSelected: false,
-          //       label: "All Listings",
-          //       onSelected: (value) {}),
-          //   CustomChip(
-          //       isSelected: true,
-          //       label: "Accept Offers",
-          //       onSelected: (value) {}),
-          //   CustomChip(
-          //       isSelected: false, label: "Auction", onSelected: (value) {}),
-          //   CustomChip(
-          //       isSelected: false,
-          //       label: "Buy it now",
-          //       onSelected: (value) {}),
-          //   CustomChip(
-          //       isSelected: false,
-          //       label: "Classified Ads",
-          //       onSelected: (value) {})
-          // ])
         ],
       ),
     );
