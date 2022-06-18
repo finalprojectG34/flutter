@@ -1,15 +1,17 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:sms/src/models/models.dart';
-import 'package:sms/src/screens/order_page/sent_orders.dart';
+import 'package:sms/src/screens/order_page/sent_orders_page.dart';
+import 'package:sms/src/screens/shops_list/shops_list_ctx.dart';
 
 import '../../../data/repository/order_repository.dart';
-import '../../models/Order.dart';
+import '../../models/order.dart';
 
 class OrderPageController extends GetxController {
   final OrderRepository orderRepository;
 
   final storage = Get.find<FlutterSecureStorage>();
+  ShopsListController shopsListController = Get.find();
 
   OrderPageController({required this.orderRepository});
 
@@ -25,16 +27,30 @@ class OrderPageController extends GetxController {
   //   getOrder(widget.status);
   // }
 
-  getOrder(String status) async {
+  getSentOrders(String status) async {
     isOrderLoading(true);
     try {
       List<Order> orders = await orderRepository.getOrder(status);
       orderList!(orders);
       print(orders);
     } catch (e) {
+      print(e);
       isOrderError(true);
       orderErrorText("Error Happened");
+    }
+    isOrderLoading(false);
+  }
+
+  getReceivedOrders(String status) async {
+    isOrderLoading(true);
+    try {
+      List<Order> orders = await orderRepository.getOrder(status);
+      orderList!(orders);
+      print(orders);
+    } catch (e) {
       print(e);
+      isOrderError(true);
+      orderErrorText("Error Happened");
     }
     isOrderLoading(false);
   }
@@ -44,17 +60,25 @@ class OrderPageController extends GetxController {
     try {
       Order newOrder = await orderRepository.getOrderById(orderId);
       order(newOrder);
+      isOrderError(false);
     } catch (e) {
+      print(e);
       isOrderError(true);
       orderErrorText("Error Happened");
     }
     isOrderLoading(false);
   }
 
-  updateOrderStatus(String orderId, String status) async {
+  updateOrderStatus(String orderId, String action) async {
     isOrderLoading(true);
-    Order newOrder = await orderRepository.updateOrderStatus(orderId, status);
-    order(newOrder);
+    try {
+      Order newOrder = await orderRepository.updateOrderStatus(orderId, action);
+      order(newOrder);
+    } catch (e) {
+      print(e);
+      isOrderError(true);
+      orderErrorText("Error Happened");
+    }
     isOrderLoading(false);
   }
 
@@ -84,10 +108,37 @@ class OrderPageController extends GetxController {
     });
     try {
       await orderRepository.createOrder(orders);
-      Get.to(() => SentOrders());
+      Get.to(() => SentOrdersPage());
     } catch (e) {
       isOrderError(true);
       orderErrorText("Error Happened");
+    }
+    isOrderLoading(false);
+  }
+
+  assignDelivery(String orderId, String shopId) async {
+    isOrderLoading(true);
+    try {
+      Order newOrder = await orderRepository.assignDelivery(orderId, shopId);
+      print(newOrder);
+      order(newOrder);
+      shopsListController.getShopById(newOrder.deliveryId!);
+      Get.back();
+    } catch (e) {
+      print(e);
+      isOrderError(true);
+    }
+    isOrderLoading(false);
+  }
+
+  removeDelivery(String orderId) async {
+    isOrderLoading(true);
+    try {
+      Order newOrder = await orderRepository.removeDelivery(orderId);
+      order(newOrder);
+    } catch (e) {
+      print(e);
+      isOrderError(true);
     }
     isOrderLoading(false);
   }

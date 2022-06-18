@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:sms/src/screens/home_page/AppCtx.dart';
 import 'package:sms/src/screens/profile_page/update_profile_ctx.dart';
-import 'package:sms/src/utils/loger/console_loger.dart';
 
 import '../../packages/validators.dart';
 

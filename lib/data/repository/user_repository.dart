@@ -28,7 +28,10 @@ class UserRepository {
 
     final response = await gqlClient
         .mutate(MutationOptions(
-            document: gql(signupMutation), variables: variables))
+      document: gql(signupMutation),
+      variables: variables,
+      fetchPolicy: FetchPolicy.noCache,
+    ))
         .timeout(const Duration(seconds: 30), onTimeout: () {
       throw TimeoutException('request timed out', const Duration(seconds: 30));
     });
@@ -44,7 +47,7 @@ class UserRepository {
         token: response.data!['authPhoneAndRegister']['token']);
   }
 
-  Future reset(variable) async {
+  Future reset(String password, String token) async {
     String signupMutation = r'''
      mutation AuthPhoneAndResetPwd($token: resetPwdInput) {
         authPhoneAndResetPwd(token: $token) {
@@ -57,18 +60,24 @@ class UserRepository {
         }
     }
      ''';
+    final response = await gqlClient.mutate(MutationOptions(
+      document: gql(signupMutation),
+      variables: {
+        "token": {
+          "password": password,
+          "confirmPassword": password,
+          "idToken": token
+        }
+      },
+      fetchPolicy: FetchPolicy.noCache,
+    ));
 
-    final response = await gqlClient.mutate(
-        MutationOptions(document: gql(signupMutation), variables: variable));
-    logTrace('data res', response);
-
-    // if (response.hasException) {
-    //   print(response.exception);
-    //   throw Exception("Error Happened");
-    // }
-    // else {
-    //   print(response);
-    // }
+    if (response.hasException) {
+      print(response.exception);
+      throw Exception("Error Happened");
+    } else {
+      print(response);
+    }
 
     return User.fromJson(response.data!['authPhoneAndResetPwd']['user'],
         token: response.data!['authPhoneAndResetPwd']['token']);
@@ -97,6 +106,7 @@ class UserRepository {
           "country": address.country,
         }
       },
+      fetchPolicy: FetchPolicy.noCache,
     ));
 
     if (response.hasException) {
@@ -114,9 +124,9 @@ class UserRepository {
        mutation Login($input: loginInput!) {
           login(input: $input) {
             user {
-            image {
-              imageCover
-           }
+              image {
+                imageCover
+              }
               id
               firstName
               lastName
