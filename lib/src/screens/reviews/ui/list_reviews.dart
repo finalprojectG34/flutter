@@ -57,7 +57,6 @@ class _ListReviewsState extends State<ListReviews> {
                   Text("with Photo "),
                 ],
               ),
-
               ],
             ),
 
@@ -86,8 +85,6 @@ class _ListReviewsState extends State<ListReviews> {
             //       SingleReview(url2:""),
             //       SingleReview(url2: "url2"),
             //     ]),
-
-
           //   SingleChildScrollView(
           //   child: Column(
           //     children: [
@@ -100,6 +97,7 @@ class _ListReviewsState extends State<ListReviews> {
           //     ],
           //   ),
           // ),
+
     ]
         ),
       ),

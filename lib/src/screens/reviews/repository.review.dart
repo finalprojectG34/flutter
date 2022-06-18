@@ -20,7 +20,7 @@ class ReviewRepository {
       createReview(input: $input) {
         id
         modelId
-        ownerId
+        ownerId{firstName,id, poster}
         body
       }
     }
@@ -29,7 +29,7 @@ class ReviewRepository {
       final response = await gqlClient.mutate(
           MutationOptions(document: gql(createReviewMutation), variables: {
         "input": {
-          "onModel": variables.onModel,
+          // "onModel":"ITEM",
           "modelId": variables.modelId,
           "body": variables.body,
           "rating": variables.rating
