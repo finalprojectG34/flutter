@@ -48,6 +48,7 @@ class LoginController extends GetxController {
         await storage.write(key: 'phone', value: signedInUser?.phone);
         await storage.write(key: 'role', value: signedInUser?.role);
         await storage.write(key: 'shopId', value: signedInUser?.shopId);
+        await storage.write(key: 'userImg', value: signedInUser?.image);
 
         if (signedInUser?.address?.addressName != null) {
           await profilePageController.setUserAddress(signedInUser?.address);

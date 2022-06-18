@@ -1,7 +1,11 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sms/data/repository/item_repository.dart';
 
@@ -30,6 +34,7 @@ class AppController extends GetxController {
   RxString phone = ''.obs;
   RxBool hasShopId = false.obs;
   RxString userRole = ''.obs;
+  RxString userImageLink = ''.obs;
 
   @override
   void onInit() async {
@@ -45,12 +50,30 @@ class AppController extends GetxController {
   }
 
   getShopId() async {
-    // hasShopId(await storage.read(key: 'shopId') != null);
+    hasShopId(await storage.read(key: 'shopId') != null);
+    if (hasShopId.isTrue) {}
     // userRole(await storage.read(key: 'role'));
-    hasShopId(true);
-    userRole('SELLER');
+    getMe();
+    // hasShopId(false);
+    // userRole('SELLER');
     // userRole = 'SELLER';
     // hasShopId = true;
+  }
+
+  getMe() async {
+    try {
+      String? role = (await itemRepository.getMe()).role;
+      String? img = (await itemRepository.getMe()).image;
+      if (role != null) {
+        userRole(role);
+      }
+      if (img != null) {
+        userImageLink(img);
+      }
+    } catch (e) {
+      EasyLoading.showError('Some error happened',
+          dismissOnTap: true, maskType: EasyLoadingMaskType.black);
+    }
   }
 
   disableSearchIcon() {
@@ -60,6 +83,31 @@ class AppController extends GetxController {
   changePage(String name, int index) {
     pageName(name);
     selectedIndex(index);
+  }
+
+  Future<String?> imageUpload(File file) async {
+    final storageRef = FirebaseStorage.instance.ref();
+    final mountainsRef = storageRef.child(userId.value + 'imgLink');
+
+    try {
+      await mountainsRef.putFile(file);
+      return await mountainsRef.getDownloadURL();
+    } on FirebaseException {
+      Fluttertoast.showToast(msg: "Uploading failed");
+      return null;
+    }
+  }
+
+  updateProfilePic(File file) async {
+    String? tempImgLink = await imageUpload(file);
+    bool? imgLink = await itemRepository.updateProfile({
+      "input": {
+        "image": {"imageCover": tempImgLink}
+      }
+    });
+    if (imgLink != null) {
+      userImageLink(tempImgLink);
+    }
   }
 
   getUserInfo() async {
@@ -72,6 +120,7 @@ class AppController extends GetxController {
     firstName(_firstName);
     lastName(_lastName);
     phone(_phone);
+    userImageLink(await storage.read(key: 'userImg'));
   }
 
   getItems() async {

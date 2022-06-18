@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:sms/src/utils/loger/console_loger.dart';
 
 import '../../src/models/models.dart';
 
@@ -43,29 +44,31 @@ class UserRepository {
         token: response.data!['authPhoneAndRegister']['token']);
   }
 
-  Future reset(String password, String token) async {
+  Future reset(variable) async {
     String signupMutation = r'''
-     mutation AuthPhoneAndRegister($token: PhoneSignupInput) {
-          authPhoneAndRegister(token: $token) {
-              token
+     mutation AuthPhoneAndResetPwd($token: resetPwdInput) {
+        authPhoneAndResetPwd(token: $token) {
+          user {
+            id
+            firstName
+            lastName
           }
-     }
-     ''';
-    final response = await gqlClient
-        .mutate(MutationOptions(document: gql(signupMutation), variables: {
-      "token": {
-        "password": password,
-        "confirmPassword": password,
-        "idToken": token
-      }
-    }));
-
-    if (response.hasException) {
-      print(response.exception);
-      throw Exception("Error Happened");
-    } else {
-      print(response);
+          token
+        }
     }
+     ''';
+
+    final response = await gqlClient.mutate(
+        MutationOptions(document: gql(signupMutation), variables: variable));
+    logTrace('data res', response);
+
+    // if (response.hasException) {
+    //   print(response.exception);
+    //   throw Exception("Error Happened");
+    // }
+    // else {
+    //   print(response);
+    // }
 
     return User.fromJson(response.data!['authPhoneAndResetPwd']['user'],
         token: response.data!['authPhoneAndResetPwd']['token']);
@@ -111,6 +114,9 @@ class UserRepository {
        mutation Login($input: loginInput!) {
           login(input: $input) {
             user {
+            image {
+              imageCover
+           }
               id
               firstName
               lastName

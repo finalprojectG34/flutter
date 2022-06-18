@@ -33,8 +33,16 @@ class ItemRepository {
     return itemOperation.addShop(variable);
   }
 
+  Future<User> getMe() async {
+    return itemOperation.getMe();
+  }
+
   Future<bool> updateProfile(variable) {
     return itemOperation.updateProfile(variable);
+  }
+
+  Future<bool> updatePassword(variable) {
+    return itemOperation.updatePassword(variable);
   }
 
   Future<List<Item>> getMockItems() {

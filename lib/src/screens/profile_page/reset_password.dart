@@ -3,33 +3,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:sms/src/models/user.dart';
-import 'package:sms/src/utils/loger/console_loger.dart';
 
 import '../../packages/validators.dart';
-import 'changePassCtx.dart';
+import '../auth/reset_password/resetCtx.dart';
 
-class ChangePassword extends StatelessWidget {
+class ResetPassword extends StatelessWidget {
   static const String pathName = '/change_password';
 
-  ChangePasswordController changePasswordController = Get.find();
+  ResetController resetController = Get.find();
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
-  String? oldPassword;
+
+  // String? oldPassword;
 
   String? newPassword;
   String? confirmPassword;
-  final User? user;
 
-  ChangePassword({@required this.user});
+  // final User? user;
+
+  // ResetPassword(});
 
   final Map<String, dynamic> _user = {};
 
   @override
   Widget build(BuildContext context) {
-    logTrace("here", this.user);
+    // logTrace("here", this.user);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Change Password'),
+        title: Text('Reset Password'),
       ),
       body: ListView(
         children: [
@@ -40,33 +40,6 @@ class ChangePassword extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextFormField(
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.lock_outline_rounded),
-                      contentPadding: const EdgeInsets.all(10),
-                      hintText: "Old Password",
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
-                          borderSide:
-                              BorderSide(color: Colors.grey[200]!, width: 1)),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
-                          borderSide:
-                              BorderSide(color: Colors.grey[200]!, width: 1)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
-                          borderSide:
-                              BorderSide(color: Colors.grey[200]!, width: 1)),
-                    ),
-                    maxLines: 1,
-                    keyboardType: TextInputType.text,
-                    obscureText: true,
-                    onChanged: (text) => oldPassword = text,
-                    validator: validatePassword,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
                   TextFormField(
                     decoration: InputDecoration(
                       prefixIcon: const Icon(Icons.lock_outline_rounded),
@@ -126,59 +99,6 @@ class ChangePassword extends StatelessWidget {
                   SizedBox(
                     height: 20,
                   ),
-                  // Container(
-                  //   margin: EdgeInsets.only(bottom: 30),
-                  //   child: TextFormField(
-                  //     controller: TextEditingController(),
-                  //     onSaved: (value) {},
-                  //     validator: (value) {
-                  //       if (value!.isEmpty) {
-                  //         return 'Please enter some text';
-                  //       }
-                  //       return null;
-                  //     },
-                  //     decoration: InputDecoration(
-                  //       labelText: 'Old Password',
-                  //       contentPadding: EdgeInsets.only(bottom: 0),
-                  //     ),
-                  //   ),
-                  // ),
-                  // Container(
-                  //   margin: EdgeInsets.only(bottom: 30),
-                  //   child: TextFormField(
-                  //     controller: TextEditingController(),
-                  //     onSaved: (value) {
-                  //       this._user["password"] = value;
-                  //     },
-                  //     validator: (value) {
-                  //       if (value!.isEmpty) {
-                  //         return 'Please enter some text';
-                  //       }
-                  //       return null;
-                  //     },
-                  //     decoration: InputDecoration(
-                  //       labelText: 'New Password',
-                  //       contentPadding: EdgeInsets.only(bottom: 0),
-                  //     ),
-                  //   ),
-                  // ),
-                  // Container(
-                  //   margin: EdgeInsets.only(bottom: 30),
-                  //   child: TextFormField(
-                  //     controller: TextEditingController(),
-                  //     onSaved: (value) {},
-                  //     validator: (value) {
-                  //       if (value!.isEmpty) {
-                  //         return 'Please enter some text';
-                  //       }
-                  //       return null;
-                  //     },
-                  //     decoration: InputDecoration(
-                  //       labelText: 'Confirm Password',
-                  //       contentPadding: EdgeInsets.only(bottom: 0),
-                  //     ),
-                  //   ),
-                  // ),
                   ElevatedButton(
                     style: ButtonStyle(
                       shadowColor:
@@ -190,20 +110,12 @@ class ChangePassword extends StatelessWidget {
                     ),
                     onPressed: () async {
                       if (formState.currentState!.validate()) {
-                        EasyLoading.instance.loadingStyle =
-                            EasyLoadingStyle.light;
-
                         await EasyLoading.show(
                           status: 'Updating password ...',
                           maskType: EasyLoadingMaskType.black,
                         );
                         FocusScope.of(context).unfocus();
-                        changePasswordController.changePassword({
-                          "input": {
-                            "oldPassword": oldPassword,
-                            "newPassword": newPassword
-                          }
-                        });
+                        resetController.reset(newPassword!);
                       }
                     },
                     child: const Text(

@@ -3,6 +3,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 import '../../../packages/validators.dart';
+import '../reset_password/reset_password.dart';
 import '../signup/signup.dart';
 import 'loginCtx.dart';
 
@@ -246,20 +247,21 @@ class Login extends StatelessWidget {
                     // const SizedBox(
                     //   height: 10,
                     // ),
-                    // TextButton(
-                    //   onPressed: () {
-                    //     Get.to(() => ResetPassword());
-                    //   },
-                    //   child: const Center(
-                    //     child: Text(
-                    //       "Forgot password",
-                    //       style: TextStyle(
-                    //           color: Color(0xff40BFFF),
-                    //           fontWeight: FontWeight.bold,
-                    //           fontSize: 13),
-                    //     ),
-                    //   ),
-                    // ),
+                    TextButton(
+                      onPressed: () {
+                        Get.to(() => ResetPassword());
+                      },
+                      child: const Center(
+                        child: Text(
+                          "Forgot password",
+                          style: TextStyle(
+                            color: Color(0xff40BFFF),
+                            fontWeight: FontWeight.bold,
+                            // fontSize: 13
+                          ),
+                        ),
+                      ),
+                    ),
                     // const SizedBox(
                     //   height: 10,
                     // ),

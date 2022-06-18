@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
+import '../../app.dart';
 
 class CategoryItem extends StatelessWidget {
   final String title;
@@ -10,15 +14,21 @@ class CategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        CircleAvatar(
-          backgroundColor: Colors.blue.shade100,
-          child: Image.network(
-            imagePath,
-            fit: BoxFit.cover,
-            errorBuilder: (error, o, s) => const Text(""),
+        GestureDetector(
+          onTap: () {
+            Get.to(() => CategoryDetailPage());
+          },
+          child: CircleAvatar(
+            backgroundColor: Colors.blue.shade50,
+            child: Image.network(
+              imagePath,
+              fit: BoxFit.cover,
+              errorBuilder: (error, o, s) => const Text(""),
+            ),
+            radius: 40,
           ),
-          radius: 40,
         ),
         Text(
           title,

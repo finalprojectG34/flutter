@@ -3,17 +3,23 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 import '../../../../data/repository/user_repository.dart';
+import '../../../models/user.dart' as userX;
 import '../../home_page/AppCtx.dart';
+import '../../profile_page/reset_password.dart';
 import '../verification/code_verification.dart';
 
 class ResetController extends GetxController {
   final UserRepository userRepository;
 
+  // AppController appController = Get.find();
+
   ResetController({required this.userRepository});
 
   String verificationId = "";
   String? password;
-  String? serverToken;
+  userX.User? user;
+
+  String firebaseToken = '';
 
   sendOtp(String phone) async {
     // userVariable = variable;
@@ -68,19 +74,22 @@ class ResetController extends GetxController {
         .signInWithCredential(credential)
         .then((UserCredential result) async {
       if (token != null) {
+        firebaseToken = token;
         // userVariable['token']['idToken'] = token;
         // userVariable['token']['phone'] = '+251923232323';
-        await reset(token);
-        if (serverToken != null) {
-          EasyLoading.showSuccess('Password reseted successfully',
-              maskType: EasyLoadingMaskType.black);
-          AppController appController = Get.find();
-          appController.changePage('Account', 4);
-        }
-      } else {
-        EasyLoading.showError('Some error occurred',
-            maskType: EasyLoadingMaskType.black);
-        Get.back();
+        EasyLoading.dismiss();
+        Get.to(() => ResetPassword());
+        // await reset(token);
+        //   if (serverToken != null) {
+        //     EasyLoading.showSuccess('Password reseted successfully',
+        //         maskType: EasyLoadingMaskType.black);
+        //     AppController appController = Get.find();
+        //     appController.changePage('Account', 4);
+        //   }
+        // } else {
+        //   EasyLoading.showError('Some error occurred',
+        //       maskType: EasyLoadingMaskType.black);
+        //   Get.back();
       }
     }).catchError((e) {
       EasyLoading.showError(e, maskType: EasyLoadingMaskType.black);
@@ -88,11 +97,35 @@ class ResetController extends GetxController {
     });
   }
 
-  reset(String token) async {
+  reset(String password) async {
     // print(userVariable);
     // isLoading(true);
     try {
-      serverToken = await userRepository.reset(password!, token);
+      user = await userRepository.reset({
+        "token": {
+          "password": password,
+          "confirmPassword": password,
+          "idToken": firebaseToken
+        }
+      });
+
+      if (user != null) {
+        EasyLoading.showSuccess('Password reseted successfully.',
+            maskType: EasyLoadingMaskType.black,
+            duration: const Duration(seconds: 2));
+        // Get.offAllNamed('/');
+        Get.back();
+        Get.back();
+        Get.back();
+        // appController.changePage('Account', 3);
+        // Get.offNamed('/');
+      } else {
+        EasyLoading.showError('Some error occurred. Please try again',
+            maskType: EasyLoadingMaskType.black,
+            duration: const Duration(seconds: 3));
+        Get.offAllNamed('/');
+        // appController.changePage('Account', 3);
+      }
     } catch (e) {
       EasyLoading.showError('Some error occurred. Please try again',
           maskType: EasyLoadingMaskType.black,

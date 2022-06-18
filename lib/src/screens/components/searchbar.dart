@@ -51,7 +51,7 @@ class _SearchBarState extends State<SearchBar> {
                   padding: const EdgeInsets.only(left: 15.0),
                   child: TextField(
                     controller: searchTextEditingController,
-                    focusNode: ctx.searchBarFocusNode,
+                    // focusNode: ctx.searchBarFocusNode,
                     decoration: const InputDecoration(
                       hintText: 'Search',
                       border: InputBorder.none,

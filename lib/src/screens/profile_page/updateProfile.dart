@@ -120,6 +120,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 ),
                 TextFormField(
                   controller: phoneController,
+                  readOnly: true,
                   decoration: InputDecoration(
                     prefixIcon: const SizedBox(
                       width: 50,

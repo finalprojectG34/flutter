@@ -102,6 +102,9 @@ class ItemOperation {
                     firstName
                     lastName
                     phone
+                    image {
+                        imageCover
+                    }
               }
             }
       '''),
@@ -113,6 +116,33 @@ class ItemOperation {
     }
     print('responce $response');
     return (response.data!['updateMe']['id']) != null;
+  }
+
+  Future<bool> updatePassword(variable) async {
+    // print(variable);
+    final response = await gqlClient.mutate(MutationOptions(
+      document: gql(r'''
+            mutation ChangePassword($input: changePwdInput) {
+                changePassword(input: $input) {
+                  id
+               }
+}
+      '''),
+      variables: variable,
+    ));
+    if (response.hasException) {
+      for (var element in response.exception!.graphqlErrors) {
+        if (element.message == 'User credentials not correct') {
+          throw Exception("Incorrect old password");
+        }
+        // if (response.exception!.graphqlErrors[0].message ==
+        //     'info or password wrong') {
+        throw Exception("Error Happened");
+      }
+      throw Exception("Error Happened");
+    }
+    // print('responce $response');
+    return (response.data!['changePassword']['id']) != null;
   }
 
   Future<List<Cart>> getCart() async {
@@ -235,7 +265,7 @@ class ItemOperation {
 
   Future<Shop> addShop(variable) async {
     String addItemMutation = r'''
-     mutation CreateCompany($input: UserCompanyInput!) {
+     mutation CreateCompany($input: CompanyInput!) {
         createCompany(input: $input) {
           id
           slug
@@ -255,5 +285,31 @@ class ItemOperation {
     }
     print(response);
     return Shop.fromJson(response.data!['createCompany']);
+  }
+
+  Future<User> getMe() async {
+    String queryGetMe = r'''
+     query GetMe {
+        getMe {
+          id
+          role
+          image {
+            imageCover
+          }
+        }
+    }
+      ''';
+
+    final response = await gqlClient.query(
+      QueryOptions(
+        document: gql(queryGetMe),
+      ),
+    );
+    if (response.hasException) {
+      print(response.exception);
+      throw Exception("Error Happened");
+    }
+    print(response);
+    return User.fromJson(response.data!['getMe']);
   }
 }
