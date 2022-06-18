@@ -103,16 +103,10 @@ class ResetController extends GetxController {
     // print(userVariable);
     // isLoading(true);
     try {
-      user = await userRepository.reset({
-        "token": {
-          "password": password,
-          "confirmPassword": password,
-          "idToken": firebaseToken
-        }
-      });
+      user = await userRepository.reset(password, firebaseToken);
 
       if (user != null) {
-        EasyLoading.showSuccess('Password reseted successfully.',
+        EasyLoading.showSuccess('Password rested successfully.',
             maskType: EasyLoadingMaskType.black,
             duration: const Duration(seconds: 2));
         // Get.offAllNamed('/');
