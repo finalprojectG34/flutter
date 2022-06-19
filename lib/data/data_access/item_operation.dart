@@ -373,6 +373,12 @@ class ItemOperation {
             image {
               imageCover
             }
+            address {
+                subCity
+                city
+                addressName
+                country
+            }
           }
       }
       ''';

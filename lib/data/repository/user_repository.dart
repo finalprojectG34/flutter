@@ -84,6 +84,7 @@ class UserRepository {
   }
 
   Future<Address> updateUserAddress(Address address) async {
+    print('ffff ${address.addressName}');
     final response = await gqlClient.mutate(MutationOptions(
       document: gql(r'''
         mutation Mutation($input: UserAddressUpdateInput!) {
@@ -112,11 +113,11 @@ class UserRepository {
     if (response.hasException) {
       print(response.exception);
       throw Exception("Error Happened");
-    } else {
-      print(response);
     }
-
-    return Address.fromJson(response.data!['updateUserAddress']['address']);
+    print(response);
+    return Address.fromJson(
+      response.data!['updateUserAddress']['address'],
+    );
   }
 
   Future signInUser(variables) async {
@@ -175,4 +176,63 @@ class UserRepository {
           token: response.data!['login']['token']);
     }
   }
+
+  Future<User> getMe() async {
+    String queryGetMe = r'''
+       query GetMe {
+          getMe {
+            id
+            role
+            image {
+              imageCover
+            }
+            address {
+                subCity
+                city
+                addressName
+                country
+            }
+          }
+      }
+      ''';
+
+    final response = await gqlClient.query(
+      QueryOptions(
+        document: gql(queryGetMe),
+      ),
+    );
+    if (response.hasException) {
+      print(response.exception);
+      throw Exception("Error Happened");
+    }
+    print(response);
+    return User.fromJson(response.data!['getMe']);
+  }
+
+// Future<bool> updateProfile(variable) async {
+//   print(variable);
+//   final response = await gqlClient.mutate(MutationOptions(
+//     document: gql(r'''
+//           mutation UpdateMe($input: UserUpdateInput) {
+//                 updateMe(input: $input) {
+//                   id
+//                   firstName
+//                   lastName
+//                   phone
+//                   image {
+//                       imageCover
+//                   }
+//             }
+//           }
+//     '''),
+//     variables: variable,
+//     fetchPolicy: FetchPolicy.noCache,
+//   ));
+//   if (response.hasException) {
+//     print(response.exception);
+//     throw Exception("Error Happened");
+//   }
+//   print('responce $response');
+//   return (response.data!['updateMe']['id']) != null;
+// }
 }

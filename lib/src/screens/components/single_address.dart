@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
+import '../profile_page/addressCtx.dart';
 import 'address_input.dart';
 
 class SingleAddress extends StatelessWidget {
-  final String address1;
-  final String address2;
+  final String country;
+  final String city;
+  final String subCity;
+  final String streetName;
 
-  const SingleAddress(
-      {Key? key, required this.address1, required this.address2})
+  // AddressController addressController = Get.find();
+  SingleAddress(
+      {Key? key,
+      required this.country,
+      required this.city,
+      required this.streetName,
+      required this.subCity})
       : super(key: key);
 
   @override
@@ -25,13 +35,53 @@ class SingleAddress extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  address1,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                Row(
+                  children: [
+                    Text('Country: '),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      country,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
-                Text(
-                  address2,
-                  style: TextStyle(color: Colors.grey[600]),
+                Row(
+                  children: [
+                    Text('City: '),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      city,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text('Sub city: '),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      subCity,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text('Street name: '),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      streetName,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -40,9 +90,10 @@ class SingleAddress extends StatelessWidget {
             children: [
               IconButton(
                 icon: Icon(Icons.edit, color: Colors.blue[500]),
-                onPressed: () => {
+                onPressed: () {
                   showModalBottomSheet(
                     isDismissible: true,
+                    isScrollControlled: true,
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(10),
@@ -53,13 +104,20 @@ class SingleAddress extends StatelessWidget {
                     builder: (context) => Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 30, vertical: 10),
-                      child: AddressInput(
-                          city: address1,
-                          subCity: address2,
-                          country: 'Ethiopia',
-                          streetName: 'king george'),
+                      child: SingleChildScrollView(
+                        child: Container(
+                          padding: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).viewInsets.bottom),
+                          child: AddressInput(
+                            city: city,
+                            subCity: subCity,
+                            country: country,
+                            streetName: streetName,
+                          ),
+                        ),
+                      ),
                     ),
-                  )
+                  );
                 },
               ),
               IconButton(
