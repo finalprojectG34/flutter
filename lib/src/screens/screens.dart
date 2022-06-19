@@ -1,6 +1,6 @@
 //components
 //categories page
-export './category_page/category.dart';
+export './category_page/category_detail.dart';
 export './components/components.dart';
 export './home_page/App.dart';
 // home page

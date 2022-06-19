@@ -25,17 +25,18 @@ class SearchController extends GetxController {
   //   // return a;
   // }
 
-  getSearchItems(ItemSearchFilter itemSearchFilter) async {
-    print("getSearchItems called");
-    isLoading(true);
+  Future<List<Item>?> getSearchItems(ItemSearchFilter itemSearchFilter) async {
+    if (itemSearchFilter.reqPagInfo.pageNo < 1) {
+      isLoading(true);
+    }
     try {
       List<Item> result = await itemOperation.searchItem(itemSearchFilter);
       items.value = result;
     } catch (e) {
-      print("error happened $e");
+      print(e);
     } finally {
       isLoading(false);
     }
-    // mockSearchItem!(result);
+    return null;
   }
 }

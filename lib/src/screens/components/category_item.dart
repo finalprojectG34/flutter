@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sms/src/app.dart';
+
+import '../category_page/category_detail.dart';
 
 class CategoryItem extends StatelessWidget {
   final Category category;
@@ -8,22 +11,29 @@ class CategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        CircleAvatar(
-          backgroundColor: Colors.blue.shade100,
-          child: Image.network(
-            "${category.image}",
-            fit: BoxFit.cover,
-            errorBuilder: (error, o, s) => const Text(""),
+    return InkWell(
+      onTap: () {
+        Get.to(CategoryDetailPage(
+          category: category,
+        ));
+      },
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          CircleAvatar(
+            backgroundColor: Colors.blue.shade100,
+            child: Image.network(
+              "${category.image}",
+              fit: BoxFit.cover,
+              errorBuilder: (error, o, s) => const Text(""),
+            ),
+            radius: 40,
           ),
-          radius: 40,
-        ),
-        Text(
-          "${category.name}",
-        )
-      ],
+          Text(
+            "${category.name}",
+          )
+        ],
+      ),
     );
   }
 }
