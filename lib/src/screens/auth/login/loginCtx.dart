@@ -50,16 +50,27 @@ class LoginController extends GetxController {
         await storage.write(key: 'shopId', value: signedInUser?.shopId);
         await storage.write(key: 'userImg', value: signedInUser?.image);
 
-        if (signedInUser?.address?.addressName != null) {
-          await profilePageController.setUserAddress(signedInUser?.address);
-        }
+        // if (signedInUser?.address?.addressName != null) {
+        //   await profilePageController.setUserAddress(signedInUser?.address);
+        // }else{
+        //   await profilePageController.setUserAddress(signedInUser?.address);
+        // }
+        await profilePageController.setUserAddress(signedInUser?.address);
         // await storage.write(key: 'user', value: jsonEncode(signedInUser));
+
         EasyLoading.showSuccess('Logged in successfully',
             dismissOnTap: true,
             maskType: EasyLoadingMaskType.black,
             duration: Duration(seconds: 2));
         AppController appController = Get.find();
-        appController.changePage('Home', 0);
+        // String? value = await storage.read(key: 'token');
+        // if (value != null) {
+        //   appController.isAuthenticated(true);
+        // }
+        // await appController.getItems();
+        // await appController.getUserInfo();
+        // await appController.getShopId();
+        await appController.changePage('Home', 0);
         appController.isAuthenticated(true);
         // Get.offNamed('/');
       }

@@ -51,24 +51,50 @@ class ItemOperation {
 
   Future<List<Category>> getCategory() async {
     String getAllCategory = r'''
-          query GetAllCategory{
-          getAllCategories {
-            id
-            name  
-          }
-        }
+          query GetCategoriesByPrefix($getCategoriesByPrefixId: ID) {
+              getCategoriesByPrefix(id: $getCategoriesByPrefixId) {
+                id
+                name
+                haveSubCtg
+              }
+}
   ''';
     final response = await gqlClient.query(
       QueryOptions(
-        document: gql(getAllCategory),
-        fetchPolicy: FetchPolicy.noCache,
-      ),
+          document: gql(getAllCategory),
+          fetchPolicy: FetchPolicy.noCache,
+          variables: {"getCategoriesByPrefixId": ""}),
     );
     if (response.hasException) {
       print(response.exception);
       throw Exception("Error Happened");
     }
-    return (response.data!['getAllCategories'] as List)
+    return (response.data!['getCategoriesByPrefix'] as List)
+        .map((json) => Category.fromJson(json))
+        .toList();
+  }
+
+  Future<List<Category>> getOneCategory(String id) async {
+    String getAllCategory = r'''
+          query GetCategoriesByPrefix($getCategoriesByPrefixId: ID) {
+              getCategoriesByPrefix(id: $getCategoriesByPrefixId) {
+                id
+                name
+                haveSubCtg
+              }
+            }
+  ''';
+    final response = await gqlClient.query(
+      QueryOptions(
+          document: gql(getAllCategory),
+          fetchPolicy: FetchPolicy.noCache,
+          variables: {"getCategoriesByPrefixId": id}),
+    );
+    if (response.hasException) {
+      print(response.exception);
+      throw Exception("Error Happened");
+    }
+    return (response.data!['getCategoriesByPrefix'] as List)
         .map((json) => Category.fromJson(json))
         .toList();
   }

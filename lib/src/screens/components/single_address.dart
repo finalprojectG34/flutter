@@ -117,13 +117,6 @@ class SingleAddress extends StatelessWidget {
                   );
                 },
               ),
-              IconButton(
-                icon: Icon(
-                  Icons.delete_forever,
-                  color: Colors.red[400],
-                ),
-                onPressed: () => {},
-              )
             ],
           ),
         ],

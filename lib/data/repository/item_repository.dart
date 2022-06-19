@@ -21,6 +21,10 @@ class ItemRepository {
     return itemOperation.getCategory();
   }
 
+  Future<List<Category>> getOneCategory(String id) async {
+    return itemOperation.getOneCategory(id);
+  }
+
   Future<bool> getUserShop(String userId) async {
     return itemOperation.getUserShop(userId);
   }

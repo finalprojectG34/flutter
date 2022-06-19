@@ -45,7 +45,11 @@ class ProfilePageController extends GetxController {
     await storage.write(key: "city", value: _address?.city);
     await storage.write(key: "subCity", value: _address?.subCity);
     await storage.write(key: "addressName", value: _address?.addressName);
-
+    address!(Address(
+        subCity: _address?.subCity ?? "",
+        country: "Ethiopia",
+        addressName: _address?.addressName ?? "",
+        city: _address?.city ?? ""));
     getUserAddress();
   }
 

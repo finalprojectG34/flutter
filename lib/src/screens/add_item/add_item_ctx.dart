@@ -22,7 +22,9 @@ class AddItemController extends GetxController {
       {required this.itemOperation, required this.itemRepository});
 
   RxBool isCategoryFetchedFromDB = false.obs;
+  RxBool isSubCategoryFetchedFromDB = false.obs;
   RxList<Category>? categoryList = <Category>[].obs;
+  RxList<Category>? subCategoryList = <Category>[].obs;
 
   RxString itemId = ''.obs;
   RxList attributes = [].obs;
@@ -44,6 +46,8 @@ class AddItemController extends GetxController {
   RxBool errOccurred = false.obs;
   RxString shopImageLink = ''.obs;
   RxString itemImageLink = ''.obs;
+
+  // RxList categories = <Category>[].obs;
   final storage = Get.find<FlutterSecureStorage>();
 
   @override
@@ -55,9 +59,21 @@ class AddItemController extends GetxController {
 
   getCategory() async {
     List<Category> categories = await itemRepository.getCategory();
-    categoryList!(categories.obs);
+    if (categories != null) {
+      categoryList!(categories.obs);
+    }
+
     print(categoryList);
     isCategoryFetchedFromDB(true);
+  }
+
+  getOneCategory(String id) async {
+    isSubCategoryFetchedFromDB(false);
+    List<Category> categories = await itemRepository.getOneCategory(id);
+    if (categories != null) {
+      subCategoryList!(categories.obs);
+    }
+    isSubCategoryFetchedFromDB(true);
   }
 
   getUserShop() async {

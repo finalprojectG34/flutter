@@ -81,7 +81,7 @@ class _AddressInputState extends State<AddressInput> {
             height: 10,
           ),
           TextField(
-            readOnly: true,
+            // readOnly: true,
             keyboardType: TextInputType.text,
             controller: countryController,
             // focusNode: address1FocusNode,

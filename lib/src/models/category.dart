@@ -3,18 +3,17 @@ import 'package:flutter/material.dart';
 
 @immutable
 class Category extends Equatable {
-  const Category(
-      {this.id,
-      this.name,
-      this.description,
-      this.image,
-      this.slug,
-      this.count,
-      this.attributes,
-      this.poster,
-      this.path,
-      this.parentId,
-      this.subCategories});
+  const Category({this.id,
+    this.name,
+    this.description,
+    this.image,
+    this.slug,
+    this.count,
+    this.attributes,
+    this.poster,
+    this.path,
+    this.parentId,
+    this.subCategories, this.hasSubcategory});
 
   final String? id;
   final String? name;
@@ -27,6 +26,7 @@ class Category extends Equatable {
   final int? count;
   final List<Attribute>? attributes;
   final List<Category>? subCategories;
+  final bool? hasSubcategory;
 
   @override
   List<Object?> get props => [id, name, description, image];
@@ -40,6 +40,7 @@ class Category extends Equatable {
       slug: json["slug"],
       count: json["count"],
       poster: json["poster"],
+      hasSubcategory: json['haveSubCtg'],
       attributes: json["attributes"] != null
           ? List.of(json["attributes"])
               .map((e) => Attribute.fromJson(e))

@@ -21,12 +21,12 @@ class CategorySelectList extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(title: const Text('Select category')),
         body: GetX<AddItemController>(builder: (ctx) {
-          return ctx.isCategoryLoading.isTrue
+          return ctx.isCategoryFetchedFromDB.isFalse
               ? const Center(child: CircularProgressIndicator())
               : ListView.builder(
                   // shrinkWrap: true,
                   itemBuilder: (context, index) => CategorySelect(
-                    name: ctx.mockCategory!['getAllCategories'][index]['name'],
+                    name: ctx.categoryList![index].name!,
                     isOnSubcategoryPage: isOnSubcategoryPage,
                     isSelectable: ctx.mockCategory!['getAllCategories'][index]
                         ['isCreatable'],
@@ -37,7 +37,7 @@ class CategorySelectList extends StatelessWidget {
                     attributes: ctx.mockCategory!['getAllCategories'][index]
                         ['attributes'],
                   ),
-                  itemCount: ctx.mockCategory!['getAllCategories'].length,
+                  itemCount: ctx.categoryList!.length,
                 );
         }),
       ),
