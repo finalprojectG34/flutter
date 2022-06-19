@@ -2,7 +2,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:sms/src/models/models.dart';
 import 'package:sms/src/screens/order_page/sent_orders_page.dart';
-import 'package:sms/src/screens/shops_list/shops_list_ctx.dart';
+import 'package:sms/src/screens/shops_list/all_shops_list_ctx.dart';
 
 import '../../../data/repository/order_repository.dart';
 import '../../models/order.dart';

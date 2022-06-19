@@ -93,7 +93,7 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
                 itemBuilder: (ctx, index) {
                   return InkWell(
                     onTap: () {
-                      _itemSearchFilter = ItemSearchFilter(
+                      _itemSearchFilter = _itemSearchFilter.copyWith(
                           categoryId: widget.category.subCategories![index].id,
                           reqPagInfo: ReqPagInfo());
                       _fetchPage(_itemSearchFilter);
@@ -102,6 +102,7 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
                         category: widget.category.subCategories![index]),
                   );
                 },
+                itemCount: widget.category.subCategories!.length,
               ),
             ),
           ],

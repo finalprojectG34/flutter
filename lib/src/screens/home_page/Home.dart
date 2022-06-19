@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sms/data/repository/shop_repository.dart';
 import 'package:sms/src/screens/category_page/category_list.dart';
 import 'package:sms/src/screens/components/suggested_items.dart';
 import 'package:sms/src/screens/search_item/search_item_list.dart';
-import 'package:sms/src/screens/shops_list/shops_list.dart';
+import 'package:sms/src/screens/shops_list/shop_list.dart';
 
 import '../components/searchbar.dart';
-import '../components/shop_item.dart';
 import '../items/item_list.dart';
 import '../items/item_mini_view/item_mini_detail.dart';
 import 'AppCtx.dart';
@@ -104,39 +102,40 @@ class _HomeState extends State<Home> {
                                   item: (ctx.itemList as List)[index]),
                               itemCount: (ctx.itemList as List).length,
                             ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text('Visit shops',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: Colors.black)),
-                        TextButton(
-                            onPressed: () {
-                              Get.to(const ShopsList());
-                            },
-                            child: const Text('See more'))
-                      ],
-                    ),
-                  ),
-                  GridView.count(
-                    childAspectRatio: 1.1,
-                    crossAxisCount: 2,
-                    children: [
-                      ShopItem(shop: mockShop),
-                      ShopItem(
-                        shop: mockShop,
-                      ),
-                    ],
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    crossAxisSpacing: 3,
-                    padding: const EdgeInsets.all(8),
-                    mainAxisSpacing: 3,
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(horizontal: 10),
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //     children: [
+                  //       const Text('Visit shops',
+                  //           style: TextStyle(
+                  //               fontWeight: FontWeight.bold,
+                  //               fontSize: 16,
+                  //               color: Colors.black)),
+                  //       TextButton(
+                  //           onPressed: () {
+                  //             Get.to(AllShopsList());
+                  //           },
+                  //           child: const Text('See more'))
+                  //     ],
+                  //   ),
+                  // ),
+                  // GridView.count(
+                  //   childAspectRatio: 1.1,
+                  //   crossAxisCount: 2,
+                  //   children: [
+                  //     ShopItem(shop: mockShop),
+                  //     ShopItem(
+                  //       shop: mockShop,
+                  //     ),
+                  //   ],
+                  //   physics: const NeverScrollableScrollPhysics(),
+                  //   shrinkWrap: true,
+                  //   crossAxisSpacing: 3,
+                  //   padding: const EdgeInsets.all(8),
+                  //   mainAxisSpacing: 3,
+                  // ),
+                  const ShopList(),
                 ],
               ),
             );
