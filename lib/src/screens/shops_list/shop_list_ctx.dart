@@ -7,6 +7,7 @@ class ShopListController extends GetxController {
   var isLoading = false.obs;
   var errorOccurred = false.obs;
   var shopList = Rx<List<Shop>?>(null);
+
   final ShopRepository shopRepository;
 
   ShopListController({required this.shopRepository});
@@ -19,10 +20,11 @@ class ShopListController extends GetxController {
   Future<List<Shop>?> getShops() async {
     isLoading(true);
     try {
-      final categories = await shopRepository.getShops();
-      shopList.value = categories;
-      return categories;
+      final shops = await shopRepository.getShops();
+      shopList.value = shops;
+      return shops;
     } catch (e) {
+      print("$e} shops exception");
       errorOccurred(true);
     } finally {
       isLoading(false);

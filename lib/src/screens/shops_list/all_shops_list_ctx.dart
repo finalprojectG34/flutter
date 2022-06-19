@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:sms/data/repository/shop_repository.dart';
 import 'package:sms/src/models/shop.dart';
 
-class ShopsListController extends GetxController {
+class AllShopsListController extends GetxController {
   var isLoading = false.obs;
   var errorOccurred = false.obs;
   var shopsList = Rx<List<Shop>?>(null);
@@ -10,7 +10,7 @@ class ShopsListController extends GetxController {
 
   Rx<Shop> shop = const Shop().obs;
 
-  ShopsListController({required this.shopRepository});
+  AllShopsListController({required this.shopRepository});
 
   // Future<List<Shop>?> getShops(int pageIndex, int pageSize) async {
   //   if (pageIndex < 1) {
@@ -47,7 +47,6 @@ class ShopsListController extends GetxController {
       Shop newShop = await shopRepository.getShopById(shopId);
       shop(newShop);
     } catch (e) {
-      print(e);
       errorOccurred(true);
     }
     isLoading(false);

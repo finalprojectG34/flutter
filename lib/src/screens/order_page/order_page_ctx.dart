@@ -11,7 +11,7 @@ class OrderPageController extends GetxController {
   final OrderRepository orderRepository;
 
   final storage = Get.find<FlutterSecureStorage>();
-  ShopsListController shopsListController = Get.find();
+  AllShopsListController shopsListController = Get.find();
 
   OrderPageController({required this.orderRepository});
 

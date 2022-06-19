@@ -26,6 +26,7 @@ import '../screens/profile_page/update_profile_ctx.dart';
 import '../screens/reviews/repository.review.dart';
 import '../screens/reviews/review_ctx.dart';
 import '../screens/search_item/search_item_ctx.dart';
+import '../screens/shops_list/shop_list_ctx.dart';
 import 'graphql_client.dart';
 
 class ApplicationBindings implements Bindings {
@@ -112,7 +113,11 @@ class ApplicationBindings implements Bindings {
       fenix: true,
     );
     Get.lazyPut(
-      () => ShopsListController(shopRepository: _shopRepository),
+      () => AllShopsListController(shopRepository: _shopRepository),
+      fenix: true,
+    );
+    Get.lazyPut(
+      () => ShopListController(shopRepository: _shopRepository),
       fenix: true,
     );
     Get.lazyPut(

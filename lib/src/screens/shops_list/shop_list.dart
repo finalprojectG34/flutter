@@ -16,6 +16,30 @@ class ShopList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('Visit shops',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.black)),
+              TextButton(
+                  onPressed: () {
+                    var ctrl = Get.find<ShopListController>();
+                    if (ctrl.shopList.value != null &&
+                        ctrl.shopList.value!.isNotEmpty) {
+                      Get.to(AllShopsList(
+                        shops: ctrl.shopList.value!,
+                      ));
+                    }
+                  },
+                  child: const Text('See more'))
+            ],
+          ),
+        ),
         GetX<ShopListController>(builder: (ctrl) {
           if (ctrl.isLoading.isTrue) {
             return const Center(
@@ -27,7 +51,7 @@ class ShopList extends StatelessWidget {
               return Column(children: [
                 GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
+                    crossAxisCount: 2,
                   ),
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -39,7 +63,9 @@ class ShopList extends StatelessWidget {
                       child: ShopItem(shop: ctrl.shopList.value![index]),
                     );
                   },
-                  itemCount: 6,
+                  itemCount: ctrl.shopList.value!.length <= 6
+                      ? ctrl.shopList.value!.length
+                      : 6,
                 ),
                 TextButton(
                   onPressed: () {
@@ -49,7 +75,9 @@ class ShopList extends StatelessWidget {
                 )
               ]);
             }
-            return const SizedBox.shrink();
+            return const Center(
+              child: Text("No shop"),
+            );
           }
           return const SizedBox.shrink();
         })
