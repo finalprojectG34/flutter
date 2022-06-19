@@ -39,18 +39,6 @@ class ItemRepository {
     );
   }
 
-  Future<User> getMe() async {
-    return itemOperation.getMe();
-  }
-
-  Future<bool> updateProfile(variable) {
-    return itemOperation.updateProfile(variable);
-  }
-
-  Future<bool> updatePassword(variable) {
-    return itemOperation.updatePassword(variable);
-  }
-
   Future<List<Item>> getMockItems() {
     return Future.delayed(const Duration(seconds: 4), () {
       return List.generate(30, (i) {

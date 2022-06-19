@@ -8,13 +8,15 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sms/data/repository/item_repository.dart';
+import 'package:sms/data/repository/user_repository.dart';
 
 import '../../app.dart';
 
 class AppController extends GetxController {
   final ItemRepository itemRepository;
+  final UserRepository userRepository;
 
-  AppController({required this.itemRepository});
+  AppController({required this.itemRepository, required this.userRepository});
 
   final storage = Get.find<FlutterSecureStorage>();
   RxBool hasSearchIcon = true.obs;
@@ -64,8 +66,8 @@ class AppController extends GetxController {
 
   getMe() async {
     try {
-      String? role = (await itemRepository.getMe()).role;
-      String? img = (await itemRepository.getMe()).image;
+      String? role = (await userRepository.getMe()).role;
+      String? img = (await userRepository.getMe()).image;
       if (role != null) {
         userRole(role);
       }
@@ -102,7 +104,7 @@ class AppController extends GetxController {
 
   updateProfilePic(File file) async {
     String? tempImgLink = await imageUpload(file);
-    bool? imgLink = await itemRepository.updateProfile({
+    bool? imgLink = await userRepository.updateProfile({
       "input": {
         "image": {"imageCover": tempImgLink}
       }

@@ -51,8 +51,8 @@ class AddAddress extends StatelessWidget {
                       ),
                     ),
                     context: context,
-                  builder: (context) => Padding(
-                    padding: const EdgeInsets.symmetric(
+                    builder: (context) => Padding(
+                      padding: const EdgeInsets.symmetric(
                           horizontal: 30, vertical: 10),
                       child: SingleChildScrollView(
                         child: Container(
