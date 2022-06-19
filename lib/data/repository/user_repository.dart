@@ -199,6 +199,7 @@ class UserRepository {
     final response = await gqlClient.query(
       QueryOptions(
         document: gql(queryGetMe),
+        fetchPolicy: FetchPolicy.noCache,
       ),
     );
     if (response.hasException) {
@@ -247,6 +248,7 @@ class UserRepository {
 }
       '''),
       variables: variable,
+      fetchPolicy: FetchPolicy.noCache,
     ));
     if (response.hasException) {
       for (var element in response.exception!.graphqlErrors) {

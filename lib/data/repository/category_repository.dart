@@ -58,6 +58,7 @@ class CategoryRepository {
                 }
               }
       '''),
+        fetchPolicy: FetchPolicy.noCache,
       ),
     );
     if (response.hasException) {
