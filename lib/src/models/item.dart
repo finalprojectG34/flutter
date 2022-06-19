@@ -140,3 +140,33 @@ class Price {
     );
   }
 }
+
+class ItemHistory {
+  String? prevOwner;
+  Modified? modified;
+  String? actionName;
+  String? transferDate;
+
+  ItemHistory(
+      {this.prevOwner, this.modified, this.actionName, this.transferDate});
+
+  factory ItemHistory.fromJson(Map<String, dynamic> json) {
+    return ItemHistory(
+        actionName: json["actionName"].toString(),
+        modified: json["modified"] != null
+            ? Modified.fromJson(json["modified"])
+            : null,
+        prevOwner: json["prevOwner"],
+        transferDate: json["transferDate"]);
+  }
+}
+
+class Modified {
+  String? field;
+  String? value;
+  Modified({this.value, this.field});
+
+  factory Modified.fromJson(Map<String, dynamic> json) {
+    return Modified(value: json["value"], field: json["field"]);
+  }
+}

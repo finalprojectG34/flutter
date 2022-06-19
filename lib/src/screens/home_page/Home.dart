@@ -34,13 +34,6 @@ class _HomeState extends State<Home> {
           ),
         GetX<AppController>(
           builder: (ctx) {
-            // appController.itemList =
-            //     ((ctx.itemList as List)
-            //             .map((json) => Item.fromJson(json))
-            //             .toList())
-            //         .obs;
-            // appController.getItems();
-
             return Expanded(
               child: ListView(
                 shrinkWrap: true,
@@ -48,7 +41,6 @@ class _HomeState extends State<Home> {
                   const SuggestedItems(),
                   const SizedBox(height: 15.0),
                   const CategoryList(),
-                  // if (ctx.isGettingItems.isTrue || ctx.itemList!.isNotEmpty)
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
@@ -67,16 +59,10 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                   ),
-                  // if (ctx.getItemError.isTrue)
-                  //   Padding(
-                  //     padding: const EdgeInsets.symmetric(horizontal: 10),
-                  //     child: Text(ctx.err.value),
-                  //   ),
                   if (ctx.isGettingItems.isTrue)
                     const Center(
                       child: CircularProgressIndicator(),
                     ),
-
                   ctx.itemList == null
                       ? ctx.getItemError.isTrue
                           ? Padding(
@@ -99,10 +85,11 @@ class _HomeState extends State<Home> {
                             )
                           : Container()
                       : ctx.itemList!.isEmpty
-                          ? const Padding(
+                          ? const Center(
+                              child: Padding(
                               padding: EdgeInsets.symmetric(horizontal: 10),
                               child: Text('No items found'),
-                            )
+                            ))
                           : GridView.builder(
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
@@ -117,18 +104,6 @@ class _HomeState extends State<Home> {
                                   item: (ctx.itemList as List)[index]),
                               itemCount: (ctx.itemList as List).length,
                             ),
-                  // GridView.builder(
-                  //   physics: const NeverScrollableScrollPhysics(),
-                  //   shrinkWrap: true,
-                  //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  //     childAspectRatio: .5,
-                  //     crossAxisCount: 2,
-                  //     crossAxisSpacing: 5,
-                  //     mainAxisSpacing: 5,
-                  //   ),
-                  //   itemBuilder: (context, index) => ItemMiniDetail(item: appController.itemList![index]),
-                  //   itemCount: appController.itemList?.length,
-                  // ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
@@ -162,35 +137,6 @@ class _HomeState extends State<Home> {
                     padding: const EdgeInsets.all(8),
                     mainAxisSpacing: 3,
                   ),
-                  // Padding(
-                  //   padding: const EdgeInsets.symmetric(horizontal: 10),
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //     children: [
-                  //       const Text('Latest products',
-                  //           style: TextStyle(
-                  //               fontWeight: FontWeight.bold,
-                  //               fontSize: 16,
-                  //               color: Colors.black)),
-                  //       TextButton(onPressed: () {}, child: const Text('See all'))
-                  //     ],
-                  //   ),
-                  // ),
-                  // GridView.count(
-                  //   childAspectRatio: .5,
-                  //   crossAxisCount: 2,
-                  //   children: const [
-                  //     ItemMiniDetail(),
-                  //     ItemMiniDetail(),
-                  //     ItemMiniDetail(),
-                  //     ItemMiniDetail(),
-                  //   ],
-                  //   physics: const NeverScrollableScrollPhysics(),
-                  //   shrinkWrap: true,
-                  //   crossAxisSpacing: 5,
-                  //   padding: const EdgeInsets.all(8),
-                  //   mainAxisSpacing: 5,
-                  // ),
                 ],
               ),
             );
