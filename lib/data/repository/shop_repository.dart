@@ -11,7 +11,7 @@ class ShopRepository {
 
   Future<List<Shop>> getShops() async {
     String getAllCompanies = r'''
-        query GetAllCompanies {
+      query GetAllCompanies {
             getAllCompanies {
               id
               slug
@@ -35,11 +35,17 @@ class ShopRepository {
               ownerId
               haveLicense
               status
-              sellingCategories
+              sellingCategories{
+                id
+                name
+                image{
+                imagePath
+                imageCover
+              }
               count
-              role
+              
             }
-          }
+          }}
       ''';
     final response = await gqlClient.query(
       QueryOptions(
@@ -50,20 +56,20 @@ class ShopRepository {
         fetchPolicy: FetchPolicy.noCache,
       ),
     );
-    List<Shop> shops = [];
+
     if (response.hasException) {
       print(response.exception);
-      throw Exception("Error Happened");
+      throw Exception("Error Happened ${response.exception}");
     } else {
-      print(response);
-      for (var element in (response.data!["getAllCompanies"] as List)) {
-        print(element);
-        shops.add(Shop.fromJson(element));
-      }
+      return (response.data!['getAllCompanies'] as List)
+          .map((json) => Shop.fromJson(json))
+          .toList();
     }
-    return shops;
-
-    // return getMockShops();
+    // print("shops length");
+    // print("${shops.length}");
+    // return shops;
+    //
+    // // return getMockShops();
   }
 
   Future<List<Shop>> getShopByRole(String role) async {

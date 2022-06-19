@@ -23,7 +23,7 @@ class CategoryItem extends StatelessWidget {
           CircleAvatar(
             backgroundColor: Colors.blue.shade100,
             child: Image.network(
-              "${category.image}",
+              "${category.image?.imageCover}",
               fit: BoxFit.cover,
               errorBuilder: (error, o, s) => const Text(""),
             ),

@@ -140,9 +140,10 @@ class SearchItemListState extends State<SearchItemList> {
                     ),
                   );
                 }
-                return const Center(
+                return const Expanded(
+                    child: Center(
                   child: Text("No Item"),
-                );
+                ));
               }
               return Expanded(
                 child: Center(child: errorPage(

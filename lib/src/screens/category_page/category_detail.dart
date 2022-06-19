@@ -72,6 +72,8 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
     return Scaffold(
       appBar: AppBar(title: Text('${widget.category.name}')),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           if (widget.category.subCategories != null &&
               widget.category.subCategories!.isNotEmpty) ...[

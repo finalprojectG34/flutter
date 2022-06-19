@@ -27,6 +27,7 @@ class AllShopsList extends StatelessWidget {
             shop: shops[index],
           ),
         ),
+        itemCount: shops.length,
       ),
     );
   }

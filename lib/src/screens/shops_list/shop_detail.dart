@@ -77,6 +77,8 @@ class _ShopDetailState extends State<ShopDetail> {
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: Column(
               mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Row(
                   children: [

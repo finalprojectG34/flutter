@@ -217,8 +217,8 @@ class ItemOperation {
                 : null,
           ],
           "paginationInfo": {
-            "limit": query.reqPagInfo?.limit,
-            "pageNo": query.reqPagInfo?.pageNo
+            "limit": query.reqPagInfo.limit,
+            "pageNo": query.reqPagInfo.pageNo
           }
         },
       }),

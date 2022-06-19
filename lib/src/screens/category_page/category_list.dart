@@ -33,6 +33,9 @@ class CategoryList extends StatelessWidget {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (BuildContext context, int index) {
+                    print("images");
+                    print(
+                        "${ctrl.categoryList.value![index].image?.imagePath}");
                     return InkWell(
                       onTap: () {
                         Get.to(CategoryDetailPage(
@@ -42,7 +45,9 @@ class CategoryList extends StatelessWidget {
                           category: ctrl.categoryList.value![index]),
                     );
                   },
-                  itemCount: 6,
+                  itemCount: ctrl.categoryList.value!.length <= 6
+                      ? ctrl.categoryList.value!.length
+                      : 6,
                 ),
                 TextButton(
                   onPressed: () {

@@ -11,7 +11,7 @@ class SearchController extends GetxController {
 
   SearchController({required this.itemRepository, required this.itemOperation});
 
-  RxBool isLoading = false.obs;
+  RxBool isLoading = true.obs;
   RxMap<String, dynamic>? mockSearchItem = <String, dynamic>{}.obs;
   final items = Rx<List<Item>?>(null);
 

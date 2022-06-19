@@ -22,7 +22,7 @@ class AllCategories extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return CategoryItem(category: allCategories[index]);
           },
-          itemCount: 6,
+          itemCount: allCategories.length <= 6 ? allCategories.length : 6,
         ));
   }
 }
