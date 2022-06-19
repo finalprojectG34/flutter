@@ -12,21 +12,21 @@ class ShopsListController extends GetxController {
 
   ShopsListController({required this.shopRepository});
 
-  Future<List<Shop>?> getShops(int pageIndex, int pageSize) async {
-    if (pageIndex < 1) {
-      isLoading(true);
-    }
-    try {
-      final shops = await shopRepository.getShops(pageSize, pageIndex);
-      shopsList.value = shops;
-      return shops;
-    } catch (e) {
-      errorOccurred(true);
-    } finally {
-      isLoading(false);
-    }
-    return null;
-  }
+  // Future<List<Shop>?> getShops(int pageIndex, int pageSize) async {
+  //   if (pageIndex < 1) {
+  //     isLoading(true);
+  //   }
+  //   try {
+  //     final shops = await shopRepository.getShops(pageSize, pageIndex);
+  //     shopsList.value = shops;
+  //     return shops;
+  //   } catch (e) {
+  //     errorOccurred(true);
+  //   } finally {
+  //     isLoading(false);
+  //   }
+  //   return null;
+  // }
 
   getShopByRole(String role) async {
     isLoading(true);

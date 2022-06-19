@@ -9,7 +9,7 @@ import 'package:sms/src/screens/auth/reset_password/resetCtx.dart';
 import 'package:sms/src/screens/category_page/categories_list_ctx.dart';
 import 'package:sms/src/screens/category_page/category_detial_ctx.dart';
 import 'package:sms/src/screens/profile_page/addressCtx.dart';
-import 'package:sms/src/screens/shops_list/shops_list_ctx.dart';
+import 'package:sms/src/screens/shops_list/all_shops_list_ctx.dart';
 
 import '../../data/repository/cart_repository.dart';
 import '../../data/repository/order_repository.dart';

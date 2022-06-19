@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:sms/src/screens/order_page/order_page_ctx.dart';
 
 import '../../../models/shop.dart';
-import '../../shops_list/shops_list_ctx.dart';
+import '../../shops_list/all_shops_list_ctx.dart';
 
 class SearchDelivery extends StatefulWidget {
   final String orderId;

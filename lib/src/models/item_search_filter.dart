@@ -5,10 +5,12 @@ class ItemSearchFilter {
   double maxPrice;
   List<FilterAttributes>? attributes;
   ReqPagInfo reqPagInfo;
+  String? ownerId;
 
   ItemSearchFilter(
       {this.categoryId,
       this.searchTerm,
+      this.ownerId,
       this.minPrice = 0,
       this.maxPrice = 3000,
       this.attributes,
@@ -19,10 +21,12 @@ class ItemSearchFilter {
       String? searchTerm,
       double? minPrice,
       double? maxPrice,
+      String? ownerId,
       List<FilterAttributes>? attributes,
       ReqPagInfo? reqPagInfo}) {
     return ItemSearchFilter(
         searchTerm: searchTerm ?? this.searchTerm,
+        ownerId: ownerId ?? this.ownerId,
         attributes: attributes ?? this.attributes,
         categoryId: categoryId ?? this.categoryId,
         maxPrice: maxPrice ?? this.maxPrice,

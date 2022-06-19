@@ -130,9 +130,6 @@ class AppController extends GetxController {
   getItems() async {
     getItemError(false);
     isGettingItems(true);
-    // List<Item> items = await itemRepository.getItems();
-    // itemList!(items);
-    // isGettingItems(false);
     try {
       List<Item> items = await itemRepository.getItems();
       itemList = items.obs;

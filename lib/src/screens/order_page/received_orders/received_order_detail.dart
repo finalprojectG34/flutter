@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:sms/src/screens/order_page/order_page_ctx.dart';
 import 'package:sms/src/screens/order_page/received_orders/search_delivery.dart';
 
-import '../../shops_list/shops_list_ctx.dart';
+import '../../shops_list/all_shops_list_ctx.dart';
 import '../sent_orders/sent_order_detail.dart';
 
 class ReceivedOrderDetail extends StatefulWidget {
