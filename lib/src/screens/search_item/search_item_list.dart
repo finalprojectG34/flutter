@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:sms/src/models/item_search_filter.dart';
 import 'package:sms/src/screens/components/error_page.dart';
 import 'package:sms/src/screens/search_item/search_item_ctx.dart';
 
+import '../../app.dart';
 import '../components/searchbar.dart';
 import '../components/single_item_search_component.dart';
 import '../filter/filter.dart';
@@ -20,19 +22,47 @@ class SearchItemList extends StatefulWidget {
 }
 
 class SearchItemListState extends State<SearchItemList> {
-  final searchItemCtx = Get.find<SearchController>();
+  final ctx = Get.find<SearchController>();
   String query = "";
   late ItemSearchFilter itemSearchFilter;
+  static const _pageSize = 20;
+
+  final PagingController<int, Item> _pagingController =
+      PagingController(firstPageKey: 0);
 
   @override
   initState() {
-    itemSearchFilter =
-        ItemSearchFilter(searchTerm: widget.searchText, attributes: [
-      FilterAttributes(
-          name: "condition", values: ["New", "Used", "Not Specified"])
-    ]);
-    searchItemCtx.getSearchItems(itemSearchFilter);
+    itemSearchFilter = ItemSearchFilter(
+        searchTerm: widget.searchText,
+        // attributes: [
+        //   FilterAttributes(
+        //       name: "condition", values: ["New", "Used", "Not Specified"])
+        // ],
+        reqPagInfo: ReqPagInfo());
+    _pagingController.addPageRequestListener((pageKey) {
+      itemSearchFilter =
+          itemSearchFilter.copyWith(reqPagInfo: ReqPagInfo(pageNo: pageKey));
+      _fetchPage(itemSearchFilter);
+    });
+    _fetchPage(itemSearchFilter);
     super.initState();
+  }
+
+  Future<void> _fetchPage(ItemSearchFilter _searchFilter) async {
+    try {
+      final newItems = await ctx.getSearchItems(_searchFilter);
+      if (newItems != null) {
+        final isLastPage = newItems.length < _pageSize;
+        if (isLastPage) {
+          _pagingController.appendLastPage(newItems);
+        } else {
+          final nextPageKey = _searchFilter.reqPagInfo.pageNo + newItems.length;
+          _pagingController.appendPage(newItems, nextPageKey);
+        }
+      }
+    } catch (error) {
+      _pagingController.error = error;
+    }
   }
 
   @override
@@ -55,7 +85,9 @@ class SearchItemListState extends State<SearchItemList> {
                       builder: (context) => Filter(
                         itemSearchFilter: itemSearchFilter,
                         onFilter: (itemFilter) {
-                          itemSearchFilter = itemFilter;
+                          itemSearchFilter =
+                              itemFilter.copyWith(reqPagInfo: ReqPagInfo());
+                          ctx.getSearchItems(itemSearchFilter);
                         },
                       ),
                     );
@@ -69,27 +101,43 @@ class SearchItemListState extends State<SearchItemList> {
               onSearch: (value) {
                 // searchItemCtx.getMockSearchItems();
                 query = value;
-                itemSearchFilter.searchTerm = query;
-                searchItemCtx.getSearchItems(itemSearchFilter);
+                itemSearchFilter = itemSearchFilter.copyWith(
+                    searchTerm: query, reqPagInfo: ReqPagInfo());
+                ctx.getSearchItems(itemSearchFilter);
               },
               searchText: widget.searchText,
             ),
             Obx(() {
-              if (searchItemCtx.isLoading.isTrue) {
+              if (ctx.isLoading.isTrue) {
                 return const Expanded(
                     child: Center(
                   child: CircularProgressIndicator(),
                 ));
               }
-              if (searchItemCtx.items.value != null) {
-                if (searchItemCtx.items.value!.isNotEmpty) {
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) => SingleItemSearch(
-                      variable: searchItemCtx.items.value![index],
-                      item: searchItemCtx.items.value![index],
+              if (ctx.items.value != null) {
+                if (ctx.items.value!.isNotEmpty) {
+                  // return ListView.builder(
+                  //   shrinkWrap: true,
+                  //   itemBuilder: (context, index) => SingleItemSearch(
+                  //     variable: ctx.items.value![index],
+                  //     item: ctx.items.value![index],
+                  //   ),
+                  //   itemCount: ctx.items.value!.length,
+                  // );
+                  return PagedGridView<int, Item>(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: .65,
+                            crossAxisSpacing: 5,
+                            mainAxisSpacing: 5),
+                    pagingController: _pagingController,
+                    showNewPageProgressIndicatorAsGridChild: false,
+                    builderDelegate: PagedChildBuilderDelegate<Item>(
+                      itemBuilder: (context, item, index) => SingleItemSearch(
+                        item: item,
+                      ),
                     ),
-                    itemCount: searchItemCtx.items.value!.length,
                   );
                 }
                 return const Center(
@@ -99,12 +147,18 @@ class SearchItemListState extends State<SearchItemList> {
               return Expanded(
                 child: Center(child: errorPage(
                   onTryAgain: () {
-                    searchItemCtx.getSearchItems(itemSearchFilter);
+                    ctx.getSearchItems(itemSearchFilter);
                   },
                 )),
               );
             })
           ],
         ));
+  }
+
+  @override
+  dispose() {
+    _pagingController.dispose();
+    super.dispose();
   }
 }
