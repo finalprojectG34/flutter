@@ -74,7 +74,8 @@ class ApplicationBindings implements Bindings {
       fenix: true,
     );
     Get.lazyPut(
-      () => AppController(itemRepository: _itemRepository),
+      () => AppController(
+          itemRepository: _itemRepository, userRepository: _userRepository),
       fenix: true,
     );
     Get.lazyPut(
@@ -119,11 +120,11 @@ class ApplicationBindings implements Bindings {
       fenix: true,
     );
     Get.lazyPut(
-      () => UpdateProfileController(itemRepository: _itemRepository),
+      () => UpdateProfileController(userRepository: _userRepository),
       fenix: true,
     );
     Get.lazyPut(
-      () => ChangePasswordController(itemRepository: _itemRepository),
+      () => ChangePasswordController(userRepository: _userRepository),
       fenix: true,
     );
 
@@ -132,8 +133,7 @@ class ApplicationBindings implements Bindings {
       fenix: true,
     );
     Get.lazyPut(
-      () => AddressController(
-          itemRepository: _itemRepository, userRepository: _userRepository),
+      () => AddressController(userRepository: _userRepository),
       fenix: true,
     );
   }

@@ -1,5 +1,3 @@
-
-
 enum OnModel { ITEM, SHOP }
 
 class Review {

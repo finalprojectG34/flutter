@@ -5,8 +5,6 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:sms/src/app.dart';
 import 'package:sms/src/screens/profile_page/profile_page_ctx.dart';
 
-import '../profile_page/addressCtx.dart';
-
 class AddressInput extends StatefulWidget {
   const AddressInput(
       {Key? key,

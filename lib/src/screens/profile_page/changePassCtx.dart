@@ -3,13 +3,13 @@ import 'dart:async';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:sms/data/repository/item_repository.dart';
+import 'package:sms/data/repository/user_repository.dart';
 import 'package:sms/src/screens/home_page/AppCtx.dart';
 
 class ChangePasswordController extends GetxController {
-  final ItemRepository itemRepository;
+  final UserRepository userRepository;
 
-  ChangePasswordController({required this.itemRepository});
+  ChangePasswordController({required this.userRepository});
 
   final storage = Get.find<FlutterSecureStorage>();
   AppController appController = Get.find();
@@ -22,7 +22,7 @@ class ChangePasswordController extends GetxController {
     isChangePasswordLoading(true);
 
     try {
-      isPasswordUpdated = await itemRepository.updatePassword(variable);
+      isPasswordUpdated = await userRepository.updatePassword(variable);
       if (isPasswordUpdated == true) {
         EasyLoading.showSuccess('Password changed successfully',
             dismissOnTap: true, maskType: EasyLoadingMaskType.black);
