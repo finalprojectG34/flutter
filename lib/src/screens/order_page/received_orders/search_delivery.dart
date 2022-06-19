@@ -20,7 +20,7 @@ class _SearchDeliveryState extends State<SearchDelivery> {
 
   @override
   void initState() {
-    ShopsListController shopsListController = Get.find();
+    AllShopsListController shopsListController = Get.find();
     shopsListController.getShopByRole("DELIVERY");
   }
 
@@ -30,7 +30,7 @@ class _SearchDeliveryState extends State<SearchDelivery> {
       appBar: AppBar(
         title: Text("Search Delivery"),
       ),
-      body: GetX<ShopsListController>(
+      body: GetX<AllShopsListController>(
         builder: (ctx) {
           return ctx.isLoading.isTrue ||
                   orderPageController.isOrderLoading.isTrue

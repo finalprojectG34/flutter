@@ -102,24 +102,7 @@ class _HomeState extends State<Home> {
                                   item: (ctx.itemList as List)[index]),
                               itemCount: (ctx.itemList as List).length,
                             ),
-                  // Padding(
-                  //   padding: const EdgeInsets.symmetric(horizontal: 10),
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //     children: [
-                  //       const Text('Visit shops',
-                  //           style: TextStyle(
-                  //               fontWeight: FontWeight.bold,
-                  //               fontSize: 16,
-                  //               color: Colors.black)),
-                  //       TextButton(
-                  //           onPressed: () {
-                  //             Get.to(AllShopsList());
-                  //           },
-                  //           child: const Text('See more'))
-                  //     ],
-                  //   ),
-                  // ),
+
                   // GridView.count(
                   //   childAspectRatio: 1.1,
                   //   crossAxisCount: 2,

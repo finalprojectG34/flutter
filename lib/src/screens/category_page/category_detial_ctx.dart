@@ -5,7 +5,7 @@ import '../../models/item_search_filter.dart';
 import '../../models/models.dart';
 
 class CategoryDetailController extends GetxController {
-  var isLoading = false.obs;
+  var isLoading = true.obs;
   var errorOccurred = false.obs;
   var itemList = Rx<List<Item>?>(null);
   final ItemOperation itemOperation;

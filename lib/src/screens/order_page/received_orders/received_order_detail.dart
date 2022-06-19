@@ -18,7 +18,7 @@ class ReceivedOrderDetail extends StatefulWidget {
 
 class _ReceivedOrderDetailState extends State<ReceivedOrderDetail> {
   OrderPageController orderPageController = Get.find();
-  ShopsListController shopsListController = Get.find();
+  AllShopsListController shopsListController = Get.find();
 
   @override
   void initState() {
@@ -300,13 +300,13 @@ class _DeliveryProfileState extends State<DeliveryProfile> {
 
   @override
   void initState() {
-    ShopsListController shopsListController = Get.find();
+    AllShopsListController shopsListController = Get.find();
     shopsListController.getShopById(widget.shopId);
   }
 
   @override
   Widget build(BuildContext context) {
-    return GetX<ShopsListController>(
+    return GetX<AllShopsListController>(
       builder: (ctx) {
         return ctx.isLoading.isTrue || orderPageController.isOrderLoading.isTrue
             ? Center(
