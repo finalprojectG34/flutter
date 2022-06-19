@@ -15,16 +15,6 @@ class SearchController extends GetxController {
   RxMap<String, dynamic>? mockSearchItem = <String, dynamic>{}.obs;
   final items = Rx<List<Item>?>(null);
 
-  // getMockSearchItems() async {
-  //   isLoading(true);
-  //   Map<String, dynamic> result = await itemOperation.getMockSearchItems();
-  //   mockSearchItem!(result);
-  //   print('$mockSearchItem  pppppppppppppppppppppppppppppp');
-  //   isLoading(false);
-  //   // print('mock $mockCategory');
-  //   // return a;
-  // }
-
   Future<List<Item>?> getSearchItems(ItemSearchFilter itemSearchFilter) async {
     if (itemSearchFilter.reqPagInfo.pageNo < 1) {
       isLoading(true);

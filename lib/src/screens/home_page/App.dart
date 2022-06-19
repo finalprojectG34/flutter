@@ -82,6 +82,14 @@ class _AppState extends State<App> {
       case 1:
         // _selectedIndex = index;
         appController.changePage('My Items', index);
+        if (appController.isAuthenticated.isFalse) {
+          Get.snackbar('Sign in', 'You need to sign in first',
+              snackPosition: SnackPosition.BOTTOM);
+          appController.changePage('Account', 4);
+        }
+        return appController.isAuthenticated.isTrue
+            ? const CartPage()
+            : Container();
         return Text("");
       //   Query(
       //   options: QueryOptions(
