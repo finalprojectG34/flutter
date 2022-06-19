@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sms/src/app.dart';
+import 'package:sms/src/screens/category_page/all_categories.dart';
 import 'package:sms/src/screens/category_page/categories_list_ctx.dart';
 import 'package:sms/src/screens/components/category_item.dart';
 
@@ -32,13 +33,22 @@ class CategoryList extends StatelessWidget {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (BuildContext context, int index) {
-                    return CategoryItem(
-                        category: ctrl.categoryList.value![index]);
+                    return InkWell(
+                      onTap: () {
+                        Get.to(CategoryDetailPage(
+                            category: ctrl.categoryList.value![index]));
+                      },
+                      child: CategoryItem(
+                          category: ctrl.categoryList.value![index]),
+                    );
                   },
                   itemCount: 6,
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(AllCategories(
+                        allCategories: (ctrl.categoryList.value!)));
+                  },
                   child: const Text('More category'),
                 )
               ]);

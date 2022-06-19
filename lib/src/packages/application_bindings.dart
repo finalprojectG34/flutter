@@ -7,6 +7,7 @@ import 'package:sms/data/repository/user_repository.dart';
 import 'package:sms/src/packages/shared_preferences.dart';
 import 'package:sms/src/screens/auth/reset_password/resetCtx.dart';
 import 'package:sms/src/screens/category_page/categories_list_ctx.dart';
+import 'package:sms/src/screens/category_page/category_detial_ctx.dart';
 import 'package:sms/src/screens/shops_list/shops_list_ctx.dart';
 
 import '../../data/repository/cart_repository.dart';
@@ -64,6 +65,11 @@ class ApplicationBindings implements Bindings {
     );
     Get.lazyPut(
       () => CategoryListController(categoryRepository: _categoryRepository),
+      fenix: true,
+    );
+    Get.lazyPut(
+      () => CategoryDetailController(
+          itemOperation: ItemOperation(gqlClient: Client().connect)),
       fenix: true,
     );
     Get.lazyPut(
