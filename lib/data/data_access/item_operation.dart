@@ -133,10 +133,10 @@ class ItemOperation {
         .toList();
   }
 
-  Future addToCart(name, shopId, itemId, price, amount) async {
+  Future addToCart(String itemId) async {
     final response = await gqlClient.mutate(MutationOptions(
       document: gql(r'''
-            mutation Mutation($input: CartItemsInput!) {
+            mutation Mutation($input: UserAddToCartInput) {
               addToCart(input: $input) {
                 id
               }
@@ -144,11 +144,7 @@ class ItemOperation {
       '''),
       variables: {
         "input": {
-          "name": name,
-          "shopId": shopId,
-          "itemId": itemId,
-          "price": price,
-          "amount": amount,
+          "itemId": [itemId]
         }
       },
       fetchPolicy: FetchPolicy.noCache,
