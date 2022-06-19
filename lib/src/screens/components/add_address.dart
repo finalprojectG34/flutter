@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_getx_widget.dart';
 import 'package:sms/src/screens/components/single_address.dart';
 
+import '../profile_page/profile_page_ctx.dart';
 import 'address_input.dart';
 
 class AddAddress extends StatelessWidget {
@@ -10,79 +12,68 @@ class AddAddress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        title: Text('Modify Address'),
-      ),
-      body: Column(
-        children: [
-          // Padding(
-          //   padding: EdgeInsets.only(top: 20, bottom: 20),
-          //   child: Row(
-          //     children: [
-          //       IconButton(
-          //         icon: Icon(Icons.chevron_left, size: 30),
-          //         onPressed: () => Navigator.pop(context),
-          //       ),
-          //       Padding(
-          //         padding: EdgeInsets.only(left: 20),
-          //         child: Text(
-          //           "Add Address",
-          //           style: TextStyle(
-          //             fontSize: 25,
-          //             fontWeight: FontWeight.bold,
-          //           ),
-          //         ),
-          //       )
-          //     ],
-          //   ),
-          // ),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 20, right: 20),
-            child: ListView(
-              shrinkWrap: true,
-              children: [
-                SingleAddress(
-                    address1: 'Addis Ababa', address2: 'Kolfe keranyo'),
-              ],
+    return GetX<ProfilePageController>(builder: (ctx) {
+      // logTrace('address',ctx.streetName.value);
+      return Scaffold(
+        // resizeToAvoidBottomInset: true,
+        appBar: AppBar(
+          title: Text('Modify Address'),
+        ),
+        body: Column(
+          children: [
+            SizedBox(
+              height: 10,
             ),
-          ),
-          TextButton(
-              onPressed: () {
-                showModalBottomSheet(
-                  isDismissible: true,
-                  isScrollControlled: true,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10),
-                    ),
+            Padding(
+              padding: EdgeInsets.only(left: 20, right: 20),
+              child: ListView(
+                shrinkWrap: true,
+                children: [
+                  SingleAddress(
+                    country: ctx.address!.value.country!,
+                    city: ctx.address!.value.city!,
+                    streetName: ctx.address!.value.addressName!,
+                    subCity: ctx.address!.value.subCity!,
                   ),
-                  context: context,
+                ],
+              ),
+            ),
+            if (ctx.address!.value.country! == '')
+              TextButton(
+                onPressed: () {
+                  showModalBottomSheet(
+                    isDismissible: true,
+                    isScrollControlled: true,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10),
+                      ),
+                    ),
+                    context: context,
                   builder: (context) => Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 30, vertical: 10),
-                    child: SingleChildScrollView(
+                          horizontal: 30, vertical: 10),
+                      child: SingleChildScrollView(
                         child: Container(
-                            padding: EdgeInsets.only(
-                                bottom:
-                                    MediaQuery.of(context).viewInsets.bottom),
-                            child: AddressInput(
-                              city: '',
-                              subCity: '',
-                              country: 'Ethiopia',
-                              streetName: '',
-                            ))),
-                  ),
-                );
-              },
-              child: Text('Add new location')),
-        ],
-      ),
-    );
+                          padding: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).viewInsets.bottom),
+                          child: AddressInput(
+                            city: ctx.address!.value.city!,
+                            subCity: ctx.address!.value.subCity!,
+                            country: ctx.address!.value.country!,
+                            streetName: ctx.address!.value.addressName!,
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                child: Text('Add new location'),
+              ),
+          ],
+        ),
+      );
+    });
   }
 }

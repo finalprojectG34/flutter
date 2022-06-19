@@ -55,7 +55,9 @@ class LoginController extends GetxController {
         }
         // await storage.write(key: 'user', value: jsonEncode(signedInUser));
         EasyLoading.showSuccess('Logged in successfully',
-            dismissOnTap: true, maskType: EasyLoadingMaskType.black);
+            dismissOnTap: true,
+            maskType: EasyLoadingMaskType.black,
+            duration: Duration(seconds: 2));
         AppController appController = Get.find();
         appController.changePage('Home', 0);
         appController.isAuthenticated(true);
