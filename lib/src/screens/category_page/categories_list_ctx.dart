@@ -17,6 +17,7 @@ class CategoryListController extends GetxController {
   }
 
   Future<List<Category>?> getCategory() async {
+    isLoading(true);
     try {
       final categories = await categoryRepository.getCategory();
       categoryList.value = categories;

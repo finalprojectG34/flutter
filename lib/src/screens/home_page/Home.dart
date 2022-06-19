@@ -63,7 +63,7 @@ class _HomeState extends State<Home> {
                             onPressed: () {
                               Get.to(const ItemList());
                             },
-                            child: const Text('See all'))
+                            child: const Text('See more'))
                       ],
                     ),
                   ),
@@ -143,7 +143,7 @@ class _HomeState extends State<Home> {
                             onPressed: () {
                               Get.to(const ShopsList());
                             },
-                            child: const Text('See all'))
+                            child: const Text('See more'))
                       ],
                     ),
                   ),
