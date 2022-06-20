@@ -62,7 +62,7 @@ class _ItemDetailState extends State<ItemDetails> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "ETB ${widget.item.price?.discountPrice != null ? widget.item.price?.discountPrice.toString() : widget.item.price?.sale.toString()}",
+                  "ETB ${widget.item.discountPrice != null ? widget.item.discountPrice : widget.item.price.toString()}",
                   style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                 ),
                 // IconButton(
