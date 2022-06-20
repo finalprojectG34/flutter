@@ -38,39 +38,39 @@ class AddAddress extends StatelessWidget {
                 ],
               ),
             ),
-            if (ctx.address!.value.country! == '')
-              TextButton(
-                onPressed: () {
-                  showModalBottomSheet(
-                    isDismissible: true,
-                    isScrollControlled: true,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10),
-                      ),
-                    ),
-                    context: context,
-                    builder: (context) => Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 10),
-                      child: SingleChildScrollView(
-                        child: Container(
-                          padding: EdgeInsets.only(
-                              bottom: MediaQuery.of(context).viewInsets.bottom),
-                          child: AddressInput(
-                            city: ctx.address!.value.city!,
-                            subCity: ctx.address!.value.subCity!,
-                            country: ctx.address!.value.country!,
-                            streetName: ctx.address!.value.addressName!,
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                },
-                child: Text('Add new location'),
-              ),
+            // if (ctx.address!.value.country! == '')
+            //   TextButton(
+            //     onPressed: () {
+            //       showModalBottomSheet(
+            //         isDismissible: true,
+            //         isScrollControlled: true,
+            //         shape: const RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.only(
+            //             topLeft: Radius.circular(10),
+            //             topRight: Radius.circular(10),
+            //           ),
+            //         ),
+            //         context: context,
+            //         builder: (context) => Padding(
+            //           padding: const EdgeInsets.symmetric(
+            //               horizontal: 30, vertical: 10),
+            //           child: SingleChildScrollView(
+            //             child: Container(
+            //               padding: EdgeInsets.only(
+            //                   bottom: MediaQuery.of(context).viewInsets.bottom),
+            //               child: AddressInput(
+            //                 city: ctx.address!.value.city!,
+            //                 subCity: ctx.address!.value.subCity!,
+            //                 country: ctx.address!.value.country!,
+            //                 streetName: ctx.address!.value.addressName!,
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //       );
+            //     },
+            //     child: Text('Add new location'),
+            //   ),
           ],
         ),
       );

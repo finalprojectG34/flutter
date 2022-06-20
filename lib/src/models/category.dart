@@ -14,7 +14,8 @@ class Category extends Equatable {
       this.poster,
       this.path,
       this.parentId,
-      this.subCategories});
+      this.subCategories,
+      this.hasSubcategory});
 
   final String? id;
   final String? name;
@@ -27,6 +28,7 @@ class Category extends Equatable {
   final int? count;
   final List<Attribute>? attributes;
   final List<Category>? subCategories;
+  final bool? hasSubcategory;
 
   @override
   List<Object?> get props => [id, name, description, image];
@@ -40,6 +42,7 @@ class Category extends Equatable {
       slug: json["slug"],
       count: json["count"],
       poster: json["poster"],
+      hasSubcategory: json['haveSubCtg'],
       attributes: json["attributes"] != null
           ? List.of(json["attributes"])
               .map((e) => Attribute.fromJson(e))
@@ -67,7 +70,8 @@ class Attribute {
   final List<CurrentData>? currentData;
   final String? display;
   final List<String>? options;
-  final List<String>? modifiers;
+  final List? modifiers;
+  final List<String>? values;
   final String? brandId;
   final bool? isRequired;
   final bool? otherSupported;
@@ -84,31 +88,31 @@ class Attribute {
       this.brandId,
       this.isRequired,
       this.otherSupported,
-      this.inputType});
+      this.inputType,
+      this.values});
 
   factory Attribute.fromJson(Map<String, dynamic> json) {
     return Attribute(
         name: json["name"],
-        slug: json["slug"],
-        categoryIds: json["categoryIds"] != null
-            ? List.of(json["categoryIds"]).map((e) => e.toString()).toList()
-            : null,
-        currentData: json["currentData"] != null
-            ? List.of(json["currentData"])
-                .map((e) => CurrentData.fromJson(e))
-                .toList()
-            : null,
-        display: json["display"],
-        options: json["options"] != null
-            ? List.of(json["options"]).map((e) => e.toString()).toList()
-            : null,
-        brandId: json["brandId"],
-        inputType: json["inputType"],
-        modifiers: json["modifiers"] != null
-            ? List.of(json["modifiers"]).map((e) => e.toString()).toList()
-            : null,
-        isRequired: json["isRequired"],
-        otherSupported: json["otherSupported"]);
+      slug: json["slug"],
+      categoryIds: json["categoryIds"] != null
+          ? List.of(json["categoryIds"]).map((e) => e.toString()).toList()
+          : null,
+      currentData: json["currentData"] != null
+          ? List.of(json["currentData"])
+              .map((e) => CurrentData.fromJson(e))
+              .toList()
+          : null,
+      display: json["display"],
+      values: json["values"].cast<String>(),
+      // brandId: json["brandId"],
+      // inputType: json["inputType"],
+      // modifiers: json["modifiers"] != null
+      //     ? List.of(json["modifiers"]).map((e) => e.toString()).toList()
+      //     : null,
+      // isRequired: json["isRequired"],
+      // otherSupported: json["otherSupported"]
+    );
   }
 }
 

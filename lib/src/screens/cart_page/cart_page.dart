@@ -53,43 +53,47 @@ class _CartPageState extends State<CartPage> {
                           ),
                         ),
                       )
-                    : Column(
-                        children: [
-                          Expanded(
-                            child: ListView(
-                              clipBehavior: Clip.none,
-                              children: (ctx.cartList as List)
-                                  .map((cart) => SingleCart(cart: cart))
-                                  .toList()
-                                  .obs,
-                            ),
-                          ),
-                          const SizedBox(height: 50),
-                          const PaymentDetail(),
-                          ElevatedButton(
-                            style: ButtonStyle(
-                              shadowColor: MaterialStateProperty.all(
-                                  Colors.lightBlueAccent),
-                              elevation: MaterialStateProperty.all(5),
-                              backgroundColor: MaterialStateProperty.all(
-                                  const Color(0xff40BFFF)),
-                              fixedSize: MaterialStateProperty.all(
-                                  Size(Get.width, 54)),
-                            ),
-                            onPressed: () {
-                              Get.to(const ShipmentInfoPage());
-                            },
-                            child: const Text(
-                              "Check Out",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13,
+                    : ctx.cartList!.isEmpty
+                        ? Center(
+                            child: Text('No cart item found'),
+                          )
+                        : Column(
+                            children: [
+                              Expanded(
+                                child: ListView(
+                                  clipBehavior: Clip.none,
+                                  children: (ctx.cartList as List)
+                                      .map((cart) => SingleCart(cart: cart))
+                                      .toList()
+                                      .obs,
+                                ),
                               ),
-                            ),
+                              const SizedBox(height: 50),
+                              const PaymentDetail(),
+                              ElevatedButton(
+                                style: ButtonStyle(
+                                  shadowColor: MaterialStateProperty.all(
+                                      Colors.lightBlueAccent),
+                                  elevation: MaterialStateProperty.all(5),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      const Color(0xff40BFFF)),
+                                  fixedSize: MaterialStateProperty.all(
+                                      Size(Get.width, 54)),
+                                ),
+                                onPressed: () {
+                                  Get.to(const ShipmentInfoPage());
+                                },
+                                child: const Text(
+                                  "Check Out",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 13,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
           ),
         );
       },

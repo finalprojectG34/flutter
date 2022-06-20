@@ -6,6 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sms/src/app.dart';
+import 'package:sms/src/screens/add_item/add_item_ctx.dart';
 import 'package:sms/src/screens/profile_page/profile_page_ctx.dart';
 import 'package:sms/src/utils/loger/console_loger.dart';
 
@@ -23,6 +24,7 @@ class LoginController extends GetxController {
   var error = false.obs;
   String verificationId = "";
   final AppController appController = Get.find();
+  final AddItemController addItemController = Get.find();
   final ProfilePageController profilePageController = Get.find();
   user.User? signedInUser;
   RxString err = ''.obs;
@@ -50,18 +52,32 @@ class LoginController extends GetxController {
         await storage.write(key: 'shopId', value: signedInUser?.shopId);
         await storage.write(key: 'userImg', value: signedInUser?.image);
 
-        if (signedInUser?.address?.addressName != null) {
-          await profilePageController.setUserAddress(signedInUser?.address);
-        }
+        // if (signedInUser?.address?.addressName != null) {
+        //   await profilePageController.setUserAddress(signedInUser?.address);
+        // }else{
+        //   await profilePageController.setUserAddress(signedInUser?.address);
+        // }
+        await profilePageController.setUserAddress(signedInUser?.address);
         // await storage.write(key: 'user', value: jsonEncode(signedInUser));
+
         EasyLoading.showSuccess('Logged in successfully',
             dismissOnTap: true,
             maskType: EasyLoadingMaskType.black,
             duration: Duration(seconds: 2));
         AppController appController = Get.find();
-        appController.changePage('Home', 0);
+        // String? value = await storage.read(key: 'token');
+        // if (value != null) {
+        //   appController.isAuthenticated(true);
+        // }
+        // await appController.getItems();
+        // await appController.getUserInfo();
+        // await appController.getShopId();
+        await appController.changePage('Home', 0);
         appController.isAuthenticated(true);
         // Get.offNamed('/');
+        // await addItemController.getUserShop();
+        // await addItemController.getCategory();
+
       }
     } on TimeoutException catch (e) {
       EasyLoading.showError(e.message!,

@@ -9,6 +9,8 @@ import 'package:sms/src/screens/order_page/sent_orders_page.dart';
 import 'package:sms/src/screens/reviews/ui/add_review.dart';
 import 'package:sms/src/screens/reviews/ui/list_reviews.dart';
 
+import '../home_page/item_detail/item_detail.dart';
+
 class DrawerPage extends StatelessWidget {
   const DrawerPage({Key? key}) : super(key: key);
 
@@ -122,6 +124,22 @@ class DrawerPage extends StatelessWidget {
               onTap: () {
                 // Navigator.pushNamed(context, "/add_item");
                 Get.to(() => AddReview());
+              },
+              leading: const Icon(
+                Icons.fiber_new,
+                color: Color(0xFF0D90EE),
+              ),
+              // selected: routes == Routes.newProducts,
+            ),
+            ListTile(
+              title: const Text('item'),
+              onTap: () {
+                // Navigator.pushNamed(context, "/add_item");
+                Get.to(() => ItemDetails(item: {
+                      "name": "cbdjhvd",
+                      "description": "vdfjbvd",
+                      "price": {"discountPrice": 12}
+                    }));
               },
               leading: const Icon(
                 Icons.fiber_new,

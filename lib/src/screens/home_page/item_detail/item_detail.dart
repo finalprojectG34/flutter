@@ -1,7 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
+// import '../../components/shop_detail_component.dart';
 import '../../components/suggested_items.dart';
+import '../../reviews/ui/review_mini_detail.dart';
 
 class ItemDetails extends StatefulWidget {
   static const routeName = '/itemDetail';
@@ -47,6 +49,7 @@ class _ItemDetailState extends State<ItemDetails> {
         title: Text('${widget.item['name']} detail'),
       ),
       body: ListView(
+        // shrinkWrap: true,
         children: [
           const SuggestedItems(),
           const SizedBox(
@@ -278,7 +281,7 @@ class _ItemDetailState extends State<ItemDetails> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5),
             child: Card(
-              color: Colors.blue.shade300,
+              color: Colors.blue.shade200,
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
@@ -416,7 +419,7 @@ class _ItemDetailState extends State<ItemDetails> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5),
             child: Card(
-              color: Colors.black54,
+              color: Colors.black38,
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -441,6 +444,48 @@ class _ItemDetailState extends State<ItemDetails> {
           ),
           SizedBox(
             height: 10,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              children: [
+                CircleAvatar(
+                  radius: 28,
+                  // backgroundColor: Colors.white,
+                  child: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        'https://www.woolha.com/media/2020/03/eevee.png'),
+                    radius: 25,
+                  ),
+                ),
+                SizedBox(
+                  width: 30,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Shop larson electronic',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      'Official store',
+                      style: TextStyle(fontSize: 16),
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+          ReviewMiniDetail(
+            reviewCount: 3,
+            star: 3,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),

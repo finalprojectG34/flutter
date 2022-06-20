@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:optimized_cached_image/optimized_cached_image.dart';
 
+import 'add_review.dart';
+
 class ListReviews extends StatefulWidget {
   const ListReviews({Key? key}) : super(key: key);
 
@@ -28,78 +30,58 @@ class _ListReviewsState extends State<ListReviews> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Reviews'),
-          // You can add title here
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios, color: Colors.grey),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-          backgroundColor: Colors.blue.withOpacity(0.3),
-          //You can make this transparent
-          elevation: 0.0, //No shadow
+          //No shadow
         ),
         body: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Column(
-// mainAxisSize: MainAxisSize.min,
-
+          child: Column(children: [
+            //------------------- reviews count
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                //------------------- reviews count
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("8 Reviews "),
-                    Row(
-                      children: [
-                        Checkbox(
-                          value: _isChecked,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              _isChecked = value!;
-                            });
-                          },
-                        ),
-                        Text("with Photo "),
-                      ],
-                    ),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Text("8 Reviews "),
                 ),
+              ],
+            ),
 
-                Expanded(
-                  child: ListView(
-                      // shrinkWrap: true,
-                      // physics: NeverScrollableScrollPhysics(),
-                      // padding: const EdgeInsets.all(8),
-                      children: <Widget>[
-                        SingleReview(url2: ""),
-                        SingleReview(url2: ""),
-                        SingleReview(url2: ""),
-                        SingleReview(url2: ""),
-                      ]),
-                ),
+            Expanded(
+              child: ListView(
+                  // shrinkWrap: true,
+                  // physics: NeverScrollableScrollPhysics(),
+                  // padding: const EdgeInsets.all(8),
+                  children: <Widget>[
+                    SingleReview(url2: ""),
+                    SingleReview(url2: ""),
+                    SingleReview(url2: ""),
+                    SingleReview(url2: ""),
+                  ]),
+            ),
 
-                // GridView.count(
-                //     crossAxisCount: 1,
-                //     scrollDirection: Axis.vertical,
-                //     shrinkWrap: true,
-                //     physics: const NeverScrollableScrollPhysics(),
-                //     children: const [
-                //       SingleReview( url2:""),
-                //       SingleReview(url2:""),
-                //       SingleReview(url2: "url2"),
-                //     ]),
-                //   SingleChildScrollView(
-                //   child: Column(
-                //     children: [
-                //
-                //       SizedBox(
-                //         height: 10,
-                //       ),
-                //       //----------------------  A single Review -------------------
-                //
-                //     ],
-                //   ),
-                // ),
-              ]),
+            // GridView.count(
+            //     crossAxisCount: 1,
+            //     scrollDirection: Axis.vertical,
+            //     shrinkWrap: true,
+            //     physics: const NeverScrollableScrollPhysics(),
+            //     children: const [
+            //       SingleReview( url2:""),
+            //       SingleReview(url2:""),
+            //       SingleReview(url2: "url2"),
+            //     ]),
+            //   SingleChildScrollView(
+            //   child: Column(
+            //     children: [
+            //
+            //       SizedBox(
+            //         height: 10,
+            //       ),
+            //       //----------------------  A single Review -------------------
+            //
+            //     ],
+            //   ),
+            // ),
+          ]),
         ),
         floatingActionButton: SizedBox(
           height: 40,
@@ -111,7 +93,6 @@ class _ListReviewsState extends State<ListReviews> {
               onPressed: () => setState(() {
                     _count++;
                   }),
-              tooltip: 'Increment Counter',
               child: ElevatedButton(
                 style: ButtonStyle(
                   shadowColor:
@@ -121,7 +102,23 @@ class _ListReviewsState extends State<ListReviews> {
                       MaterialStateProperty.all(const Color(0xff40BFFF)),
                   fixedSize: MaterialStateProperty.all(Size(Get.width, 54)),
                 ),
-                onPressed: () async {},
+                onPressed: () async {
+                  showModalBottomSheet(
+                    isDismissible: true,
+                    isScrollControlled: true,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10),
+                      ),
+                    ),
+                    context: context,
+                    builder: (context) => SingleChildScrollView(
+                        padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom),
+                        child: AddReview()),
+                  );
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [

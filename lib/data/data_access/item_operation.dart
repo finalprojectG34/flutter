@@ -51,26 +51,105 @@ class ItemOperation {
 
   Future<List<Category>> getCategory() async {
     String getAllCategory = r'''
-          query GetAllCategory{
-          getAllCategories {
-            id
-            name  
-          }
-        }
+          query GetCategoriesByPrefix($getCategoriesByPrefixId: ID) {
+              getCategoriesByPrefix(id: $getCategoriesByPrefixId) {
+                id
+                name
+                haveSubCtg
+              }
+}
   ''';
     final response = await gqlClient.query(
       QueryOptions(
-        document: gql(getAllCategory),
-        fetchPolicy: FetchPolicy.noCache,
-      ),
+          document: gql(getAllCategory),
+          fetchPolicy: FetchPolicy.noCache,
+          variables: {"getCategoriesByPrefixId": ""}),
     );
     if (response.hasException) {
       print(response.exception);
       throw Exception("Error Happened");
     }
-    return (response.data!['getAllCategories'] as List)
+    return (response.data!['getCategoriesByPrefix'] as List)
         .map((json) => Category.fromJson(json))
         .toList();
+  }
+
+  Future<List<Category>> getOneCategory(String id) async {
+    String getAllCategory = r'''
+          query GetCategoriesByPrefix($getCategoriesByPrefixId: ID) {
+              getCategoriesByPrefix(id: $getCategoriesByPrefixId) {
+                id
+                name
+                haveSubCtg
+              }
+            }
+  ''';
+    final response = await gqlClient.query(
+      QueryOptions(
+          document: gql(getAllCategory),
+          fetchPolicy: FetchPolicy.noCache,
+          variables: {"getCategoriesByPrefixId": id}),
+    );
+    if (response.hasException) {
+      print(response.exception);
+      throw Exception("Error Happened");
+    }
+    return (response.data!['getCategoriesByPrefix'] as List)
+        .map((json) => Category.fromJson(json))
+        .toList();
+  }
+
+  Future<Category> getCategoryDetail(String id) async {
+    String getAllCategory = r'''
+          query GetOneCategory($getOneCategoryId: String!) {
+          getOneCategory(id: $getOneCategoryId) {
+            id
+            slug
+            name
+            image {
+              imageCover
+            }
+            poster
+            description
+            path
+            parentId
+            attributes {
+              name
+              display
+              values
+            }
+            subCategories {
+              id
+              slug
+              name
+              image {
+                imageCover
+              }
+              poster
+              description
+              path
+              parentId
+              attributes {
+                name
+                display
+                values
+              }
+             
+            }
+          }
+        }
+  ''';
+    final response = await gqlClient.query(
+      QueryOptions(
+          document: gql(getAllCategory),
+          fetchPolicy: FetchPolicy.noCache,
+          variables: {"getOneCategoryId": id}),
+    );
+    if (response.hasException) {
+      print(response.exception);
+      throw Exception("Error Happened");
+    }
+    return Category.fromJson(response.data!['getOneCategory']);
   }
 
   Future<bool> getUserShop(String userId) async {
@@ -78,11 +157,12 @@ class ItemOperation {
         .query(
       QueryOptions(
         document: gql(r'''
-          query GetCompanyByUserId($getCompanyByUserIdId: ID) {
-              getCompanyByUserId(id: $getCompanyByUserIdId) {
-                id
-              }
-          }
+         query MyCompany {
+            MyCompany {
+              id
+              name
+            }
+        }
   '''),
         fetchPolicy: FetchPolicy.noCache,
       ),
@@ -94,8 +174,8 @@ class ItemOperation {
       print(response.exception);
       throw Exception("Error Happened");
     }
-    print((response.data!['getCompanyByUserId'] as List));
-    return (response.data!['getCompanyByUserId'] as List).isNotEmpty;
+    // print((response.data!['getCompanyByUserId'] as List));
+    return (response.data!['MyCompany']);
   }
 
   Future<List<Cart>> getCart() async {
