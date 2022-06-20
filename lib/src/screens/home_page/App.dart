@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_getx_widget.dart';
 import 'package:sms/src/app.dart';
+import 'package:sms/src/screens/add_item/add_item_ctx.dart';
 import 'package:sms/src/screens/drawer/drawer.dart';
 import 'package:sms/src/screens/screens.dart';
 
@@ -27,6 +28,7 @@ class _AppState extends State<App> {
   bool searchBar = false;
   late Widget body;
   final storage = Get.find<FlutterSecureStorage>();
+  AddItemController addItemController = Get.find();
 
   // late OrderRespositoryImpl aa;
   late AppBar appbar;
@@ -134,6 +136,11 @@ class _AppState extends State<App> {
         } else {
           appController.changePage('Register as seller', index);
         }
+        // AddItemController addItemController = Get.find();
+        //  addItemController.getUserShop();
+        // addItemController.getCategory();
+        addItemController.getUserShop();
+        addItemController.getCategory();
         return appController.isAuthenticated.isTrue
             ? appController.hasShopId.isTrue &&
                     appController.userRole.value == 'SELLER'

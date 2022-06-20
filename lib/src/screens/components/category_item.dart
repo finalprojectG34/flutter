@@ -23,7 +23,7 @@ class CategoryItem extends StatelessWidget {
           CircleAvatar(
             backgroundColor: Colors.blue.shade100,
             child: Image.network(
-              "${category.image?.imageCover}",
+                "https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg",
               fit: BoxFit.cover,
               errorBuilder: (error, o, s) => const Text(""),
             ),

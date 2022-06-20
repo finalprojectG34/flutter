@@ -35,6 +35,7 @@ class AddItemController extends GetxController {
   RxBool isCategoryLoading = true.obs;
   List<String> tempCategories = [];
   RxList<String> selectedCategoryName = <String>[].obs;
+  RxList<String> selectedCategoryId = <String>[].obs;
   RxBool? userHasShop;
   RxBool isShopLoading = false.obs;
   RxBool isTimedOut = false.obs;
@@ -46,6 +47,11 @@ class AddItemController extends GetxController {
   RxBool errOccurred = false.obs;
   RxString shopImageLink = ''.obs;
   RxString itemImageLink = ''.obs;
+
+  RxString catId = ''.obs;
+  RxString subCatId = ''.obs;
+
+  Rx<Category> categoryDetail = Category().obs;
 
   // RxList categories = <Category>[].obs;
   final storage = Get.find<FlutterSecureStorage>();
@@ -72,6 +78,15 @@ class AddItemController extends GetxController {
     List<Category> categories = await itemRepository.getOneCategory(id);
     if (categories != null) {
       subCategoryList!(categories.obs);
+    }
+    isSubCategoryFetchedFromDB(true);
+  }
+
+  getCategoryDetail(String id) async {
+    isSubCategoryFetchedFromDB(false);
+    Category catDetail = await itemRepository.getCategoryDetail(id);
+    if (catDetail != null) {
+      categoryDetail(catDetail);
     }
     isSubCategoryFetchedFromDB(true);
   }
@@ -108,8 +123,10 @@ class AddItemController extends GetxController {
   addItem(variable, File file) async {
     var imagePath = await imageUpload(file);
     print('$imagePath -----------------------');
-    variable["imagePath"] = imagePath;
-    Item item = await itemRepository.addItem(variable);
+    variable["image"]["imageCover"] = imagePath;
+    variable["attributes"] = selectedAttributes.value;
+
+    Item item = await itemRepository.addItem({"input": variable});
     itemId(item.id);
   }
 
@@ -119,6 +136,7 @@ class AddItemController extends GetxController {
     var imagePath = await imageUpload(file);
     if (imagePath != null) {
       // variable['input']["image"]['imageCover'] = imagePath;
+
       try {
         Shop shop = await itemRepository.addShop(
           name: name,

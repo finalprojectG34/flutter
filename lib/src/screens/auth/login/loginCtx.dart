@@ -6,6 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sms/src/app.dart';
+import 'package:sms/src/screens/add_item/add_item_ctx.dart';
 import 'package:sms/src/screens/profile_page/profile_page_ctx.dart';
 import 'package:sms/src/utils/loger/console_loger.dart';
 
@@ -23,6 +24,7 @@ class LoginController extends GetxController {
   var error = false.obs;
   String verificationId = "";
   final AppController appController = Get.find();
+  final AddItemController addItemController = Get.find();
   final ProfilePageController profilePageController = Get.find();
   user.User? signedInUser;
   RxString err = ''.obs;
@@ -73,6 +75,9 @@ class LoginController extends GetxController {
         await appController.changePage('Home', 0);
         appController.isAuthenticated(true);
         // Get.offNamed('/');
+        // await addItemController.getUserShop();
+        // await addItemController.getCategory();
+
       }
     } on TimeoutException catch (e) {
       EasyLoading.showError(e.message!,

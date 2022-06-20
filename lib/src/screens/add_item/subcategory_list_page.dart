@@ -29,6 +29,19 @@ class SubCategoryListPage extends StatelessWidget {
                           ctx.subCategoryList![index].name!,
                         ),
                         onTap: () {
+                          // ctx.selectedCategoryName([]);
+                          // ctx.selectedCategoryId([]);
+
+                          ctx.selectedCategoryName
+                              .add(ctx.subCategoryList![index].name!);
+                          ctx.selectedCategoryId
+                              .add(ctx.subCategoryList![index].id!);
+
+                          ctx.getCategoryDetail(
+                              ctx.subCategoryList![index].id!);
+
+                          Get.back();
+                          Get.back();
                           // Get.to(
                           //       () => CategoryListPage(
                           //     ctx: ctx,

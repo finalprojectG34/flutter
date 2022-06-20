@@ -99,16 +99,70 @@ class ItemOperation {
         .toList();
   }
 
+  Future<Category> getCategoryDetail(String id) async {
+    String getAllCategory = r'''
+          query GetOneCategory($getOneCategoryId: String!) {
+          getOneCategory(id: $getOneCategoryId) {
+            id
+            slug
+            name
+            image {
+              imageCover
+            }
+            poster
+            description
+            path
+            parentId
+            attributes {
+              name
+              display
+              values
+            }
+            subCategories {
+              id
+              slug
+              name
+              image {
+                imageCover
+              }
+              poster
+              description
+              path
+              parentId
+              attributes {
+                name
+                display
+                values
+              }
+             
+            }
+          }
+        }
+  ''';
+    final response = await gqlClient.query(
+      QueryOptions(
+          document: gql(getAllCategory),
+          fetchPolicy: FetchPolicy.noCache,
+          variables: {"getOneCategoryId": id}),
+    );
+    if (response.hasException) {
+      print(response.exception);
+      throw Exception("Error Happened");
+    }
+    return Category.fromJson(response.data!['getOneCategory']);
+  }
+
   Future<bool> getUserShop(String userId) async {
     final response = await gqlClient
         .query(
       QueryOptions(
         document: gql(r'''
-          query GetCompanyByUserId($getCompanyByUserIdId: ID) {
-              getCompanyByUserId(id: $getCompanyByUserIdId) {
-                id
-              }
-          }
+         query MyCompany {
+            MyCompany {
+              id
+              name
+            }
+        }
   '''),
         fetchPolicy: FetchPolicy.noCache,
       ),
@@ -120,8 +174,8 @@ class ItemOperation {
       print(response.exception);
       throw Exception("Error Happened");
     }
-    print((response.data!['getCompanyByUserId'] as List));
-    return (response.data!['getCompanyByUserId'] as List).isNotEmpty;
+    // print((response.data!['getCompanyByUserId'] as List));
+    return (response.data!['MyCompany']);
   }
 
   Future<List<Cart>> getCart() async {
