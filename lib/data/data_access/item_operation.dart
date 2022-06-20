@@ -23,6 +23,9 @@ class ItemOperation {
                 sale
                 discountPrice
               }
+              image {
+                imageCover
+              }
               shopId
               count
             }
@@ -152,31 +155,31 @@ class ItemOperation {
     return Category.fromJson(response.data!['getOneCategory']);
   }
 
-  Future<bool> getUserShop(String userId) async {
-    final response = await gqlClient
-        .query(
-      QueryOptions(
-        document: gql(r'''
-         query MyCompany {
-            MyCompany {
-              id
-              name
-            }
-        }
-  '''),
-        fetchPolicy: FetchPolicy.noCache,
-      ),
-    )
-        .timeout(Duration(seconds: 30), onTimeout: () {
-      throw TimeoutException('request timed out', const Duration(seconds: 30));
-    });
-    if (response.hasException) {
-      print(response.exception);
-      throw Exception("Error Happened");
-    }
-    // print((response.data!['getCompanyByUserId'] as List));
-    return (response.data!['MyCompany']);
-  }
+  // Future<bool> getUserShop(String userId) async {
+  //   final response = await gqlClient
+  //       .query(
+  //     QueryOptions(
+  //       document: gql(r'''
+  //        query MyCompany {
+  //           MyCompany {
+  //             id
+  //             name
+  //           }
+  //       }
+  // '''),
+  //       fetchPolicy: FetchPolicy.noCache,
+  //     ),
+  //   )
+  //       .timeout(Duration(seconds: 30), onTimeout: () {
+  //     throw TimeoutException('request timed out', const Duration(seconds: 30));
+  //   });
+  //   if (response.hasException) {
+  //     print(response.exception);
+  //     throw Exception("Error Happened");
+  //   }
+  //   // print((response.data!['getCompanyByUserId'] as List));
+  //   return response.data!['MyCompany']!= null ;
+  // }
 
   Future<List<Cart>> getCart() async {
     final response = await gqlClient
@@ -329,17 +332,9 @@ class ItemOperation {
       }
       ''';
 
-    final response = await gqlClient.query(QueryOptions(
+    final response = await gqlClient.mutate(MutationOptions(
       document: gql(addItemMutation),
-      variables: {
-        "input": {
-          "name": "item 9",
-          "description": {"description": "desc", "lang": "en"},
-          "image":
-              "https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg",
-          "categoryId": "cat id 9"
-        },
-      },
+      variables: variable,
       fetchPolicy: FetchPolicy.noCache,
     ));
     if (response.hasException) {
@@ -359,7 +354,6 @@ class ItemOperation {
           name
           ownerId
           status
-          sellingCategories
         }
       }
       ''';

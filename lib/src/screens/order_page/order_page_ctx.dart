@@ -92,7 +92,7 @@ class OrderPageController extends GetxController {
     for (var cart in carts) {
       orderItems[cart.shopId]?.add(OrderItem(
         amount: cart.amount,
-        id: cart.itemId,
+        id: cart.id,
         name: cart.name,
         price: cart.name,
       ));

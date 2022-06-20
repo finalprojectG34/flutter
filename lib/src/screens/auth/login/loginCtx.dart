@@ -52,6 +52,8 @@ class LoginController extends GetxController {
         await storage.write(key: 'shopId', value: signedInUser?.shopId);
         await storage.write(key: 'userImg', value: signedInUser?.image);
 
+        appController.hasShopId(signedInUser?.shopId != null);
+        appController.userRole(signedInUser?.role);
         // if (signedInUser?.address?.addressName != null) {
         //   await profilePageController.setUserAddress(signedInUser?.address);
         // }else{
@@ -64,7 +66,7 @@ class LoginController extends GetxController {
             dismissOnTap: true,
             maskType: EasyLoadingMaskType.black,
             duration: Duration(seconds: 2));
-        AppController appController = Get.find();
+
         // String? value = await storage.read(key: 'token');
         // if (value != null) {
         //   appController.isAuthenticated(true);
@@ -72,12 +74,11 @@ class LoginController extends GetxController {
         // await appController.getItems();
         // await appController.getUserInfo();
         // await appController.getShopId();
+        // await appController.getUserShop();
+        // await appController.getCategory();
         await appController.changePage('Home', 0);
         appController.isAuthenticated(true);
         // Get.offNamed('/');
-        // await addItemController.getUserShop();
-        // await addItemController.getCategory();
-
       }
     } on TimeoutException catch (e) {
       EasyLoading.showError(e.message!,

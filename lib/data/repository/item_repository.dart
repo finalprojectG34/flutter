@@ -29,9 +29,9 @@ class ItemRepository {
     return itemOperation.getCategoryDetail(id);
   }
 
-  Future<bool> getUserShop(String userId) async {
-    return itemOperation.getUserShop(userId);
-  }
+  // Future<bool> getUserShop(String userId) async {
+  //   return itemOperation.getUserShop(userId);
+  // }
 
   Future<Item> addItem(variable) async {
     return itemOperation.addItem(variable);
@@ -57,7 +57,7 @@ class ItemRepository {
                 "https://www.shutterstock.com/image-photo/young-student-watching-lesson-online-studying-1676998306",
             name: "Item $i",
             description: "Shop $i sells shoes",
-            price: Price(),
+            price: "",
             shopId: "1");
       });
     });

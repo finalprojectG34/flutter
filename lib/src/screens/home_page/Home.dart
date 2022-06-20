@@ -38,7 +38,7 @@ class _HomeState extends State<Home> {
                 children: [
                   const SuggestedItems(),
                   const SizedBox(height: 15.0),
-                  // const CategoryList(),
+                  const CategoryList(),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Row(

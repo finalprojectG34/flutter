@@ -59,7 +59,7 @@ class SingleItemSearch extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        if (item.price?.discountPrice != null) ...[
+                        if (item.discountPrice != null) ...[
                           Text(
                             variable['price']['discountPrice'].toString(),
                             style: TextStyle(
@@ -70,14 +70,14 @@ class SingleItemSearch extends StatelessWidget {
                           ),
                         ],
                         Text(
-                          "${item.price?.sale.toString()}",
+                          "${item.price?.toString()}",
                           style: TextStyle(
                               fontSize: 18,
-                              color: item.price?.discountPrice != null
+                              color: item.discountPrice != null
                                   ? Colors.grey
                                   : null,
                               fontWeight: FontWeight.bold,
-                              decoration: item.price?.discountPrice != null
+                              decoration: item.discountPrice!= null
                                   ? TextDecoration.lineThrough
                                   : null),
                         ),

@@ -11,16 +11,21 @@ class CartRepository {
     final response = await gqlClient.query(
       QueryOptions(
         document: gql(r'''
-            query GetCartByUserId {
-              getCartByUserId {
+            query Query {
+              getUserCart {
                 id
-                itemId
-                name
-                amount
-                price
-                status
-                userId
-                shopId
+                cartItems {
+                  id
+                  name
+                  price {
+                    discountPrice
+                    sale
+                  }
+                  image {
+                    imageCover
+                  }
+                  shopId
+                }
               }
             }
       '''),
@@ -32,7 +37,7 @@ class CartRepository {
       throw Exception("Error Happened");
     }
     print(response);
-    return (response.data!['getCartByUserId'] as List)
+    return (response.data!['getUserCart']['cartItems'] as List)
         .map((json) => Cart.fromJson(json))
         .toList();
   }
@@ -40,7 +45,7 @@ class CartRepository {
   Future addToCart(Cart cart) async {
     final response = await gqlClient.mutate(MutationOptions(
       document: gql(r'''
-            mutation AddToCart($input: CartItemsInput!) {
+            mutation Mutation($input: UserAddToCartInput) {
               addToCart(input: $input) {
                 id
               }
@@ -48,11 +53,7 @@ class CartRepository {
       '''),
       variables: {
         "input": {
-          "name": cart.name,
-          "shopId": cart.shopId,
-          "itemId": cart.itemId,
-          "price": cart.price,
-          "amount": cart.amount,
+          "itemId": cart.id,
         }
       },
       fetchPolicy: FetchPolicy.noCache,

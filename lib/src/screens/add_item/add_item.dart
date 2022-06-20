@@ -22,8 +22,8 @@ class AddItem extends StatefulWidget {
 class _AddItemState extends State<AddItem> {
   String? name;
   String? description;
-  String? price;
-  String? discountPrice;
+  double? price;
+  double? discountPrice;
 
   String addItem = '''
       mutation AddItem(\$createItemInput2: ItemCreateInput!){
@@ -241,7 +241,7 @@ class _AddItemState extends State<AddItem> {
                                         ),
                                       TextField(
                                         keyboardType: TextInputType.number,
-                                        onChanged: (text) => price = text,
+                                        onChanged: (text) => price = double.tryParse(text),
                                         decoration: InputDecoration(
                                           labelText: 'Price',
                                           labelStyle: TextStyle(
@@ -268,7 +268,7 @@ class _AddItemState extends State<AddItem> {
                                       TextField(
                                         keyboardType: TextInputType.number,
                                         onChanged: (text) =>
-                                            discountPrice = text,
+                                            discountPrice = double.tryParse(text),
                                         decoration: InputDecoration(
                                           labelText:
                                               'Discounted Price (Optional)',
@@ -491,9 +491,10 @@ class _AddItemState extends State<AddItem> {
                                                 if (_image != null) {
                                                   addItemController.addItem({
                                                     "name": name,
+                                                    "ctgId":ctx.selectedCategoryId.value.last,
                                                     "description": description,
                                                     "image": {
-                                                      "imageCover": null
+                                                      "imageCover": ''
                                                     },
                                                     "price": {
                                                       "discountPrice":

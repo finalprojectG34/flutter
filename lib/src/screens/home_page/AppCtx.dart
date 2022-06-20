@@ -46,17 +46,21 @@ class AppController extends GetxController {
     String? value = await storage.read(key: 'token');
     if (value != null) {
       isAuthenticated(true);
+      getUserInfo();
+      await getUserShop();
+      // await getShopId();
     }
     getItems();
-    getUserInfo();
-    getShopId();
+
   }
 
   getShopId() async {
     hasShopId(await storage.read(key: 'shopId') != null);
     if (hasShopId.isTrue) {
-      getMe();
+
     }
+    getMe();
+    await getUserShop();
     // userRole(await storage.read(key: 'role'));
 
     // hasShopId(false);
@@ -65,10 +69,29 @@ class AppController extends GetxController {
     // hasShopId = true;
   }
 
+  getUserShop() async {
+    try {
+      bool hasShop = await storage.read(key: "shopId") != null;
+      String? role = await storage.read(key: "role");
+      hasShopId(hasShop);
+      userRole(role);
+      // itemList!(items);
+    } on TimeoutException catch (e) {
+      err(e.message);
+    } catch (e) {
+      err('Some error occurred');
+    }
+    // categoryList!(categories.obs);
+    // print(categoryList);
+    // isCategoryFetchedFromDB(true);
+  }
+
   getMe() async {
     try {
-      String? role = (await userRepository.getMe()).role;
-      String? img = (await userRepository.getMe()).image;
+      User user = await userRepository.getMe();
+      String? role = user.role;
+      String? img = user.image;
+      hasShopId(user.shopId != "" || user.shopId != null);
       if (role != null) {
         userRole(role);
       }

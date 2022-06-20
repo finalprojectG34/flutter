@@ -45,7 +45,7 @@ class Shop {
         name: json['name'],
         phoneNumber: json["phoneNumber"],
         ownerId: json['ownerId'],
-        image: json['image']['imageCover'],
+        // image: json['image']['imageCover'],
         description: json['description'],
         tinNumber: json['tinNumber'],
         role: json['role'],

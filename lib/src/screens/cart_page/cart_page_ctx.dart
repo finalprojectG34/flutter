@@ -42,6 +42,7 @@ class CartPageController extends GetxController {
       List<Cart> carts = await cartRepository.getCart();
       cartList!(carts);
       calculatePrice();
+      errOccurred(false);
     } on TimeoutException catch (e) {
       err(e.message);
       errOccurred(true);

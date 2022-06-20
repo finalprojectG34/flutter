@@ -38,8 +38,10 @@ class ItemMiniDetail extends StatelessWidget {
                           Colors.black.withOpacity(0.9),
                           BlendMode.dstATop,
                         ),
-                        image: const NetworkImage(
-                            "https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg"),
+                        image: NetworkImage(
+    item.imagePath!
+                        ),
+                            // "https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg"),
                         onError: (e, s) {}),
                   ),
                   padding: const EdgeInsets.symmetric(
@@ -63,42 +65,42 @@ class ItemMiniDetail extends StatelessWidget {
                 const SizedBox(
                   height: 5,
                 ),
-                Row(
-                  children: const [
-                    Icon(
-                      Icons.star,
-                      size: 16,
-                      color: Colors.amber,
-                    ),
-                    Icon(
-                      Icons.star,
-                      size: 16,
-                      color: Colors.amber,
-                    ),
-                    Icon(
-                      Icons.star,
-                      size: 16,
-                      color: Colors.amber,
-                    ),
-                    Icon(
-                      Icons.star,
-                      size: 16,
-                      color: Colors.amber,
-                    ),
-                    Icon(
-                      Icons.star,
-                      size: 16,
-                      color: Colors.amber,
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      '(12)',
-                      style: TextStyle(color: Colors.grey),
-                    )
-                  ],
-                ),
+                // Row(
+                //   children: const [
+                //     Icon(
+                //       Icons.star,
+                //       size: 16,
+                //       color: Colors.amber,
+                //     ),
+                //     Icon(
+                //       Icons.star,
+                //       size: 16,
+                //       color: Colors.amber,
+                //     ),
+                //     Icon(
+                //       Icons.star,
+                //       size: 16,
+                //       color: Colors.amber,
+                //     ),
+                //     Icon(
+                //       Icons.star,
+                //       size: 16,
+                //       color: Colors.amber,
+                //     ),
+                //     Icon(
+                //       Icons.star,
+                //       size: 16,
+                //       color: Colors.amber,
+                //     ),
+                //     SizedBox(
+                //       width: 5,
+                //     ),
+                //     Text(
+                //       '(12)',
+                //       style: TextStyle(color: Colors.grey),
+                //     )
+                //   ],
+                // ),
                 const SizedBox(
                   height: 10,
                 ),
@@ -130,8 +132,8 @@ class ItemMiniDetail extends StatelessWidget {
                         addToCartController.addToCart(Cart(
                           name: item.name,
                           shopId: item.shopId,
-                          itemId: item.id,
-                          price: item.price?.sale.toString(),
+                          id: item.id,
+                          price: item.price?.toString(),
                           amount: "1",
                         ));
                         // appController.changePage('Cart', 3);

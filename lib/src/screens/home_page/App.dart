@@ -79,7 +79,7 @@ class _AppState extends State<App> {
   Widget _mapIndexToPage(int index) {
     final AppController appController = Get.find();
     // getShopId();
-    getToken();
+    // getToken();
     switch (index) {
       case 1:
         // _selectedIndex = index;
@@ -139,8 +139,7 @@ class _AppState extends State<App> {
         // AddItemController addItemController = Get.find();
         //  addItemController.getUserShop();
         // addItemController.getCategory();
-        addItemController.getUserShop();
-        addItemController.getCategory();
+
         return appController.isAuthenticated.isTrue
             ? appController.hasShopId.isTrue &&
                     appController.userRole.value == 'SELLER'

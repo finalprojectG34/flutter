@@ -36,7 +36,7 @@ class AddItemController extends GetxController {
   List<String> tempCategories = [];
   RxList<String> selectedCategoryName = <String>[].obs;
   RxList<String> selectedCategoryId = <String>[].obs;
-  RxBool? userHasShop;
+  RxBool? userHasShop = false.obs;
   RxBool isShopLoading = false.obs;
   RxBool isTimedOut = false.obs;
   RxString err = ''.obs;
@@ -95,7 +95,7 @@ class AddItemController extends GetxController {
     isShopLoading(true);
     errOccurred(false);
     try {
-      bool hasShop = await itemRepository.getUserShop('');
+      bool hasShop = await storage.read(key: "shopId") != null;
       userHasShop = hasShop.obs;
       // itemList!(items);
     } on TimeoutException catch (e) {
@@ -124,7 +124,7 @@ class AddItemController extends GetxController {
     var imagePath = await imageUpload(file);
     print('$imagePath -----------------------');
     variable["image"]["imageCover"] = imagePath;
-    variable["attributes"] = selectedAttributes.value;
+    // variable["attributes"] = selectedAttributes.value;
 
     Item item = await itemRepository.addItem({"input": variable});
     itemId(item.id);
@@ -189,7 +189,11 @@ class AddItemController extends GetxController {
       selectedAttributes.addEntries(
         [
           MapEntry(
+            "name",
             key,
+          ),
+          MapEntry(
+            "values",
             value,
           ),
         ],

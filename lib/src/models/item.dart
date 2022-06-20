@@ -24,7 +24,7 @@ class Item {
 
   final String? id;
   final String? name;
-  final Price? price;
+  final String? price;
   final String? discountPrice;
   final String? shopId;
   final String? category;
@@ -48,11 +48,12 @@ class Item {
     Item item = Item(
       id: json['id'],
       name: json['name'],
-      price: json["price"] != null ? Price.fromJson(json["price"]) : null,
+      // price: json["price"] != null ? Price.fromJson(json["price"]) : null,
+      price: json['price']['sale'].toString(),
       discountPrice: json['price']['discountPrice'].toString(),
       category: json['category'],
       shopId: json['shopId'],
-      imagePath: json['image'],
+      imagePath: json['image']['imageCover'],
       description: json['desc'],
       poster: json["poster"],
       attrs: json["attrs"] != null
@@ -74,10 +75,10 @@ class Item {
       ctgId: json["ctgId"],
       ctgPath: json["ctgPath"],
       department: json["department"],
-      ratingAverage: double.parse(json["ratingAverage"]),
-      ratingQuantity: double.parse(json["ratingQuantity"]),
-      updatedAt: json["updatedAt"],
-      amount: int.parse(json['count']),
+      // ratingAverage: double.parse(json["ratingAverage"]),
+      // ratingQuantity: double.parse(json["ratingQuantity"]),
+      // updatedAt: json["updatedAt"],
+      // amount: int.parse(json['count']),
     );
     return item;
   }

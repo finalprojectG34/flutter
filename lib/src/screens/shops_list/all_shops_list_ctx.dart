@@ -33,6 +33,7 @@ class AllShopsListController extends GetxController {
     try {
       final shops = await shopRepository.getShopByRole(role);
       shopsList(shops);
+      errorOccurred(false);
     } catch (e) {
       print(e);
       errorOccurred(true);
