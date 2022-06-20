@@ -16,12 +16,14 @@ class SearchController extends GetxController {
   final items = Rx<List<Item>?>(null);
 
   Future<List<Item>?> getSearchItems(ItemSearchFilter itemSearchFilter) async {
-    if (itemSearchFilter.reqPagInfo.pageNo < 1) {
+    if (itemSearchFilter.reqPagInfo.pageNo < 2) {
       isLoading(true);
     }
     try {
       List<Item> result = await itemOperation.searchItem(itemSearchFilter);
       items.value = result;
+      print(result);
+      return result;
     } catch (e) {
       print(e);
     } finally {

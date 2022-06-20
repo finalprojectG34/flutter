@@ -103,6 +103,9 @@ class SearchItemListState extends State<SearchItemList> {
                 query = value;
                 itemSearchFilter = itemSearchFilter.copyWith(
                     searchTerm: query, reqPagInfo: ReqPagInfo());
+                print("search aggain");
+                print(itemSearchFilter.searchTerm);
+                print(itemSearchFilter.reqPagInfo.pageNo);
                 ctx.getSearchItems(itemSearchFilter);
               },
               searchText: widget.searchText,
@@ -125,6 +128,7 @@ class SearchItemListState extends State<SearchItemList> {
                   //   itemCount: ctx.items.value!.length,
                   // );
                   return PagedGridView<int, Item>(
+                    shrinkWrap: true,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,

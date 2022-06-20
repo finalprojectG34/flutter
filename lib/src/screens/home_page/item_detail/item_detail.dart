@@ -2,12 +2,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 // import '../../components/shop_detail_component.dart';
+import '../../../models/item.dart';
 import '../../components/suggested_items.dart';
 import '../../reviews/ui/review_mini_detail.dart';
 
 class ItemDetails extends StatefulWidget {
   static const routeName = '/itemDetail';
-  final item;
+  final Item item;
 
   ItemDetails({required this.item});
 
@@ -46,7 +47,7 @@ class _ItemDetailState extends State<ItemDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${widget.item['name']} detail'),
+        title: Text('${widget.item.name}'),
       ),
       body: ListView(
         // shrinkWrap: true,
@@ -61,7 +62,7 @@ class _ItemDetailState extends State<ItemDetails> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "ETB ${widget.item['price']['discountPrice'] != null ? widget.item['price']['discountPrice'].toString() : widget.item['price']['sale'].toString()}",
+                  "ETB ${widget.item.price?.discountPrice != null ? widget.item.price?.discountPrice.toString() : widget.item.price?.sale.toString()}",
                   style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                 ),
                 // IconButton(
@@ -84,7 +85,7 @@ class _ItemDetailState extends State<ItemDetails> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Text(widget.item['name']),
+            child: Text(widget.item.name!),
           ),
           SizedBox(
             height: 15.0,
@@ -435,7 +436,7 @@ class _ItemDetailState extends State<ItemDetails> {
                     SizedBox(
                       height: 10.0,
                     ),
-                    Text(widget.item['description'],
+                    Text('${widget.item.description}',
                         style: TextStyle(color: Colors.white)),
                   ],
                 ),

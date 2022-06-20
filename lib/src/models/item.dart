@@ -74,10 +74,14 @@ class Item {
       ctgId: json["ctgId"],
       ctgPath: json["ctgPath"],
       department: json["department"],
-      ratingAverage: double.parse(json["ratingAverage"]),
-      ratingQuantity: double.parse(json["ratingQuantity"]),
+      ratingAverage: json["ratingAverage"] != null
+          ? double.tryParse(json["ratingAverage"])
+          : 0,
+      ratingQuantity: json["ratingQuantity"] != null
+          ? double.tryParse(json["ratingQuantity"])
+          : 0,
       updatedAt: json["updatedAt"],
-      amount: int.parse(json['count']),
+      amount: json["count"] != null ? int.parse(json['count']) : 0,
     );
     return item;
   }

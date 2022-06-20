@@ -131,22 +131,22 @@ class DrawerPage extends StatelessWidget {
               ),
               // selected: routes == Routes.newProducts,
             ),
-            ListTile(
-              title: const Text('item'),
-              onTap: () {
-                // Navigator.pushNamed(context, "/add_item");
-                Get.to(() => ItemDetails(item: {
-                      "name": "cbdjhvd",
-                      "description": "vdfjbvd",
-                      "price": {"discountPrice": 12}
-                    }));
-              },
-              leading: const Icon(
-                Icons.fiber_new,
-                color: Color(0xFF0D90EE),
-              ),
-              // selected: routes == Routes.newProducts,
-            ),
+            // ListTile(
+            //   title: const Text('item'),
+            //   onTap: () {
+            //     // Navigator.pushNamed(context, "/add_item");
+            //     Get.to(() => ItemDetails(item: {
+            //           "name": "cbdjhvd",
+            //           "description": "vdfjbvd",
+            //           "price": {"discountPrice": 12}
+            //         }));
+            //   },
+            //   leading: const Icon(
+            //     Icons.fiber_new,
+            //     color: Color(0xFF0D90EE),
+            //   ),
+            //   // selected: routes == Routes.newProducts,
+            // ),
             ListTile(
               title: const Text('List Of Reviews'),
               onTap: () {
