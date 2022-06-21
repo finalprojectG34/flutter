@@ -9,9 +9,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sms/data/repository/item_repository.dart';
 import 'package:sms/data/repository/user_repository.dart';
+import 'package:sms/src/models/item_history.dart';
 
 import '../../app.dart';
-import '../add_item/add_item_ctx.dart';
 
 class AppController extends GetxController {
   final ItemRepository itemRepository;
@@ -27,8 +27,10 @@ class AppController extends GetxController {
   RxBool isAuthenticated = false.obs;
   RxBool isGettingItems = false.obs;
   RxBool getItemError = false.obs;
+  RxBool gettingItemHistory = false.obs;
   RxString err = ''.obs;
   RxList<Item>? itemList;
+  RxList<ItemHistoryModel>? itemHistory = <ItemHistoryModel>[].obs;
   FocusNode searchBarFocusNode = FocusNode();
 
   RxString userId = ''.obs;
@@ -51,14 +53,11 @@ class AppController extends GetxController {
       // await getShopId();
     }
     getItems();
-
   }
 
   getShopId() async {
     hasShopId(await storage.read(key: 'shopId') != null);
-    if (hasShopId.isTrue) {
-
-    }
+    if (hasShopId.isTrue) {}
     getMe();
     await getUserShop();
     // userRole(await storage.read(key: 'role'));
@@ -154,6 +153,7 @@ class AppController extends GetxController {
   getItems() async {
     getItemError(false);
     isGettingItems(true);
+    // List<Item> items = await itemRepository.getItems();
     try {
       List<Item> items = await itemRepository.getItems();
       itemList = items.obs;
@@ -167,6 +167,23 @@ class AppController extends GetxController {
       err('Connection error');
     }
     isGettingItems(false);
+  }
+
+  getItemHistory(String id) async {
+    gettingItemHistory(true);
+
+    try {
+      List<ItemHistoryModel> items = await itemRepository.getItemHistory(id);
+      itemHistory!(items);
+    } on TimeoutException catch (e) {
+      getItemError(true);
+      err(e.message);
+    } catch (e) {
+      print(e);
+      getItemError(true);
+      err('Connection error');
+    }
+    gettingItemHistory(false);
   }
 
   logout() async {

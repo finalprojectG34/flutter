@@ -8,18 +8,27 @@ import 'package:sms/src/screens/home_page/item_detail/item_detail.dart';
 import '../../../models/cart.dart';
 import '../../../models/item.dart';
 
-class ItemMiniDetail extends StatelessWidget {
+class ItemMiniDetail extends StatefulWidget {
   final Item item;
 
-  ItemMiniDetail({Key? key, required this.item}) : super(key: key);
+  const ItemMiniDetail({Key? key, required this.item}) : super(key: key);
+
+  @override
+  State<ItemMiniDetail> createState() => _ItemMiniDetailState();
+}
+
+class _ItemMiniDetailState extends State<ItemMiniDetail> {
+  bool isCartLoading = false;
   final AppController appController = Get.find();
   final CartPageController addToCartController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-        Get.to(ItemDetails(item: item,));
+      onTap: () {
+        Get.to(ItemDetails(
+          item: widget.item,
+        ));
       },
       child: Card(
         shape: RoundedRectangleBorder(
@@ -43,7 +52,7 @@ class ItemMiniDetail extends StatelessWidget {
                             Colors.black.withOpacity(0.9),
                             BlendMode.dstATop,
                           ),
-                          image: NetworkImage(item.imagePath!),
+                          image: NetworkImage(widget.item.imagePath!),
                           // "https://fdn.gsmarena.com/imgroot/reviews/20/apple-iphone-12-pro-max/lifestyle/-1200w5/gsmarena_008.jpg"),
                           onError: (e, s) {}),
                     ),
@@ -61,7 +70,7 @@ class ItemMiniDetail extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    item.name!,
+                    widget.item.name!,
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 16),
                   ),
@@ -110,38 +119,46 @@ class ItemMiniDetail extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        "${item.discountPrice}",
+                        "${widget.item.discountPrice}",
                         style: const TextStyle(
                             decoration: TextDecoration.lineThrough,
                             color: Colors.grey),
                       ),
                       const SizedBox(width: 10),
                       Text(
-                        "${item.price}",
+                        "${widget.item.price}",
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.blue),
                       ),
                       const Spacer(),
-                      InkWell(
-                        child: const Padding(
-                          padding: EdgeInsets.all(5.0),
-                          child: Icon(
-                            Icons.add_shopping_cart,
-                            color: Colors.blue,
-                          ),
-                        ),
-                        borderRadius: BorderRadius.circular(50),
-                        onTap: () {
-                          addToCartController.addToCart(Cart(
-                            name: item.name,
-                            shopId: item.shopId,
-                            id: item.id,
-                            price: item.price?.toString(),
-                            amount: "1",
-                          ));
-                          // appController.changePage('Cart', 3);
-                        },
-                      ),
+                      isCartLoading
+                          ? CircularProgressIndicator()
+                          : InkWell(
+                              child: const Padding(
+                                padding: EdgeInsets.all(5.0),
+                                child: Icon(
+                                  Icons.add_shopping_cart,
+                                  color: Colors.blue,
+                                ),
+                              ),
+                              borderRadius: BorderRadius.circular(50),
+                              onTap: () async {
+                                setState(() {
+                                  isCartLoading = true;
+                                });
+                                await addToCartController.addToCart(Cart(
+                                  name: widget.item.name,
+                                  shopId: widget.item.shopId,
+                                  id: widget.item.id,
+                                  price: widget.item.price?.toString(),
+                                  amount: "1",
+                                ));
+                                setState(() {
+                                  isCartLoading = false;
+                                });
+                                // appController.changePage('Cart', 3);
+                              },
+                            ),
                     ],
                   ),
                 ],

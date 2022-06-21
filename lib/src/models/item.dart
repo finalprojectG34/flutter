@@ -54,7 +54,7 @@ class Item {
       category: json['category'],
       shopId: json['shopId'],
       imagePath: json['image']['imageCover'],
-      description: json['desc'],
+      description: json['description'],
       poster: json["poster"],
       attrs: json["attrs"] != null
           ? List.of(json["attrs"])

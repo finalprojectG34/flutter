@@ -32,9 +32,9 @@ class _SingleCartState extends State<SingleCart> {
             Expanded(
               flex: 1,
               child:
-              // NetworkImage("widget.cart.image"),
-              Image.asset(
-                'assets/images/img.png',
+                  // NetworkImage("widget.cart.image"),
+                  Image.network(
+                widget.cart.image ?? '',
                 fit: BoxFit.fitHeight,
                 height: 120,
               ),

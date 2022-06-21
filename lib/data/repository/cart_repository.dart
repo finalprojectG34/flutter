@@ -61,26 +61,32 @@ class CartRepository {
     if (response.hasException) {
       print(response.exception);
       throw Exception("Error Happened");
+    } else {
+      return true;
     }
+
     print(response);
   }
 
   Future deleteCart(cartId) async {
     final response = await gqlClient.mutate(MutationOptions(
       document: gql(r'''
-            mutation Mutation($deleteCartId: ID!) {
-              deleteCart(id: $deleteCartId) {
-                id
-              }
+            mutation DeleteFromCart($input: UserDeleteFromCartInput) {
+                deleteFromCart(input: $input) {
+                  id
+                  firstName
+                }
             }
       '''),
-      variables: {"deleteCartId": cartId},
+      variables: {
+        "input": {"itemId": cartId.toString()}
+      },
       fetchPolicy: FetchPolicy.noCache,
     ));
     if (response.hasException) {
       print(response.exception);
       throw Exception("Error Happened");
     }
-    print(response);
+    return true;
   }
 }

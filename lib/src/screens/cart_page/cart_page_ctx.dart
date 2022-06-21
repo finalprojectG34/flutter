@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sms/src/models/models.dart';
 
@@ -19,6 +20,7 @@ class CartPageController extends GetxController {
   RxString err = ''.obs;
   RxBool errOccurred = false.obs;
   RxBool isCartLoading = false.obs;
+  RxBool isCartItemLoading = false.obs;
   RxDouble totalPrice = (0.0).obs;
   RxDouble shippingPrice = (0.0).obs;
 
@@ -54,12 +56,28 @@ class CartPageController extends GetxController {
   }
 
   addToCart(Cart cart) async {
-    await cartRepository.addToCart(cart);
+    isCartItemLoading(true);
+    try {
+      bool isItemAddedToCart = await cartRepository.addToCart(cart);
+      if (isItemAddedToCart) {
+        Fluttertoast.showToast(
+            msg: 'Added to cart successfully', toastLength: Toast.LENGTH_SHORT);
+      }
+    } catch (e) {
+      Fluttertoast.showToast(
+          msg: 'Can\'t add to cart', toastLength: Toast.LENGTH_SHORT);
+    }
+    isCartItemLoading(false);
   }
 
   deleteCart(cartId) async {
-    await cartRepository.deleteCart(cartId);
-    cartList!(cartList?.where((p0) => p0.id != cartId).toList());
-    calculatePrice();
+    try {
+      await cartRepository.deleteCart(cartId);
+      cartList!(cartList?.where((p0) => p0.id != cartId).toList());
+      calculatePrice();
+    } catch (e) {
+      Fluttertoast.showToast(
+          msg: 'Unable to remove from cart', toastLength: Toast.LENGTH_SHORT);
+    }
   }
 }

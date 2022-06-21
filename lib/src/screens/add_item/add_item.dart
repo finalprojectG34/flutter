@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sms/src/screens/add_item/category_list.dart';
@@ -108,8 +109,7 @@ class _AddItemState extends State<AddItem> {
                       ),
                     )
                   : ctx.userHasShop!.isTrue
-                      ?
-                      ctx.isCategoryFetchedFromDB.isTrue &&
+                      ? ctx.isCategoryFetchedFromDB.isTrue &&
                               ctx.categoryList!.isEmpty
                           ? const Center(
                               child: Text('No category found!'),
@@ -241,7 +241,8 @@ class _AddItemState extends State<AddItem> {
                                         ),
                                       TextField(
                                         keyboardType: TextInputType.number,
-                                        onChanged: (text) => price = double.tryParse(text),
+                                        onChanged: (text) =>
+                                            price = double.tryParse(text),
                                         decoration: InputDecoration(
                                           labelText: 'Price',
                                           labelStyle: TextStyle(
@@ -267,8 +268,8 @@ class _AddItemState extends State<AddItem> {
                                       ),
                                       TextField(
                                         keyboardType: TextInputType.number,
-                                        onChanged: (text) =>
-                                            discountPrice = double.tryParse(text),
+                                        onChanged: (text) => discountPrice =
+                                            double.tryParse(text),
                                         decoration: InputDecoration(
                                           labelText:
                                               'Discounted Price (Optional)',
@@ -484,18 +485,29 @@ class _AddItemState extends State<AddItem> {
                                         children: [
                                           Expanded(
                                             child: ElevatedButton(
-                                              onPressed: () {
+                                              onPressed: () async {
                                                 // if (_formKey.currentState!.validate()) {
                                                 //   _formKey.currentState!.save();
                                                 // }
+                                                FocusScope.of(context)
+                                                    .unfocus();
+                                                EasyLoading
+                                                        .instance.loadingStyle =
+                                                    EasyLoadingStyle.light;
+                                                await EasyLoading.show(
+                                                  status: 'Please wait',
+                                                  maskType:
+                                                      EasyLoadingMaskType.black,
+                                                );
                                                 if (_image != null) {
                                                   addItemController.addItem({
                                                     "name": name,
-                                                    "ctgId":ctx.selectedCategoryId.value.last,
+                                                    "ctgId": ctx
+                                                        .selectedCategoryId
+                                                        .value
+                                                        .last,
                                                     "description": description,
-                                                    "image": {
-                                                      "imageCover": ''
-                                                    },
+                                                    "image": {"imageCover": ''},
                                                     "price": {
                                                       "discountPrice":
                                                           discountPrice,

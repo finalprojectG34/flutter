@@ -1,9 +1,12 @@
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:sms/src/screens/home_page/AppCtx.dart';
 
 // import '../../components/shop_detail_component.dart';
 import '../../../models/item.dart';
-import '../../components/suggested_items.dart';
+import '../../items/item_mini_view/item_history.dart';
 import '../../reviews/ui/review_mini_detail.dart';
 
 class ItemDetails extends StatefulWidget {
@@ -30,12 +33,7 @@ class _ItemDetailState extends State<ItemDetails> {
     });
   }
 
-  List<String> size = ["XS", "S", "M", "L", "XL", "XXL"];
-  List<String> colors = ["Red", "Black", "Green", "White", "Blue", "Yellow"];
-
   final _controller = TextEditingController();
-  int _current = 0;
-  CarouselController _carouselController = CarouselController();
 
   @override
   void dispose() {
@@ -52,7 +50,13 @@ class _ItemDetailState extends State<ItemDetails> {
       body: ListView(
         // shrinkWrap: true,
         children: [
-          const SuggestedItems(),
+          // const SuggestedItems(),
+          SizedBox(
+              height: 200,
+              child: Image.network(
+                widget.item.imagePath!,
+                fit: BoxFit.fitWidth,
+              )),
           const SizedBox(
             height: 10.0,
           ),
@@ -253,9 +257,9 @@ class _ItemDetailState extends State<ItemDetails> {
           //     )
           //   ],
           // ),
-          SizedBox(
-            height: 20.0,
-          ),
+          // SizedBox(
+          //   height: 20.0,
+          // ),
           // Padding(
           //   padding: const EdgeInsets.symmetric(horizontal: 20),
           //   child: Text(
@@ -279,118 +283,118 @@ class _ItemDetailState extends State<ItemDetails> {
           // SizedBox(
           //   height: 10.0,
           // ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: Card(
-              color: Colors.blue.shade200,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-                child: Column(
-                  children: [
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //   children: [
-                    //     Text(
-                    //       'Total',
-                    //       style: TextStyle(
-                    //           color: Colors.white,
-                    //           fontWeight: FontWeight.bold,
-                    //           fontSize: 16),
-                    //     ),
-                    //     Text(
-                    //       'ETB 300',
-                    //       style: TextStyle(
-                    //           color: Colors.white,
-                    //           fontWeight: FontWeight.bold,
-                    //           fontSize: 16),
-                    //     )
-                    //   ],
-                    // ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Information",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 22.0,
-                                color: Colors.white),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Icon(
-                            Icons.info_outline,
-                            color: Colors.white,
-                          )
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Divider(
-                        color: Colors.white,
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Condition',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          'new',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'RAM',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        Text(
-                          '2 GB',
-                          style: TextStyle(color: Colors.white),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Internal HDD',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        Text(
-                          '300 GB',
-                          style: TextStyle(color: Colors.white),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 5),
+          //   child: Card(
+          //     color: Colors.blue.shade200,
+          //     child: Padding(
+          //       padding:
+          //           const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+          //       child: Column(
+          //         children: [
+          //           // Row(
+          //           //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //           //   children: [
+          //           //     Text(
+          //           //       'Total',
+          //           //       style: TextStyle(
+          //           //           color: Colors.white,
+          //           //           fontWeight: FontWeight.bold,
+          //           //           fontSize: 16),
+          //           //     ),
+          //           //     Text(
+          //           //       'ETB 300',
+          //           //       style: TextStyle(
+          //           //           color: Colors.white,
+          //           //           fontWeight: FontWeight.bold,
+          //           //           fontSize: 16),
+          //           //     )
+          //           //   ],
+          //           // ),
+          //           // Padding(
+          //           //   padding: const EdgeInsets.symmetric(horizontal: 20),
+          //           //   child: Row(
+          //           //     mainAxisAlignment: MainAxisAlignment.center,
+          //           //     children: [
+          //           //       Text(
+          //           //         "Information",
+          //           //         style: TextStyle(
+          //           //             fontWeight: FontWeight.bold,
+          //           //             fontSize: 22.0,
+          //           //             color: Colors.white),
+          //           //       ),
+          //           //       SizedBox(
+          //           //         width: 20,
+          //           //       ),
+          //           //       Icon(
+          //           //         Icons.info_outline,
+          //           //         color: Colors.white,
+          //           //       )
+          //           //     ],
+          //           //   ),
+          //           // ),
+          //           // Padding(
+          //           //   padding: const EdgeInsets.symmetric(horizontal: 10),
+          //           //   child: Divider(
+          //           //     color: Colors.white,
+          //           //   ),
+          //           // ),
+          //           // Row(
+          //           //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //           //   children: [
+          //           //     Text(
+          //           //       'Condition',
+          //           //       style: TextStyle(
+          //           //           color: Colors.white,
+          //           //           fontSize: 16,
+          //           //           fontWeight: FontWeight.bold),
+          //           //     ),
+          //           //     Text(
+          //           //       'new',
+          //           //       style: TextStyle(
+          //           //         color: Colors.white,
+          //           //         fontSize: 16,
+          //           //       ),
+          //           //     )
+          //           //   ],
+          //           // ),
+          //           // SizedBox(
+          //           //   height: 5,
+          //           // ),
+          //           // Row(
+          //           //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //           //   children: [
+          //           //     Text(
+          //           //       'RAM',
+          //           //       style: TextStyle(color: Colors.white),
+          //           //     ),
+          //           //     Text(
+          //           //       '2 GB',
+          //           //       style: TextStyle(color: Colors.white),
+          //           //     )
+          //           //   ],
+          //           // ),
+          //           // SizedBox(
+          //           //   height: 5,
+          //           // ),
+          //           // Row(
+          //           //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //           //   children: [
+          //           //     Text(
+          //           //       'Internal HDD',
+          //           //       style: TextStyle(color: Colors.white),
+          //           //     ),
+          //           //     Text(
+          //           //       '300 GB',
+          //           //       style: TextStyle(color: Colors.white),
+          //           //     )
+          //           //   ],
+          //           // )
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
           // Padding(
           //   padding: const EdgeInsets.symmetric(horizontal: 20),
           //   child: RowElement(
@@ -501,7 +505,20 @@ class _ItemDetailState extends State<ItemDetails> {
                     //       MaterialStateProperty.all(const Color(0xff40BFFF)),
                     //   // fixedSize: MaterialStateProperty.all(Size(Get.width, 54)),
                     // ),
-                    onPressed: () {},
+                    onPressed: () {
+                      AppController appController = Get.find();
+                      appController.getItemHistory(widget.item.id!);
+                      showModalBottomSheet(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
+                          ),
+                        ),
+                        context: context,
+                        builder: (context) => ItemHistoryPage(),
+                      );
+                    },
                     child: const Text(
                       "View item history",
                       textAlign: TextAlign.center,

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:sms/mock/mock_category.dart';
+import 'package:sms/src/models/item_history.dart';
 import 'package:sms/src/models/item_search_filter.dart';
 
 import '../../src/app.dart';
@@ -49,6 +50,40 @@ class ItemOperation {
 
     return (response.data!['getAllItems'] as List)
         .map((json) => Item.fromJson(json))
+        .toList();
+  }
+
+  Future<List<ItemHistoryModel>> getItemHistory(String id) async {
+    String getAllItems = r'''
+          query Query($getItemHistoryId: String!) {
+            getItemHistory(id: $getItemHistoryId) {
+              prevOwner
+              modified {
+                field
+                value
+              }
+              transferDate
+            }
+          }
+        ''';
+    final response = await gqlClient
+        .query(
+      QueryOptions(
+          document: gql(getAllItems),
+          fetchPolicy: FetchPolicy.noCache,
+          variables: {"getItemHistoryId": id}),
+    )
+        .timeout(const Duration(seconds: 30), onTimeout: () {
+      throw TimeoutException('request timed out', const Duration(seconds: 30));
+    });
+
+    if (response.hasException) {
+      print(response.exception);
+      throw Exception("Error Happened");
+    }
+
+    return (response.data!['getItemHistory'] as List)
+        .map((json) => ItemHistoryModel.fromJson(json))
         .toList();
   }
 

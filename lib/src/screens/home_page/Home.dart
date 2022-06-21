@@ -20,6 +20,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  AppController appController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -44,7 +46,7 @@ class _HomeState extends State<Home> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text('Flash Sale',
+                        const Text('Items',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
@@ -63,45 +65,45 @@ class _HomeState extends State<Home> {
                     ),
                   ctx.itemList == null
                       ? ctx.getItemError.isTrue
-                          ? Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                      child: Text(
-                                    ctx.err.value,
-                                  )),
-                                  const SizedBox(width: 20),
-                                  TextButton(
-                                      onPressed: () {
-                                        ctx.getItems();
-                                      },
-                                      child: const Text('Retry'))
-                                ],
-                              ),
-                            )
-                          : Container()
+                      ? Padding(
+                    padding:
+                    const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      children: [
+                        Expanded(
+                            child: Text(
+                              ctx.err.value,
+                            )),
+                        const SizedBox(width: 20),
+                        TextButton(
+                            onPressed: () {
+                              ctx.getItems();
+                            },
+                            child: const Text('Retry'))
+                      ],
+                    ),
+                  )
+                      : Container()
                       : ctx.itemList!.isEmpty
-                          ? const Center(
-                              child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10),
-                              child: Text('No items found'),
-                            ))
-                          : GridView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                childAspectRatio: .6,
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 5,
-                                mainAxisSpacing: 5,
-                              ),
-                              itemBuilder: (context, index) => ItemMiniDetail(
-                                  item: (ctx.itemList as List)[index]),
-                              itemCount: (ctx.itemList as List).length,
-                            ),
+                      ? const Center(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: Text('No items found'),
+                      ))
+                      : GridView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    gridDelegate:
+                    const SliverGridDelegateWithFixedCrossAxisCount(
+                      childAspectRatio: .6,
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 5,
+                    ),
+                    itemBuilder: (context, index) => ItemMiniDetail(
+                        item: (ctx.itemList as List)[index]),
+                    itemCount: (ctx.itemList as List).length,
+                  ),
 
                   // GridView.count(
                   //   childAspectRatio: 1.1,
@@ -126,5 +128,11 @@ class _HomeState extends State<Home> {
         ),
       ],
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    appController.getItems();
   }
 }

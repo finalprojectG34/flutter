@@ -187,6 +187,7 @@ class _AppState extends State<App> {
       case 0:
       default:
         appController.changePage('Home', index);
+        // appController.getItems();
         return Home(
           hasSearchBar: appController.hasSearchIcon.isFalse,
         );

@@ -1,4 +1,5 @@
 import 'package:sms/data/data_access/item_operation.dart';
+import 'package:sms/src/models/item_history.dart';
 import 'package:sms/src/models/shop.dart';
 
 import '../../src/app.dart';
@@ -10,6 +11,10 @@ class ItemRepository {
 
   Future<List<Item>> getItems() async {
     return itemOperation.getItems();
+  }
+
+  Future<List<ItemHistoryModel>> getItemHistory(String id) async {
+    return itemOperation.getItemHistory(id);
   }
 
   Future<List<Item>> getFlashSaleItems(int pageIndex, int pageSize) async {

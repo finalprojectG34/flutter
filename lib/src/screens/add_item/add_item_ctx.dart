@@ -121,10 +121,6 @@ class AddItemController extends GetxController {
   }
 
   addItem(variable, File file) async {
-    await EasyLoading.show(
-      status: 'Please wait',
-      maskType: EasyLoadingMaskType.black,
-    );
     var imagePath = await imageUpload(file);
     print('$imagePath -----------------------');
     variable["image"]["imageCover"] = imagePath;
@@ -133,11 +129,12 @@ class AddItemController extends GetxController {
       Item item = await itemRepository.addItem({"input": variable});
       itemId(item.id);
     } catch (e) {
-      EasyLoading.showError('Some error happened',
-          dismissOnTap: true, maskType: EasyLoadingMaskType.black);
+      // EasyLoading.showError('Some error happened',
+      //     dismissOnTap: true, maskType: EasyLoadingMaskType.black);
     }
-
-
+    EasyLoading.showSuccess('Item added successfully',
+        dismissOnTap: true, maskType: EasyLoadingMaskType.black);
+    appController.changePage('Home', 0);
   }
 
   addShop({name, description, subCity, city, required File file}) async {
