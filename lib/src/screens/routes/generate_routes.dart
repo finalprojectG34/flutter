@@ -20,8 +20,7 @@ class RouteGenerator {
                   hasAppbar: true,
                 ));
 
-      case '/add_image':
-        return MaterialPageRoute(builder: (context) => HomePagee());
+
       case '/select_category':
         return MaterialPageRoute(
             builder: (context) => CategorySelectList(
