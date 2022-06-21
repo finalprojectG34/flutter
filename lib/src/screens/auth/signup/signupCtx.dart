@@ -30,7 +30,7 @@ class SignUpController extends GetxController {
     userVariable = variable;
     try {
       await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: variable['token']['phone'],
+        phoneNumber: '+251900000000',
         // phoneNumber: variable['token']['phone'],
         verificationCompleted: (PhoneAuthCredential credential) {},
         verificationFailed: (FirebaseAuthException e) {

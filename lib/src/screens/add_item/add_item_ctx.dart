@@ -82,9 +82,11 @@ class AddItemController extends GetxController {
     try {
       User user = await userRepository!.getMe();
       String? userShopId = user.shopId;
+      String? userRole = user.role;
 
       if (userShopId != null) {
         userHasShop!(true);
+        // userRole!(userRole);
       }
     } catch (e) {}
   }
