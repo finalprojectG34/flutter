@@ -82,7 +82,7 @@ class Item {
           ? double.tryParse(json["ratingQuantity"])
           : 0,
       updatedAt: json["updatedAt"],
-      amount: json["count"] != null ? int.parse(json['count']) : 0,
+      // amount: json["count"] != null ? int.parse(json['count']) : 0,
     );
     return item;
   }

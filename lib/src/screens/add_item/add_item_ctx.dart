@@ -121,13 +121,23 @@ class AddItemController extends GetxController {
   }
 
   addItem(variable, File file) async {
+    await EasyLoading.show(
+      status: 'Please wait',
+      maskType: EasyLoadingMaskType.black,
+    );
     var imagePath = await imageUpload(file);
     print('$imagePath -----------------------');
     variable["image"]["imageCover"] = imagePath;
     // variable["attributes"] = selectedAttributes.value;
+    try {
+      Item item = await itemRepository.addItem({"input": variable});
+      itemId(item.id);
+    } catch (e) {
+      EasyLoading.showError('Some error happened',
+          dismissOnTap: true, maskType: EasyLoadingMaskType.black);
+    }
 
-    Item item = await itemRepository.addItem({"input": variable});
-    itemId(item.id);
+
   }
 
   addShop({name, description, subCity, city, required File file}) async {

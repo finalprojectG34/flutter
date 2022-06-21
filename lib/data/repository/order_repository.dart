@@ -193,6 +193,7 @@ class OrderRepository {
                 messages
                 type
               }
+              deliveryStatus
             }
           }
       ''';
