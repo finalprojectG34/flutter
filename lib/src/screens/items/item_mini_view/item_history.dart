@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_getx_widget.dart';
+import 'package:intl/intl.dart';
 
 import '../../home_page/AppCtx.dart';
 
@@ -85,7 +86,16 @@ class ItemHistoryPage extends StatelessWidget {
                                     SizedBox(
                                       width: 20,
                                     ),
-                                    Text(ctx.itemHistory![index].transferDate!)
+
+                                    // Text(ctx.itemHistory![index].transferDate!),
+
+                                    Text(DateFormat('yyyy-MM-dd  kk:mm')
+                                        .format(
+                                            DateTime.fromMillisecondsSinceEpoch(
+                                                int.parse(ctx
+                                                    .itemHistory![index]
+                                                    .transferDate!)))
+                                        .toString()),
                                   ],
                                 ),
                                 SizedBox(

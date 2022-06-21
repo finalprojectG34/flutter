@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sms/src/screens/add_item/category_list.dart';
 import 'package:sms/src/screens/add_item/text_attribute.dart';
+import 'package:sms/src/screens/home_page/AppCtx.dart';
 
 import '../components/add_shop.dart';
 import 'add_item_ctx.dart';
@@ -57,6 +58,7 @@ class _AddItemState extends State<AddItem> {
   File? _image;
 
   final ImagePicker _picker = ImagePicker();
+AppController appController = Get.find();
 
   @override
   void dispose() {
@@ -72,6 +74,12 @@ class _AddItemState extends State<AddItem> {
         _image = File(pickedImage.path);
       });
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    addItemController.getMe();
   }
 
   @override
@@ -532,78 +540,6 @@ class _AddItemState extends State<AddItem> {
                         ),
         );
       },
-    );
-  }
-}
-
-class HomePagee extends StatefulWidget {
-  const HomePagee({Key? key}) : super(key: key);
-
-  @override
-  _HomePageStatee createState() => _HomePageStatee();
-}
-
-class _HomePageStatee extends State<HomePagee> {
-  File? _image;
-
-  final ImagePicker _picker = ImagePicker();
-
-  // Implementing the image picker
-  Future<void> _openImagePicker() async {
-    final XFile? pickedImage =
-        await _picker.pickImage(source: ImageSource.camera);
-    if (pickedImage != null) {
-      setState(() {
-        _image = File(pickedImage.path);
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Kindacode.com'),
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(35),
-          child: Column(
-            children: [
-              Center(
-                child: ElevatedButton(
-                  child: const Text('Select An Image'),
-                  onPressed: _openImagePicker,
-                ),
-              ),
-              const SizedBox(height: 35),
-              _image != null
-                  ? Stack(
-                      alignment: AlignmentDirectional.topEnd,
-                      children: [
-                        SizedBox(
-                          height: 200,
-                          child: ClipRRect(
-                            child: Image.file(_image!, fit: BoxFit.cover),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Icon(
-                            Icons.delete,
-                            color: Colors.red,
-                          ),
-                        )
-                      ],
-                    )
-                  : const Text('Please select an image')
-            ],
-          ),
-        ),
-      ),
     );
   }
 }

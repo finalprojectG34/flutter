@@ -492,6 +492,8 @@ class _ItemDetailState extends State<ItemDetails> {
             reviewCount: 3,
             star: 3,
           ),
+          // SizedBox(height: 20,),
+
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(

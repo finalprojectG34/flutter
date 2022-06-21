@@ -44,7 +44,7 @@ class OrderPageController extends GetxController {
   getReceivedOrders(String status) async {
     isOrderLoading(true);
     try {
-      List<Order> orders = await orderRepository.getOrder(status);
+      List<Order> orders = await orderRepository.getReceivedOrders(status);
       orderList!(orders);
       print(orders);
     } catch (e) {

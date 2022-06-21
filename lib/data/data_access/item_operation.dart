@@ -58,11 +58,10 @@ class ItemOperation {
           query Query($getItemHistoryId: String!) {
             getItemHistory(id: $getItemHistoryId) {
               prevOwner
-              modified {
-                field
-                value
-              }
+              prevOwnerName
               transferDate
+              actionName
+              
             }
           }
         ''';

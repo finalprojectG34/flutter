@@ -50,6 +50,7 @@ class AppController extends GetxController {
       isAuthenticated(true);
       getUserInfo();
       await getUserShop();
+      getMe();
       // await getShopId();
     }
     getItems();
@@ -89,13 +90,18 @@ class AppController extends GetxController {
     try {
       User user = await userRepository.getMe();
       String? role = user.role;
+      String? userShopId = user.shopId;
       String? img = user.image;
-      hasShopId(user.shopId != "" || user.shopId != null);
+      // hasShopId(user.shopId != "" || user.shopId != null);
       if (role != null) {
         userRole(role);
       }
       if (img != null) {
         userImageLink(img);
+      }
+      if (userShopId != null) {
+        storage.write(key: 'shopId', value: userShopId);
+        hasShopId(true);
       }
     } catch (e) {
       EasyLoading.showError('Some error happened',

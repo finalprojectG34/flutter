@@ -7,6 +7,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sms/data/data_access/item_operation.dart';
+import 'package:sms/data/repository/user_repository.dart';
 import 'package:sms/src/models/models.dart';
 import 'package:sms/src/screens/home_page/AppCtx.dart';
 
@@ -15,11 +16,15 @@ import '../../models/shop.dart';
 
 class AddItemController extends GetxController {
   final ItemRepository itemRepository;
+  final UserRepository? userRepository;
   final ItemOperation itemOperation;
+
   AppController appController = Get.find();
 
   AddItemController(
-      {required this.itemOperation, required this.itemRepository});
+      {required this.itemOperation,
+      required this.itemRepository,
+      this.userRepository});
 
   RxBool isCategoryFetchedFromDB = false.obs;
   RxBool isSubCategoryFetchedFromDB = false.obs;
@@ -71,6 +76,17 @@ class AddItemController extends GetxController {
 
     print(categoryList);
     isCategoryFetchedFromDB(true);
+  }
+
+  getMe() async {
+    try {
+      User user = await userRepository!.getMe();
+      String? userShopId = user.shopId;
+
+      if (userShopId != null) {
+        userHasShop!(true);
+      }
+    } catch (e) {}
   }
 
   getOneCategory(String id) async {

@@ -339,4 +339,60 @@ class OrderRepository {
       throw Exception("Error Happened");
     }
   }
+
+  Future<List<Order>> getReceivedOrders(String status) async {
+    String getOrderByUserId = r'''
+        query GetOrderByUserId($status: OrderStatus) {
+          getOrderBySellerId(status: $status) {
+            id
+            status
+            userId
+            shopId
+            createdAt
+            orderItems {
+              id
+              name
+              price
+              amount
+            }
+            subTotal
+            deliveryAddress {
+              addressName
+              city
+              subCity
+              country
+            }
+            actions {
+              date
+              messages
+              type
+            }
+            sellerActions {
+              date
+              messages
+              type
+            }
+          }
+        }
+      ''';
+    final response = await gqlClient.query(
+      QueryOptions(
+        document: gql(getOrderByUserId),
+        variables: {"status": status},
+        fetchPolicy: FetchPolicy.noCache,
+      ),
+    );
+    List<Order> newOrders = [];
+    if (response.hasException) {
+      print(response.exception);
+      throw Exception("Error Happened");
+    } else {
+      print(response);
+      for (var element in (response.data!["getOrderBySellerId"] as List)) {
+        print(element);
+        newOrders.add(Order.fromJson(element));
+      }
+    }
+    return newOrders;
+  }
 }

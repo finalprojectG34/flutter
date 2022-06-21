@@ -82,9 +82,11 @@ class ApplicationBindings implements Bindings {
     );
     Get.lazyPut(
         () => AddItemController(
-              itemRepository: _itemRepository,
-              itemOperation: ItemOperation(gqlClient: Client().connect),
+            itemRepository: _itemRepository,
+            itemOperation: ItemOperation(
+              gqlClient: Client().connect,
             ),
+            userRepository: _userRepository),
         fenix: true);
     Get.lazyPut(
       () => CartPageController(cartRepository: _cartRepository),
