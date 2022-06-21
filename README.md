@@ -1,7 +1,14 @@
-# sms
+# Supply chain management system with blockchain
 
-A new Flutter project.
+Group members
 
+1. Bereket Zemed
+2. Biruk Belay
+3. Moti Dinsa
+4. Nathnael Yewondwosen
+5. Yonathan Endale
+
+Advisor:  Wondimagegn Desta
 
 ## Getting Started
 
