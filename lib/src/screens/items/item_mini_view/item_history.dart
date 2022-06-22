@@ -15,116 +15,119 @@ class ItemHistoryPage extends StatelessWidget {
           ? Center(
               child: CircularProgressIndicator(),
             )
-          : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                  child: Text(
-                    'Item History',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          : SingleChildScrollView(
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                    child: Text(
+                      'Item History',
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    ),
                   ),
-                ),
-                ListView.separated(
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) => Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Card(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 15),
-                              child: Column(children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      'previous owner Name',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w800),
-                                    ),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Expanded(
-                                        child: Text(ctx.itemHistory![index]
-                                                .previousOwnerName ??
-                                            ''))
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      'previous owner ID',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w800),
-                                    ),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Expanded(
-                                        child: Text(ctx.itemHistory![index]
-                                                .previousOwner ??
-                                            'none'))
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      'transfer date',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w800),
-                                    ),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
+                  ListView.separated(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) => Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Card(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 15),
+                                child: Column(children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'previous owner Name',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w800),
+                                      ),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      Expanded(
+                                          child: Text(ctx.itemHistory![index]
+                                                  .previousOwnerName ??
+                                              ''))
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'previous owner ID',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w800),
+                                      ),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      Expanded(
+                                          child: Text(ctx.itemHistory![index]
+                                                  .previousOwner ??
+                                              'none'))
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'transfer date',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w800),
+                                      ),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
 
-                                    // Text(ctx.itemHistory![index].transferDate!),
+                                      // Text(ctx.itemHistory![index].transferDate!),
 
-                                    Text(DateFormat('yyyy-MM-dd  kk:mm')
-                                        .format(
-                                            DateTime.fromMillisecondsSinceEpoch(
-                                                int.parse(ctx
-                                                    .itemHistory![index]
-                                                    .transferDate!)))
-                                        .toString()),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      'Action',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w800),
-                                    ),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Text(ctx.itemHistory![index].action!)
-                                  ],
-                                ),
-                              ]),
+                                      Text(DateFormat('yyyy-MM-dd  kk:mm')
+                                          .format(
+                                              DateTime.fromMillisecondsSinceEpoch(
+                                                  int.parse(ctx
+                                                      .itemHistory![index]
+                                                      .transferDate!)))
+                                          .toString()),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Action',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w800),
+                                      ),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      Text(ctx.itemHistory![index].action!)
+                                    ],
+                                  ),
+                                ]),
+                              ),
                             ),
                           ),
-                        ),
-                    separatorBuilder: (context, index) => Divider(
-                        // color: Colors.grey,
-                        ),
-                    itemCount: ctx.itemHistory!.length),
-              ],
-            );
+                      separatorBuilder: (context, index) => Divider(
+                          // color: Colors.grey,
+                          ),
+                      itemCount: ctx.itemHistory!.length),
+                ],
+              ),
+          );
     });
   }
 }

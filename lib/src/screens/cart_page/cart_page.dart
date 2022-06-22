@@ -54,8 +54,13 @@ class _CartPageState extends State<CartPage> {
                         ),
                       )
                     : ctx.cartList!.isEmpty
-                        ? Center(
-                            child: Text('No cart item found'),
+                        ? GestureDetector(
+                            onTap: () async {
+                              await ctx.getCart();
+                            },
+                            child: Center(
+                              child: Text('No cart item found'),
+                            ),
                           )
                         : Column(
                             children: [
